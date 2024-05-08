@@ -17,7 +17,7 @@
         <div class="box ">
             <h1>Home</h1>
             <a href="home2.php" class="btn btn-primary" >lanjut</a><br><br><br>
-            <a href="logout.php" class="btn btn-primary">Logout</a>
+            <a href="proses/logout.php" class="btn btn-primary">Logout</a>
         </div>
     </div>
 </body>

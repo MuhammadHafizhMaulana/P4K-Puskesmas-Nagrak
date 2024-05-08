@@ -1,8 +1,9 @@
 <?php
     session_start();
-    if(isset($_SESSION['status']) || $_SESSION['status'] == 'login'){
-    header('Location: home.php');
-}
+    if(isset($_SESSION['status']) && $_SESSION['status'] == 'login'){ // Periksa apakah 'status' telah di-set dan bernilai 'login'
+        header('Location: home.php');
+        exit(); // Penting untuk diikuti dengan exit() setelah header redirect
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,14 +22,14 @@
                         <h5 class="card-title">Login Pasien</h5>
                     </div>
                     <div class="card-body">
-                        <form action="daftar_proses.php" method="post">
+                        <form action="proses/daftar_proses.php" method="post">
                             <div class="mb-3">
                                 <label for="nama" class="form-label">Nama Lengkap</label>
                                 <input type="text" class="form-control" id="nama" name="nama" required>
                             </div>
                             <div class="mb-3">
                                 <label for="umur" class="form-label">Umur</label>
-                                <input type="int" class="form-control" id="umur" name="usia" required>
+                                <input type="number" min="0" class="form-control" id="umur" name="usia" required>
                             </div>
                             <div class="mb-3">
                                 <label for="nomer" class="form-label">Nomor Handphone</label>

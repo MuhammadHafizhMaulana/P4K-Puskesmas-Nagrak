@@ -29,14 +29,14 @@ if ($stmt) {
         if ($_POST['nomorHP'] === $data['nomorHP'] && $_POST['password'] === $data['password']) {
             $_SESSION['status'] = 'login';
             // Jika sesuai, redirect ke halaman home
-            header('Location: home.php');
+            header('Location: ../home.php');
         } else {
             // Jika tidak sesuai, redirect ke halaman login dengan pesan gagal
-            header('Location: index.php?pesan=gagal');
+            header('Location: ../index.php?pesan=gagal');
         }
     } else {
         // Jika tidak ada baris hasil, redirect ke halaman login dengan pesan gagal
-        header('Location: index.php?pesan=gagal');
+        header('Location: ../index.php?pesan=gagal');
     }
 
     // Tutup statement

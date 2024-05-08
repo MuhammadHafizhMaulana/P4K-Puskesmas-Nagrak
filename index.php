@@ -22,7 +22,7 @@
                         <h5 class="card-title">Login Pasien</h5>
                     </div>
                     <div class="card-body">
-                        <form action="login_proses.php" method="post">
+                        <form action="proses/login_proses.php" method="post">
                             <div class="mb-3">
                                 <label for="nomer" class="form-label">Nomor HP</label>
                                 <input type="text" class="form-control" id="nomer" name="nomorHP" required>

@@ -16,6 +16,6 @@
 <body>
     <h1>Home 2</h1>
     <a href="home.php" class="btn btn-dark">balik</a>
-    <a href="logout.php" class="btn btn-dark">Logout</a>
+    <a href="proses/logout.php" class="btn btn-dark">Logout</a>
 </body>
 </html>

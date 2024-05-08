@@ -5,6 +5,7 @@ if(isset($_SESSION['status']) || $_SESSION['status'] == 'login'){
 header('Location: home.php');
 }
 
+
 // Sambungan ke koneksi
 include 'koneksi.php';
 
@@ -28,7 +29,7 @@ if ($stmt) {
 
     if ($result) {
         // Redirect jika berhasil
-        header('Location: index.php?success=1');
+        header('Location: ../index.php?success=1');
         exit;
     } else {
         // Tampilkan pesan jika gagal

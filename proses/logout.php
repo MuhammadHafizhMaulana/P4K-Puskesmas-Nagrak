@@ -4,6 +4,6 @@
     session_unset();
     session_destroy();
 
-    header('Location: index.php'); // Perhatikan tidak ada spasi setelah 'Location'
+    header('Location: ../index.php'); // Perhatikan tidak ada spasi setelah 'Location'
     exit();
 ?>
