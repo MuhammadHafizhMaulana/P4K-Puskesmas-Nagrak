@@ -7,12 +7,12 @@ $nomorHP = $_POST['nomorHP'];
 $password = $_POST['password'];
 
 // Persiapkan query dengan prepared statement
-$query = "SELECT * FROM `user` WHERE `nomorHP` = ? AND `password` = ?";
+$query = "SELECT * FROM `user` WHERE `nomorHP` = ?";
 $stmt = mysqli_prepare($connect, $query);
 
 if ($stmt) {
     // Bind parameter ke placeholder
-    mysqli_stmt_bind_param($stmt, "ss", $nomorHP, $password);
+    mysqli_stmt_bind_param($stmt, "s", $nomorHP);
 
     // Eksekusi prepared statement
     mysqli_stmt_execute($stmt);
@@ -25,8 +25,9 @@ if ($stmt) {
         // Ambil data pengguna dari hasil query
         $data = mysqli_fetch_assoc($result);
         
-        // Periksa apakah nomor HP dan password sesuai dengan data dari hasil query
-        if ($_POST['nomorHP'] === $data['nomorHP'] && $_POST['password'] === $data['password']) {
+        // Periksa apakah nomor HP sesuai dengan data dari hasil query
+        if ($_POST['nomorHP'] === $data['nomorHP'] && password_verify($_POST['password'], $data['password'])) {
+            print('tes');
             $_SESSION['status'] = 'login';
             // Jika sesuai, redirect ke halaman home
             header('Location: ../home.php');
