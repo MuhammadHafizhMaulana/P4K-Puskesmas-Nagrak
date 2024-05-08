@@ -25,26 +25,27 @@
                         <form action="proses/daftar_proses.php" method="post">
                             <div class="mb-3">
                                 <label for="nama" class="form-label">Nama Lengkap</label>
-                                <input type="text" class="form-control" id="nama" name="nama" required>
+                                <input oninput="submitButtonValid()" type="text" class="form-control registrasi-form" id="nama" name="nama" required>
                             </div>
                             <div class="mb-3">
                                 <label for="umur" class="form-label">Umur</label>
-                                <input type="number" min="0" class="form-control" id="umur" name="usia" required>
+                                <input oninput="submitButtonValid()" type="number" min="0" class="form-control registrasi-form" id="umur" name="usia" required>
                             </div>
                             <div class="mb-3">
                                 <label for="nomer" class="form-label">Nomor Handphone</label>
-                                <input type="text" class="form-control" id="nomer" name="nomorHP" required>
+                                <input oninput="submitButtonValid()" type="text" class="form-control registrasi-form" id="nomer" name="nomorHP" required>
                             </div>
                             <div class="mb-3">
                                 <label for="alamat" class="form-label">Alamat</label>
-                                <textarea class="form-control" name="alamat" id="alamat" required></textarea>
+                                <textarea oninput="submitButtonValid()" class="form-control registrasi-form" name="alamat" id="alamat" required></textarea>
                                 
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password" name="password" required>
+                                <input oninput="submitButtonValid()" type="password" class="form-control registrasi-form" id="password" name="password" required>
+                                <div id="passwordAlert" class="form-text text-danger"></div>    
                             </div>
-                            <button type="submit" class="btn btn-primary">Daftar</button>
+                            <button id="submitButton" type="submit" disabled class="btn btn-primary">Daftar</button>
                         </form>
                     </div>
                 </div>
@@ -52,5 +53,6 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="./js/daftar.js"></script>
 </body>
 </html>

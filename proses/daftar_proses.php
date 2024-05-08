@@ -16,6 +16,19 @@ $nomorHP = $_POST['nomorHP'];
 $alamat = $_POST['alamat'];
 $password = $_POST['password'];
 
+// Validasi password dengan pola tertentu
+$passwordPattern = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()-_=+{};:,<.>])(?=.*[0-9]).{8,}$/';
+if (!preg_match($passwordPattern, $password)) {
+    header('Location: ../daftar.php');
+    exit(); // Batalkan proses jika password tidak sesuai pola
+}
+
+// Validasi nomor HP dengan pola tertentu
+$nomorHPPattern = '/^[0-9]+$/';
+if (!preg_match($nomorHPPattern, $nomorHP)) {
+    exit(); // Batalkan proses jika nomor HP tidak sesuai pola
+}
+
 // Persiapkan query dengan prepared statement
 $query = "INSERT INTO `user`(`nama`, `usia`, `nomorHP`, `alamat`, `password`) VALUES (?, ?, ?, ?, ?)";
 $stmt = mysqli_prepare($connect, $query);
