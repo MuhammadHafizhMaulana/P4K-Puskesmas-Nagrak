@@ -7,7 +7,7 @@ const nomorHpPattern = /^[0-9]+$/;
 var fieldStatus = false;
 var passwordStatus = false
 
-passwordField.addEventListener('input', function() {
+passwordField.addEventListener('input', function () {
     if (passwordPattern.test(passwordField.value)) {
         passwordStatus = true
         passwordAlert.innerText = ""
@@ -19,8 +19,7 @@ passwordField.addEventListener('input', function() {
     checkSubmitValid();
 });
 
-nomorHpField.addEventListener('input', function() {
-    console.log('halo')
+nomorHpField.addEventListener('input', function () {
     var nomorHpValue = this.value;
 
     if (this.value === "") {
@@ -33,8 +32,6 @@ nomorHpField.addEventListener('input', function() {
 })
 
 function checkSubmitValid() {
-    
-    console.log('test')
     if (fieldStatus && passwordStatus) {
         document.getElementById('submitButton').disabled = false;
     } else {
@@ -46,12 +43,11 @@ function formValid() {
     fieldStatus = true;
     const value = document.getElementsByClassName("registrasi-form");
     for (let index = 0; index < value.length; index++) {
-        console.log(value[index].value)
         if (value[index].value === "") { // Jika ada yang kosong
             fieldStatus = false; // Mengubah nilai menjadi false
             break; // Hentikan iterasi
         }
     }
 
-   checkSubmitValid();
+    checkSubmitValid();
 }
