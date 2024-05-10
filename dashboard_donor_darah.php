@@ -3,6 +3,31 @@ session_start();
 if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login') {
   header('Location: index.php');
 }
+
+include './proses/koneksi.php';
+
+$id = $_SESSION['id'];
+$status = [];
+
+// Cek apakah nomor HP sudah ada di database
+$queryCheck = "SELECT COUNT(*) AS total FROM kesehatan_user WHERE id_user = $id";
+$stmtCheck = mysqli_prepare($connect, $queryCheck);
+mysqli_stmt_execute($stmtCheck);
+mysqli_stmt_bind_result($stmtCheck, $total);
+mysqli_stmt_fetch($stmtCheck);
+mysqli_stmt_close($stmtCheck);
+
+if ($total == 0) {
+    $status = "tidak diketahui";
+} else {
+    $queryStatus = "SELECT status, goldar FROM kesehatan_user WHERE id_user = ?";
+    $stmtStatus = mysqli_prepare($connect, $queryStatus);
+    mysqli_stmt_bind_param($stmtStatus, "i", $id);
+    mysqli_stmt_execute($stmtStatus);
+    mysqli_stmt_bind_result($stmtStatus, $status, $goldar);
+    mysqli_stmt_fetch($stmtStatus);
+    mysqli_stmt_close($stmtStatus);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,30 +65,68 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login') {
 
   <div class="banner">
     <div>
-      <h1>Selamat Datang</h1>
+      <h1>Donor Darah</h1>
       <br>
       <h5>Website Program Perencanaan Persalinan dan Pencegahan Komplikasi (P4K) Puskesmas Nagrak!</h5>
     </div>
   </div>
   <div class="content">
     <div class="container">
-      <div class="row d-flex align-items-center">
-        <div class="col-12 col-lg-6 d-flex justify-content-center">
-          <img src="./assets/logo-kemenkes.png" alt="Logo Kemenkes">
+      <div class="row d-flex align-items-center mt-5">
+        <div class="col-4 d-flex justify-content-center align-items-center">
+            <img src="./assets/logo-hatii.png" alt="Logo Hati">
         </div>
-        <div class="col-12 col-lg-6">
-          <h1>Apa itu P4K?</h1>
-          <p>Program Perencanaan Persalinan dan Pencegahan Komplikasi (P4K) merupakan salah satu upaya percepatan penurunan Angka Kematian Ibu dan Bayi Baru Lahir melalui peningkatan akses dan mutu pelayanan antenatal, pertolongan persalinan, pencegahan komplikasi dan keluarga berencana oleh Tenaga Kesehatan.</p>
-          <h1>Apa tujuan P4K?</h1>
-          <p>P4K memiliki beberapa tujuan antara lain:</p>
-          <ul>
-            <li>Suami, keluarga, dan masyarakat paham tentang bahaya persalinan;</li>
-            <li>Adanya rencana persalinan yang aman;</li>
-            <li>Adanya rencana kontrasepsi yang akan digunakan;</li>
-            <li>Adanya dukungan masyarakat, Toma, kader, dukung untuk ikut KB pasca persalinan;</li>
-            <li>Adanya dukungan sukarela dalam persiapan biaya, transportasi, donor darah;</li>
-            <li>Memantapkan kerjasama antara bidan, dukun bayi, dan kader.</li>
-          </ul>
+        <div class="children-content col-8">
+            <h1>
+                Golongan Darah Anda!
+            </h1>
+            <?php 
+                if($status == "tidak diketahui")
+                {
+            ?>
+            <p>
+                Anda belum mendaftarkan (periksa) golongan darah anda, daftarkan di bawah
+            </p>
+            <button onclick="window.location.href='donor_darah.php'" type="button" class="btn btn-danger">
+                Daftarkan Golongan Darah
+            </button>
+            <?php
+            } 
+            else if($status == "diketahui")
+            {
+            ?>
+            <p>
+                Golongan Darah Anda adalah <?php echo $goldar ?>
+            </p>
+            <button onclick="window.location.href='donor_darah.php'" type="button" class="btn btn-danger">
+                Edit Golongan Darah
+            </button>
+            <?php
+            } else if ($status == "menunggu")
+            {
+            ?>
+            <p>
+                Anda sedang menunggu proses pemeriksaan golongan darah.
+            </p>
+            <?php }?>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row d-flex align-items-center mt-5">
+        <div class="col-4 d-flex justify-content-center align-items-center">
+            <img src="./assets/logo-donor-darah.png" alt="Logo Donor Darah">
+        </div>
+        <div class="children-content col-8">
+            <h1>
+                Pendonor Darah Anda!
+            </h1>
+            <p>
+                Pendonor darah anda belum didaftarkan
+            </p>
+            <button type="button" class="btn btn-danger">
+                Daftarkan Pendonor Darah Anda
+            </button>
         </div>
       </div>
     </div>

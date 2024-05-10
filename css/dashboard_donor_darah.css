@@ -68,13 +68,14 @@
     box-shadow: 0 -8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
-.content img {
-    margin: 20px 0px;
-    height: 200px;
+.content .children-content button {
+    width: 200px;
+    text-align: center;
 }
 
-.content p {
-    text-align: justify;
+.content img {
+    width: 10vw;
+    min-width: 100px;
 }
 
 
