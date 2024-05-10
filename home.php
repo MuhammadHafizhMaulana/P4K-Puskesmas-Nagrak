@@ -28,9 +28,9 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login') {
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav ms-auto">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link active" href="home.php">Home</a>
           <a class="nav-link" href="dashboard_donor_darah.php">Donor Darah</a>
-          <a class="nav-link" href="">Pricing</a>
+          <a class="nav-link" href="donor_darah.php">DonorDarahTambah</a>
           <a class="nav-link" href="profile.php">Profile</a>
           <a class="nav-link" href="proses/logout.php">Logout</a>
         </div>
