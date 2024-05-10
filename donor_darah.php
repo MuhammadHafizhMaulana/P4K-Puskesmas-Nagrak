@@ -40,19 +40,30 @@
                                 <label for="golongan_o">Golongan O</label><br>
                                 <button type="submit" class="btn btn-primary">INPUT</button>
                         </form>
+                        <?php 
+                            include 'proses/koneksi.php';
+                            $id = $_SESSION['id'];
+                            $query = "SELECT `goldar` FROM `kesehatan_user` ORDER BY `id_user` DESC LIMIT 1 ";
+
+                            $sql = mysqli_query($connect, $query);
+                            $data = mysqli_fetch_assoc($sql);
+                        ?>
+                        <p>Goldar anda adalah </p><h1><?=$data['goldar']?></h1>
                         <br>
                         <?php
-        //pesan jika terjadi kesalahan
-        if (isset($_GET['pesan'])) {
-            if ($_GET['pesan'] == "gagal") {
-                echo "<div class='alert alert-danger'> Login gagal. Username atau password salah.</div>";
-        }
-    }
-        // pesan jika sukses
-        if (isset($_GET['success']) && $_GET['success'] == 1) {
-            echo "<div class='alert alert-success'>Data berhasil ditambahkan!</div>";
-        }
-        ?>
+                            //pesan jika terjadi kesalahan
+                            if (isset($_GET['pesan'])) {
+                                if ($_GET['pesan'] == "gagal") {
+                                    echo "<div class='alert alert-danger'> Login gagal. Username atau password salah.</div>";
+                            }
+                            }
+                            // pesan jika sukses
+                            if (isset($_GET['success']) && $_GET['success'] == 1) {
+                                echo "<div class='alert alert-success'>Data berhasil ditambahkan!</div>";
+                            }
+                        ?>
+                        <h2><a href="home.php">Kembali ke Home</a></h2>
+
                     </div>
                 </div>
             </div>

@@ -43,9 +43,6 @@ if ($stmt) {
         header('Location: ../donor_darah.php?gagal=1');
         exit();
     }
-
-    // Tutup statement
-    mysqli_stmt_close($stmt);
 } else {
     // Tampilkan pesan jika persiapan statement gagal
     echo "Error: " . mysqli_error($connect);
