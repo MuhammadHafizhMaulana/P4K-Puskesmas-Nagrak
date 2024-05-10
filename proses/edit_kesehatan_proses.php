@@ -10,13 +10,13 @@ include 'koneksi.php';
 // Memeriksa apakah ada data yang dikirim melalui metode POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Menyiapkan statement UPDATE dengan prepared statement
-    $query = "UPDATE `user` SET `nama`=?, `usia`=?, `nomorHP`=?, `alamat`=? WHERE id=?";
+    $query = "UPDATE `kesehatan_user` SET `goldar`=?, `usia_kandungan`=? WHERE id_user=?";
     $stmt = mysqli_prepare($connect, $query);
 
     // Memeriksa apakah persiapan statement berhasil
     if ($stmt) {
         // Mengikat parameter ke statement
-        mysqli_stmt_bind_param($stmt, "sissi", $_POST['nama'], $_POST['usia'], $_POST['nomorHP'], $_POST['alamat'], $_SESSION['id']);
+        mysqli_stmt_bind_param($stmt, "sii", $_POST['goldar'], $_POST['usia_kandungan'], $_SESSION['id']);
 
         // Mengeksekusi statement
         $result = mysqli_stmt_execute($stmt);

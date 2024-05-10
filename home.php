@@ -24,7 +24,7 @@
         <a class="nav-link active" aria-current="page" href="#">Home</a>
         <a class="nav-link" href="donor_darah.php">Donor Darah</a>
         <a class="nav-link" href="#">Pricing</a>
-        <a class="nav-link" href="profil.php" >Profil</a>
+        <a class="nav-link" href="profile.php" >Profile</a>
         <a class="nav-link" href="proses/logout.php" >Logout</a>
       </div>
     </div>
