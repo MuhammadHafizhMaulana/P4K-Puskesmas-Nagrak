@@ -10,10 +10,11 @@
 
     // Inisialisasi data dari POST
     $goldar = $_POST['goldar'];
+    $usia_kandungan = $_POST['usia_kandungan'];
     $id = $_SESSION['id'];
 
     // Ambil ID terbaru dari tabel user
-    $ambildata = mysqli_query($connect, "SELECT `id` FROM `user` ORDER BY id DESC LIMIT 1");
+    $ambildata = mysqli_query($connect, "SELECT `id` FROM `user` WHERE `id` ='$id'");
     if ($ambildata) {
         $data_input = mysqli_fetch_assoc($ambildata);
         $id_input = $data_input['id'];
@@ -24,12 +25,12 @@
     }
 
     // Persiapkan query dengan prepared statement
-    $query = "INSERT INTO `kesehatan_user`(`goldar`, `id_user`) VALUES (?, ?)";
+    $query = "INSERT INTO `kesehatan_user`(`goldar`, `id_user`, `usia_kandungan`) VALUES (?, ?, ?)";
     $stmt = mysqli_prepare($connect, $query);
 
 if ($stmt) {
     // Bind parameter ke placeholder
-    mysqli_stmt_bind_param($stmt, "si", $goldar, $id_input);
+    mysqli_stmt_bind_param($stmt, "sii", $goldar, $id_input, $usia_kandungan );
 
     // Jalankan prepared statement
     $result = mysqli_stmt_execute($stmt);

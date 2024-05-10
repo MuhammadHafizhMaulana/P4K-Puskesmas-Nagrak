@@ -38,17 +38,38 @@
 
                                 <input type="radio" id="golongan_o" name="goldar" value="o">
                                 <label for="golongan_o">Golongan O</label><br>
+                                
+
+                                <div class="form-group">
+                                <label for="usiakandungan"> Berapa Usia Kandungan Anda (Dalam Minggu)</label>
+                                <input type="number" class="form-control" id="usiakandungan" name="usia_kandungan" placeholder="Masukan usia usia_kandungan anda" required>
+
                                 <button type="submit" class="btn btn-primary">INPUT</button>
+                                </div>
+
+                                
                         </form>
+                        <br>
                         <?php 
                             include 'proses/koneksi.php';
                             $id = $_SESSION['id'];
-                            $query = "SELECT `goldar` FROM `kesehatan_user` ORDER BY `id_user` DESC LIMIT 1 ";
+                            $query = "SELECT `goldar`, `usia_kandungan` FROM `kesehatan_user` WHERE `id_user` = '$id'";
+
 
                             $sql = mysqli_query($connect, $query);
-                            $data = mysqli_fetch_assoc($sql);
+
+                            // Periksa apakah ada baris data yang ditemukan
+                            if(mysqli_num_rows($sql) > 0) {
+                                // Data ditemukan, ambil data dari hasil query
+                                $data = mysqli_fetch_assoc($sql);
+                                // Lakukan sesuatu dengan data yang ditemukan
+                                echo "<div class='alert alert-success'> Golongan darah anda " . $data['goldar'] . "</div>";
+                                echo "<div class='alert alert-success'> Golongan darah anda " . $data['usia_kandungan'] . " Minggu</div>";
+                            } else {
+                                // Data tidak ditemukan, lakukan sesuatu (misalnya, tampilkan pesan)
+                                echo "<div class='alert alert-danger'> Data belum diinputkan.</div>";
+                            }  
                         ?>
-                        <p>Goldar anda adalah </p><h1><?=$data['goldar']?></h1>
                         <br>
                         <?php
                             //pesan jika terjadi kesalahan

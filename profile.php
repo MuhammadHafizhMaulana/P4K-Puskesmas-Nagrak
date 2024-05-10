@@ -21,10 +21,12 @@
     <link rel="stylesheet" href="./css/login.css">
 </head>
 <body>
+    <div>
+    <h1>Halaman Profile</h1>
     <table class="table">
             <tbody>
                 <tr>
-                    <th><h1>Halaman Profil</h1></th>
+                    <th><h1>Data Diri</h1></th>
                 </tr>
                 <tr>
                     <th>Nama</th>
@@ -51,9 +53,39 @@
                 <tr>
                     <th> <a href="edit_profile.php" class="button button-dark me-2">Edit Profile</a></th>
                     <th> <a href="home.php" class="button button-dark me-2">Home</a></th>
+                </tr> 
+            </tbody>
+    </div>
+    <div>
+    </table class="table" >
+            <?php
+              include 'proses/koneksi.php';
+              $id = $_SESSION['id'];
+              $query = "SELECT * FROM `kesehatan_user` WHERE `id_user` = '$id' ";
+              $sql = mysqli_query($connect, $query);
+              $data = mysqli_fetch_assoc($sql);
+          ?>
+            <table class="table">
+            <tbody>
+                <tr>
+                    <th><h1>Data Kesehatan</h1></th>
                 </tr>
-               
+                <tr>
+                    <th>Golongan Darah</th>
+                    <td>:</td>
+                    <td><?=$data['goldar']?></td>
+                </tr>
+                <tr>
+                    <th>Usia Kandungan</th>
+                    <td>:</td>
+                    <td><?=$data['usia_kandungan']?></td>
+                </tr>
+                <tr>
+                    <th> <a href="edit_kesehatan.php" class="button button-dark me-2">Edit Profile</a></th>
+                    <th> <a href="home.php" class="button button-dark me-2">Home</a></th>
+                </tr>
             </tbody>
             </table>
+    </div>
 </body>
 </html>
