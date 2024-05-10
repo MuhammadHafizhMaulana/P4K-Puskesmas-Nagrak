@@ -73,12 +73,12 @@
                 <tr>
                     <th>Golongan Darah</th>
                     <td>:</td>
-                    <td><?=$data['goldar']?></td>
+                    <td><?= isset($data['goldar']) ? $data['goldar'] : "Data belum diinput" ?></td>
                 </tr>
                 <tr>
-                    <th>Usia Kandungan</th>
+                    <th>Usia Kandungan (Minggu)</th>
                     <td>:</td>
-                    <td><?=$data['usia_kandungan']?></td>
+                    <td><?= isset($data['usia_kandungan']) ? $data['usia_kandungan'] : "Data belum diinput" ?></td>
                 </tr>
                 <tr>
                     <th> <a href="edit_kesehatan.php" class="button button-dark me-2">Edit Profile</a></th>
