@@ -1,27 +1,30 @@
 <?php
 
-session_start();
-if(isset($_SESSION['status']) || $_SESSION['status'] == 'login'){
-header('Location: home.php');
-}
+    session_start();
+    if(isset($_SESSION['status']) || $_SESSION['status'] == 'login'){
+    header('Location: home.php');
+    }
 
 
-// Sambungan ke koneksi
-include 'koneksi.php';
+    // Sambungan ke koneksi
+    include 'koneksi.php';
 
-// Inisialisasi data dari POST
-$nama = strtolower($_POST['nama']);
-$usia = $_POST['usia'];
-$nomorHP = $_POST['nomorHP'];
-$alamat = strtolower($_POST['alamat']);
-$passwordDefault = $_POST['password'];
+    // Inisialisasi data dari POST
+    $nama = strtolower($_POST['nama']);
+    $usia = $_POST['usia'];
+    $nomorHP = $_POST['nomorHP'];
+    $alamat = strtolower($_POST['alamat']);
+    $passwordDefault = $_POST['password'];
 
-// Validasi password dengan pola tertentu
-$passwordPattern = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()-_=+{};:,<.>])(?=.*[0-9]).{8,}$/';
-if (!preg_match($passwordPattern, $passwordDefault)) {
-    header('Location: ../daftar.php');
-    exit(); // Batalkan proses jika password tidak sesuai pola
-}
+    // Ambil data nomorHP dari database
+    $ambildata = mysqli_query($connect, "SELECT `nomorHP` FROM `user`");
+
+    // Validasi password dengan pola tertentu
+    $passwordPattern = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()-_=+{};:,<.>])(?=.*[0-9]).{8,}$/';
+    if (!preg_match($passwordPattern, $passwordDefault)) {
+        header('Location: ../daftar.php');
+        exit(); // Batalkan proses jika password tidak sesuai pola
+    }
 
 // Validasi nomor HP dengan pola tertentu
 $nomorHPPattern = '/^[0-9]+$/';
@@ -44,35 +47,35 @@ if ($total > 0) {
     exit();
 }
 
-$password = password_hash($passwordDefault, PASSWORD_DEFAULT);
+    $password = password_hash($passwordDefault, PASSWORD_DEFAULT);
 
-// Persiapkan query dengan prepared statement
-$query = "INSERT INTO `user`(`nama`, `usia`, `nomorHP`, `alamat`, `password`) VALUES (?, ?, ?, ?, ?)";
-$stmt = mysqli_prepare($connect, $query);
+    // Persiapkan query dengan prepared statement
+    $query = "INSERT INTO `user`(`nama`, `usia`, `nomorHP`, `alamat`, `password`) VALUES (?, ?, ?, ?, ?)";
+    $stmt = mysqli_prepare($connect, $query);
 
-if ($stmt) {
-    // Bind parameter ke placeholder
-    mysqli_stmt_bind_param($stmt, "sisss", $nama, $usia, $nomorHP, $alamat, $password);
+    if ($stmt) {
+        // Bind parameter ke placeholder
+        mysqli_stmt_bind_param($stmt, "sisss", $nama, $usia, $nomorHP, $alamat, $password);
 
-    // Jalankan prepared statement
-    $result = mysqli_stmt_execute($stmt);
+        // Jalankan prepared statement
+        $result = mysqli_stmt_execute($stmt);
 
-    if ($result) {
-        // Redirect jika berhasil
-        header('Location: ../index.php?success=1');
-        exit;
+        if ($result) {
+            // Redirect jika berhasil
+            header('Location: ../index.php?success=1');
+            exit;
+        } else {
+            // Tampilkan pesan jika gagal
+            echo "Tambah data gagal: " . mysqli_stmt_error($stmt);
+        }
+
+        // Tutup statement
+        mysqli_stmt_close($stmt);
     } else {
-        // Tampilkan pesan jika gagal
-        echo "Tambah data gagal: " . mysqli_stmt_error($stmt);
+        // Tampilkan pesan jika persiapan statement gagal
+        echo "Error: " . mysqli_error($connect);
     }
 
-    // Tutup statement
-    mysqli_stmt_close($stmt);
-} else {
-    // Tampilkan pesan jika persiapan statement gagal
-    echo "Error: " . mysqli_error($connect);
-}
-
-// Tutup koneksi
-mysqli_close($connect);
-?>
+    // Tutup koneksi
+    mysqli_close($connect);
+    ?>
