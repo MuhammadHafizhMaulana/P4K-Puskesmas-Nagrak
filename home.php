@@ -12,14 +12,14 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login') {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <link rel="stylesheet" href="./css/dashboard.css">
+  <link rel="stylesheet" href="css/dashboard.css">
 </head>
 
 <body>
   <nav class="my-navbar navbar navbar-expand-lg">
     <div class="container-fluid">
       <a class="navbar-brand" href="home.php">
-        <img src="./assets/logo-kemenkes.png" alt="Logo Kemenkes">
+        <img src="assets/logo-kemenkes.png" alt="Logo Kemenkes">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">

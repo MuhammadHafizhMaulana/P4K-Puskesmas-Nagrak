@@ -10,9 +10,9 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login') {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Donor Darah</title>
+  <title>Home</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <link rel="stylesheet" href="css/donorDarah.css">
+  <link rel="stylesheet" href="css/dashboard_donor_darah.css">
 </head>
 
 <body>
@@ -28,7 +28,7 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login') {
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav ms-auto">
-          <a class="nav-link active" aria-current="page" href="home.php">Home</a>
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
           <a class="nav-link" href="dashboard_donor_darah.php">Donor Darah</a>
           <a class="nav-link" href="#">Pricing</a>
           <a class="nav-link" href="profile.php">Profile</a>
@@ -38,18 +38,34 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login') {
     </div>
   </nav>
 
-  <div class="cek">
-    <div>
-      <h1>asdasdasd</h1>
-      <br>
-      <h5>Website Program Perencanaan Persalinan dan Pencegahan Komplikasi (P4K) Puskesmas Nagrak!</h5>
-    </div>
-  </div>
   <div class="banner">
     <div>
       <h1>Selamat Datang</h1>
       <br>
       <h5>Website Program Perencanaan Persalinan dan Pencegahan Komplikasi (P4K) Puskesmas Nagrak!</h5>
+    </div>
+  </div>
+  <div class="content">
+    <div class="container">
+      <div class="row d-flex align-items-center">
+        <div class="col-12 col-lg-6 d-flex justify-content-center">
+          <img src="./assets/logo-kemenkes.png" alt="Logo Kemenkes">
+        </div>
+        <div class="col-12 col-lg-6">
+          <h1>Apa itu P4K?</h1>
+          <p>Program Perencanaan Persalinan dan Pencegahan Komplikasi (P4K) merupakan salah satu upaya percepatan penurunan Angka Kematian Ibu dan Bayi Baru Lahir melalui peningkatan akses dan mutu pelayanan antenatal, pertolongan persalinan, pencegahan komplikasi dan keluarga berencana oleh Tenaga Kesehatan.</p>
+          <h1>Apa tujuan P4K?</h1>
+          <p>P4K memiliki beberapa tujuan antara lain:</p>
+          <ul>
+            <li>Suami, keluarga, dan masyarakat paham tentang bahaya persalinan;</li>
+            <li>Adanya rencana persalinan yang aman;</li>
+            <li>Adanya rencana kontrasepsi yang akan digunakan;</li>
+            <li>Adanya dukungan masyarakat, Toma, kader, dukung untuk ikut KB pasca persalinan;</li>
+            <li>Adanya dukungan sukarela dalam persiapan biaya, transportasi, donor darah;</li>
+            <li>Memantapkan kerjasama antara bidan, dukun bayi, dan kader.</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
   <div class="row" id="footer">
