@@ -2,6 +2,7 @@ var prevNomorHP = "";
 var passwordField = document.getElementById('password');
 var nomorHpField = document.getElementById('nomer');
 var passwordAlert = document.getElementById('passwordAlert');
+
 const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$/;
 const nomorHpPattern = /^[0-9]+$/;
 var fieldStatus = false;
@@ -20,12 +21,10 @@ passwordField.addEventListener('input', function () {
 });
 
 nomorHpField.addEventListener('input', function () {
-    var nomorHpValue = this.value;
-
     if (this.value === "") {
         prevNomorHP = "";
-    } else if (nomorHpPattern.test(nomorHpValue)) {
-        prevNomorHP = nomorHpValue;
+    } else if (nomorHpPattern.test(this.value)) {
+        prevNomorHP = this.value;
     } else {
         this.value = prevNomorHP;
     }
@@ -50,4 +49,32 @@ function formValid() {
     }
 
     checkSubmitValid();
+}
+
+function openSpinner() {
+    // Ambil elemen body dari dokumen
+    var body = document.getElementsByTagName("body")[0];
+
+    // Buat elemen div untuk spinner
+    var spinnerDiv = document.createElement("div");
+    spinnerDiv.className = "spinner-opened";
+
+    // Buat elemen div untuk spinner-border
+    var spinnerBorderDiv = document.createElement("div");
+    spinnerBorderDiv.className = "spinner-border text-light";
+    spinnerBorderDiv.setAttribute("role", "status");
+
+    // Buat elemen span untuk teks "Loading..."
+    var spinnerText = document.createElement("span");
+    spinnerText.className = "visually-hidden";
+    spinnerText.innerText = "Loading...";
+
+    // Masukkan elemen span ke dalam elemen spinner-border
+    spinnerBorderDiv.appendChild(spinnerText);
+
+    // Masukkan elemen spinner-border ke dalam elemen spinner
+    spinnerDiv.appendChild(spinnerBorderDiv);
+
+    // Masukkan elemen spinner ke dalam elemen body
+    body.appendChild(spinnerDiv);
 }

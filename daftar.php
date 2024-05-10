@@ -13,7 +13,7 @@ if (isset($_SESSION['status']) && $_SESSION['status'] == 'login') { // Periksa a
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Pasien</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="./css/daftar.css">
+    <link rel="stylesheet" href="./css/loginDaftar.css">
 </head>
 
 <body>
@@ -30,7 +30,13 @@ if (isset($_SESSION['status']) && $_SESSION['status'] == 'login') { // Periksa a
             Website Program Perencanaan Persalinan dan Pencegahan Komplikasi (P4K) Puskesmas Nagrak!
         </h5>
         <br>
-
+        <?php
+        if (isset($_GET['gagal'])) {
+            if ($_GET['gagal'] == "nomorHP") {
+                echo "<div class='alert alert-danger'>Nomor HP telah terdaftar. Silahkan daftar menggunakan nomor HP yang lain.</div>";
+            }
+        }
+        ?>
         <p>
             Untuk membuat akun, isi form berikut:
         </p>
@@ -58,7 +64,7 @@ if (isset($_SESSION['status']) && $_SESSION['status'] == 'login') { // Periksa a
 
             <br>
 
-            <button id="submitButton" type="submit" disabled type="submit" class="btn btn-secondary">
+            <button onclick="openSpinner()" id="submitButton" type="submit" disabled type="submit" class="btn btn-secondary">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
                 </svg>
@@ -78,7 +84,7 @@ if (isset($_SESSION['status']) && $_SESSION['status'] == 'login') { // Periksa a
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script src="./js/daftar.js"></script>
+    <script src="./js/loginDaftar.js"></script>
 </body>
 
 </html>

@@ -29,6 +29,21 @@ if (!preg_match($nomorHPPattern, $nomorHP)) {
     exit(); // Batalkan proses jika nomor HP tidak sesuai pola
 }
 
+// Cek apakah nomor HP sudah ada di database
+$queryCheck = "SELECT COUNT(*) AS total FROM user WHERE nomorHP = ?";
+$stmtCheck = mysqli_prepare($connect, $queryCheck);
+mysqli_stmt_bind_param($stmtCheck, "s", $nomorHP);
+mysqli_stmt_execute($stmtCheck);
+mysqli_stmt_bind_result($stmtCheck, $total);
+mysqli_stmt_fetch($stmtCheck);
+mysqli_stmt_close($stmtCheck);
+
+if ($total > 0) {
+    // Jika nomor HP sudah ada, batalkan proses
+    header('Location: ../daftar.php?gagal=nomorHP');
+    exit();
+}
+
 $password = password_hash($passwordDefault, PASSWORD_DEFAULT);
 
 // Persiapkan query dengan prepared statement
