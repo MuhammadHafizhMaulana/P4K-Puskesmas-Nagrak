@@ -52,17 +52,8 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login') {
           <img src="./assets/logo-kemenkes.png" alt="Logo Kemenkes">
         </div>
         <div class="col-12 col-lg-6">
-          <h1>Apa itu P4K?</h1>
-          <p>Program Perencanaan Persalinan dan Pencegahan Komplikasi (P4K) merupakan salah satu upaya percepatan penurunan Angka Kematian Ibu dan Bayi Baru Lahir melalui peningkatan akses dan mutu pelayanan antenatal, pertolongan persalinan, pencegahan komplikasi dan keluarga berencana oleh Tenaga Kesehatan.</p>
-          <h1>Apa tujuan P4K?</h1>
-          <p>P4K memiliki beberapa tujuan antara lain:</p>
-          <ul>
-            <li>Suami, keluarga, dan masyarakat paham tentang bahaya persalinan;</li>
-            <li>Adanya rencana persalinan yang aman;</li>
-            <li>Adanya rencana kontrasepsi yang akan digunakan;</li>
-            <li>Adanya dukungan masyarakat, Toma, kader, dukung untuk ikut KB pasca persalinan;</li>
-            <li>Adanya dukungan sukarela dalam persiapan biaya, transportasi, donor darah;</li>
-            <li>Memantapkan kerjasama antara bidan, dukun bayi, dan kader.</li>
+          <h1><a href="tambah_pendonor.php">Tambah Pendonor</a></h1>
+          
           </ul>
         </div>
       </div>
