@@ -24,6 +24,11 @@ mysqli_stmt_bind_result($stmt, $goldar, $usia_kandungan);
 mysqli_stmt_fetch($stmt);
 mysqli_stmt_close($stmt);
 
+if ($goldar == "-") {
+    header('Location: ./dashboard_donor_darah.php');
+    exit();
+}
+
 if ($usia_kandungan) {
     $value_usia_kandungan = $usia_kandungan;
 } else {
@@ -110,12 +115,12 @@ if ($usia_kandungan) {
             <div class="modal-dialog">
                 <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Form Pengajuan Pengecekan Golongan Darah</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="alert alert-warning" role="alert">
-                        Setelah tombol "Input" ditekan, anda akan diarahkan ke whatapp untuk mengirim pesan permintaan pengecekan donor darah ini kepada dokter.
+                        Setelah tombol "Input" ditekan, anda akan diarahkan ke whatsapp untuk mengirim pesan permintaan pengecekan golongan darah ini kepada dokter.
                     </div>
                     <div style="display: none;">
                         <input id="nama" value="<?php echo strtoupper($nama); ?>" type="text" disabled>

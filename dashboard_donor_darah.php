@@ -38,6 +38,20 @@ if ($total == 0) {
 
     $tanggal_input = formatTanggal($tanggal_input);
 }
+
+if (isset($_GET['success'])) {
+    $proccessIsSuccess = true;
+    if ($_GET['success'] == "input") {
+        $message = "Anda berhasil menambahkan data golongan darah dan usia kehamilan";
+    } else if ($_GET['success'] == "edit") {
+            $message = "Anda berhasil mengubah data golongan darah dan usia kehamilan";
+    }
+  } else if (isset($_GET['gagal'])) {
+    $proccessIsSuccess = false;
+    if ($_GET['gagal'] == "1") {
+        $message = "Proses input atau edit data golongan darah dan usia kehamilan gagal dilakukan!!";
+    }
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -146,7 +160,31 @@ if ($total == 0) {
     <div class="col"></div>
   </div>
 
+  <button style="display: none;" id="buttonAlert" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"></button>
+
+<!-- Modal -->
+<?php 
+if (isset($_GET['success']) || isset($_GET['gagal'])) { ?>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 text-primary" id="exampleModalLabel"><?php echo $proccessIsSuccess ? "BERHASIL" : "GAGAL" ?></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <div class="alert alert-primary" role="alert">
+        <?php echo $message ?>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+<?php  
+}
+?>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="./js/dashboardDonorDarah.js"></script>
 </body>
 
 </html>
