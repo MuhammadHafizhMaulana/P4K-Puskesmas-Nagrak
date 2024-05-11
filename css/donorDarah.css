@@ -23,6 +23,21 @@
     height: 75px;
 }
 
+.cek {
+    position: fixed;
+    top: 105px;
+    padding: 0 10vw;
+    z-index: -1;
+    width: 100vw;
+    height: calc(100vh - 105px);
+    background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url('../assets/banner-family.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+}
+
 
 .banner {
     position: fixed;
@@ -31,11 +46,11 @@
     z-index: -1;
     width: 100vw;
     height: calc(100vh - 105px);
-    background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url('../assets/banner-hati.jpg');
+    background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url('../assets/banner-family.jpg');
     background-size: cover;
     background-position: center;
     display: flex;
-    flex-direction: row;
+    flex-direction: row-reverse;
     align-items: center;
 }
 
@@ -58,39 +73,3 @@
     font-weight: bold;
     color: #344024;
 }
-
-
-.content {
-    margin-top: 100vh;
-    padding: 30px 0px;
-    z-index: 0;
-    background: linear-gradient(#fdffa0, white); /* Gradasi dari #fdffa0 (atas) ke putih (bawah) */
-    box-shadow: 0 -8px 16px 0 rgba(0, 0, 0, 0.2);
-}
-
-.content .children-content button {
-    width: 200px;
-    text-align: center;
-}
-
-.content img {
-    width: 10vw;
-    min-width: 100px;
-}
-
-
-@media screen and (max-width: 991px) {
-    .banner {
-        justify-content: center;
-    }
-    
-    .banner div {
-        text-align: center;
-    }
-    
-    .banner h1 {
-        font-size: 70px;
-    }
-  }
-
-
