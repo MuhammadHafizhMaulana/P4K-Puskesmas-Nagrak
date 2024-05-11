@@ -27,8 +27,7 @@ if ($stmt) {
         
         // Periksa apakah nomor HP sesuai dengan data dari hasil query
         if ($_POST['nomorHP'] === $data['nomorHP'] && password_verify($_POST['password'], $data['password'])) {
-            print('tes');
-            $_SESSION['id'] = $data['id'];;
+            $_SESSION['id'] = $data['id'];
             $_SESSION['status'] = 'login';
             // Jika sesuai, redirect ke halaman home
             header('Location: ../home.php');
