@@ -9,8 +9,9 @@
     include 'koneksi.php';
 
     // Inisialisasi data dari POST
+    $nama = $_POST['nama'];
+    $nomorHP = $_POST['nomorHP'];
     $goldar = $_POST['goldar'];
-    $usia_kandungan = $_POST['usia_kandungan'];
     $id = $_SESSION['id'];
 
     // Ambil ID terbaru dari tabel user
@@ -25,23 +26,23 @@
     }
 
     // Persiapkan query dengan prepared statement
-    $query = "INSERT INTO `kesehatan_user`(`goldar`, `id_user`, `usia_kandungan`, tanggal_input) VALUES (?, ?, ?, NOW())";
+    $query = "INSERT INTO `pendonor`(`nama`, `nomorHP`, `goldar`, `id_user`) VALUES (?, ?, ?, ?)";
     $stmt = mysqli_prepare($connect, $query);
 
 if ($stmt) {
     // Bind parameter ke placeholder
-    mysqli_stmt_bind_param($stmt, "sii", $goldar, $id_input, $usia_kandungan );
+    mysqli_stmt_bind_param($stmt, "sssi", $nama, $nomorHP, $goldar, $id_input );
 
     // Jalankan prepared statement
     $result = mysqli_stmt_execute($stmt);
 
     if ($result) {
         // Redirect jika berhasil
-        header('Location: ../donor_darah.php?success=1');
+        header('Location: ../tambah_pendonor.php?success=1');
         exit();
     } else {
         // Tampilkan pesan jika gagal
-        header('Location: ../donor_darah.php?gagal=1');
+        header('Location: ../tambah_pendonor.php?gagal=1');
         exit();
     }
 } else {

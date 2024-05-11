@@ -124,7 +124,7 @@ if ($total == 0) {
             <p>
                 Pendonor darah anda belum didaftarkan
             </p>
-            <button type="button" class="btn btn-danger">
+            <button type="button" onclick="window.location.href='tambah_pendonor.php'" class="btn btn-danger">
                 Daftarkan Pendonor Darah Anda
             </button>
         </div>
