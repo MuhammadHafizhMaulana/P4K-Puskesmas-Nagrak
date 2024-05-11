@@ -32,8 +32,13 @@ if ($user > 0) {
 }
 
 if ($stmt) {
-    // Bind parameter ke placeholder
-    mysqli_stmt_bind_param($stmt, "sii", $goldar, $usia_kandungan, $id);
+    if ($user >0 ){
+         // Bind parameter ke placeholder
+        mysqli_stmt_bind_param($stmt, "sii", $goldar, $usia_kandungan, $id);
+    } else {
+        // Bind parameter ke placeholder
+        mysqli_stmt_bind_param($stmt, "sii", $goldar, $id, $usia_kandungan);
+    }
 
     // Jalankan prepared statement
     $result = mysqli_stmt_execute($stmt);
