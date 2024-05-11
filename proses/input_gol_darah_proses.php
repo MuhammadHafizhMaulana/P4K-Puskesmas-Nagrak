@@ -57,15 +57,15 @@ if ($stmt) {
     if ($result) {
         // Redirect jika berhasil
         if ($inputProcess) {
-            header('Location: ../donor_darah.php?success=input');
+            header('Location: ../dashboard_donor_darah.php?success=input');
             exit();
         } else {
-            header('Location: ../donor_darah.php?success=edit');
+            header('Location: ../dashboard_donor_darah.php?success=edit');
             exit();
         }
     } else {
         // Tampilkan pesan jika gagal
-        header('Location: ../donor_darah.php?gagal=1');
+        header('Location: ../dashboard_donor_darah.php?gagal=1');
         exit();
     }
 } else {
