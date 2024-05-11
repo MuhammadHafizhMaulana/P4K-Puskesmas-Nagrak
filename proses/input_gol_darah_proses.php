@@ -13,20 +13,22 @@
     $usia_kandungan = $_POST['usia_kandungan'];
     $id = $_SESSION['id'];
 
-    // Ambil ID terbaru dari tabel user
-    $ambildata = mysqli_query($connect, "SELECT `id` FROM `user` WHERE `id` ='$id'");
-    if ($ambildata) {
-        $data_input = mysqli_fetch_assoc($ambildata);
-        $id_input = $data_input['id'];
+    $queryCheck = "SELECT COUNT(*) AS user FROM kesehatan_user WHERE id_user = $id";
+    $stmtCheck = mysqli_prepare($connect, $queryCheck);
+    mysqli_stmt_execute($stmtCheck);
+    mysqli_stmt_bind_result($stmtCheck, $user);
+    mysqli_stmt_fetch($stmtCheck);
+    mysqli_stmt_close($stmtCheck);
+
+    if ($user > 0) {
+        $query = "UPDATE `kesehatan_user` SET `goldar` = ?, `usia_kandungan` = ?, `tanggal_input` = NOW(), `id_user` = $id WHERE `id_user` = $id";
+        $stmt = mysqli_prepare($connect, $query);
     } else {
-        // Menampilkan pesan kesalahan jika query SELECT gagal
-        echo "Error: " . mysqli_error($connect);
-        exit(); // Hentikan eksekusi skrip
+        // Persiapkan query dengan prepared statement
+        $query = "INSERT INTO `kesehatan_user`(`goldar`, `id_user`, `usia_kandungan`, tanggal_input) VALUES (?, ?, ?, NOW())";
+        $stmt = mysqli_prepare($connect, $query);
     }
 
-    // Persiapkan query dengan prepared statement
-    $query = "INSERT INTO `kesehatan_user`(`goldar`, `id_user`, `usia_kandungan`, tanggal_input) VALUES (?, ?, ?, NOW())";
-    $stmt = mysqli_prepare($connect, $query);
 
 if ($stmt) {
     // Bind parameter ke placeholder
