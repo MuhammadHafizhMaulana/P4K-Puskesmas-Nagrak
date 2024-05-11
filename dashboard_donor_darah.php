@@ -17,16 +17,26 @@ mysqli_stmt_bind_result($stmtCheck, $total);
 mysqli_stmt_fetch($stmtCheck);
 mysqli_stmt_close($stmtCheck);
 
+// Function untuk merubah format tanggal
+function formatTanggal($tanggal_input) {
+  $timestamp = strtotime($tanggal_input);
+  $tanggal_format = date("d M Y", $timestamp);
+  
+  return $tanggal_format;
+}
+
 if ($total == 0) {
     $status = "tidak diketahui";
 } else {
-    $queryStatus = "SELECT status, goldar FROM kesehatan_user WHERE id_user = ?";
+    $queryStatus = "SELECT status, goldar, tanggal_input, usia_kandungan FROM kesehatan_user WHERE id_user = ?";
     $stmtStatus = mysqli_prepare($connect, $queryStatus);
     mysqli_stmt_bind_param($stmtStatus, "i", $id);
     mysqli_stmt_execute($stmtStatus);
-    mysqli_stmt_bind_result($stmtStatus, $status, $goldar);
+    mysqli_stmt_bind_result($stmtStatus, $status, $goldar, $tanggal_input, $usia_kandungan);
     mysqli_stmt_fetch($stmtStatus);
     mysqli_stmt_close($stmtStatus);
+
+    $tanggal_input = formatTanggal($tanggal_input);
 }
 ?>
 <!DOCTYPE html>
@@ -84,9 +94,9 @@ if ($total == 0) {
                 if($status == "tidak diketahui")
                 {
             ?>
-            <p>
-                Anda belum mendaftarkan (periksa) golongan darah anda, daftarkan di bawah
-            </p>
+            <div style="max-width: 400px; text-align: center;" class="alert alert-primary" role="alert">
+              <h6>Anda belum mendaftarkan (periksa) golongan darah anda, daftarkan di bawah</h6>
+            </div>
             <button onclick="window.location.href='donor_darah.php'" type="button" class="btn btn-danger">
                 Daftarkan Golongan Darah
             </button>
@@ -95,9 +105,10 @@ if ($total == 0) {
             else if($status == "diketahui")
             {
             ?>
-            <p>
-                Golongan Darah Anda adalah <?php echo $goldar ?>
-            </p>
+            <div style="max-width: 400px; text-align: center;" class="alert alert-primary" role="alert">
+              <h6>Golongan Darah Anda adalah <?php echo strtoupper($goldar); ?></h6>
+              <h6>Usia Kandungan Anda <?php echo $usia_kandungan ?> minggu pada <?php echo $tanggal_input ?></h6>
+            </div>
             <button onclick="window.location.href='donor_darah.php'" type="button" class="btn btn-danger">
                 Edit Golongan Darah
             </button>
@@ -105,9 +116,9 @@ if ($total == 0) {
             } else if ($status == "menunggu")
             {
             ?>
-            <p>
-                Anda sedang menunggu proses pemeriksaan golongan darah.
-            </p>
+            <div style="max-width: 400px; text-align: center;" class="alert alert-primary" role="alert">
+              <h6>Anda sedang menunggu proses pemeriksaan golongan darah.</h6>
+            </div>
             <?php }?>
         </div>
       </div>

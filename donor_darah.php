@@ -61,11 +61,19 @@ if ($usia_kandungan) {
         </h1>
         <br />
         <?php
-        if (isset($_GET['gagal'])) {
-            if ($_GET['gagal'] == "nomorHP") {
-                echo "<div class='alert alert-danger'>Nomor HP telah terdaftar. Silahkan daftar menggunakan nomor HP yang lain.</div>";
+        if (isset($_GET['success'])) {
+            if ($_GET['success'] == "input") {
+                echo "<div class='alert alert-success'>Anda berhasil menambahkan data golongan darah dan usia kehamilan</div>";
             }
-        } 
+        } else if (isset($_GET['success'])) {
+            if ($_GET['success'] == "edit") {
+                echo "<div class='alert alert-success'>Anda berhasil mengubah data golongan darah dan usia kehamilan</div>";
+            }
+        } else if (isset($_GET['gagal'])) {
+            if ($_GET['gagal'] == "1") {
+                echo "<div class='alert alert-danger'>Proses input atau edit data golongan darah dan usia kehamilan gagal dilakukan!!</div>";
+            }
+        }
         ?>
         <p>
             <?php echo $goldar ? "Edit" : "Daftarkan"; ?> golongan darah anda
