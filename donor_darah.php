@@ -8,6 +8,14 @@ include './proses/koneksi.php';
 
 $id = $_SESSION['id'];
 
+$query = "SELECT `nama`, `nomorHP`, `alamat` FROM `user` WHERE `id` = ?";
+$stmt = mysqli_prepare($connect, $query);
+mysqli_stmt_bind_param($stmt, "i", $id);
+mysqli_stmt_execute($stmt);
+mysqli_stmt_bind_result($stmt, $nama, $nomorHP, $alamat);
+mysqli_stmt_fetch($stmt);
+mysqli_stmt_close($stmt);
+
 $query = "SELECT `goldar`, `usia_kandungan` FROM `kesehatan_user` WHERE `id_user` = ?";
 $stmt = mysqli_prepare($connect, $query);
 mysqli_stmt_bind_param($stmt, "i", $id);
@@ -64,10 +72,8 @@ if ($usia_kandungan) {
         if (isset($_GET['success'])) {
             if ($_GET['success'] == "input") {
                 echo "<div class='alert alert-success'>Anda berhasil menambahkan data golongan darah dan usia kehamilan</div>";
-            }
-        } else if (isset($_GET['success'])) {
-            if ($_GET['success'] == "edit") {
-                echo "<div class='alert alert-success'>Anda berhasil mengubah data golongan darah dan usia kehamilan</div>";
+            } else if ($_GET['success'] == "edit") {
+                    echo "<div class='alert alert-success'>Anda berhasil mengubah data golongan darah dan usia kehamilan</div>";
             }
         } else if (isset($_GET['gagal'])) {
             if ($_GET['gagal'] == "1") {
@@ -80,7 +86,7 @@ if ($usia_kandungan) {
         </p>
         <form action="proses/input_gol_darah_proses.php" method="post">
             <div class="form-group">
-                <label for="goldar"></label>
+                <label for="goldar">Golongan Darah</label>
                 <select id="goldar" name="goldar" class="form-select" aria-label="Default select example" required>
                     <option value="-">Belum Mengetahui</option>
                     <option value="a+" <?php if ($goldar === 'a+') echo 'selected'; ?>>A+</option>
@@ -94,11 +100,42 @@ if ($usia_kandungan) {
                 </select>
             </div>
             <div class="form-group">
+                <label for="usia_kandungan">Usia Kandungan (minggu)</label>
                 <input value="<?php echo $value_usia_kandungan ?>" min="0" type="number" class="form-control" id="usia_kandungan" name="usia_kandungan" placeholder="Usia kandungan (minggu)" required>
             </div>
             <br />
-            <button onclick="openSpinner()" type="submit" class="btn btn-danger">INPUT</button>
+            <button id="submitGoldar" onclick="openSpinner()" type="submit" class="btn btn-danger">INPUT</button>
+            <!-- Modal -->
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-warning" role="alert">
+                        Setelah tombol "Input" ditekan, anda akan diarahkan ke whatapp untuk mengirim pesan permintaan pengecekan donor darah ini kepada dokter.
+                    </div>
+                    <div style="display: none;">
+                        <input id="nama" value="<?php echo strtoupper($nama); ?>" type="text" disabled>
+                        <input id="nomorHP" value="<?php echo $nomorHP; ?>" type="text" disabled>
+                        <input id="alamat" value="<?php echo strtoupper($alamat); ?>" type="text" disabled>
+                    </div>
+                    <div style="width: 100%;" class="form-group">
+                        <label for="waktu_pengecekan_goldar">Tentukan tanggal pengecekan golongan darah</label>
+                        <input style="width: 100%;" type="date" class="form-control" id="waktu_pengecekan_goldar" name="waktu_pengecekan_goldar">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button id="submitJadwal" disabled onclick="openSpinner()" type="submit" data-bs-dismiss="modal" class="btn btn-primary">Input</button>
+                </div>
+                </div>
+            </div>
+            </div>
         </form>
+
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>
