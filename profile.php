@@ -81,7 +81,7 @@
                     <td><?= isset($data['usia_kandungan']) ? $data['usia_kandungan'] : "Data belum diinput" ?></td>
                 </tr>
                 <tr>
-                    <th> <a href="edit_kesehatan.php" class="button button-dark me-2">Edit Profile</a></th>
+                    <th> <a href="donor_darah.php" class="button button-dark me-2">Edit</a></th>
                     <th> <a href="home.php" class="button button-dark me-2">Home</a></th>
                 </tr>
             </tbody>
