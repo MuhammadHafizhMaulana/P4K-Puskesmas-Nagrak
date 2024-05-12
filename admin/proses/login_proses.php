@@ -1,7 +1,7 @@
 <?php 
 
     session_start();
-    if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login') {
+    if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login_admin') {
       header('Location: login_admin.php');
     }
 
@@ -33,7 +33,7 @@ if ($stmt) {
         // Periksa apakah nomor HP sesuai dengan data dari hasil query
         if ($_POST['username'] === $data['username'] && password_verify($_POST['password'], $data['password'])) {
             $_SESSION['id'] = $data['id'];
-            $_SESSION['status'] = 'login';
+            $_SESSION['status'] = 'login_admin';
             // Jika sesuai, redirect ke halaman home
             header('Location: ../landing.php');
             exit();

@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login') {
+if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login_admin') {
     header('Location: login_admin.php');
     exit(); // tambahkan exit setelah redirect
 }
@@ -10,8 +10,7 @@ include '../../proses/koneksi.php';
 
 // Periksa apakah parameter id ada di URL dan valid
 if(isset($_GET['id']) && is_numeric($_GET['id'])) {
-    // Tangkap id terenkripsi dari URL dan dekripsikan
-    $decrypted_id = base64_decode($_GET['id']);
+    $id = $_GET['id'];
 
     // Query untuk menghapus pengguna berdasarkan id yang sudah didekripsi
     $query = "DELETE FROM user WHERE id = ?";
@@ -19,7 +18,7 @@ if(isset($_GET['id']) && is_numeric($_GET['id'])) {
 
     if ($stmt) {
         // Bind parameter ke placeholder
-        mysqli_stmt_bind_param($stmt, "i", $decrypted_id);
+        mysqli_stmt_bind_param($stmt, "i", $id);
 
         // Eksekusi statement
         $result = mysqli_stmt_execute($stmt);
