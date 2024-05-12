@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login') {
+if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login_admin') {
     header('Location: login_admin.php');
     exit(); // Keluar dari skrip setelah redirect
 }
@@ -16,14 +16,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Memeriksa apakah persiapan statement berhasil
     if ($stmt) {
         // Mengikat parameter ke statement
-        mysqli_stmt_bind_param($stmt, "sissi", $_POST['nama'], $_POST['usia'], $_POST['nomorHP'], $_POST['alamat'], $_SESSION['id']);
+        mysqli_stmt_bind_param($stmt, "sissi", $_POST['nama'], $_POST['usia'], $_POST['nomorHP'], $_POST['alamat'], $_POST['id']);
 
         // Mengeksekusi statement
         $result = mysqli_stmt_execute($stmt);
 
         // Memeriksa apakah eksekusi berhasil
         if ($result) {
-            header('Location: ../data_user.php?succes==1');
+            header('Location: ../data_user.php?succes=1');
             exit();
         } else {
             echo "Update data gagal: " . mysqli_error($connect);

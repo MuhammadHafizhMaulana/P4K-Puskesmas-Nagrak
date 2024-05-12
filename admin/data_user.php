@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login') {
+    if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login_admin') {
       header('Location: login_admin.php');
     }
 ?>
@@ -38,17 +38,15 @@
             if(mysqli_num_rows($result) > 0) {
                 // Mulai iterasi melalui setiap baris data
                 while($data = mysqli_fetch_assoc($result)) {
-                    // Enkripsi id sebelum dimasukkan ke URL
-                    $encrypted_id = base64_encode($data['id']);
         ?>
         <tr>
             <td><?= $data['nama'] ?></td>
             <td><?= $data['usia'] ?></td>
             <td><?= $data['nomorHP'] ?></td>
             <td><?= $data['alamat'] ?></td>
-            <td><h5><a href="kesehatan_user.php?id=<?= $encrypted_id ?>">Kesehatan User</a></h5></td>
-            <td> <h5><a href="edit_user.php?id=<?= $encrypted_id ?>">Edit</a></h5> 
-            <h5><a href="proses/hapus_user.php?id=<?= $encrypted_id ?>">Hapus</a></h5> </td>
+            <td><h5><a href="kesehatan_user.php?id=<?= $data['id'] ?>">Kesehatan User</a></h5></td>
+            <td> <h5><a href="edit_user.php?id=<?= $data['id'] ?>">Edit</a></h5> 
+            <h5><a href="proses/hapus_user.php?id=<?= $data['id'] ?>">Hapus</a></h5> </td>
         </tr>
         <?php 
                 } // Tutup while loop

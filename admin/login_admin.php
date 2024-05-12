@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (isset($_SESSION['status']) && $_SESSION['status'] == 'login') { // Periksa apakah 'status' telah di-set dan bernilai 'login'
+if (isset($_SESSION['status']) && $_SESSION['status'] == 'login_admin') { // Periksa apakah 'status' telah di-set dan bernilai 'login'
     header('Location: landing.php');
     exit(); // Penting untuk diikuti dengan exit() setelah header redirect
 }

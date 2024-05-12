@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login') {
+if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login_admin') {
   header('Location: login_admin.php');
 }
 
@@ -10,16 +10,12 @@ include '../proses/koneksi.php';
 
 // Periksa apakah parameter id ada di URL
 if(isset($_GET['id'])) {
-    // Tangkap id terenkripsi dari URL
-    $encrypted_id = $_GET['id'];
 
-    // Dekripsikan id
-    $decrypted_id = base64_decode($encrypted_id);
-
+    $id = $_GET['id'];
     // Query untuk mengambil data pengguna berdasarkan id yang sudah didekripsi
     $query = "SELECT * FROM user WHERE id = ?";
     $stmt = mysqli_prepare($connect, $query);
-    mysqli_stmt_bind_param($stmt, "i", $decrypted_id);
+    mysqli_stmt_bind_param($stmt, "i", $id);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
 
@@ -50,6 +46,10 @@ if(isset($_GET['id'])) {
                 <th>
                     <h1>Halaman Profil</h1>
                 </th>
+            </tr>
+                <!-- Menambahkan input tersembunyi untuk id -->
+                <input type="hidden" name="id" value="<?=$data['id']?>">
+            <tr>
             </tr>
             <tr>
                 <th>Nama</th>

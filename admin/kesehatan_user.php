@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login') {
+if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login_admin') {
     header('Location: login_admin.php');
     exit(); // tambahkan exit setelah redirect
 }
@@ -10,16 +10,12 @@ include '../proses/koneksi.php';
 
 // Periksa apakah parameter id ada di URL
 if(isset($_GET['id'])) {
-    // Tangkap id terenkripsi dari URL
-    $encrypted_id = $_GET['id'];
 
-    // Dekripsikan id
-    $decrypted_id = base64_decode($encrypted_id);
-
+    $id = $_GET['id'];
     // Query untuk mengambil data pengguna berdasarkan id yang sudah didekripsi
     $query = "SELECT * FROM kesehatan_user WHERE id_user = ?";
     $stmt = mysqli_prepare($connect, $query);
-    mysqli_stmt_bind_param($stmt, "i", $decrypted_id);
+    mysqli_stmt_bind_param($stmt, "i", $id);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
 
@@ -42,22 +38,52 @@ if(isset($_GET['id'])) {
         <body>
             <table class="table">
                 <tbody>
+                <th><h1>Data Kesehatan</h1></th>
                     <tr>
-                        <th><h1>Data Kesehatan</h1></th>
+                        <!-- Nama -->
+                        <?php
+                        $query = "SELECT `nama`FROM user WHERE id = ?";
+                        $stmt = mysqli_prepare($connect, $query);
+                        mysqli_stmt_bind_param($stmt, "i", $id);
+                        mysqli_stmt_execute($stmt);
+                        $result = mysqli_stmt_get_result($stmt);
+                    
+                        // Periksa apakah data ditemukan
+                        if(mysqli_num_rows($result) > 0) {
+                            // Ambil data pengguna
+                            $ambil_nama = mysqli_fetch_assoc($result);
+                        ?>
+                        <th>Nama</th>
+                        <td><?= isset($ambil_nama['nama']) ? $ambil_nama['nama'] : "Data belum diinput" ?></td>
+
+                        <?php } ?>
                     </tr>
                     <tr>
+                        <!-- Goldar -->
                         <th>Golongan Darah</th>
-                        <td>:</td>
-                        <td><?= isset($data['goldar']) ? $data['goldar'] : "Data belum diinput" ?></td>
+                        <td><?= isset($data['goldar']) ? $data['goldar'] : "Data belum diinput" ?>
+                        <a href="edit_goldar_user.php?id=<?= $data['id_user']?>">Edit</a>
+                    </td>
                     </tr>
                     <tr>
+                        <!-- Usia Kandungan -->
                         <th>Usia Kandungan (Minggu)</th>
-                        <td>:</td>
                         <td><?= isset($data['usia_kandungan']) ? $data['usia_kandungan'] : "Data belum diinput" ?></td>
                     </tr>
                     <tr>
-                        <th> <a href="edit_user.php?id=<?= $encrypted_id ?>" class="button button-dark me-2">Edit</a></th>
-                        <th> <a href="home.php" class="button button-dark me-2">Home</a></th>
+                        <!-- Status -->
+                        <th>Status</th>
+                        <td><?= isset($data['status']) ? $data['status'] : "Data belum diinput" ?></td>
+                    </tr>
+                    </tr>
+                    <tr>
+                        <!-- Tanggal update -->
+                        <th>Terakhir Update</th>
+                        <td><?= isset($data['tanggal_input']) ? $data['tanggal_input'] : "Data belum diinput" ?></td>
+
+                    </tr>
+                    <tr>
+                        <th> <a href="data_user.php" class="button button-dark me-2">kembali</a></th>
                     </tr>
                 </tbody>
             </table>
