@@ -58,6 +58,9 @@
             mysqli_close($connect);
         ?>
     </table>
+    <tr>
+            <h4><a href="landing.php">kembali</a></h4>
+        </tr>
 </body>
 
 </html>

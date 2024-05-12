@@ -52,8 +52,17 @@ if (isset($_SESSION['status']) && $_SESSION['status'] == 'login_admin') { // Per
             <div class="form-group">
                 <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan password" required>
             </div>
+            
 
             <br />
+
+           
+            <input type="checkbox" id="remember" name="remember" >
+            <label for="remember">Ingat Saya?</label>
+        
+
+            <br>
+            <br>
 
             <button onclick="openSpinner()" type="submit" class="btn btn-secondary">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
