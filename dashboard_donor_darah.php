@@ -46,6 +46,8 @@ if (isset($_GET['success'])) {
     $message = "Anda berhasil menambahkan data golongan darah dan usia kehamilan";
   } else if ($_GET['success'] == "edit") {
     $message = "Anda berhasil mengubah data golongan darah dan usia kehamilan";
+  } else if ($_GET['success'] == "addPendonor") {
+    $message = "Anda berhasil menambahkan data pendonor darah";
   }
 } else if (isset($_GET['gagal'])) {
   $proccessIsSuccess = false;
@@ -171,16 +173,18 @@ $sql = mysqli_query($connect, $query);
                 </div>
               </div>
             <?php } ?>
-            <div style="height: min-content; width: 100%; overflow-x: scroll">
+            <table class="table m-0">
+              <thead>
+                <tr style="background: #FDFFA0;" div>
+                  <th class="col-1" scope="col"></th>
+                  <th class="col-4" scope="col">Nama</th>
+                  <th class="col-4" scope="col">Nomor HP</th>
+                  <th class="col-3" scope="col">Goldar</th>
+                </tr>
+              </thead>
+            </table>
+            <div style="max-height: 325px; width: 100%; overflow-y: scroll">
               <table class="table">
-                <thead>
-                  <tr style="background: #FDFFA0;" div>
-                    <th scope="col"></th>
-                    <th scope="col" style="text-align: center; align-content: center">Nama</th>
-                    <th scope="col" style="text-align: center; align-content: center">Nomor HP</th>
-                    <th scope="col" style="text-align: center; align-content: center">Golongan Darah</th>
-                  </tr>
-                </thead>
                 <tbody style="background: #FEFFD9">
                   <?php
                   $data_array = [];
@@ -190,10 +194,10 @@ $sql = mysqli_query($connect, $query);
                   foreach ($data_array as $i => $data) {
                   ?>
                     <tr style="background: <?php echo $data['goldar'] == $goldar ? '#CFE2FF' : '#FEFFD9';  ?>">
-                      <th scope="row"><?php echo $i + 1; ?></th>
-                      <td><?php echo strtoupper($data['nama']); ?></td>
-                      <td><?php echo $data['nomorHP']; ?></td>
-                      <td><?php echo strtoupper($data['goldar']); ?></td>
+                      <th class="col-1" scope="row"><?php echo $i + 1; ?></th>
+                      <td class="col-4"><?php echo strtoupper($data['nama']); ?></td>
+                      <td class="col-4"><?php echo $data['nomorHP']; ?></td>
+                      <td class="col-3"><?php echo strtoupper($data['goldar']); ?></td>
                     </tr>
                   <?php } ?>
                 </tbody>

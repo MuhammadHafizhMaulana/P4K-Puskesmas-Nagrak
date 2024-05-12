@@ -78,7 +78,7 @@ if ($usia_kandungan) {
             if ($_GET['success'] == "input") {
                 echo "<div class='alert alert-success'>Anda berhasil menambahkan data golongan darah dan usia kehamilan</div>";
             } else if ($_GET['success'] == "edit") {
-                    echo "<div class='alert alert-success'>Anda berhasil mengubah data golongan darah dan usia kehamilan</div>";
+                echo "<div class='alert alert-success'>Anda berhasil mengubah data golongan darah dan usia kehamilan</div>";
             }
         } else if (isset($_GET['gagal'])) {
             if ($_GET['gagal'] == "1") {
@@ -112,39 +112,39 @@ if ($usia_kandungan) {
             <button id="submitGoldar" onclick="openSpinner()" type="submit" class="btn btn-danger">INPUT</button>
             <!-- Modal -->
             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Form Pengajuan Pengecekan Golongan Darah</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="alert alert-warning" role="alert">
-                        Setelah tombol "Input" ditekan, anda akan diarahkan ke whatsapp untuk mengirim pesan permintaan pengecekan golongan darah ini kepada dokter.
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Form Pengajuan Pengecekan Golongan Darah</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="alert alert-warning" role="alert">
+                                Setelah tombol "Input" ditekan, anda akan diarahkan ke whatsapp untuk mengirim pesan permintaan pengecekan golongan darah ini kepada dokter.
+                            </div>
+                            <div style="display: none;">
+                                <input id="nama" value="<?php echo strtoupper($nama); ?>" type="text" disabled>
+                                <input id="nomorHP" value="<?php echo $nomorHP; ?>" type="text" disabled>
+                                <input id="alamat" value="<?php echo strtoupper($alamat); ?>" type="text" disabled>
+                            </div>
+                            <div style="width: 100%;" class="form-group">
+                                <label for="waktu_pengecekan_goldar">Tentukan tanggal pengecekan golongan darah</label>
+                                <input style="width: 100%;" type="date" class="form-control" id="waktu_pengecekan_goldar" name="waktu_pengecekan_goldar">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                            <button id="submitJadwal" disabled onclick="openSpinner()" type="submit" data-bs-dismiss="modal" class="btn btn-primary">Input</button>
+                        </div>
                     </div>
-                    <div style="display: none;">
-                        <input id="nama" value="<?php echo strtoupper($nama); ?>" type="text" disabled>
-                        <input id="nomorHP" value="<?php echo $nomorHP; ?>" type="text" disabled>
-                        <input id="alamat" value="<?php echo strtoupper($alamat); ?>" type="text" disabled>
-                    </div>
-                    <div style="width: 100%;" class="form-group">
-                        <label for="waktu_pengecekan_goldar">Tentukan tanggal pengecekan golongan darah</label>
-                        <input style="width: 100%;" type="date" class="form-control" id="waktu_pengecekan_goldar" name="waktu_pengecekan_goldar">
-                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button id="submitJadwal" disabled onclick="openSpinner()" type="submit" data-bs-dismiss="modal" class="btn btn-primary">Input</button>
-                </div>
-                </div>
-            </div>
             </div>
         </form>
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>
-    <script src="./js/customer.js"></script>
+    <script src="./js/donorDarah.js"></script>
 </body>
 
 </html>
