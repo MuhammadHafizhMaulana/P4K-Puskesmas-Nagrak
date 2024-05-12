@@ -70,7 +70,7 @@ if ($usia_kandungan) {
     </nav>
     <div id="formDonorDarah">
         <h1 style="font-weight: bold; font-size: xxx-large">
-            <?php echo $goldar ? "Edit" : "Daftar"; ?> Donor Darah
+            <?php echo $goldar ? "Edit" : "Daftar"; ?> Golongan Darah
         </h1>
         <br />
         <?php
