@@ -18,40 +18,45 @@ mysqli_stmt_fetch($stmtCheck);
 mysqli_stmt_close($stmtCheck);
 
 // Function untuk merubah format tanggal
-function formatTanggal($tanggal_input) {
+function formatTanggal($tanggal_input)
+{
   $timestamp = strtotime($tanggal_input);
   $tanggal_format = date("d M Y", $timestamp);
-  
+
   return $tanggal_format;
 }
 
 if ($total == 0) {
-    $status = "tidak diketahui";
+  $status = "tidak diketahui";
 } else {
-    $queryStatus = "SELECT status, goldar, tanggal_input, usia_kandungan FROM kesehatan_user WHERE id_user = ?";
-    $stmtStatus = mysqli_prepare($connect, $queryStatus);
-    mysqli_stmt_bind_param($stmtStatus, "i", $id);
-    mysqli_stmt_execute($stmtStatus);
-    mysqli_stmt_bind_result($stmtStatus, $status, $goldar, $tanggal_input, $usia_kandungan);
-    mysqli_stmt_fetch($stmtStatus);
-    mysqli_stmt_close($stmtStatus);
+  $queryStatus = "SELECT status, goldar, tanggal_input, usia_kandungan FROM kesehatan_user WHERE id_user = ?";
+  $stmtStatus = mysqli_prepare($connect, $queryStatus);
+  mysqli_stmt_bind_param($stmtStatus, "i", $id);
+  mysqli_stmt_execute($stmtStatus);
+  mysqli_stmt_bind_result($stmtStatus, $status, $goldar, $tanggal_input, $usia_kandungan);
+  mysqli_stmt_fetch($stmtStatus);
+  mysqli_stmt_close($stmtStatus);
 
-    $tanggal_input = formatTanggal($tanggal_input);
+  $tanggal_input = formatTanggal($tanggal_input);
 }
 
 if (isset($_GET['success'])) {
-    $proccessIsSuccess = true;
-    if ($_GET['success'] == "input") {
-        $message = "Anda berhasil menambahkan data golongan darah dan usia kehamilan";
-    } else if ($_GET['success'] == "edit") {
-            $message = "Anda berhasil mengubah data golongan darah dan usia kehamilan";
-    }
-  } else if (isset($_GET['gagal'])) {
-    $proccessIsSuccess = false;
-    if ($_GET['gagal'] == "1") {
-        $message = "Proses input atau edit data golongan darah dan usia kehamilan gagal dilakukan!!";
-    }
+  $proccessIsSuccess = true;
+  if ($_GET['success'] == "input") {
+    $message = "Anda berhasil menambahkan data golongan darah dan usia kehamilan";
+  } else if ($_GET['success'] == "edit") {
+    $message = "Anda berhasil mengubah data golongan darah dan usia kehamilan";
   }
+} else if (isset($_GET['gagal'])) {
+  $proccessIsSuccess = false;
+  if ($_GET['gagal'] == "1") {
+    $message = "Proses input atau edit data golongan darah dan usia kehamilan gagal dilakukan!!";
+  }
+}
+
+
+$query = "SELECT * FROM `pendonor`";
+$sql = mysqli_query($connect, $query);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -61,7 +66,7 @@ if (isset($_GET['success'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <link rel="stylesheet" href="css/dashboard_donor_darah.css">
+  <link rel="stylesheet" href="./css/dashboard_donor_darah.css">
 </head>
 
 <body>
@@ -98,60 +103,113 @@ if (isset($_GET['success'])) {
     <div class="container">
       <div class="row d-flex align-items-center mt-5">
         <div class="col-4 d-flex justify-content-center align-items-center">
-            <img src="./assets/logo-hatii.png" alt="Logo Hati">
+          <img src="./assets/logo-hatii.png" alt="Logo Hati">
         </div>
         <div class="children-content col-8">
-            <h1>
-                Golongan Darah Anda!
-            </h1>
-            <?php 
-                if($status == "tidak diketahui")
-                {
-            ?>
+          <h1>
+            Golongan Darah Anda!
+          </h1>
+          <?php
+          if ($status == "tidak diketahui") {
+          ?>
             <div style="max-width: 400px; text-align: center;" class="alert alert-primary" role="alert">
               <h6>Anda belum mendaftarkan (periksa) golongan darah anda, daftarkan di bawah</h6>
             </div>
             <button onclick="window.location.href='donor_darah.php'" type="button" class="btn btn-danger">
-                Daftarkan Golongan Darah
+              Daftarkan Golongan Darah
             </button>
-            <?php
-            } 
-            else if($status == "diketahui")
-            {
-            ?>
+          <?php
+          } else if ($status == "diketahui") {
+          ?>
             <div style="max-width: 400px; text-align: center;" class="alert alert-primary" role="alert">
               <h6>Golongan Darah Anda adalah <?php echo strtoupper($goldar); ?></h6>
               <h6>Usia Kandungan Anda <?php echo $usia_kandungan ?> minggu pada <?php echo $tanggal_input ?></h6>
             </div>
             <button onclick="window.location.href='donor_darah.php'" type="button" class="btn btn-danger">
-                Edit Golongan Darah
+              Edit Golongan Darah
             </button>
-            <?php
-            } else if ($status == "menunggu")
-            {
-            ?>
+          <?php
+          } else if ($status == "menunggu") {
+          ?>
             <div style="max-width: 400px; text-align: center;" class="alert alert-primary" role="alert">
-              <h6>Anda sedang menunggu proses pemeriksaan golongan darah.</h6>
+              <h6>Anda sedang dalam proses menunggu pemeriksaan golongan darah.</h6>
             </div>
-            <?php }?>
+          <?php } ?>
         </div>
       </div>
     </div>
     <div class="container">
       <div class="row d-flex align-items-center mt-5">
-        <div class="col-4 d-flex justify-content-center align-items-center">
-            <img src="./assets/logo-donor-darah.png" alt="Logo Donor Darah">
+        <div class="col-4 d-none d-lg-flex justify-content-center align-items-center">
+          <img src="./assets/logo-donor-darah.png" alt="Logo Donor Darah">
         </div>
-        <div class="children-content col-8">
-            <h1>
-                Pendonor Darah Anda!
+        <div class="children-content col-12 col-lg-8">
+          <div class="d-flex align-items-end justify-content-between mb-2">
+            <h1 class="m-0 p-0">
+              Pendonor Darah
             </h1>
-            <p>
-                Pendonor darah anda belum didaftarkan
-            </p>
             <button type="button" onclick="window.location.href='tambah_pendonor.php'" class="btn btn-danger">
-                Daftarkan Pendonor Darah Anda
+              Daftarkan Pendonor Darah
             </button>
+          </div>
+
+
+          <?php
+          if (mysqli_num_rows($sql) > 0) {
+            if ($status == "diketahui") {
+          ?>
+              <div class="row mb-2">
+                <div class="col-6 d-flex align-items-center">
+                  <div style="width : 15px; min-width: 15px; height: 15px; border-radius: 100%; border: solid 1px; background: #CFE2FF" class="border-danger code">
+                  </div>
+                  <h6 class="ms-2 m-0 p-0">Golongan darah yang sesuai dengan anda.</h6>
+                </div>
+                <div class="col-6 d-flex align-items-center">
+                  <div style="width : 15px; min-width: 15px; height: 15px; border-radius: 100%; border: solid 1px; background: #FEFFD9" class="border-danger code">
+                  </div>
+                  <h6 class="ms-2 m-0 p-0">Golongan darah yang tidak sesuai dengan anda.</h6>
+                </div>
+              </div>
+            <?php } ?>
+            <div style="height: min-content; width: 100%; overflow-x: scroll">
+              <table class="table">
+                <thead>
+                  <tr style="background: #FDFFA0;" div>
+                    <th scope="col"></th>
+                    <th scope="col" style="text-align: center; align-content: center">Nama</th>
+                    <th scope="col" style="text-align: center; align-content: center">Nomor HP</th>
+                    <th scope="col" style="text-align: center; align-content: center">Golongan Darah</th>
+                  </tr>
+                </thead>
+                <tbody style="background: #FEFFD9">
+                  <?php
+                  $data_array = [];
+                  while ($data = mysqli_fetch_assoc($sql)) {
+                    $data_array[] = $data;
+                  }
+                  foreach ($data_array as $i => $data) {
+                  ?>
+                    <tr style="background: <?php echo $data['goldar'] == $goldar ? '#CFE2FF' : '#FEFFD9';  ?>">
+                      <th scope="row"><?php echo $i + 1; ?></th>
+                      <td><?php echo strtoupper($data['nama']); ?></td>
+                      <td><?php echo $data['nomorHP']; ?></td>
+                      <td><?php echo strtoupper($data['goldar']); ?></td>
+                    </tr>
+                  <?php } ?>
+                </tbody>
+              </table>
+            </div>
+          <?php
+          } else {
+          ?>
+            <div class='alert alert-primary text-center'>
+              <h6>TIDAK ADA DATA PENDONOR</h6>
+            </div>
+          <?php
+          }
+          ?>
+
+
         </div>
       </div>
     </div>
@@ -162,27 +220,27 @@ if (isset($_GET['success'])) {
 
   <button style="display: none;" id="buttonAlert" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"></button>
 
-<!-- Modal -->
-<?php 
-if (isset($_GET['success']) || isset($_GET['gagal'])) { ?>
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5 text-primary" id="exampleModalLabel"><?php echo $proccessIsSuccess ? "BERHASIL" : "GAGAL" ?></h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-      <div class="alert alert-primary" role="alert">
-        <?php echo $message ?>
-      </div>
+  <!-- Modal -->
+  <?php
+  if (isset($_GET['success']) || isset($_GET['gagal'])) { ?>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5 text-primary" id="exampleModalLabel"><?php echo $proccessIsSuccess ? "BERHASIL" : "GAGAL" ?></h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="alert alert-primary" role="alert">
+              <?php echo $message ?>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-<?php  
-}
-?>
+  <?php
+  }
+  ?>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <script src="./js/dashboardDonorDarah.js"></script>
 </body>
