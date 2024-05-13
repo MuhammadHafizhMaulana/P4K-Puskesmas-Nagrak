@@ -1,47 +1,38 @@
 <?php
 session_start();
-if(isset($_SESSION['status']) || $_SESSION['status'] == 'login'){
-header('Location: home.php');
+if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login') {
+    header('Location: index.php');
+    exit();
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Memeriksa apakah nomor HP telah dikirim
-    if(isset($_POST['nomorHP'])) {
+    if (isset($_POST['nomorHP'])) {
         // Mendapatkan nomor HP dari formulir
         $nomorHP = $_POST['nomorHP'];
-        echo $nomorHP;
+        $nama = $_POST['nama'];
         // Melakukan koneksi ke database
         include 'koneksi.php'; // Sesuaikan dengan lokasi file koneksi.php Anda
 
-        // Membuat kueri SQL untuk memeriksa apakah nomor HP sudah ada di database
-        $query = "SELECT * FROM pendonor WHERE nomorHP = ?"; // Ganti nama_tabel dengan nama tabel Anda
-        $stmt = mysqli_prepare($connect, $query);
-        
-        // Memasukkan nilai parameter nomor HP ke dalam kueri
-        mysqli_stmt_bind_param($stmt, "s", $nomorHP);
-        
-        // Mengeksekusi kueri
-        mysqli_stmt_execute($stmt);
-        
-        // Mengambil hasil kueri
-        mysqli_stmt_store_result($stmt);
-        
-        // Menghitung jumlah baris yang ditemukan
-        $rows = mysqli_stmt_num_rows($stmt);
-        
-        // Menutup statement
-        mysqli_stmt_close($stmt);
-        
-        // Menutup koneksi ke database
-        mysqli_close($connect);
-        
-        // Memberikan respons berdasarkan hasil pengecekan
-        if ($rows > 0) {
-            // Nomor HP ditemukan di database
-            echo 'found';
+        $queryCheck = "SELECT COUNT(*) AS total FROM pendonor WHERE nomorHP = ?";
+        $stmtCheck = mysqli_prepare($connect, $queryCheck);
+        mysqli_stmt_bind_param($stmtCheck, "s", $nomorHP);
+        mysqli_stmt_execute($stmtCheck);
+        mysqli_stmt_bind_result($stmtCheck, $total);
+        mysqli_stmt_fetch($stmtCheck);
+        mysqli_stmt_close($stmtCheck);
+
+        if ($total > 0) {
+            // Jika nomor HP sudah ada, batalkan proses
+            header('Location: ../tambah_pendonor.php?gagal=nomorHP');
+            exit();
         } else {
-            // Nomor HP tidak ditemukan di database
-            echo 'not_found';
+            $_SESSION['new_donor_name'] = $nama;
+            $_SESSION['new_donor_hp'] = $nomorHP;
+
+            // Redirect with success message (optional)
+            header('Location: ../tambah_pendonor.php?success=new_donor');
+            exit();
         }
     } else {
         // Jika nomor HP tidak dikirimkan
@@ -51,4 +42,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Jika permintaan bukan dari metode POST
     echo 'method_not_allowed';
 }
-?>
