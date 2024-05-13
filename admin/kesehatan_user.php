@@ -72,7 +72,7 @@ if(isset($_GET['id'])) {
                     </tr>
                     <tr>
                         <!-- Status -->
-                        <th>Status</th>
+                        <th>Status Goldar</th>
                         <td><?= isset($data['status']) ? $data['status'] : "Data belum diinput" ?></td>
                     </tr>
                     <tr>

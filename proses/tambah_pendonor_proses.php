@@ -1,5 +1,7 @@
 <?php
 session_start();
+
+// Validasi status login
 if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login') {
     header('Location: index.php');
     exit();
@@ -8,47 +10,58 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login') {
 // Sambungan ke koneksi
 include 'koneksi.php';
 
-// Inisialisasi data dari POST
-$nama = strtolower($_POST['nama']);
+// Validasi input dan inisialisasi data dari POST
+$nama = $_POST['nama'];
 $nomorHP = $_POST['nomorHP'];
 $goldar = $_POST['goldar'];
 $id = $_SESSION['id'];
+$status = "menunggu";
+$inputProcess = true;
+
+
 
 // Ambil ID terbaru dari tabel user
-$ambildata = mysqli_query($connect, "SELECT `id` FROM `user` WHERE `id` ='$id'");
-if ($ambildata) {
-    $data_input = mysqli_fetch_assoc($ambildata);
-    $id_input = $data_input['id'];
-} else {
-    // Menampilkan pesan kesalahan jika query SELECT gagal
-    echo "Error: " . mysqli_error($connect);
-    exit(); // Hentikan eksekusi skrip
+$query = "SELECT `id` FROM `user` WHERE `id` = ?";
+$stmt = mysqli_prepare($connect, $query);
+mysqli_stmt_bind_param($stmt, "i", $id);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+
+if ($goldar !== '-') {
+    $status = "diketahui";
 }
 
-// Persiapkan query dengan prepared statement
-$query = "INSERT INTO `pendonor`(`nama`, `nomorHP`, `goldar`, `id_user`) VALUES (?, ?, ?, ?)";
-$stmt = mysqli_prepare($connect, $query);
+// Validasi hasil query
+if ($result && mysqli_num_rows($result) > 0) {
+    $data_input = mysqli_fetch_assoc($result);
+    $id_input = $data_input['id'];
 
-if ($stmt) {
-    // Bind parameter ke placeholder
-    mysqli_stmt_bind_param($stmt, "sssi", $nama, $nomorHP, $goldar, $id_input);
+    // Persiapkan query dengan prepared statement
+    $query = "INSERT INTO `pendonor`(`nama`, `nomorHP`, `goldar`, `status`, `id_user`, `tanggal_input`) VALUES (?, ?, ?, ?, ?, NOW() )";
+    $stmt = mysqli_prepare($connect, $query);
 
-    // Jalankan prepared statement
-    $result = mysqli_stmt_execute($stmt);
+    if ($stmt) {
+        // Bind parameter ke placeholder
+        mysqli_stmt_bind_param($stmt, "ssssi", $nama, $nomorHP, $goldar, $status, $id_input);
 
-    if ($result) {
-        // Redirect jika berhasil
-        header('Location: ../dashboard_donor_darah.php?success=addPendonor');
-        exit();
+        // Jalankan prepared statement
+        $result = mysqli_stmt_execute($stmt);
+
+        // Redirect berdasarkan hasil eksekusi
+        if ($result) {
+            header('Location: ../dashboard_donor_darah.php?success=addPendonor');
+            exit();
+        } else {
+            header('Location: ../dashborad_donor_darah.php?gagal=1');
+            exit();
+        }
     } else {
-        // Tampilkan pesan jika gagal
-        header('Location: ../dashborad_donor_darah.php?gagal=1');
-        exit();
+        echo "Error: " . mysqli_error($connect);
     }
 } else {
-    // Tampilkan pesan jika persiapan statement gagal
-    echo "Error: " . mysqli_error($connect);
+    // Tampilkan pesan jika ID pengguna tidak valid
 }
 
 // Tutup koneksi
 mysqli_close($connect);
+?>

@@ -58,7 +58,7 @@ if(isset($_GET['id'])) {
                     <!-- Golongan Darah Pendonor -->
                     <th>Golongan Darah Pendonor</th>
                     <td><?= isset($data['goldar']) ? $data['goldar'] : "Data belum diinput" ?>
-                        <a href="edit_goldar_pendonor.php?id=<?= $data['id']?>">Edit</a>
+                        <a href="edit_goldar_pendonor.php?id=<?= $data['id']?>&id_user=<?=$_GET['id']?>">Edit</a>
                     </td>
                 </tr>
                 <tr>
