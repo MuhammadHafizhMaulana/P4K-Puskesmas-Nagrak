@@ -2,6 +2,7 @@
 session_start();
 include 'koneksi.php';
 
+
 // Ambil nomor HP dan password dari POST
 $nomorHP = $_POST['nomorHP'];
 $password = $_POST['password'];
@@ -27,8 +28,21 @@ if ($stmt) {
         
         // Periksa apakah nomor HP sesuai dengan data dari hasil query
         if ($_POST['nomorHP'] === $data['nomorHP'] && password_verify($_POST['password'], $data['password'])) {
+            //Set Session
             $_SESSION['id'] = $data['id'];
             $_SESSION['status'] = 'login';
+
+             //Cek Cookie
+             if(isset($_POST['rememberme'])){ 
+
+                //buat cookie
+                setcookie('yudi', $data['id'], time() + (86400 * 30), "/");
+                setcookie('key', hash('sha256', $data['nomorHP']), time() + (86400 * 30), "/");
+
+
+            }
+
+
             // Jika sesuai, redirect ke halaman home
             header('Location: ../home.php');
         } else {

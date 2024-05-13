@@ -1,8 +1,38 @@
 <?php
 session_start();
-if (isset($_SESSION['status']) && $_SESSION['status'] == 'login') { // Periksa apakah 'status' telah di-set dan bernilai 'login'
+include 'proses/koneksi.php';
+
+// Set Cookie
+if(isset($_COOKIE["yudi"]) && isset($_COOKIE["key"])){
+    $yudi = $_COOKIE['yudi'];
+    $key = $_COOKIE['key'];
+
+    // Ambil nomor hp berdasarkan id
+    $query = "SELECT `nomorHP` FROM user WHERE id = ?";
+    $stmt = mysqli_prepare($connect, $query);
+    mysqli_stmt_bind_param($stmt, "i", $yudi);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+
+    // Periksa apakah data ditemukan
+    if(mysqli_num_rows($result) > 0) {
+        // Ambil data pengguna
+        $row = mysqli_fetch_assoc($result);
+
+        // cek cookie dan nomor HP
+        if($key === hash('sha256', $row['nomorHP'])) {
+            $_SESSION['status'] = 'login';
+            $_SESSION['id'] = $yudi;
+            header('Location: home.php');
+            exit();
+        }
+    }
+}
+
+// Pengecekan session
+if (isset($_SESSION['status']) && $_SESSION['status'] == 'login') {
     header('Location: home.php');
-    exit(); // Penting untuk diikuti dengan exit() setelah header redirect
+    exit(); 
 }
 ?>
 <!DOCTYPE html>
@@ -52,8 +82,12 @@ if (isset($_SESSION['status']) && $_SESSION['status'] == 'login') { // Periksa a
             <div class="form-group">
                 <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan password" required>
             </div>
+            <br>
 
-            <br />
+                <input type="checkbox" id="rememberme" name="rememberme">
+                <label for="rememberme">Ingat saya?</label>
+
+            <br /><br>
 
             <button onclick="openSpinner()" type="submit" class="btn btn-secondary">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">

@@ -75,11 +75,17 @@ if(isset($_GET['id'])) {
                         <th>Status</th>
                         <td><?= isset($data['status']) ? $data['status'] : "Data belum diinput" ?></td>
                     </tr>
-                    </tr>
                     <tr>
                         <!-- Tanggal update -->
                         <th>Terakhir Update</th>
                         <td><?= isset($data['tanggal_input']) ? $data['tanggal_input'] : "Data belum diinput" ?></td>
+
+                    </tr>
+                    <tr>
+                        <!-- Tanggal update -->
+                        <th>
+                            <a href="pendonor_user.php?id=<?= $_GET['id'] ?>">Lihat Pendonor</a>
+                        </th>
 
                     </tr>
                     <tr>
