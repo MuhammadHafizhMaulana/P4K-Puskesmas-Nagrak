@@ -23,6 +23,7 @@ if(isset($_COOKIE["yadi"]) && isset($_COOKIE["keyli"])){
         // cek cookie dan username
         if($key === hash('sha256', $row['username'])) {
             // Set Session
+            $_SESSION['id'] = $yadi;
             $_SESSION['status'] = 'login_admin';
             
             // Redirect ke halaman home

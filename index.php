@@ -22,6 +22,7 @@ if(isset($_COOKIE["yudi"]) && isset($_COOKIE["key"])){
         // cek cookie dan nomor HP
         if($key === hash('sha256', $row['nomorHP'])) {
             $_SESSION['status'] = 'login';
+            $_SESSION['id'] = $yudi;
             header('Location: home.php');
             exit();
         }
