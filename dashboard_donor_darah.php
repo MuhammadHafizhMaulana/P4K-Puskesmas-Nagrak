@@ -55,7 +55,7 @@ if (isset($_GET['success'])) {
 }
 
 
-$query = "SELECT * FROM `pendonor`";
+$query = "SELECT * FROM `pendonor` WHERE `id_user` = $id";
 $sql = mysqli_query($connect, $query);
 ?>
 <!DOCTYPE html>

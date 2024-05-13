@@ -1,9 +1,42 @@
 <?php
 session_start();
+
+include '../proses/koneksi.php';
+
+// Set Cookie
+if(isset($_COOKIE["yadi"]) && isset($_COOKIE["keyli"])){
+    $yadi = $_COOKIE['yadi'];
+    $key = $_COOKIE['keyli'];
+
+    // Ambil username berdasarkan id
+    $query = "SELECT `username` FROM admin WHERE id = ?";
+    $stmt = mysqli_prepare($connect, $query);
+    mysqli_stmt_bind_param($stmt, "i", $yadi);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    
+    // Periksa apakah data ditemukan
+    if(mysqli_num_rows($result) > 0) {
+        // Ambil data pengguna
+        $row = mysqli_fetch_assoc($result);
+
+        // cek cookie dan username
+        if($key === hash('sha256', $row['username'])) {
+            // Set Session
+            $_SESSION['status'] = 'login_admin';
+            
+            // Redirect ke halaman home
+            header('Location: landing.php');
+            exit();
+        }
+    }
+}
+
 if (isset($_SESSION['status']) && $_SESSION['status'] == 'login_admin') { // Periksa apakah 'status' telah di-set dan bernilai 'login'
     header('Location: landing.php');
-    exit(); // Penting untuk diikuti dengan exit() setelah header redirect
+    exit(); 
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
