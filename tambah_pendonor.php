@@ -1,9 +1,20 @@
-<?php 
+<?php
 
-    session_start();
-    if(!isset($_SESSION['status']) || $_SESSION['status'] !== 'login'){
+session_start();
+if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login') {
     header('Location: index.php');
+    exit();
 }
+include './proses/koneksi.php';
+
+$id = $_SESSION['id'];
+$query = "SELECT `nama`, `nomorHP` FROM `user` WHERE `id` = ?";
+$stmt = mysqli_prepare($connect, $query);
+mysqli_stmt_bind_param($stmt, "i", $id);
+mysqli_stmt_execute($stmt);
+mysqli_stmt_bind_result($stmt, $nama, $nomorHP);
+mysqli_stmt_fetch($stmt);
+mysqli_stmt_close($stmt);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,120 +23,103 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tambah Pendonor</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="./css/loginDaftar.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/tambahPendonor.css">
 </head>
 
 <body>
-    <div id="formRegistrasi">
-        <h1 style="
-            font-weight: bold;
-            font-size: xxx-large;
-        ">
-            Tambah Pendonor
+
+    <nav class="my-navbar navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="home.php">
+                <img src="./assets/logo-kemenkes.png" alt="Logo Kemenkes">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
+                    </svg></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav ms-auto">
+                    <a class="nav-link active" aria-current="page" href="home.php">Home</a>
+                    <a class="nav-link" href="dashboard_donor_darah.php">Donor Darah</a>
+                    <a class="nav-link" href="donor_darah.php">DonorDarahTambah</a>
+                    <a class="nav-link" href="profile.php">Profile</a>
+                    <a class="nav-link" href="proses/logout.php">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div id="formTambahPendonor">
+        <h1 style="font-weight: bold; font-size: xxx-large">
+            Form Pendonor Darah
         </h1>
-        <br>
+        <br />
         <p>
-            Untuk menambah pendonor, isi form berikut:
+            Daftarkan pendonor darah
         </p>
         <form action="proses/tambah_pendonor_proses.php" method="post">
             <div class="form-group">
-                <input type="text" class="form-control registrasi-form" id="nama" name="nama"
-                    placeholder="Masukkan nama lengkap pendonor" required>
+                <label for="nama">Nama Pendonor</label>
+                <input oninput="checkButtonSubmitForm()" type="text" class="form-control" id="nama" name="nama" placeholder="Masukan nama lengkap pendonor" required>
             </div>
-
             <div class="form-group">
-                <input type="text" class="form-control registrasi-form" id="nomer" name="nomorHP"
-                    placeholder="Masukkan nomor HP pendonor" required>
+                <label for="nomorHP">Nomor HP Pendonor</label>
+                <input type="text" class="form-control" id="nomorHP" name="nomorHP" placeholder="Masukan nomor HP pendonor" required>
             </div>
-
             <div class="form-group">
-                <div class="mb-3">
-                    <label for="nama" class="form-label">Masukkan Golongan Darah pendonor</label><br>
-                    <input type="radio" id="golongan_a+" name="goldar" value="a+">
-                    <label for="golongan_a">Golongan A+</label><br>
-
-                    <input type="radio" id="golongan_b+" name="goldar" value="b+">
-                    <label for="golongan_b">Golongan B+</label><br>
-
-                    <input type="radio" id="golongan_ab+" name="goldar" value="ab+">
-                    <label for="golongan_ab">Golongan AB+</label><br>
-
-                    <input type="radio" id="golongan_o+" name="goldar" value="o+">
-                    <label for="golongan_o">Golongan O+</label><br>
-
-                    <input type="radio" id="golongan_a-" name="goldar" value="a-">
-                    <label for="golongan_a">Golongan A-</label><br>
-
-                    <input type="radio" id="golongan_b-" name="goldar" value="b-">
-                    <label for="golongan_b">Golongan B-</label><br>
-
-                    <input type="radio" id="golongan_ab-" name="goldar" value="ab-">
-                    <label for="golongan_ab">Golongan AB-</label><br>
-
-                    <input type="radio" id="golongan_o-" name="goldar" value="o-">
-                    <label for="golongan_o">Golongan O-</label><br>
-
-                    <button type="submit" class="btn btn-primary">INPUT</button>
-
-
-                    <div class="form-group">
+                <label for="goldar">Golongan Darah Pendonor</label>
+                <select id="goldar" name="goldar" class="form-select" aria-label="Default select example" required>
+                    <option value="-">Belum Mengetahui</option>
+                    <option value="a+">A+</option>
+                    <option value="o+">O+</option>
+                    <option value="b+">B+</option>
+                    <option value="ab+">AB+</option>
+                    <option value="a-">A-</option>
+                    <option value="o-">O-</option>
+                    <option value="b-">B-</option>
+                    <option value="ab-">AB-</option>
+                </select>
+            </div>
+            <br />
+            <button id="submitPendonor" onclick="openSpinner()" type="submit" class="btn btn-danger">INPUT</button>
+            <!-- Modal -->
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Form Pengajuan Pengecekan Golongan Darah Pendonor</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="alert alert-warning" role="alert">
+                                Setelah tombol "Input" ditekan, anda akan diarahkan ke whatsapp untuk mengirim pesan permintaan pengecekan golongan darah ini kepada dokter.
+                            </div>
+                            <div class="d-none">
+                                <input id="namaUser" value="<?php echo strtoupper($nama) ?>" type="text" disabled>
+                                <input id="nomorHPUser" value="<?php echo strtoupper($nomorHP) ?>" type="text" disabled>
+                            </div>
+                            <div style="width: 100%;" class="form-group">
+                                <label for="waktu_pengecekan_goldar">Tentukan tanggal pengecekan golongan darah pendonor</label>
+                                <input style="width: 100%;" type="date" class="form-control" id="waktu_pengecekan_goldar" name="waktu_pengecekan_goldar">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                            <button id="submitJadwal" disabled onclick="openSpinner()" type="submit" data-bs-dismiss="modal" class="btn btn-primary">Input</button>
+                        </div>
                     </div>
-
-                    <br>
+                </div>
+            </div>
         </form>
-        <?php 
-        include 'proses/koneksi.php';
-        $id = $_SESSION['id'];
-        $query = "SELECT * FROM `pendonor` WHERE `id_user` = '$id'";
-        $sql = mysqli_query($connect, $query);
 
-        // Periksa apakah ada baris data yang ditemukan
-        if(mysqli_num_rows($sql) > 0) {
-            // Tampilkan judul
-            echo "<h1>Data Pendonor</h1>";
-            
-            // Mulai iterasi melalui setiap baris data
-            while($data = mysqli_fetch_assoc($sql)) {
-        ?>
-                <tbody>
-                    <tr>
-                        <th>Nama</th>
-                        <td>:</td>
-                        <td><?=$data['nama']?></td><br>
-                    </tr>
-                    <tr>
-                        <th>Nomor HP</th>
-                        <td>:</td>
-                        <td><?=$data['nomorHP']?></td><br>
-                    </tr>
-                    <tr>
-                        <th>Golongan Darah</th>
-                        <td>:</td>
-                        <td><?=$data['goldar']?></td><br>
-                    </tr>
-                    <tr>
-                        <th> <a href="edit_profile.php" class="button button-dark me-2">Edit</a></th><br><br>
-                    </tr> 
-                </tbody>
-        <?php 
-    } // Tutup while loop
-} else {
-    // Tampilkan pesan jika data tidak ditemukan
-    echo "<div class='alert alert-danger'> Data belum diinputkan.</div>";
-}  
-?>
-
-        <h1><a href="home.php">Kembali ke Home</a></h1>
     </div>
 
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>
-    <script src="./js/loginDaftar.js"></script>
+    <script src="js/tambahPendonor.js"></script>
 </body>
 
 </html>

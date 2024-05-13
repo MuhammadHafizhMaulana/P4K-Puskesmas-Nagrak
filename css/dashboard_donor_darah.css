@@ -85,6 +85,11 @@
     border: solid 2px #fdffa0;
 }
 
+.content .box-table-body {
+    max-height: 400px;
+    overflow-y: scroll;
+}
+
 
 @media screen and (max-width: 991px) {
     .banner {
