@@ -122,11 +122,9 @@ if ($usia_kandungan) {
                             <div class="alert alert-warning" role="alert">
                                 Setelah tombol "Input" ditekan, anda akan diarahkan ke whatsapp untuk mengirim pesan permintaan pengecekan golongan darah ini kepada dokter.
                             </div>
-                            <div style="display: none;">
-                                <input id="nama" value="<?php echo strtoupper($nama); ?>" type="text" disabled>
-                                <input id="nomorHP" value="<?php echo $nomorHP; ?>" type="text" disabled>
-                                <input id="alamat" value="<?php echo strtoupper($alamat); ?>" type="text" disabled>
-                            </div>
+                            <input id="nama" value="<?php echo strtoupper($nama); ?>" type="hidden" disabled>
+                            <input id="nomorHP" value="<?php echo $nomorHP; ?>" type="hidden" disabled>
+                            <input id="alamat" value="<?php echo strtoupper($alamat); ?>" type="hidden" disabled>
                             <div style="width: 100%;" class="form-group">
                                 <label for="waktu_pengecekan_goldar">Tentukan tanggal pengecekan golongan darah</label>
                                 <input style="width: 100%;" type="date" class="form-control" id="waktu_pengecekan_goldar" name="waktu_pengecekan_goldar">
@@ -144,7 +142,7 @@ if ($usia_kandungan) {
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>
-    <script src="./js/donorDarah.js"></script>
+    <script src="./js/donor_Darah.js"></script>
 </body>
 
 </html>
