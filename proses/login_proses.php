@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 include 'koneksi.php';
 
@@ -22,24 +22,22 @@ if ($stmt) {
     $result = mysqli_stmt_get_result($stmt);
 
     // Periksa apakah ada baris hasil
-    if(mysqli_num_rows($result) > 0){
+    if (mysqli_num_rows($result) > 0) {
         // Ambil data pengguna dari hasil query
         $data = mysqli_fetch_assoc($result);
-        
+
         // Periksa apakah nomor HP sesuai dengan data dari hasil query
         if ($_POST['nomorHP'] === $data['nomorHP'] && password_verify($_POST['password'], $data['password'])) {
             //Set Session
             $_SESSION['id'] = $data['id'];
             $_SESSION['status'] = 'login';
 
-             //Cek Cookie
-             if(isset($_POST['rememberme'])){ 
+            //Cek Cookie
+            if (isset($_POST['rememberme'])) {
 
                 //buat cookie
                 setcookie('yudi', $data['id'], time() + (86400 * 30), "/");
                 setcookie('key', hash('sha256', $data['nomorHP']), time() + (86400 * 30), "/");
-
-
             }
 
 
@@ -63,4 +61,3 @@ if ($stmt) {
 
 // Tutup koneksi
 mysqli_close($connect);
-?>

@@ -193,11 +193,11 @@ $sql = mysqli_query($connect, $query);
                   }
                   foreach ($data_array as $i => $data) {
                   ?>
-                    <tr style="background: <?php echo $data['goldar'] == $goldar ? '#CFE2FF' : '#FEFFD9';  ?>">
+                    <tr style="background: <?php echo $data['goldar'] == $goldar && $data['goldar'] != '-' ? '#CFE2FF' : '#FEFFD9';  ?>">
                       <th class="col-1" scope="row"><?php echo $i + 1; ?></th>
                       <td class="col-4"><?php echo strtoupper($data['nama']); ?></td>
                       <td class="col-4"><?php echo $data['nomorHP']; ?></td>
-                      <td class="col-3"><?php echo strtoupper($data['goldar']); ?></td>
+                      <td class="col-3"><?php echo $data['goldar'] == '-' ? "proses pengecekan" : strtoupper($data['goldar']); ?></td>
                     </tr>
                   <?php } ?>
                 </tbody>

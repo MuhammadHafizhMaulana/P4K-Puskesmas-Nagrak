@@ -12,7 +12,7 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login') {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/dashboardCustomer.css">
 </head>
 
 <body>
@@ -49,7 +49,7 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login') {
     <div class="container">
       <div class="row d-flex align-items-center">
         <div class="col-12 col-lg-6 d-flex justify-content-center">
-          <img src="./assets/logo-kemenkes.png" alt="Logo Kemenkes">
+          <img src="./assets/logo2-kemenkes.png" alt="Logo Kemenkes">
         </div>
         <div class="col-12 col-lg-6">
           <h1>Apa itu P4K?</h1>

@@ -5,10 +5,10 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login') {
     exit(); // Keluar dari skrip setelah redirect
 }
 
-include 'koneksi.php';
-
 // Memeriksa apakah ada data yang dikirim melalui metode POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    include 'koneksi.php';
     // Menyiapkan statement UPDATE dengan prepared statement
     $query = "UPDATE `kesehatan_user` SET `goldar`=?, `usia_kandungan`=?, `tanggal_input=NOW()` WHERE id_user=?";
     $stmt = mysqli_prepare($connect, $query);
@@ -37,4 +37,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Jika data tidak dikirim melalui metode POST, redirect ke halaman lain atau tampilkan pesan kesalahan
     echo "Data tidak ditemukan.";
 }
-?>
