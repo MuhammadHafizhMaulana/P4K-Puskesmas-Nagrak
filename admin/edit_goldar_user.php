@@ -63,7 +63,6 @@ if(isset($_GET['id'])) {
 
                 <?php } ?>
             </tr>
-            <>
                 <!-- Goldar -->
 
                 <th>Golongan Darah</th>
@@ -112,7 +111,7 @@ if(isset($_GET['id'])) {
 
                 </tr>
                 <tr>
-                    <th> <a href="data_user.php" class="button button-dark me-2">kembali</a></th>
+                    <th> <a href="kesehatan_user.php?id=<?= $id ?>" class="button button-dark me-2">kembali</a></th>
                 </tr>
         </tbody>
     </table>

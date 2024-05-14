@@ -49,7 +49,7 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login_admin') {
     <div class="container">
       <div class="row d-flex align-items-center">
         <div class="col-12 col-lg-6 d-flex justify-content-center">
-          <img src="./assets/logo-kemenkes.png" alt="Logo Kemenkes">
+          <img src="../assets/logo-kemenkes.png" alt="Logo Kemenkes">
         </div>
         <div class="col-12 col-lg-6">
           <h1>Apa itu P4K?</h1>
