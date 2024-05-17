@@ -1,3 +1,9 @@
+#spinner{
+    height: 325px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
 .my-navbar {
     position: fixed;
     top: 0;

@@ -57,7 +57,7 @@ if (isset($_GET['success'])) {
 }
 
 
-$query = "SELECT * FROM `pendonor` WHERE `id_user` = $id";
+$query = "SELECT * FROM `pendonor`";
 $sql = mysqli_query($connect, $query);
 ?>
 <!DOCTYPE html>
@@ -177,9 +177,9 @@ $sql = mysqli_query($connect, $query);
               <thead>
                 <tr style="background: #FDFFA0;" div>
                   <th class="col-1" scope="col"></th>
-                  <th class="col-4" scope="col">Nama</th>
-                  <th class="col-4" scope="col">Nomor HP</th>
-                  <th class="col-3" scope="col">Goldar</th>
+                  <th class="col-6 text-center" scope="col">Nama</th>
+                  <!-- <th class="col-4" scope="col">Nomor HP</th> -->
+                  <th class="col-5 text-center" scope="col">Goldar</th>
                 </tr>
               </thead>
             </table>
@@ -195,9 +195,9 @@ $sql = mysqli_query($connect, $query);
                   ?>
                     <tr style="background: <?php echo $data['goldar'] == $goldar && $data['goldar'] != '-' ? '#CFE2FF' : '#FEFFD9';  ?>">
                       <th class="col-1" scope="row"><?php echo $i + 1; ?></th>
-                      <td class="col-4"><?php echo strtoupper($data['nama']); ?></td>
-                      <td class="col-4"><?php echo $data['nomorHP']; ?></td>
-                      <td class="col-3"><?php echo $data['goldar'] == '-' ? "proses pengecekan" : strtoupper($data['goldar']); ?></td>
+                      <td class="col-6"><?php echo strtoupper($data['nama']); ?></td>
+                      <!-- <td class="col-4"><?php echo $data['nomorHP']; ?></td> -->
+                      <td class="col-5 text-center"><?php echo $data['goldar'] == '-' ? "proses pengecekan" : strtoupper($data['goldar']); ?></td>
                     </tr>
                   <?php } ?>
                 </tbody>
