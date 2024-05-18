@@ -50,22 +50,24 @@ $result = mysqli_query($connect, $query);
       </h1>
       <br>
       <form id="searchForm" class="container d-flex w-full">
-            <div class="input-group mb-3">
-                <select id="searchType" name="searchType" class="form-select bg-primary text-white icon-white"
-                        style="max-width: 125px;" aria-label="Default select example">
-                    <option value="nama">Nama</option>
-                    <option value="nomorHP">Nomor HP</option>
-                </select>
-                <input id="searchValue" name="searchValue" placeholder="Masukan nama user" type="text"
-                       class="form-control" aria-label="Text input with dropdown button">
-            </div>
-            <button style="height: 37.33px;" type="submit" class="ms-2 btn btn-primary">Cari</button>
-        </form>
-      <div style="overflow-x:scroll">
+        <div class="input-group mb-3">
+          <select id="searchType" name="searchType" class="form-select bg-primary text-white icon-white" style="max-width: 125px;" aria-label="Default select example">
+            <option value="nama">Nama</option>
+            <option value="nomorHP">Nomor HP</option>
+          </select>
+          <input id="searchValue" name="searchValue" placeholder="Masukan nama user" type="text" class="form-control" aria-label="Text input with dropdown button">
+        </div>
+      </form>
+      <div id="spinner" class="container d-flex justify-content-center align-items-center">
+        <div class="spinner-border text-white" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+      <div class="boxTable">
         <table style="min-width: 950px; " class="table m-0">
           <thead>
             <tr style="background: #FDFFA0;" div>
-              <th class="col-1 text-center" scope="col"></th>
+              <th class="col-1 text-center" scope="col">No</th>
               <th class="col-2 text-center" scope="col">Nama</th>
               <th class="col-1 text-center" scope="col">Usia</th>
               <th class="col-2 text-center" scope="col">Nomor HP</th>
@@ -82,36 +84,34 @@ $result = mysqli_query($connect, $query);
           </table>
         </div>
       </div>
-  </div>
-  <!-- Modal Konfirmasi Hapus -->
-  <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="confirmDeleteModalLabel">Konfirmasi Penghapusan</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          Apakah Anda yakin ingin menghapus pengguna ini?
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-          <button type="button" class="btn btn-danger" onclick="confirmDelete()">Hapus</button>
+    </div>
+    <!-- Modal Konfirmasi Hapus -->
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="confirmDeleteModalLabel">Konfirmasi Penghapusan</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Apakah Anda yakin ingin menghapus pengguna ini?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+            <button type="button" class="btn btn-danger" onclick="confirmDelete()">Hapus</button>
+          </div>
         </div>
       </div>
     </div>
+    <tr>
+      <h4><a href="landing.php">kembali</a></h4>
+    </tr>
   </div>
-  <tr>
-    <h4><a href="landing.php">kembali</a></h4>
-  </tr>
-  </div><script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5/0KvBfySwF7mio5Y5eUll8Eka1pF7V1F5TkPHTb" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5/0KvBfySwF7mio5Y5eUll8Eka1pF7V1F5TkPHTb" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-Tny1Hvt0VS4eN0C4zPWFlpJqsmwy28HGw2DqynzwiG2R8WpNSpNq5D7r1wFfKxQ1" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  </body>
-  <script src="../js/admin_Data_User.js
-  "></script>
-
-
+</body>
+<script src="../js/adminDataUser.js"></script>
 </body>
 
 </html>

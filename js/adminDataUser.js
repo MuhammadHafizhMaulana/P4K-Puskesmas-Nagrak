@@ -2,6 +2,7 @@ let userIdToDelete = null;
 var searchType = document.getElementById('searchType');
 var searchValue = document.getElementById('searchValue');
 var debounceTimeout;
+var spinner = document.getElementById('spinner')
 
 
 function showModal(userId) {
@@ -36,12 +37,8 @@ function getUserData() {
     const searchType = document.getElementById('searchType').value;
     const searchValue = document.getElementById('searchValue').value;
     const userTable = document.getElementById('userTable');
-    
-    userTable.innerHTML= `<div id="spinner" class="d-flex justify-content-center align-items-center">
-    <div class="spinner-border text-white" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>
-  </div>`
+
+    spinner.setAttribute('style', 'z-index: 2')
 
     fetch('proses/searchUser.php', {
         method: 'POST',
@@ -56,7 +53,7 @@ function getUserData() {
       .then(response => response.json())
       .then(data => {
         userTable.innerHTML = ''; // Kosongkan tabel
-
+        spinner.setAttribute('style', 'z-index: 0;')
         if (data.length > 0) {
           data.forEach((user, index) => {
             const row = document.createElement('tr');
