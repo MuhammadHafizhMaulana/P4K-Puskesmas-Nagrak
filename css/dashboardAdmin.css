@@ -1,15 +1,22 @@
+#spinner {
+    position: relative;
+    height: 365.67px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
 .my-navbar {
     position: fixed;
     top: 0;
     background-color: #FDFFA0;
     padding: 10px 10vw;
     width: 100vw;
-    z-index: 2;
+    z-index: 3;
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
     color: black;
 }
 
-.my-navbar a{
+.my-navbar a {
     color: black;
     font-weight: 600;
 }
@@ -29,8 +36,16 @@
     margin-top: 105px;
     padding: 30px 0px;
     z-index: 0;
-    background: linear-gradient(#fdffa0, white); /* Gradasi dari #fdffa0 (atas) ke putih (bawah) */
+    background: linear-gradient(#fdffa0, white);
+    /* Gradasi dari #fdffa0 (atas) ke putih (bawah) */
     box-shadow: 0 -8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.content .boxTable {
+    position: relative;
+    z-index: 1;
+    margin-top: -365.67px;
+    overflow-x: scroll;
 }
 
 .contont table th {
@@ -47,19 +62,22 @@
     justify-content: center;
 }
 
+::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+}
+
 
 @media screen and (max-width: 991px) {
     .banner {
         justify-content: center;
     }
-    
+
     .banner div {
         text-align: center;
     }
-    
+
     .banner h1 {
         font-size: 70px;
     }
-  }
-
-
+}
