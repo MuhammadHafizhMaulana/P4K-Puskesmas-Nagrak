@@ -58,10 +58,10 @@ function getUserData() {
           data.forEach((user, index) => {
             const row = document.createElement('tr');
             row.innerHTML = `<th class="col-1 text-center" scope="row">${index+1}</th>
-                  <td class="col-2">${user.nama.toUpperCase()}</td>
+                  <td class="col-2">${user.nama}</td>
                   <td class="col-1 text-center">${user.usia} TAHUN</td>
                   <td class="col-2 text-center">${user.nomorHP}</td>
-                  <td class="col-2">${user.alamat.toUpperCase()}</td>
+                  <td class="col-2">${user.alamat}</td>
                   <td class="col-2 justify-content-center">
                     <div class="mx-auto" style="width: min-content;">
                       <a href="kesehatan_user.php?id=${user.id}" style="width: 27px">
@@ -111,4 +111,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 document.getElementById('searchValue').addEventListener('input', function () {
   getUserData();
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+  document.getElementById('buttonAlert').click();
 });

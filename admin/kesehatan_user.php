@@ -41,7 +41,17 @@ if (isset($_GET['id'])) {
 
         $data['tanggal_input'] = formatTanggal($data['tanggal_input']);
 
-        // Tampilkan data pengguna dalam formulir untuk diedit
+        if (isset($_GET['success'])) {
+            $proccessIsSuccess = true;
+            if ($_GET['success'] == "update_successful") {
+                $message = "Anda berhasil mengedit golongan darah.";
+            }
+        } else if (isset($_GET['gagal'])) {
+            $proccessIsSuccess = false;
+            if ($_GET['error'] == "update_failed") {
+                $message = "Edit golongan darah gagal dilakukan.";
+            }
+        }
 ?>
         <!DOCTYPE html>
         <html lang="en">
@@ -79,8 +89,8 @@ if (isset($_GET['id'])) {
             </nav>
             <div id="boxKesehatanUser">
                 <h1 style="
-        font-weight: bold;
-        ">
+                font-weight: bold;
+                ">
                     Data Kesehatan User
                 </h1>
                 <br>
@@ -103,7 +113,7 @@ if (isset($_GET['id'])) {
                         <div class="col-6">
                             <form class="text-start d-flex align-items-center p-0">
                                 <div class="form-group m-0">
-                                    <select id="goldar" name="goldar" class="form-select" disabled required>
+                                    <select id="goldarGet" name="goldarGet" class="form-select" disabled required>
                                         <option value="-" <?php if ($data['goldar'] === '-') echo 'selected'; ?>>-</option>
                                         <option value="a+" <?php if ($data['goldar'] === 'a+') echo 'selected'; ?>>A+</option>
                                         <option value="o+" <?php if ($data['goldar'] === 'o+') echo 'selected'; ?>>O+</option>
@@ -146,24 +156,47 @@ if (isset($_GET['id'])) {
                 <!-- Modal Konfirmasi Hapus -->
                 <div class="modal fade" id="confirmUpdateModal" tabindex="-1" aria-labelledby="confirmUpdateModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
-                        <form class="modal-content">
+                        <form class="modal-content" method="post" action="proses/edit_goldar_user_proses.php">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="confirmUpdateModalLabel">Konfirmasi</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <input type="hidden" value="">
+                                <input type="hidden" value="<?php echo $id ?>" name="id" id="id">
+                                <input type="hidden" name="goldar" id="goldar">
                                 Apakah Anda yakin ingin mengedit golongan darah?
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                <button type="button" class="btn btn-warning" onclick="confirmUpdate(<?= $id ?>)">Iya</button>
+                                <button type="submit" class="btn btn-warning">Iya</button>
                             </div>
                         </form>
                     </div>
                 </div>
+                <button style="display: none;" id="buttonAlert" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"></button>
 
-                <script src="../js/adminKesehatanUser.js"></script>
+                <?php
+                if (isset($_GET['success']) || isset($_GET['error'])) { ?>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5 text-primary" id="exampleModalLabel"><?php echo $proccessIsSuccess ? "BERHASIL" : "GAGAL" ?></h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="alert alert-primary text-center" role="alert">
+                                        <?php echo $message ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php
+                }
+                ?>
+
+                <script src="../js/admin_Kesehatan_User.js"></script>
 
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         </body>

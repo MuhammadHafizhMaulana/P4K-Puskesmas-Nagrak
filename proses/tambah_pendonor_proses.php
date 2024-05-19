@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     include 'koneksi.php';
 
     // Validasi input dan inisialisasi data dari POST
-    $nama = strtolower($_POST['nama']);
+    $nama = ucwords($_POST['nama']);
     $nomorHP = $_POST['nomorHP'];
     $goldar = $_POST['goldar'];
     $id = $_SESSION['id'];

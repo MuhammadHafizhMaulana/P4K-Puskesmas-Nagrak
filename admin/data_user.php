@@ -3,6 +3,13 @@ session_start();
 if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login_admin') {
   header('Location: login_admin.php');
 }
+
+if (isset($_GET['status'])) {
+  $proccessIsSuccess = true;
+  if ($_GET['status'] == "deleted") {
+      $message = "Anda berhasil menghapus user.";
+  }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -99,11 +106,33 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login_admin') {
       </div>
     </div>
   </div>
+  <button style="display: none;" id="buttonAlert" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"></button>
+
+  <?php
+  if (isset($_GET['status'])) { ?>
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h1 class="modal-title fs-5 text-primary" id="exampleModalLabel"><?php echo $proccessIsSuccess ? "BERHASIL" : "GAGAL" ?></h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                      <div class="alert alert-primary text-center" role="alert">
+                          <?php echo $message ?>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  <?php
+  }
+  ?>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5/0KvBfySwF7mio5Y5eUll8Eka1pF7V1F5TkPHTb" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-Tny1Hvt0VS4eN0C4zPWFlpJqsmwy28HGw2DqynzwiG2R8WpNSpNq5D7r1wFfKxQ1" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
-<script src="../js/adminDataUser.js"></script>
+<script src="../js/admin_Data_User.js"></script>
 </body>
 
 </html>

@@ -10,10 +10,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     include 'koneksi.php';
     
     // Inisialisasi data dari POST
-    $nama = strtolower($_POST['nama']);
+    $nama = ucwords($_POST['nama']);
     $usia = $_POST['usia'];
     $nomorHP = $_POST['nomorHP'];
-    $alamat = strtolower($_POST['alamat']);
+    $alamat = ucwords($_POST['alamat']);
     $passwordDefault = $_POST['password'];
     
     // Ambil data nomorHP dari database
