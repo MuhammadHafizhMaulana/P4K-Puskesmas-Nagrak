@@ -37,18 +37,14 @@ if ($stmt) {
     // Tutup statement
     mysqli_stmt_close($stmt);
 
-    if ($result && $rowsAffected > 0) {
+    if ($result) {
         // Redirect jika berhasil
-        header("Location: ../data_user.php?success=update_successful");
-        exit();
-    } else {
-        // Redirect jika gagal atau tidak ada baris yang terpengaruh
-        header("Location: ../data_user.php?error=update_failed");
+        header("Location: ../kesehatan_user.php?id={$id}&success=update_successful");
         exit();
     }
 } else {
     // Tampilkan pesan jika persiapan statement gagal
-    header("Location: ../data_user.php?error=prepare_statement_failed");
+    header("Location: ../kesehatan_user.php?id={$id}&error=update_failed");
     exit();
 }
 

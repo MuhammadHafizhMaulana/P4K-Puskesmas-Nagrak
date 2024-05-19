@@ -122,9 +122,9 @@ if ($usia_kandungan) {
                             <div class="alert alert-warning" role="alert">
                                 Setelah tombol "Input" ditekan, anda akan diarahkan ke whatsapp untuk mengirim pesan permintaan pengecekan golongan darah ini kepada dokter.
                             </div>
-                            <input id="nama" value="<?php echo strtoupper($nama); ?>" type="hidden" disabled>
+                            <input id="nama" value="<?php echo $nama; ?>" type="hidden" disabled>
                             <input id="nomorHP" value="<?php echo $nomorHP; ?>" type="hidden" disabled>
-                            <input id="alamat" value="<?php echo strtoupper($alamat); ?>" type="hidden" disabled>
+                            <input id="alamat" value="<?php echo $alamat; ?>" type="hidden" disabled>
                             <div style="width: 100%;" class="form-group">
                                 <label for="waktu_pengecekan_goldar">Tentukan tanggal pengecekan golongan darah</label>
                                 <input style="width: 100%;" type="date" class="form-control" id="waktu_pengecekan_goldar" name="waktu_pengecekan_goldar">
