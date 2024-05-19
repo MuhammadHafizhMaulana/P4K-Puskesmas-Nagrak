@@ -10,7 +10,7 @@ $id = $_SESSION['id'];
 $status = [];
 
 // Cek apakah nomor HP sudah ada di database
-$queryCheck = "SELECT COUNT(*) AS total FROM kesehatan_user WHERE id_user = $id";
+$queryCheck = "SELECT goldar FROM kesehatan_user WHERE id_user = $id";
 $stmtCheck = mysqli_prepare($connect, $queryCheck);
 mysqli_stmt_execute($stmtCheck);
 mysqli_stmt_bind_result($stmtCheck, $total);
@@ -26,7 +26,7 @@ function formatTanggal($tanggal_input)
   return $tanggal_format;
 }
 
-if ($total == 0) {
+if ($goldar == null) {
   $status = "tidak diketahui";
 } else {
   $queryStatus = "SELECT status, goldar, tanggal_input, usia_kandungan FROM kesehatan_user WHERE id_user = ?";

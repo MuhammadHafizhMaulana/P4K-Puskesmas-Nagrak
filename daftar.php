@@ -62,6 +62,21 @@ if (isset($_SESSION['status']) && $_SESSION['status'] == 'login') { // Periksa a
                 <div id="passwordAlert" class="form-text text-danger"></div>
             </div>
 
+            <div class="form-group">
+                <label for=""> Masukkan HPHT</label>
+                <input type="date" oninput="formValid()" class="form-control registrasi-form" name="hpht" id="hpht" placeholder="HPHT" required>
+            </div>
+
+            <div class="form-group">
+                <input type="number" class="form-control" id="number" name="minggu" placeholder="Masukan Usia Kandungan (Minggu)" required>
+                <div id="passwordAlert" class="form-text text-danger"></div>
+            </div>
+
+            <div class="form-group">
+                <input type="number" class="form-control" id="number" name="hari" placeholder="Brapa hari (Hari)" required>
+                <div id="passwordAlert" class="form-text text-danger"></div>
+            </div>
+
             <br>
 
             <button onclick="openSpinner()" id="submitButton" type="submit" disabled type="submit" class="btn btn-secondary">

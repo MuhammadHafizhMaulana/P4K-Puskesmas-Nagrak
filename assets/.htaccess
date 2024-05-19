@@ -1,3 +1,10 @@
-# Blokir semua akses langsung ke file dalam folder assets
-Order Allow,Deny
-Deny from all
+# Blokir semua akses langsung ke file dalam folder assets kecuali file gambar
+<FilesMatch ".*">
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>
+
+<FilesMatch "\.(jpg|jpeg|png|gif)$">
+    Order Allow,Deny
+    Allow from all
+</FilesMatch>
