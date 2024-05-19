@@ -3,12 +3,6 @@ session_start();
 if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login_admin') {
   header('Location: login_admin.php');
 }
-
-include '../proses/koneksi.php';
-
-// Query untuk mengambil semua data dari tabel user
-$query = "SELECT * FROM user ";
-$result = mysqli_query($connect, $query);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,7 +12,7 @@ $result = mysqli_query($connect, $query);
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Data Pengguna</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <link rel="stylesheet" href="../css/dashboardAdmin.css">
+  <link rel="stylesheet" href="../css/adminUser.css">
 </head>
 
 <body>
@@ -34,6 +28,7 @@ $result = mysqli_query($connect, $query);
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav ms-auto">
+          <a class="nav-link" href="landing.php">Dashboard</a>
           <a class="nav-link" href="data_user.php">User</a>
           <a class="nav-link" href="kesehatan_user.php">Kesehatan User</a>
           <a class="nav-link" href="donor_darah.php">Tambah Pendonor</a>
@@ -77,7 +72,7 @@ $result = mysqli_query($connect, $query);
             </tr>
           </thead>
         </table>
-        <div style="height: 325px; min-width: 950px; overflow-y: scroll; background: #FEFFD9">
+        <div class="tableBody" style="height: 325px; min-width: 950px; overflow-y: scroll; background: #FEFFD9">
           <table class="table mb-0">
             <tbody id="userTable" style="background: #FEFFD9">
             </tbody>
@@ -103,9 +98,6 @@ $result = mysqli_query($connect, $query);
         </div>
       </div>
     </div>
-    <tr>
-      <h4><a href="landing.php">kembali</a></h4>
-    </tr>
   </div>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5/0KvBfySwF7mio5Y5eUll8Eka1pF7V1F5TkPHTb" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-Tny1Hvt0VS4eN0C4zPWFlpJqsmwy28HGw2DqynzwiG2R8WpNSpNq5D7r1wFfKxQ1" crossorigin="anonymous"></script>

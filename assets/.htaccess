@@ -1,0 +1,3 @@
+# Blokir semua akses langsung ke file dalam folder assets
+Order Allow,Deny
+Deny from all
