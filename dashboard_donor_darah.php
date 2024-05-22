@@ -13,7 +13,7 @@ $status = [];
 $queryCheck = "SELECT goldar FROM kesehatan_user WHERE id_user = $id";
 $stmtCheck = mysqli_prepare($connect, $queryCheck);
 mysqli_stmt_execute($stmtCheck);
-mysqli_stmt_bind_result($stmtCheck, $total);
+mysqli_stmt_bind_result($stmtCheck, $goldar);
 mysqli_stmt_fetch($stmtCheck);
 mysqli_stmt_close($stmtCheck);
 

@@ -5,6 +5,34 @@ var debounceTimeout;
 var spinner = document.getElementById('spinner')
 
 
+function openSpinner() {
+  // Ambil elemen body dari dokumen
+  var body = document.getElementsByTagName("body")[0];
+
+  // Buat elemen div untuk spinner
+  var spinnerDiv = document.createElement("div");
+  spinnerDiv.className = "spinner-opened";
+
+  // Buat elemen div untuk spinner-border
+  var spinnerBorderDiv = document.createElement("div");
+  spinnerBorderDiv.className = "spinner-border text-light";
+  spinnerBorderDiv.setAttribute("role", "status");
+
+  // Buat elemen span untuk teks "Loading..."
+  var spinnerText = document.createElement("span");
+  spinnerText.className = "visually-hidden";
+  spinnerText.innerText = "Loading...";
+
+  // Masukkan elemen span ke dalam elemen spinner-border
+  spinnerBorderDiv.appendChild(spinnerText);
+
+  // Masukkan elemen spinner-border ke dalam elemen spinner
+  spinnerDiv.appendChild(spinnerBorderDiv);
+
+  // Masukkan elemen spinner ke dalam elemen body
+  body.appendChild(spinnerDiv);
+}
+
 function showModal(userId) {
   userIdToDelete = userId;
   var myModal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'), {
@@ -15,6 +43,7 @@ function showModal(userId) {
 
 function confirmDelete() {
   if (userIdToDelete !== null) {
+    openSpinner();
     window.location.href = 'proses/hapus_user.php?id=' + userIdToDelete;
   }
 }
@@ -26,6 +55,19 @@ searchType.addEventListener('input', () => {
     searchValue.setAttribute('placeholder', 'Masukan nomor HP user')
   }
 })
+
+document.addEventListener("DOMContentLoaded", function () {
+  getUserData();
+});
+
+document.getElementById('searchValue').addEventListener('input', function () {
+  getUserData();
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+  document.getElementById('buttonAlert').click();
+});
+
 
 function getUserData() {
   clearTimeout(debounceTimeout);
@@ -82,15 +124,13 @@ function getUserData() {
                           </div>
                         </button>
                       </a>
-                      <!-- <a href="proses/hapus_user.php?id=${user.id}"> -->
-                        <button onclick="showModal(${user.id})" type="button" class="btn btn-outline-primary">
-                          <div style="height: 27px">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-                              <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
-                            </svg>
-                          </div>
-                        </button>
-                      <!-- </a> -->
+                      <button onclick="showModal(${user.id})" type="button" class="btn btn-outline-primary">
+                        <div style="height: 27px">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                            <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
+                          </svg>
+                        </div>
+                      </button>
                       </div>
                   </td>`;
             userTable.appendChild(row);
@@ -104,15 +144,3 @@ function getUserData() {
       .catch(error => console.error('Error:', error));
   }, 800)
 }
-
-document.addEventListener("DOMContentLoaded", function () {
-  getUserData();
-});
-
-document.getElementById('searchValue').addEventListener('input', function () {
-  getUserData();
-});
-
-document.addEventListener("DOMContentLoaded", function() {
-  document.getElementById('buttonAlert').click();
-});

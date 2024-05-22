@@ -30,7 +30,7 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login_admin') {
         <div class="navbar-nav ms-auto">
           <a class="nav-link" href="landing.php">Dashboard</a>
           <a class="nav-link" href="data_user.php">User</a>
-          <a class="nav-link" href="kesehatan_user.php">Kesehatan User</a>
+          <a class="nav-link" href="list_kesehatan_user.php">Kesehatan User</a>
           <a class="nav-link" href="donor_darah.php">Tambah Pendonor</a>
           <a class="nav-link" href="profile.php">Profile</a>
           <a class="nav-link" href="proses/logout.php">Logout</a>
