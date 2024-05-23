@@ -104,10 +104,6 @@ if ($usia_kandungan) {
                     <option value="ab-" <?php if ($goldar === 'ab-') echo 'selected'; ?>>AB-</option>
                 </select>
             </div>
-            <div class="form-group">
-                <label for="usia_kandungan">Usia Kandungan (minggu)</label>
-                <input value="<?php echo $value_usia_kandungan ?>" min="0" type="number" class="form-control" id="usia_kandungan" name="usia_kandungan" placeholder="Usia kandungan (minggu)" required>
-            </div>
             <br />
             <button id="submitGoldar" onclick="openSpinner()" type="submit" class="btn btn-danger">INPUT</button>
             <!-- Modal -->

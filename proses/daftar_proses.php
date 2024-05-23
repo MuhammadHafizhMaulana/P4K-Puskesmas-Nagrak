@@ -15,9 +15,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nomorHP = $_POST['nomorHP'];
     $alamat = ucwords($_POST['alamat']);
     $passwordDefault = $_POST['password'];
-    $minggu = $_POST['minggu'];
-    $hari = $_POST['hari'];
-    $usia_kandungan = ($minggu * 7) + $hari;
+    // $minggu = $_POST['minggu'];
+    // $hari = $_POST['hari'];
+    // $usia_kandungan = ($minggu * 7) + $hari;
     $hpht = $_POST['hpht'];
      // Buat objek DateTime dari tanggal HPHT
      $hpht_date = new DateTime($hpht);
@@ -78,12 +78,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $userID = mysqli_insert_id($connect);
 
             // Persiapkan query untuk menambahkan data ke tabel kesehatan_user
-            $queryKandungan = "INSERT INTO `kesehatan_user`(`id_user`, `usia_kandungan`, `hpht`, `taksiran_persalinan`) VALUES (?, ?, ?, ?)";
+            $queryKandungan = "INSERT INTO `kesehatan_user`(`id_user`, `hpht`, `taksiran_persalinan`) VALUES (?, ?, ?)";
             $stmtKandungan = mysqli_prepare($connect, $queryKandungan);
 
             if ($stmtKandungan) {
                 // Bind parameter ke placeholder
-                mysqli_stmt_bind_param($stmtKandungan, "iiss", $userID, $usia_kandungan, $hpht, $taksiran_persalinan);
+                mysqli_stmt_bind_param($stmtKandungan, "iss", $userID, $hpht, $taksiran_persalinan);
 
                 // Jalankan prepared statement
                 $resultKandungan = mysqli_stmt_execute($stmtKandungan);

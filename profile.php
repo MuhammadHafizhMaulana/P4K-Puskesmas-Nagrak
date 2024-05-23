@@ -6,6 +6,7 @@
 }
 
     include 'proses/koneksi.php';
+    include 'proses/hitung_usia_kandungan.php';
     $id = $_SESSION['id'];
     $query = "SELECT * FROM `user` WHERE `id` = '$id' ";
     $sql = mysqli_query($connect, $query);
@@ -58,13 +59,7 @@
     </div>
     <div>
     </table class="table" >
-            <?php
-              include 'proses/koneksi.php';
-              $id = $_SESSION['id'];
-              $query = "SELECT * FROM `kesehatan_user` WHERE `id_user` = '$id' ";
-              $sql = mysqli_query($connect, $query);
-              $data = mysqli_fetch_assoc($sql);
-          ?>
+           
             <table class="table">
             <tbody>
                 <tr>
@@ -73,12 +68,12 @@
                 <tr>
                     <th>Golongan Darah</th>
                     <td>:</td>
-                    <td><?= isset($data['goldar']) ? $data['goldar'] : "Data belum diinput" ?></td>
+                    <td><?= isset($goldar) ? $goldar : "Data belum diinput" ?></td>
                 </tr>
                 <tr>
                     <th>Usia Kandungan (Minggu)</th>
                     <td>:</td>
-                    <td><?= isset($data['usia_kandungan']) ? $data['usia_kandungan'] : "Data belum diinput" ?></td>
+                    <td><?= isset($usia_kandungan) ? $usia_kandungan : "Data belum diinput" ?></td>
                 </tr>
                 <tr>
                     <th> <a href="donor_darah.php" class="button button-dark me-2">Edit</a></th>

@@ -5,6 +5,7 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login') {
 }
 
 include './proses/koneksi.php';
+include 'proses/hitung_usia_kandungan.php';
 
 $id = $_SESSION['id'];
 $status = [];
@@ -13,7 +14,7 @@ $status = [];
 $queryCheck = "SELECT goldar FROM kesehatan_user WHERE id_user = $id";
 $stmtCheck = mysqli_prepare($connect, $queryCheck);
 mysqli_stmt_execute($stmtCheck);
-mysqli_stmt_bind_result($stmtCheck, $total);
+mysqli_stmt_bind_result($stmtCheck, $goldar);
 mysqli_stmt_fetch($stmtCheck);
 mysqli_stmt_close($stmtCheck);
 
@@ -26,14 +27,14 @@ function formatTanggal($tanggal_input)
   return $tanggal_format;
 }
 
-if ($goldar == null) {
+if (!isset($goldar) || $goldar == null){
   $status = "tidak diketahui";
 } else {
-  $queryStatus = "SELECT status, goldar, tanggal_input, usia_kandungan FROM kesehatan_user WHERE id_user = ?";
+  $queryStatus = "SELECT `status`, `goldar`, `tanggal_input`, `taksiran_persalinan` FROM `kesehatan_user` WHERE id_user = ?";
   $stmtStatus = mysqli_prepare($connect, $queryStatus);
   mysqli_stmt_bind_param($stmtStatus, "i", $id);
   mysqli_stmt_execute($stmtStatus);
-  mysqli_stmt_bind_result($stmtStatus, $status, $goldar, $tanggal_input, $usia_kandungan);
+  mysqli_stmt_bind_result($stmtStatus, $status, $goldar, $tanggal_input, $taksiran_persalinan);
   mysqli_stmt_fetch($stmtStatus);
   mysqli_stmt_close($stmtStatus);
 
@@ -125,7 +126,13 @@ $sql = mysqli_query($connect, $query);
           ?>
             <div style="max-width: 400px; text-align: center;" class="alert alert-primary" role="alert">
               <h6>Golongan Darah Anda adalah <?php echo strtoupper($goldar); ?></h6>
-              <h6>Usia Kandungan Anda <?php echo $usia_kandungan ?> minggu pada <?php echo $tanggal_input ?></h6>
+              <?php if($usia_kandungan == null): ?>
+                  <h6>Anda belum menginputkan HPHT</h6>
+              <?php elseif ($usia_kandungan == "LAHIR"): ?>
+                  <h6>Anda sedang tidak mengandung</h6>
+              <?php else: ?>
+                  <h6>Usia kandungan anda <?= $usia_kandungan ?> pada <?= date('d-m-Y') ?></h6>
+              <?php endif; ?>
             </div>
             <button onclick="window.location.href='donor_darah.php'" type="button" class="btn btn-danger">
               Edit Golongan Darah
@@ -238,6 +245,13 @@ $sql = mysqli_query($connect, $query);
             <div class="alert alert-primary" role="alert">
               <?php echo $message ?>
             </div>
+            <div id="countdown">
+            <?php if (isset($taksiran_persalinan)) { ?>
+              <script>
+                var taksiranPersalinan = "<?php echo $taksiran_persalinan; ?>";
+              </script>
+            <?php } ?>
+            </div>
           </div>
         </div>
       </div>
@@ -247,6 +261,7 @@ $sql = mysqli_query($connect, $query);
   ?>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <script src="./js/dashboardDonorDarah.js"></script>
+  <script src="js/countdown.js"></script>
 </body>
 
 </html>

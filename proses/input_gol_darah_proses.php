@@ -12,7 +12,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Inisialisasi data dari POST
     $goldar = $_POST['goldar'];
-    $usia_kandungan = $_POST['usia_kandungan'];
     $id = $_SESSION['id'];
     $status = "menunggu";
     $inputProcess = true;
@@ -32,22 +31,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($user > 0) {
         // Persiapkan query UPDATE dengan prepared statement
-        $query = "UPDATE `kesehatan_user` SET `goldar` = ?, `usia_kandungan` = ?, `status` = ?, `tanggal_input` = NOW() WHERE `id_user` = ?";
+        $query = "UPDATE `kesehatan_user` SET `goldar` = ?, `status` = ?, `tanggal_input` = NOW() WHERE `id_user` = ?";
         $stmt = mysqli_prepare($connect, $query);
     } else {
         // Persiapkan query INSERT dengan prepared statement
-        $query = "INSERT INTO `kesehatan_user`(`goldar`, `id_user`, `usia_kandungan`, `status`, tanggal_input) VALUES (?, ?, ?, ?, NOW())";
+        $query = "INSERT INTO `kesehatan_user`(`goldar`, `id_user`, `status`, tanggal_input) VALUES (?, ?, ?, NOW())";
         $stmt = mysqli_prepare($connect, $query);
     }
 
     if ($stmt) {
         if ($user > 0) {
             // Bind parameter ke placeholder
-            mysqli_stmt_bind_param($stmt, "sisi", $goldar, $usia_kandungan, $status, $id);
+            mysqli_stmt_bind_param($stmt, "ssi", $goldar, $status, $id);
             $inputProcess = false;
         } else {
             // Bind parameter ke placeholder
-            mysqli_stmt_bind_param($stmt, "siis", $goldar, $id, $usia_kandungan, $status);
+            mysqli_stmt_bind_param($stmt, "sis", $goldar, $id,  $status);
         }
 
         // Jalankan prepared statement
