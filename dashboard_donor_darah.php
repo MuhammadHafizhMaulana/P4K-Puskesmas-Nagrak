@@ -86,6 +86,7 @@ $sql = mysqli_query($connect, $query);
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav ms-auto">
           <a class="nav-link active" aria-current="page" href="home.php">Home</a>
+          <a class="nav-link" href="dashboard_pembiayaan.php">Pembiayaan</a>
           <a class="nav-link" href="dashboard_donor_darah.php">Donor Darah</a>
           <a class="nav-link" href="donor_darah.php">DonorDarahTambah</a>
           <a class="nav-link" href="profile.php">Profile</a>
