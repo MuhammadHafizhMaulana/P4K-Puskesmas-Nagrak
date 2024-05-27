@@ -9,13 +9,12 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login_admin') {
 include '../../proses/koneksi.php';
 
 // Inisialisasi data dari POST
-if(isset($_POST['goldar'], $_POST['id'], $_POST['id_user'])) {
+if (isset($_POST['goldar'], $_POST['id'])) {
     $goldar = $_POST['goldar'];
     $id = $_POST['id'];
-    $id_user = $_POST['id_user'];
 } else {
     // Jika salah satu data POST tidak ada, maka berikan pesan kesalahan dan redireksi
-    header("Location: ../edit_goldar_pendonor.php?id=$id&id_user=$id_user&error=missing_data");
+    header("Location: ../detailPendonor.php?id=$id&error=missing_data");
 
     exit();
 }
@@ -41,18 +40,15 @@ if ($stmt) {
 
     if ($result && $rowsAffected > 0) {
         // Redirect jika berhasil
-        header("Location: ../edit_goldar_pendonor.php?id=$id&id_user=$id_user&success=update_successful");
+        header("Location: ../detailPendonor.php?id=$id&success=update_successful");
         exit();
     } else {
         // Redirect jika gagal atau tidak ada baris yang terpengaruh
-        header("Location: ../edit_goldar_pendonor.php?id=$id&id_user=$id_user&error=update_failed");
+        header("Location: ../detailPendonor.php?id=$id&error=update_failed");
         exit();
     }
 } else {
     // Tampilkan pesan jika persiapan statement gagal
-    header("Location: ../edit_goldar_pendonor.php?id=$id&id_user=$id_user&error=prepare_statement_failed");
+    header("Location: ../detailPendonor.php?id=$id&error=prepare_statement_failed");
     exit();
 }
-
-
-?>

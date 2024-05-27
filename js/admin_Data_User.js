@@ -101,7 +101,7 @@ function getUserData() {
             const row = document.createElement('tr');
             row.innerHTML = `<th class="col-1 text-center" scope="row">${index+1}</th>
                   <td class="col-2">${user.nama}</td>
-                  <td class="col-1 text-center">${user.usia} TAHUN</td>
+                  <td class="col-1 text-center">${user.usia} Tahun</td>
                   <td class="col-2 text-center">${user.nomorHP}</td>
                   <td class="col-2">${user.alamat}</td>
                   <td class="col-2 justify-content-center">

@@ -13,7 +13,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $id = $_GET['id'];
 
     // Query untuk menghapus pengguna berdasarkan id yang sudah didekripsi
-    $query = "DELETE FROM kesehatan_user WHERE id = ?";
+    $query = "DELETE FROM pendonor WHERE id = ?";
     $stmt = mysqli_prepare($connect, $query);
 
     if ($stmt) {
@@ -25,7 +25,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
         if ($result) {
             // Redirect kembali ke halaman data pengguna dengan pesan sukses
-            header('Location: ../listKesehatanUser.php?status=deleted');
+            header('Location: ../pendonor.php?status=deleted');
             exit();
         } else {
             echo "Gagal menghapus pengguna.";
@@ -38,7 +38,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     }
 } else {
     // Jika ID tidak valid, redirect kembali ke halaman data pengguna
-    header('Location: ../listKesehatanUser.php?status=invalid_id');
+    header('Location: ../pendonor.php?status=invalid_id');
     exit();
 }
 

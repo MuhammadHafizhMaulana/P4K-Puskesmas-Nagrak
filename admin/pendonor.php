@@ -7,7 +7,7 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login_admin') {
 if (isset($_GET['status'])) {
   $proccessIsSuccess = true;
   if ($_GET['status'] == "deleted") {
-      $message = "Anda berhasil menghapus user.";
+    $message = "Anda berhasil menghapus data kesehatan user.";
   }
 }
 ?>
@@ -17,9 +17,9 @@ if (isset($_GET['status'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Data Pengguna</title>
+  <title>Data Pendoonor</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <link rel="stylesheet" href="../css/admin_User.css">
+  <link rel="stylesheet" href="../css/adminListKesehatanUser.css">
 </head>
 
 <body>
@@ -49,16 +49,17 @@ if (isset($_GET['status'])) {
   <div class="content">
     <div class="container">
       <h1 class="text-center">
-        Daftar User
+        Daftar Pendonor
       </h1>
       <br>
       <form id="searchForm" class="container d-flex w-full">
         <div class="input-group mb-3">
           <select id="searchType" name="searchType" class="form-select bg-primary text-white icon-white" style="max-width: 125px;" aria-label="Default select example">
             <option value="nama">Nama</option>
+            <option value="goldar">Goldar</option>
             <option value="nomorHP">Nomor HP</option>
           </select>
-          <input id="searchValue" name="searchValue" placeholder="Masukan nama user" type="text" class="form-control" aria-label="Text input with dropdown button">
+          <input id="searchValue" name="searchValue" placeholder="Masukan nama user" type="text" class="form-control" oninput="getUserData()" aria-label="Text input with dropdown button">
         </div>
       </form>
       <div id="spinner" class="container d-flex justify-content-center align-items-center">
@@ -71,11 +72,9 @@ if (isset($_GET['status'])) {
           <thead>
             <tr style="background: #FDFFA0;" div>
               <th class="col-1 text-center" scope="col">No</th>
-              <th class="col-2 text-center" scope="col">Nama</th>
-              <th class="col-1 text-center" scope="col">Usia</th>
-              <th class="col-2 text-center" scope="col">Nomor HP</th>
-              <th class="col-2 text-center" scope="col">Alamat</th>
-              <th class="col-2 text-center" scope="col">Kesehatan</th>
+              <th class="col-4 text-center" scope="col">Nama</th>
+              <th class="col-3 text-center" scope="col">Nomor HP</th>
+              <th class="col-2 text-center" scope="col">Goldar</th>
               <th class="col-2 text-center" scope="col">Aksi</th>
             </tr>
           </thead>
@@ -96,8 +95,7 @@ if (isset($_GET['status'])) {
             <h5 class="modal-title" id="confirmDeleteModalLabel">Konfirmasi Penghapusan</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body">
-            Apakah Anda yakin ingin menghapus pengguna ini?
+          <div class="modal-body text-center">
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
@@ -111,21 +109,21 @@ if (isset($_GET['status'])) {
 
   <?php
   if (isset($_GET['status'])) { ?>
-      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-              <div class="modal-content">
-                  <div class="modal-header">
-                      <h1 class="modal-title fs-5 text-primary" id="exampleModalLabel"><?php echo $proccessIsSuccess ? "BERHASIL" : "GAGAL" ?></h1>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                      <div class="alert alert-primary text-center" role="alert">
-                          <?php echo $message ?>
-                      </div>
-                  </div>
-              </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5 text-primary" id="exampleModalLabel"><?php echo $proccessIsSuccess ? "BERHASIL" : "GAGAL" ?></h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
+          <div class="modal-body">
+            <div class="alert alert-primary text-center" role="alert">
+              <?php echo $message ?>
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
   <?php
   }
   ?>
@@ -133,7 +131,9 @@ if (isset($_GET['status'])) {
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-Tny1Hvt0VS4eN0C4zPWFlpJqsmwy28HGw2DqynzwiG2R8WpNSpNq5D7r1wFfKxQ1" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
-<script src="../js/admin_Data_User.js"></script>
+<script src="../js/adminPendonor.js"></script>
+<script>
+</script>
 </body>
 
 </html>

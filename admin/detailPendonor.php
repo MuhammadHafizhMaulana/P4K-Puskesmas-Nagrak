@@ -13,18 +13,12 @@ if (isset($_GET['id'])) {
 
     $id = $_GET['id'];
     // Query untuk mengambil data pengguna berdasarkan id yang sudah didekripsi
-    $query = "SELECT * FROM kesehatan_user WHERE id_user = ?";
+    $query = "SELECT * FROM pendonor WHERE id = ?";
     $stmt = mysqli_prepare($connect, $query);
     mysqli_stmt_bind_param($stmt, "i", $id);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
 
-
-    $query = "SELECT `nama`FROM user WHERE id = ?";
-    $stmt = mysqli_prepare($connect, $query);
-    mysqli_stmt_bind_param($stmt, "i", $id);
-    mysqli_stmt_execute($stmt);
-    $nameResult = mysqli_stmt_get_result($stmt);
     // Periksa apakah data ditemukan
     if (mysqli_num_rows($result) > 0) {
         // Ambil data pengguna
@@ -59,7 +53,7 @@ if (isset($_GET['id'])) {
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Edit User</title>
+            <title>Detail Pendonor</title>
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
             <link rel="stylesheet" href="../css/adminKesehatanUser.css">
         </head>
@@ -92,7 +86,7 @@ if (isset($_GET['id'])) {
                 <h1 style="
                 font-weight: bold;
                 ">
-                    Data Kesehatan User
+                    Detail Pendonor
                 </h1>
                 <br>
                 <div class="w-100">
@@ -101,11 +95,15 @@ if (isset($_GET['id'])) {
                         <div class="col-1">:</div>
                         <div class="col-6 text-start">
                             <?php
-                            if (mysqli_num_rows($nameResult) > 0) {
-                                // Ambil data pengguna
-                                $ambil_nama = mysqli_fetch_assoc($nameResult);
-                                echo isset($ambil_nama['nama']) ? ucwords($ambil_nama['nama']) : "-";
-                            } ?>
+                            echo $data['nama'] ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-5 text-start">Nomor HP</div>
+                        <div class="col-1">:</div>
+                        <div class="col-6 text-start">
+                            <?php
+                            echo $data['nomorHP'] ?>
                         </div>
                     </div>
                     <div class="row align-items-center">
@@ -131,24 +129,10 @@ if (isset($_GET['id'])) {
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-5 text-start">Usia Kandungan</div>
-                        <div class="col-1">:</div>
-                        <div class="col-6 text-start">
-                            <?php echo $data['usia_kandungan'] ? $data['usia_kandungan'] : '-' ?> Minggu
-                        </div>
-                    </div>
-                    <div class="row">
                         <div class="col-5 text-start">Status Goldar</div>
                         <div class="col-1">:</div>
                         <div class="col-6 text-start">
                             <?php echo $data['status'] ? ucwords($data['status']) : '-' ?>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-5 text-start">Terakhir Update</div>
-                        <div class="col-1">:</div>
-                        <div class="col-6 text-start">
-                            <?php echo $data['tanggal_input'] ? ucwords($data['tanggal_input']) : '-' ?>
                         </div>
                     </div>
                 </div>
@@ -157,7 +141,7 @@ if (isset($_GET['id'])) {
                 <!-- Modal Konfirmasi Hapus -->
                 <div class="modal fade" id="confirmUpdateModal" tabindex="-1" aria-labelledby="confirmUpdateModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
-                        <form class="modal-content" method="post" action="proses/edit_goldar_user_proses.php">
+                        <form class="modal-content" method="post" action="proses/edit_goldar_pendonor_proses.php">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="confirmUpdateModalLabel">Konfirmasi</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -165,7 +149,7 @@ if (isset($_GET['id'])) {
                             <div class="modal-body">
                                 <input type="hidden" value="<?php echo $id ?>" name="id" id="id">
                                 <input type="hidden" name="goldar" id="goldar">
-                                Apakah Anda yakin ingin mengedit golongan darah?
+                                Apakah Anda yakin ingin mengedit golongan darah pendonor?
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>

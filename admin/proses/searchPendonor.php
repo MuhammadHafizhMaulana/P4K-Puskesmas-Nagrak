@@ -10,12 +10,14 @@ include '../../proses/koneksi.php';
 $searchType = isset($_POST['searchType']) ? $_POST['searchType'] : '';
 $searchValue = isset($_POST['searchValue']) ? $_POST['searchValue'] : '';
 
-$query = "SELECT * FROM user";
+$query = "SELECT * FROM pendonor";
 if ($searchType && $searchValue) {
     if ($searchType == 'nama') {
         $query .= " WHERE nama LIKE '%$searchValue%'";
-    } elseif ($searchType == 'nomorHP') {
+    } else if ($searchType == 'nomorHP') {
         $query .= " WHERE nomorHP LIKE '%$searchValue%'";
+    } else if ($searchType == 'goldar') {
+        $query .= " WHERE goldar LIKE '$searchValue'";
     }
 }
 

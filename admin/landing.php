@@ -16,7 +16,7 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login_admin') {
 </head>
 
 <body>
-<nav class="my-navbar navbar navbar-expand-lg">
+  <nav class="my-navbar navbar navbar-expand-lg">
     <div class="container-fluid">
       <a class="navbar-brand" href="home.php">
         <img src="../assets/logo-kemenkes.png" alt="Logo Kemenkes">
@@ -30,7 +30,8 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login_admin') {
         <div class="navbar-nav ms-auto">
           <a class="nav-link" href="landing.php">Dashboard</a>
           <a class="nav-link" href="data_user.php">User</a>
-          <a class="nav-link" href="list_kesehatan_user.php">Kesehatan User</a>
+          <a class="nav-link" href="listKesehatanUser.php">Kesehatan User</a>
+          <a class="nav-link" href="pendonor.php">Pendonor</a>
           <a class="nav-link" href="donor_darah.php">Tambah Pendonor</a>
           <a class="nav-link" href="profile.php">Profile</a>
           <a class="nav-link" href="proses/logout.php">Logout</a>
