@@ -51,11 +51,6 @@ $data = mysqli_fetch_assoc($result);
                                 <label for="golongan_o">Golongan O</label></td>
                 </tr>
                 <tr>
-                    <th>Usia Kandungan (Minggu)</th>
-                    <td>:</td>
-                    <td><input type="number" min="0" name="usia_kandungan" class="input-login" placeholder="usia_kandungan" value="<?=$data['usia_kandungan']?>"></td>
-                </tr>
-                <tr>
                     <th> <div class="button-input">
                     <button type="submit" class="button button-dark w-100">EDIT</button>
                 </div></th>

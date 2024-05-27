@@ -60,6 +60,7 @@ if ($usia_kandungan) {
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav ms-auto">
                     <a class="nav-link active" aria-current="page" href="home.php">Home</a>
+                    <a class="nav-link" href="dashboard_pembiayaan.php">Pembiayaan</a>
                     <a class="nav-link" href="dashboard_donor_darah.php">Donor Darah</a>
                     <a class="nav-link" href="donor_darah.php">DonorDarahTambah</a>
                     <a class="nav-link" href="profile.php">Profile</a>
@@ -103,10 +104,6 @@ if ($usia_kandungan) {
                     <option value="b-" <?php if ($goldar === 'b-') echo 'selected'; ?>>B-</option>
                     <option value="ab-" <?php if ($goldar === 'ab-') echo 'selected'; ?>>AB-</option>
                 </select>
-            </div>
-            <div class="form-group">
-                <label for="usia_kandungan">Usia Kandungan (minggu)</label>
-                <input value="<?php echo $value_usia_kandungan ?>" min="0" type="number" class="form-control" id="usia_kandungan" name="usia_kandungan" placeholder="Usia kandungan (minggu)" required>
             </div>
             <br />
             <button id="submitGoldar" onclick="openSpinner()" type="submit" class="btn btn-danger">INPUT</button>
