@@ -3,7 +3,7 @@ session_start();
 
 // Validasi status login
 if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login') {
-    header('Location: index.php');
+    header('Location: ../index.php');
     exit();
 }
 
@@ -66,6 +66,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
      $rujukan_name = unggahFile($rujukan, "rujukan_", $id_user, $target_dir, 'rujukan');
      $pas_foto_name = unggahFile($pas_foto, "pas_foto_", $id_user, $target_dir, 'pas_foto');
      $rekomendasi_name = unggahFile($rekomendasi, "rekomendasi_", $id_user, $target_dir, 'rekomendasi');
+
+     // Mengubah nilai null menjadi string kosong atau simbol placeholder
+    $rujukan_name = $rujukan_name ?? '-';
+    $rekomendasi_name = $rekomendasi_name ?? '-';
  
 
     if ($jenis_pembayaran === "tabungan") {
