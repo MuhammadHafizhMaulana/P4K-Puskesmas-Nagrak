@@ -30,37 +30,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $jenisTabungan = null;
 
 
-    // Inisialisasi data dari FILES
-    $ktp = isset($_FILES['ktp']) ? $_FILES['ktp'] : null;
-    $kk = isset($_FILES['kk']) ? $_FILES['kk'] : null;
-    $rujukan = isset($_FILES['rujukan']) ? $_FILES['rujukan'] : null;
-    $pas_foto = isset($_FILES['pas_foto']) ? $_FILES['pas_foto'] : null;
-    $rekomendasi = isset($_FILES['rekomendasi']) ? $_FILES['rekomendasi'] : null;
-
-
-    // Folder tujuan
-    $target_dir = "../data_user/";
-
-    // Fungsi untuk mengelola unggahan file dengan mengganti nama
-function unggahFile($file, $awalan, $id_user, $target_dir) {
-    if ($file['error'] != UPLOAD_ERR_OK) {
-        return null; // mengembalikan null jika terjadi kesalahan saat unggah
-    }
-    $ekstensi = pathinfo($file["name"], PATHINFO_EXTENSION);
-    $nama_baru = $awalan . $id_user . '.' . $ekstensi;
-    $target_file = $target_dir . $nama_baru;
-    if (move_uploaded_file($file["tmp_name"], $target_file)) {
-        return $nama_baru;
-    } else {
-        return null;
-    }
-}
-
-    $ktp_name = unggahFile($ktp, "ktp", $id_user, $target_dir);
-    $kk_name = unggahFile($kk, "kk", $id_user, $target_dir);
-    $rujukan_name = unggahFile($rujukan, "rujukan", $id_user, $target_dir);
-    $pas_foto_name = unggahFile($pas_foto, "pas_foto", $id_user, $target_dir);
-    $rekomendasi_name = unggahFile($rekomendasi, "rekomendasi", $id_user, $target_dir);
+     // Inisialisasi data dari FILES
+     $ktp = isset($_FILES['ktp']) ? $_FILES['ktp'] : null;
+     $kk = isset($_FILES['kk']) ? $_FILES['kk'] : null;
+     $rujukan = isset($_FILES['rujukan']) ? $_FILES['rujukan'] : null;
+     $pas_foto = isset($_FILES['pas_foto']) ? $_FILES['pas_foto'] : null;
+     $rekomendasi = isset($_FILES['rekomendasi']) ? $_FILES['rekomendasi'] : null;
+ 
+     // Folder tujuan
+     $target_dir = "../data_user/";
+ 
+     // Fungsi untuk mengelola unggahan file dengan mengganti nama dan menempatkan di subfolder
+     function unggahFile($file, $awalan, $id_user, $target_dir, $subfolder) {
+         if ($file['error'] != UPLOAD_ERR_OK) {
+             return null; // mengembalikan null jika terjadi kesalahan saat unggah
+         }
+         $ekstensi = pathinfo($file["name"], PATHINFO_EXTENSION);
+         $nama_baru = $awalan . $id_user . '.' . $ekstensi;
+         $target_file = $target_dir . $subfolder . '/' . $nama_baru;
+ 
+         // Pastikan subfolder ada, jika tidak buat subfolder
+         if (!is_dir($target_dir . $subfolder)) {
+            header('Location: ../dashboard_pembiayaan.php?pesan=foldertidakada');
+         }
+ 
+         if (move_uploaded_file($file["tmp_name"], $target_file)) {
+             return $nama_baru;
+         } else {
+             return null;
+         }
+     }
+ 
+     $ktp_name = unggahFile($ktp, "ktp_", $id_user, $target_dir, 'ktp');
+     $kk_name = unggahFile($kk, "kk_", $id_user, $target_dir, 'kk');
+     $rujukan_name = unggahFile($rujukan, "rujukan_", $id_user, $target_dir, 'rujukan');
+     $pas_foto_name = unggahFile($pas_foto, "pas_foto_", $id_user, $target_dir, 'pas_foto');
+     $rekomendasi_name = unggahFile($rekomendasi, "rekomendasi_", $id_user, $target_dir, 'rekomendasi');
+ 
 
     if ($jenis_pembayaran === "tabungan") {
         if ($tabungan_hamil === "dada_linmas") {
