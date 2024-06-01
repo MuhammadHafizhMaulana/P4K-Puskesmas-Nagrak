@@ -36,6 +36,7 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login') {
         <div class="navbar-nav ms-auto">
           <a class="nav-link active" aria-current="page" href="home.php">Home</a>
           <a class="nav-link" href="dashboard_pembiayaan.php">Pembiayaan</a>
+          <a class="nav-link" href="dashboard_sarpras.php">Sarpras</a>
           <a class="nav-link" href="dashboard_donor_darah.php">Donor Darah</a>
           <a class="nav-link" href="">Pricing</a>
           <a class="nav-link" href="profile.php">Profile</a>

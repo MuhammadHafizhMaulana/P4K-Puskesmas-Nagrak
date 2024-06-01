@@ -2,6 +2,7 @@
 session_start();
 if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login') {
     header('Location: index.php');
+    exit();
 }
 
 include './proses/koneksi.php';
@@ -42,7 +43,8 @@ if ($usia_kandungan) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Donor Darah</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/donorDarah.css">
 </head>
 
@@ -52,17 +54,21 @@ if ($usia_kandungan) {
             <a class="navbar-brand" href="home.php">
                 <img src="./assets/logo-kemenkes.png" alt="Logo Kemenkes">
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                        fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
                     </svg></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav ms-auto">
                     <a class="nav-link active" aria-current="page" href="home.php">Home</a>
                     <a class="nav-link" href="dashboard_pembiayaan.php">Pembiayaan</a>
+                    <a class="nav-link" href="dashboard_sarpras.php">Sarpras</a>
                     <a class="nav-link" href="dashboard_donor_darah.php">Donor Darah</a>
-                    <a class="nav-link" href="donor_darah.php">DonorDarahTambah</a>
+                    <a class="nav-link" href="">Pricing</a>
                     <a class="nav-link" href="profile.php">Profile</a>
                     <a class="nav-link" href="proses/logout.php">Logout</a>
                 </div>
@@ -108,28 +114,33 @@ if ($usia_kandungan) {
             <br />
             <button id="submitGoldar" onclick="openSpinner()" type="submit" class="btn btn-danger">INPUT</button>
             <!-- Modal -->
-            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Form Pengajuan Pengecekan Golongan Darah</h1>
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Form Pengajuan Pengecekan Golongan
+                                Darah</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <div class="alert alert-warning" role="alert">
-                                Setelah tombol "Input" ditekan, anda akan diarahkan ke whatsapp untuk mengirim pesan permintaan pengecekan golongan darah ini kepada dokter.
+                                Setelah tombol "Input" ditekan, anda akan diarahkan ke whatsapp untuk mengirim pesan
+                                permintaan pengecekan golongan darah ini kepada dokter.
                             </div>
                             <input id="nama" value="<?php echo $nama; ?>" type="hidden" disabled>
                             <input id="nomorHP" value="<?php echo $nomorHP; ?>" type="hidden" disabled>
                             <input id="alamat" value="<?php echo $alamat; ?>" type="hidden" disabled>
                             <div style="width: 100%;" class="form-group">
                                 <label for="waktu_pengecekan_goldar">Tentukan tanggal pengecekan golongan darah</label>
-                                <input style="width: 100%;" type="date" class="form-control" id="waktu_pengecekan_goldar" name="waktu_pengecekan_goldar">
+                                <input style="width: 100%;" type="date" class="form-control"
+                                    id="waktu_pengecekan_goldar" name="waktu_pengecekan_goldar">
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                            <button id="submitJadwal" disabled onclick="openSpinner()" type="submit" data-bs-dismiss="modal" class="btn btn-primary">Input</button>
+                            <button id="submitJadwal" disabled onclick="openSpinner()" type="submit"
+                                data-bs-dismiss="modal" class="btn btn-primary">Input</button>
                         </div>
                     </div>
                 </div>
@@ -137,7 +148,8 @@ if ($usia_kandungan) {
         </form>
 
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>
     <script src="./js/donor_Darah.js"></script>
 </body>

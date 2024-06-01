@@ -42,7 +42,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         }
 
         // Hapus data dari tabel terkait
-        $tables = ['pembiayaan', 'kesehatan_user', 'pendonor'];
+        $tables = ['pembiayaan', 'kesehatan_user', 'pendonor', 'sarpras'];
         foreach ($tables as $table) {
             $query = "DELETE FROM $table WHERE id_user = ?";
             $stmt = mysqli_prepare($connect, $query);

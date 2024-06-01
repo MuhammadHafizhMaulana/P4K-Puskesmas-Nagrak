@@ -2,6 +2,7 @@
 session_start();
 if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login') {
   header('Location: index.php');
+  exit();
 }
 ?>
 <!DOCTYPE html>
@@ -10,7 +11,7 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login') {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home</title>
+  <title>Sarpras</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   <link rel="stylesheet" href="css/dashboardCustomer.css">
 </head>
@@ -54,18 +55,38 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login') {
           <img src="./assets/logo2-kemenkes.png" alt="Logo Kemenkes">
         </div>
         <div class="col-12 col-lg-6">
-          <h1>Apa itu P4K?</h1>
-          <p>Program Perencanaan Persalinan dan Pencegahan Komplikasi (P4K) merupakan salah satu upaya percepatan penurunan Angka Kematian Ibu dan Bayi Baru Lahir melalui peningkatan akses dan mutu pelayanan antenatal, pertolongan persalinan, pencegahan komplikasi dan keluarga berencana oleh Tenaga Kesehatan.</p>
-          <h1>Apa tujuan P4K?</h1>
-          <p>P4K memiliki beberapa tujuan antara lain:</p>
-          <ul>
-            <li>Suami, keluarga, dan masyarakat paham tentang bahaya persalinan;</li>
-            <li>Adanya rencana persalinan yang aman;</li>
-            <li>Adanya rencana kontrasepsi yang akan digunakan;</li>
-            <li>Adanya dukungan masyarakat, Toma, kader, dukung untuk ikut KB pasca persalinan;</li>
-            <li>Adanya dukungan sukarela dalam persiapan biaya, transportasi, donor darah;</li>
-            <li>Memantapkan kerjasama antara bidan, dukun bayi, dan kader.</li>
-          </ul>
+          <h1>Sarana Prasarana</h1>
+          <p>Lengkapi data berikut untuk melengkapi data anda</p>
+          <h2>Persiapan Rujukan pada HPL</h2><br>
+
+          <form method="post" action="proses/sarpras_proses.php">
+            <label for="transportasi">Pilih Trnasportasi anda</label>
+            <select id="transportasi" name="transportasi" class="form-select" aria-label="Default select example" required onchange="updateForm()">
+              <option value="">Pilih Jenis Transportasi Anda</option>
+              <option value="ambulance_desa">Ambulance Desa</option>
+              <option value="ambulance_pkm">Ambulance PKM</option>
+              <option value="kendaraan_pribadi">Kendaraan Pribadi</option>
+            </select>
+            
+            <label for="nama_supir">Nama Supir</label>
+            <input type="text" name="nama_supir" class="form-control" placeholder="Nama Supir" required >
+            <label for="no_supir">Nomer Supir</label>
+            <input type="text" name="no_supir" class="form-control" placeholder="Nomer Supir" required ><br>
+            
+            <label for="nama_pendamping">Nama Pendamping</label>
+            <input type="text" name="nama_pendamping" class="form-control" placeholder="Nama Pendamping" required >
+            <label for="no_pendamping">Nomer Pendamping</label>
+            <input type="text" name="no_pendamping" class="form-control" placeholder="Nomer Pendamping" required ><br>
+            
+            <label for="tujuan">Pilih Tujuan anda</label>
+            <select id="tujuan" name="tujuan" class="form-select" aria-label="Default select example" required onchange="updateForm()">
+              <option value="">Pilih Tujuan Anda</option>
+              <option value="sekarwangi">RS Sekar Wangi</option>
+              <option value="dkh">RS DKH</option>
+              <option value="cibadak">RS Cibadak</option>
+            </select>
+            <input type="submit" value="Submit">
+          </form>
         </div>
       </div>
     </div>

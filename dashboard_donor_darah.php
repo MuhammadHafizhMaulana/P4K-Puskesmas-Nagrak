@@ -2,6 +2,7 @@
 session_start();
 if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login') {
   header('Location: index.php');
+  exit();
 }
 
 include './proses/koneksi.php';
@@ -68,7 +69,8 @@ $sql = mysqli_query($connect, $query);
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   <link rel="stylesheet" href="./css/dashboard_donor_darah.css">
 </head>
 
@@ -78,17 +80,21 @@ $sql = mysqli_query($connect, $query);
       <a class="navbar-brand" href="home.php">
         <img src="./assets/logo-kemenkes.png" alt="Logo Kemenkes">
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+            fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
           </svg></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav ms-auto">
           <a class="nav-link active" aria-current="page" href="home.php">Home</a>
           <a class="nav-link" href="dashboard_pembiayaan.php">Pembiayaan</a>
+          <a class="nav-link" href="dashboard_sarpras.php">Sarpras</a>
           <a class="nav-link" href="dashboard_donor_darah.php">Donor Darah</a>
-          <a class="nav-link" href="donor_darah.php">DonorDarahTambah</a>
+          <a class="nav-link" href="">Pricing</a>
           <a class="nav-link" href="profile.php">Profile</a>
           <a class="nav-link" href="proses/logout.php">Logout</a>
         </div>
@@ -116,34 +122,34 @@ $sql = mysqli_query($connect, $query);
           <?php
           if ($status == "tidak diketahui") {
           ?>
-            <div style="max-width: 400px; text-align: center;" class="alert alert-primary" role="alert">
-              <h6>Anda belum mendaftarkan (periksa) golongan darah anda, daftarkan di bawah</h6>
-            </div>
-            <button onclick="window.location.href='donor_darah.php'" type="button" class="btn btn-danger">
-              Daftarkan Golongan Darah
-            </button>
+          <div style="max-width: 400px; text-align: center;" class="alert alert-primary" role="alert">
+            <h6>Anda belum mendaftarkan (periksa) golongan darah anda, daftarkan di bawah</h6>
+          </div>
+          <button onclick="window.location.href='donor_darah.php'" type="button" class="btn btn-danger">
+            Daftarkan Golongan Darah
+          </button>
           <?php
           } else if ($status == "diketahui") {
           ?>
-            <div style="max-width: 400px; text-align: center;" class="alert alert-primary" role="alert">
-              <h6>Golongan Darah Anda adalah <?php echo strtoupper($goldar); ?></h6>
-              <?php if($usia_kandungan == null): ?>
-                  <h6>Anda belum menginputkan HPHT</h6>
-              <?php elseif ($usia_kandungan == "LAHIR"): ?>
-                  <h6>Anda sedang tidak mengandung</h6>
-              <?php else: ?>
-                  <h6>Usia kandungan anda <?= $usia_kandungan ?> pada <?= date('d-m-Y') ?></h6>
-              <?php endif; ?>
-            </div>
-            <button onclick="window.location.href='donor_darah.php'" type="button" class="btn btn-danger">
-              Edit Golongan Darah
-            </button>
+          <div style="max-width: 400px; text-align: center;" class="alert alert-primary" role="alert">
+            <h6>Golongan Darah Anda adalah <?php echo strtoupper($goldar); ?></h6>
+            <?php if($usia_kandungan == null): ?>
+            <h6>Anda belum menginputkan HPHT</h6>
+            <?php elseif ($usia_kandungan == "LAHIR"): ?>
+            <h6>Anda sedang tidak mengandung</h6>
+            <?php else: ?>
+            <h6>Usia kandungan anda <?= $usia_kandungan ?> pada <?= date('d-m-Y') ?></h6>
+            <?php endif; ?>
+          </div>
+          <button onclick="window.location.href='donor_darah.php'" type="button" class="btn btn-danger">
+            Edit Golongan Darah
+          </button>
           <?php
           } else if ($status == "menunggu") {
           ?>
-            <div style="max-width: 400px; text-align: center;" class="alert alert-primary" role="alert">
-              <h6>Anda sedang dalam proses menunggu pemeriksaan golongan darah.</h6>
-            </div>
+          <div style="max-width: 400px; text-align: center;" class="alert alert-primary" role="alert">
+            <h6>Anda sedang dalam proses menunggu pemeriksaan golongan darah.</h6>
+          </div>
           <?php } ?>
         </div>
       </div>
@@ -168,55 +174,61 @@ $sql = mysqli_query($connect, $query);
           if (mysqli_num_rows($sql) > 0) {
             if ($status == "diketahui") {
           ?>
-              <div class="row mb-2">
-                <div class="col-6 d-flex align-items-center">
-                  <div style="width : 15px; min-width: 15px; height: 15px; border-radius: 100%; border: solid 1px; background: #CFE2FF" class="border-danger code">
-                  </div>
-                  <h6 class="ms-2 m-0 p-0">Golongan darah yang sesuai dengan anda.</h6>
-                </div>
-                <div class="col-6 d-flex align-items-center">
-                  <div style="width : 15px; min-width: 15px; height: 15px; border-radius: 100%; border: solid 1px; background: #FEFFD9" class="border-danger code">
-                  </div>
-                  <h6 class="ms-2 m-0 p-0">Golongan darah yang tidak sesuai dengan anda.</h6>
-                </div>
+          <div class="row mb-2">
+            <div class="col-6 d-flex align-items-center">
+              <div
+                style="width : 15px; min-width: 15px; height: 15px; border-radius: 100%; border: solid 1px; background: #CFE2FF"
+                class="border-danger code">
               </div>
-            <?php } ?>
-            <table class="table m-0">
-              <thead>
-                <tr style="background: #FDFFA0;" div>
-                  <th class="col-1" scope="col"></th>
-                  <th class="col-6 text-center" scope="col">Nama</th>
-                  <!-- <th class="col-4" scope="col">Nomor HP</th> -->
-                  <th class="col-5 text-center" scope="col">Goldar</th>
-                </tr>
-              </thead>
-            </table>
-            <div style="max-height: 325px; width: 100%; overflow-y: scroll">
-              <table class="table">
-                <tbody style="background: #FEFFD9">
-                  <?php
+              <h6 class="ms-2 m-0 p-0">Golongan darah yang sesuai dengan anda.</h6>
+            </div>
+            <div class="col-6 d-flex align-items-center">
+              <div
+                style="width : 15px; min-width: 15px; height: 15px; border-radius: 100%; border: solid 1px; background: #FEFFD9"
+                class="border-danger code">
+              </div>
+              <h6 class="ms-2 m-0 p-0">Golongan darah yang tidak sesuai dengan anda.</h6>
+            </div>
+          </div>
+          <?php } ?>
+          <table class="table m-0">
+            <thead>
+              <tr style="background: #FDFFA0;" div>
+                <th class="col-1" scope="col"></th>
+                <th class="col-6 text-center" scope="col">Nama</th>
+                <!-- <th class="col-4" scope="col">Nomor HP</th> -->
+                <th class="col-5 text-center" scope="col">Goldar</th>
+              </tr>
+            </thead>
+          </table>
+          <div style="max-height: 325px; width: 100%; overflow-y: scroll">
+            <table class="table">
+              <tbody style="background: #FEFFD9">
+                <?php
                   $data_array = [];
                   while ($data = mysqli_fetch_assoc($sql)) {
                     $data_array[] = $data;
                   }
                   foreach ($data_array as $i => $data) {
                   ?>
-                    <tr style="background: <?php echo $data['goldar'] == $goldar && $data['goldar'] != '-' ? '#CFE2FF' : '#FEFFD9';  ?>">
-                      <th class="col-1" scope="row"><?php echo $i + 1; ?></th>
-                      <td class="col-6"><?php echo strtoupper($data['nama']); ?></td>
-                      <!-- <td class="col-4"><?php echo $data['nomorHP']; ?></td> -->
-                      <td class="col-5 text-center"><?php echo $data['goldar'] == '-' ? "proses pengecekan" : strtoupper($data['goldar']); ?></td>
-                    </tr>
-                  <?php } ?>
-                </tbody>
-              </table>
-            </div>
+                <tr
+                  style="background: <?php echo $data['goldar'] == $goldar && $data['goldar'] != '-' ? '#CFE2FF' : '#FEFFD9';  ?>">
+                  <th class="col-1" scope="row"><?php echo $i + 1; ?></th>
+                  <td class="col-6"><?php echo strtoupper($data['nama']); ?></td>
+                  <!-- <td class="col-4"><?php echo $data['nomorHP']; ?></td> -->
+                  <td class="col-5 text-center">
+                    <?php echo $data['goldar'] == '-' ? "proses pengecekan" : strtoupper($data['goldar']); ?></td>
+                </tr>
+                <?php } ?>
+              </tbody>
+            </table>
+          </div>
           <?php
           } else {
           ?>
-            <div class='alert alert-primary text-center'>
-              <h6>TIDAK ADA DATA PENDONOR</h6>
-            </div>
+          <div class='alert alert-primary text-center'>
+            <h6>TIDAK ADA DATA PENDONOR</h6>
+          </div>
           <?php
           }
           ?>
@@ -230,37 +242,41 @@ $sql = mysqli_query($connect, $query);
     <div class="col"></div>
   </div>
 
-  <button style="display: none;" id="buttonAlert" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"></button>
+  <button style="display: none;" id="buttonAlert" type="button" class="btn btn-primary" data-bs-toggle="modal"
+    data-bs-target="#exampleModal"></button>
 
   <!-- Modal -->
   <?php
   if (isset($_GET['success']) || isset($_GET['gagal'])) { ?>
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5 text-primary" id="exampleModalLabel"><?php echo $proccessIsSuccess ? "BERHASIL" : "GAGAL" ?></h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5 text-primary" id="exampleModalLabel">
+            <?php echo $proccessIsSuccess ? "BERHASIL" : "GAGAL" ?></h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="alert alert-primary" role="alert">
+            <?php echo $message ?>
           </div>
-          <div class="modal-body">
-            <div class="alert alert-primary" role="alert">
-              <?php echo $message ?>
-            </div>
-            <div id="countdown">
+          <div id="countdown">
             <?php if (isset($taksiran_persalinan)) { ?>
-              <script>
-                var taksiranPersalinan = "<?php echo $taksiran_persalinan; ?>";
-              </script>
+            <script>
+              var taksiranPersalinan = "<?php echo $taksiran_persalinan; ?>";
+            </script>
             <?php } ?>
-            </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
   <?php
   }
   ?>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+  </script>
   <script src="./js/dashboardDonorDarah.js"></script>
   <script src="js/countdown.js"></script>
 </body>
