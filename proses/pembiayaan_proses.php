@@ -7,14 +7,18 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login') {
     exit();
 }
 
-echo '<pre>';
-print_r($_POST);
-print_r($_FILES);
-echo '</pre>';
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Sambungan ke koneksi
     include 'koneksi.php';
+    $id = $_SESSION['id'];
+
+    $queryCheck = "SELECT COUNT(*) AS user FROM pembiayaan WHERE id_user = ?";
+    $stmtCheck = mysqli_prepare($connect, $queryCheck);
+    mysqli_stmt_bind_param($stmtCheck, "i", $id);
+    mysqli_stmt_execute($stmtCheck);
+    mysqli_stmt_bind_result($stmtCheck, $user);
+    mysqli_stmt_fetch($stmtCheck);
+    mysqli_stmt_close($stmtCheck);
 
     // Inisialisasi data dari POST
     $id_user = $_SESSION['id'];
@@ -116,15 +120,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $jenis_pembayaran = isset($_POST['jenis_pembayaran']) ? $_POST['jenis_pembayaran'] : null;
-echo $jenis_pembayaran;
-echo $jenisPembayaranInput;
-echo $statusInput;
-echo $jenisTabungan;
 
 
     // Persiapkan query dengan prepared statement
-    $query = "INSERT INTO `pembiayaan`(`jenis_pembayaran`, `status`, `jenis_tabungan`, `ktp`, `kk`, `rujukan`, `rekomendasi`, `pas_foto`, `id_user`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    if ($user > 0) {
+        $query = "UPDATE `pembiayaan` SET `jenis_pembayaran` = ?, `status` = ?, `jenis_tabungan` = ?, `ktp` = ?, `kk` = ?, `rujukan` = ?, `rekomendasi` = ?, `pas_foto` = ? WHERE `id_user` = ?";
+    } else {
+        $query = "INSERT INTO `pembiayaan`(`jenis_pembayaran`, `status`, `jenis_tabungan`, `ktp`, `kk`, `rujukan`, `rekomendasi`, `pas_foto`, `id_user`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    }
     $stmt = mysqli_prepare($connect, $query);
+    
 
     if ($stmt) {
         // Bind parameter ke placeholder
