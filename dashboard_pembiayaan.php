@@ -60,6 +60,9 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login') {
           <img src="./assets/logo2-kemenkes.png" alt="Logo Kemenkes">
         </div>
         <div class="col-12 col-lg-6">
+          <a href="form_pembiayaan.php">
+            <button type="button" class="btn btn-primary">Form Pembiayaan</button>
+          </a>
           <h1>Pembiayaan Persalinan</h1>
           <p>Lengkapi data berikut untuk melengkapi data pembayaran anda</p><br>
           <form id="formPembiayaan" method="post" action="proses/pembiayaan_proses.php" enctype="multipart/form-data" >
