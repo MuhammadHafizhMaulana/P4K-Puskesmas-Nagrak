@@ -141,6 +141,12 @@ $sql = mysqli_query($connect, $query);
             <h6>Usia kandungan anda <?= $usia_kandungan ?> pada <?= date('d-m-Y') ?></h6>
             <?php endif; ?>
           </div>
+          <div id="countdown"></div>
+            <?php if (isset($taksiran_persalinan)) { ?>
+              <script>
+                var taksiranPersalinan = "<?php echo $taksiran_persalinan; ?>";
+              </script>
+            <?php } ?>
           <button onclick="window.location.href='donor_darah.php'" type="button" class="btn btn-danger">
             Edit Golongan Darah
           </button>
@@ -260,13 +266,6 @@ $sql = mysqli_query($connect, $query);
           <div class="alert alert-primary" role="alert">
             <?php echo $message ?>
           </div>
-          <div id="countdown">
-            <?php if (isset($taksiran_persalinan)) { ?>
-            <script>
-              var taksiranPersalinan = "<?php echo $taksiran_persalinan; ?>";
-            </script>
-            <?php } ?>
-          </div>
         </div>
       </div>
     </div>
@@ -278,7 +277,7 @@ $sql = mysqli_query($connect, $query);
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
   </script>
   <script src="./js/dashboardDonorDarah.js"></script>
-  <script src="js/countdown.js"></script>
+  <script src="js/countDown.js"></script>
 </body>
 
 </html>

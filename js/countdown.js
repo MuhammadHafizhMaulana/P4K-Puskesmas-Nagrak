@@ -10,12 +10,12 @@ function startCountdown(endTime, display) {
         var now = new Date().getTime();
         var distance = endTime - now;
 
-        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        // Calculate time components
+        var months = Math.floor(distance / (1000 * 60 * 60 * 24 * 30));
+        var weeks = Math.floor((distance % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24 * 7));
+        var days = Math.floor((distance % (1000 * 60 * 60 * 24 * 7)) / (1000 * 60 * 60 * 24));
 
-        display.textContent = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+        display.textContent = months + " Bulan " + weeks + " Minggu " + days + " Hari ";
 
         if (distance < 0) {
             clearInterval(interval);
