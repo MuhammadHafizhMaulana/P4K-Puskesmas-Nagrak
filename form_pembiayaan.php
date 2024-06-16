@@ -15,6 +15,25 @@ $result = mysqli_stmt_get_result($stmt);
 
 // Mengambil data dari hasil query
 $data = mysqli_fetch_assoc($result);
+
+function getKTPImage() {
+    // Ambil ID pengguna dari session
+    $userID = $_SESSION['id']; // Anda harus menyesuaikan ini dengan cara Anda mengambil ID pengguna dari session
+
+    // Cek apakah ID pengguna sesuai dengan ID dalam nama file ktp
+    if ($userID) {
+        // Path gambar ktp
+        $pathToKTP = "./ktp_$userID.jpeg"; // Ganti ekstensi file sesuai kebutuhan
+
+        // Periksa apakah gambar ktp pengguna ada
+        if (file_exists($pathToKTP)) {
+            // Jika ada, kirimkan gambar sebagai respons dari server
+            header("Content-Type: image/jpeg"); // Ganti jenis konten sesuai ekstensi file
+            readfile($pathToKTP);
+            exit;
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,7 +43,7 @@ $data = mysqli_fetch_assoc($result);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form Pembiayaan</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="./css/donorDarah.css">
+    <link rel="stylesheet" href="./css/general_Form.css">
 </head>
 
 <body>
@@ -59,18 +78,93 @@ $data = mysqli_fetch_assoc($result);
             Lengkapi data berikut untuk melengkapi data pembayaran anda
         </p>
         <form id="formPembiayaan" method="post" action="proses/pembiayaan_proses.php" enctype="multipart/form-data">
+            <div class="text-start" id="formFields">
+            <label for="ktp"><?php echo $data ? 'Foto KTP Terakhir' : 'Masukan Foto KTP';?></label>
+                <?php
+                if ($data) {
+                ?>
+                    <button style="display:contents" onclick="openPhotoDialog('ktp')" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="border: none; padding: 0">
+                        <div id="photoKTP" class="boxPhoto rounded-3 border border-2 border-primary" style='background-image: url("./proses/check_ktp.php");'>
+                        <div class="photoDescription w-100 h-100 rounded-2">
+                            <h4 class="text-white">Lihat Detail Foto</h4>
+                        </div>
+                        </div>
+                    </button>
+                <?php } ?>
+                <input type="file" id="ktp" name="ktp" class="form-control" required>
+                <label for="kk"><?php echo $data ? 'Foto KK Terakhir' : 'Masukan Foto KK';?></label>
+                <?php
+                if ($data) {
+                ?>
+                    <button style="display:contents" onclick="openPhotoDialog('kk')" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="border: none; padding: 0">
+                        <div id="photoKK" class="boxPhoto rounded-3 border border-2 border-primary" style='background-image: url("./proses/check_kk.php");'>
+                        <div class="photoDescription w-100 h-100 rounded-2">
+                            <h4 class="text-white">Lihat Detail Foto</h4>
+                        </div>
+                        </div>
+                    </button>
+                <?php } ?>
+                <input type="file" id="kk" name="kk" class="form-control" required>
+                <label for="rujukan"><?php echo $data ? 'Foto Rujukan Terakhir' : 'Masukan Foto Rujukan (jika ada)';?></label>
+                <?php if ($data) { 
+                    if ($data && $data['rekomendasi'] != "-") {
+                ?>        
+                    <button style="display:contents" onclick="openPhotoDialog('rujukan')" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="border: none; padding: 0">
+                        <div id="photoRujukan" class="boxPhoto rounded-3 border border-2 border-primary" style='background-image: url("./proses/check_rujukan.php");'>
+                        <div class="photoDescription w-100 h-100 rounded-2">
+                            <h4 class="text-white">Lihat Detail Foto</h4>
+                        </div>
+                        </div>
+                    </button>
+                <?php } else { ?>
+                    <div style="width: 320px; text-align: center;" class="m-0 alert alert-primary" role="alert">
+                        <h6>Anda belum pernah menginputkan file rujukan sebelumnya</h6>
+                    </div>
+                <?php }} ?>
+                <input type="file" id="rujukan" name="rujukan" class="form-control">
+                <label for="pas_foto"><?php echo $data ? 'Pas Foto 3x4 Terakhir' : 'Masukan Pas Foto 3x4';?></label>
+                <?php
+                if ($data) {
+                ?>
+                    <button style="display:contents" onclick="openPhotoDialog('pas_foto')" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="border: none; padding: 0">
+                        <div id="photoPasFoto" class="boxPhoto rounded-3 border border-2 border-primary" style='background-image: url("./proses/check_pas_foto.php");'>
+                        <div class="photoDescription w-100 h-100 rounded-2">
+                            <h4 class="text-white">Lihat Detail Foto</h4>
+                        </div>
+                        </div>
+                    </button>
+                <?php } ?>
+                <input type="file" id="pas_foto" name="pas_foto" class="form-control" required>
+                <label for="rekomendasi"><?php echo $data ? 'Foto Surat Rekomendasi dari Kelurahan Terakhir' : 'Masukan Foto Surat Rekomendasi dari Kelurahan (jika ada)';?></label>
+                <?php if ($data) { 
+                    if ($data && $data['rekomendasi'] != "-") {
+                ?>        
+                    <button style="display:contents" onclick="openPhotoDialog('rekomendasi')" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="border: none; padding: 0">
+                        <div id="photoRekomendasi" class="boxPhoto rounded-3 border border-2 border-primary" style='background-image: url("./proses/check_rekomendasi.php");'>
+                        <div class="photoDescription w-100 h-100 rounded-2">
+                            <h4 class="text-white">Lihat Detail Foto</h4>
+                        </div>
+                        </div>
+                    </button>
+                <?php } else { ?>
+                    <div style="width: 320px; text-align: center;" class="m-0 alert alert-primary" role="alert">
+                        <h6>Anda belum pernah menginputkan file rekomendasi sebelumnya</h6>
+                    </div>
+                <?php }} ?>
+                <input type="file" id="rekomendasi" name="rekomendasi" class="form-control" >
+                <!-- <br> -->
+                <!-- <div class="d-flex justify-content-center w-100">
+                    <button onclick="openSpinner()" type="submit" class="btn btn-primary">INPUT</button>
+                </div> -->
+            </div>
             <?php if ($data == null) { ?> 
                 <div class="form-group text-start">
-                    <label for="jenis_pembayaran" onload="updateForm()">Jenis Pembayaran</label>
-                    <select id="jenis_pembayaran" name="jenis_pembayaran" class="form-select" aria-label="Default select example" required onchange="updateForm()">
-                    <option value="">Pilih Jenis Pembayaran</option>
-                    <option value="tabungan">Tabungan Ibu Hamil</option>
-                    <option value="jkn">Jaminan Kesehatan Nasional</option>
-                    </select>
+                    <div id="formJenisPembayaran" class="d-flex justify-content-center w-100">
+                        <button type="button" class="btn btn-primary" id="buttonFormSelanjutnya">Selanjutnya</button>
+                    </div>
                 </div>
                 <div id="additionalFields" class="text-start"></div>
             <?php } else { ?>
-                <img src="/proses/getKTP.php">
                 <div class="form-group text-start">
                     <label for="jenis_pembayaran" onload="updateForm()">Jenis Pembayaran</label>
                     <select id="jenis_pembayaran" name="jenis_pembayaran" class="form-select" aria-label="Default select example" required onchange="updateForm()">
@@ -87,8 +181,8 @@ $data = mysqli_fetch_assoc($result);
                             <option value="dada_linmas" <?php if ($data['jenis_tabungan'] === 'dadalinmas') echo 'selected'; ?>>DADA LINMAS</option>
                             <option value="saldo_pribadi" <?php if ($data['jenis_tabungan'] === 'saldo_pribadi') echo 'selected'; ?>>Saldo Pribadi</option>
                         </select>
-                        <div id="dataFields"></div>
-                    <?php } else if ($data['jenis_pembayaran'] == "jkn") {?>
+                        <div id="dataFields" class="d-flex flex-column"></div>
+                        <?php } else if ($data['jenis_pembayaran'] == "jkn") {?>
                         <label for="kepemilikan_jaminan">Kepemilikan Jaminan Kesehatan Nasional</label>
                         <select id="kepemilikan_jaminan" name="kepemilikan_jaminan" class="form-select" required onchange="updateJknFields()">
                             <option value="">Pilih Kepemilikan</option>
@@ -111,10 +205,10 @@ $data = mysqli_fetch_assoc($result);
                                             <option value="jkn_pbi" <?php if ($data['jenis_tabungan'] === 'pbi') echo 'selected'; ?>>JKN PBI</option>
                                             <option value="mandiri" <?php if ($data['jenis_tabungan'] === 'mandiri') echo 'selected'; ?>>Mandiri</option>
                                         </select>
-                                        <div id="dataFields"></div>
+                                        <div id="dataFields" class="d-flex flex-column"></div>
                                     <?php } else if ($data['status'] === 'non aktif') { ?>
                                         <label for="jkn_tidakAktif">Isi data berikut untuk pengurusan JKN</label>
-                                        <div id="dataFields"></div>
+                                        <div id="dataFields" class="d-flex flex-column"></div>
                                     <?php } ?>
                                 </div>
                             <?php } else if ($data['status'] === 'tidak punya') {?>
@@ -124,18 +218,31 @@ $data = mysqli_fetch_assoc($result);
                                     <option value="pbi" <?php if ($data['jenis_tabungan'] === 'pbi') echo 'selected'; ?>>PBI</option>
                                     <option value="mandiri" <?php if ($data['jenis_tabungan'] === 'mandiri') echo 'selected'; ?>>Mandiri</option>
                                 </select>
-                                <div id="dataFields"></div>
+                                <div id="dataFields" class="d-flex flex-column"></div>
                             <?php } ?>
                         </div>
                     <?php } ?>
                 </div>
             <?php } ?>
         </form>
-
+                   
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="titlePhotoDialog"></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <img id="contentPhotoDialog" alt="" srcset="">
+            </div>
+            </div>
+        </div>
+        </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>
-    <script src="js/formPembiayaan.js"></script>
+    <script src="js/pembiayaan_Form.js"></script>
 </body>
-
 </html>
