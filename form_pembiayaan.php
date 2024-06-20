@@ -91,7 +91,7 @@ function getKTPImage() {
                         </div>
                     </button>
                 <?php } ?>
-                <input type="file" id="ktp" name="ktp" class="form-control" required>
+                <input accept=".jpeg, .jpg, .png" type="file" id="ktp" name="ktp" class="required-field form-control" <?php echo $data ? "" : "required" ?>>
                 <label for="kk"><?php echo $data ? 'Foto KK Terakhir' : 'Masukan Foto KK';?></label>
                 <?php
                 if ($data) {
@@ -104,10 +104,10 @@ function getKTPImage() {
                         </div>
                     </button>
                 <?php } ?>
-                <input type="file" id="kk" name="kk" class="form-control" required>
+                <input accept=".jpeg, .jpg, .png" type="file" id="kk" name="kk" class="required-field form-control"  <?php echo $data ? "" : "required" ?>>
                 <label for="rujukan"><?php echo $data ? 'Foto Rujukan Terakhir' : 'Masukan Foto Rujukan (jika ada)';?></label>
                 <?php if ($data) { 
-                    if ($data && $data['rekomendasi'] != "-") {
+                    if ($data && $data['rujukan'] != "-") {
                 ?>        
                     <button style="display:contents" onclick="openPhotoDialog('rujukan')" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="border: none; padding: 0">
                         <div id="photoRujukan" class="boxPhoto rounded-3 border border-2 border-primary" style='background-image: url("./proses/check_rujukan.php");'>
@@ -121,7 +121,7 @@ function getKTPImage() {
                         <h6>Anda belum pernah menginputkan file rujukan sebelumnya</h6>
                     </div>
                 <?php }} ?>
-                <input type="file" id="rujukan" name="rujukan" class="form-control">
+                <input accept=".jpeg, .jpg, .png" type="file" id="rujukan" name="rujukan" class="form-control">
                 <label for="pas_foto"><?php echo $data ? 'Pas Foto 3x4 Terakhir' : 'Masukan Pas Foto 3x4';?></label>
                 <?php
                 if ($data) {
@@ -134,7 +134,7 @@ function getKTPImage() {
                         </div>
                     </button>
                 <?php } ?>
-                <input type="file" id="pas_foto" name="pas_foto" class="form-control" required>
+                <input accept=".jpeg, .jpg, .png" type="file" id="pas_foto" name="pas_foto" class="required-field form-control"  <?php echo $data ? "" : "required" ?>>
                 <label for="rekomendasi"><?php echo $data ? 'Foto Surat Rekomendasi dari Kelurahan Terakhir' : 'Masukan Foto Surat Rekomendasi dari Kelurahan (jika ada)';?></label>
                 <?php if ($data) { 
                     if ($data && $data['rekomendasi'] != "-") {
@@ -151,21 +151,17 @@ function getKTPImage() {
                         <h6>Anda belum pernah menginputkan file rekomendasi sebelumnya</h6>
                     </div>
                 <?php }} ?>
-                <input type="file" id="rekomendasi" name="rekomendasi" class="form-control" >
-                <!-- <br> -->
-                <!-- <div class="d-flex justify-content-center w-100">
-                    <button onclick="openSpinner()" type="submit" class="btn btn-primary">INPUT</button>
-                </div> -->
+                <input accept=".jpeg, .jpg, .png" type="file" id="rekomendasi" name="rekomendasi" class="form-control" >
             </div>
             <?php if ($data == null) { ?> 
-                <div class="form-group text-start">
+                <div class="mt-0 form-group text-start">
                     <div id="formJenisPembayaran" class="d-flex justify-content-center w-100">
-                        <button type="button" class="btn btn-primary" id="buttonFormSelanjutnya">Selanjutnya</button>
+                        <button type="button" class="btn btn-primary" id="buttonFormSelanjutnya" disabled>Selanjutnya</button>
                     </div>
                 </div>
                 <div id="additionalFields" class="text-start"></div>
             <?php } else { ?>
-                <div class="form-group text-start">
+                <div class="mt-0 form-group text-start">
                     <label for="jenis_pembayaran" onload="updateForm()">Jenis Pembayaran</label>
                     <select id="jenis_pembayaran" name="jenis_pembayaran" class="form-select" aria-label="Default select example" required onchange="updateForm()">
                     <option value="">Pilih Jenis Pembayaran</option>
@@ -243,6 +239,6 @@ function getKTPImage() {
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>
-    <script src="js/pembiayaan_Form.js"></script>
+    <script src="js/pembiayaanForm.js"></script>
 </body>
 </html>

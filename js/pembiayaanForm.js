@@ -1,6 +1,7 @@
-var goldarField = document.getElementById('goldar');
-var usiaKandunganField = document.getElementById('usia_kandungan');
 var buttonSelanjutnya = document.getElementById('buttonFormSelanjutnya');
+const ktpField = document.getElementById('ktp')
+const kkField = document.getElementById('kk')
+const pasFotoField = document.getElementById('pas_foto')
 
 
 function openSpinner() {
@@ -126,17 +127,17 @@ function updateStatusFields() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    showRequiredDocuments
-});
+document.addEventListener('DOMContentLoaded', showRequiredDocuments());
 
 function showRequiredDocuments() {
-    var dataFields = document.getElementById('dataFields');
-    dataFields.innerHTML = `
-    <div class="d-flex justify-content-center w-100">
-        <button onclick="openSpinner()" type="submit" class="btn btn-primary">INPUT</button>
-    </div>
-    `;
+    if (document.getElementById('dataFields')) {
+        var dataFields = document.getElementById('dataFields');
+        dataFields.innerHTML = `
+        <div class="d-flex justify-content-center w-100">
+            <button onclick="openSpinner()" type="submit" class="btn btn-primary">INPUT</button>
+        </div>
+        `;
+    }
 }
 
 function openPhotoDialog(photoName) {
@@ -157,5 +158,36 @@ function openPhotoDialog(photoName) {
     } else if (photoName == "rekomendasi") {
         titleDialog.innerText = "Detail Foto Rekomendasi"
         contentDialog.setAttribute('src', './proses/check_rekomendasi.php')
+    }
+}
+
+ktpField.addEventListener('input',() => {
+   this.checkRequiredFile();
+})
+kkField.addEventListener('input',() => {
+   this.checkRequiredFile();
+})
+pasFotoField.addEventListener('input',() => {
+   this.checkRequiredFile();
+})
+
+
+function checkRequiredFile(event) {
+    console.log('tes')
+    const fileInputs = [...document.getElementsByClassName('required-field')];
+    const nextButton = document.getElementById('buttonFormSelanjutnya');
+
+    fileInputs.forEach(input => {
+        input.addEventListener('change', checkFiles);
+    });
+
+    function checkFiles() {
+        let allFilled = true;
+        fileInputs.forEach(input => {
+            if (input.hasAttribute('required') && !input.files.length) {
+                allFilled = false;
+            }
+        });
+        nextButton.disabled = !allFilled;
     }
 }
