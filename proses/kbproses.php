@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $iud = isset($_POST['iud']) ? $_POST['iud'] : '';
 
     if ($tujuan === "menyudahi") {
-        if ($mow === "ingin") {
+        if ($mow === "iya") {
             $jenis = "mow";
         } else if ($mow === "tidak") {
             $jenis = "tidak mau mow";

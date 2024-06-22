@@ -9,8 +9,8 @@ function updateForm() {
             <p>Untuk menyudahi kehamilan metode yang disarankan adalah metode operasi wanita (MOW). Tindakan ini dapat mencegah kehamilan secara permanen dan hanya bisa dilakukan oleh dokter spesialis.</p>
             <label for="mow">Apakah anda ingin menggunakan metode MOW</label>
             <select id="mow" name="mow" class="form-select" required onchange="showRequiredDocuments()">
-                <option value="">Metode MOW</option>
-                <option value="ingin">Ingin</option>
+                <option value="">Pilih Status</option>
+                <option value="iya">Ingin</option>
                 <option value="tidak">Tidak</option>
             </select>
             <div id="dataFields"></div>
@@ -19,7 +19,7 @@ function updateForm() {
         additionalFields.innerHTML = `
             <label for="penyakit1">Apakah ibu pernah atau sedang mengidap penyakit radang pinggul, atau memiliki keluhan keputihan berbau tidak sedap dan berwarna kuning, hijau atau berdarah?</label>
             <select id="penyakit1" name="penyakit1" class="form-select" required onchange="updatePenyakit1()">
-                <option value="">Mengidap Penyakit</option>
+                <option value="">Pilih Status</option>
                 <option value="iya">Iya</option>
                 <option value="tidak">Tidak</option>
             </select>
@@ -35,9 +35,9 @@ function updatePenyakit1() {
 
     if (riwayatPenyakit1 === 'iya') {
         dataPenyakit1.innerHTML = `
-            <label for="penyakit2">Apakah anda pernah menderita atau sedang mengidap penyakit berikut:
-            1. Darah Tinggi
-            2. Gangguan Pembekuan Darah (Trombosis Vena Dalam)
+            <label for="penyakit2">Apakah anda pernah menderita atau sedang mengidap penyakit berikut:<br>
+            1. Darah Tinggi<br>
+            2. Gangguan Pembekuan Darah (Trombosis Vena Dalam)<br>
             3. Keganasan (Kanker)</label>
             <select id="penyakit2" name="penyakit2" class="form-select" required onchange="updateStatusFields()">
                 <option value="">Pilih Status</option>
@@ -68,11 +68,11 @@ function updateStatusFields() {
 
     if (riwayatPenyakit2 === 'iya') {
         statusFields.innerHTML = `
-            <p>Konsultasi Nakes</p>
+            <p>Konsultasikan dengan Nakes dengan membuat janji terlebih dahulu setelah menekan tombol input</p>
         `;
     } else if (riwayatPenyakit2 === 'tidak') {
         statusFields.innerHTML = `
-            <p>Kami merekomendasikan untuk menggunakan Kondom + KB Hormonal, diutamakan implan, namun jika tidak bersedia disuntik masih ada pil</p>
+            <p>Kami merekomendasikan untuk menggunakan Kondom + KB Hormonal, diutamakan implan, namun jika tidak bersedia disuntik masih ada pil<br> Tekan tombol input untul melanjutkan konsultasi dengan nakes</p>
         `;
     }
 }
