@@ -82,10 +82,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
      $rujukan_name = unggahFile($rujukan, "rujukan_", $id_user, $target_dir, 'rujukan');
      $pas_foto_name = unggahFile($pas_foto, "pas_foto_", $id_user, $target_dir, 'pas_foto');
      $rekomendasi_name = unggahFile($rekomendasi, "rekomendasi_", $id_user, $target_dir, 'rekomendasi');
-
-    //  // Mengubah nilai null menjadi string kosong atau simbol placeholder
-    // $rujukan_name = $rujukan_name ?? '-';
-    // $rekomendasi_name = $rekomendasi_name ?? '-';
  
 
     if ($jenis_pembayaran === "tabungan") {
@@ -133,7 +129,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $jenis_pembayaran = isset($_POST['jenis_pembayaran']) ? $_POST['jenis_pembayaran'] : null;
 
-
     // Persiapkan query dengan prepared statement
     if ($user > 0) {
         $ktp_name = $ktp_name ?? $pembiayaanData['ktp'];
@@ -165,7 +160,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Pesan berhasil
         if ($result) {
-            header('Location: ../dashboard_pembiayaan.php?pesan=succes');
+            if ($user > 0) {
+                header('Location: ../dashboard_pembiayaan.php?success=edit');
+            } else {
+                header('Location: ../dashboard_pembiayaan.php?success=input');
+            }
         } else {
             header('Location: ../dashboard_pembiayaan.php?pesan=eror_menyimpandata');
         }

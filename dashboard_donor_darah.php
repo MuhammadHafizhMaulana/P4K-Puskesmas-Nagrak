@@ -71,7 +71,7 @@ $sql = mysqli_query($connect, $query);
   <title>Home</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <link rel="stylesheet" href="./css/dashboard_donor_darah.css">
+  <link rel="stylesheet" href="./css/dashboardUserGeneral.css">
 </head>
 
 <body>
@@ -125,7 +125,7 @@ $sql = mysqli_query($connect, $query);
           <div style="max-width: 400px; text-align: center;" class="alert alert-primary" role="alert">
             <h6>Anda belum mendaftarkan (periksa) golongan darah anda, daftarkan di bawah</h6>
           </div>
-          <button onclick="window.location.href='donor_darah.php'" type="button" class="btn btn-danger">
+          <button onclick="window.location.href='donor_darah.php'" type="button" class="mainButton btn btn-danger">
             Daftarkan Golongan Darah
           </button>
           <?php
@@ -147,7 +147,7 @@ $sql = mysqli_query($connect, $query);
                 var taksiranPersalinan = "<?php echo $taksiran_persalinan; ?>";
               </script>
             <?php } ?>
-          <button onclick="window.location.href='donor_darah.php'" type="button" class="btn btn-danger">
+          <button onclick="window.location.href='donor_darah.php'" type="button" class="mainButton btn btn-danger">
             Edit Golongan Darah
           </button>
           <?php
@@ -170,7 +170,7 @@ $sql = mysqli_query($connect, $query);
             <h1 class="m-0 p-0">
               Pendonor Darah
             </h1>
-            <button type="button" onclick="window.location.href='tambah_pendonor.php'" class="btn btn-danger">
+            <button type="button" onclick="window.location.href='tambah_pendonor.php'" class="mainButton btn btn-danger">
               Daftarkan Pendonor Darah
             </button>
           </div>

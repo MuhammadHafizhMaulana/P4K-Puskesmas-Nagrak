@@ -79,7 +79,7 @@ function getKTPImage() {
         </p>
         <form id="formPembiayaan" method="post" action="proses/pembiayaan_proses.php" enctype="multipart/form-data">
             <div class="text-start" id="formFields">
-            <label for="ktp"><?php echo $data ? 'Foto KTP Terakhir' : 'Masukan Foto KTP';?></label>
+                <label for="ktp"><?php echo $data ? 'Foto KTP Terakhir' : 'Masukan Foto KTP';?></label>
                 <?php
                 if ($data) {
                 ?>
@@ -92,6 +92,7 @@ function getKTPImage() {
                     </button>
                 <?php } ?>
                 <input accept=".jpeg, .jpg, .png" type="file" id="ktp" name="ktp" class="required-field form-control" <?php echo $data ? "" : "required" ?>>
+                <br>
                 <label for="kk"><?php echo $data ? 'Foto KK Terakhir' : 'Masukan Foto KK';?></label>
                 <?php
                 if ($data) {
@@ -105,6 +106,7 @@ function getKTPImage() {
                     </button>
                 <?php } ?>
                 <input accept=".jpeg, .jpg, .png" type="file" id="kk" name="kk" class="required-field form-control"  <?php echo $data ? "" : "required" ?>>
+                <br>
                 <label for="rujukan"><?php echo $data ? 'Foto Rujukan Terakhir' : 'Masukan Foto Rujukan (jika ada)';?></label>
                 <?php if ($data) { 
                     if ($data && $data['rujukan'] != "-") {
@@ -122,6 +124,7 @@ function getKTPImage() {
                     </div>
                 <?php }} ?>
                 <input accept=".jpeg, .jpg, .png" type="file" id="rujukan" name="rujukan" class="form-control">
+                <br>
                 <label for="pas_foto"><?php echo $data ? 'Pas Foto 3x4 Terakhir' : 'Masukan Pas Foto 3x4';?></label>
                 <?php
                 if ($data) {
@@ -135,6 +138,7 @@ function getKTPImage() {
                     </button>
                 <?php } ?>
                 <input accept=".jpeg, .jpg, .png" type="file" id="pas_foto" name="pas_foto" class="required-field form-control"  <?php echo $data ? "" : "required" ?>>
+                <br>
                 <label for="rekomendasi"><?php echo $data ? 'Foto Surat Rekomendasi dari Kelurahan Terakhir' : 'Masukan Foto Surat Rekomendasi dari Kelurahan (jika ada)';?></label>
                 <?php if ($data) { 
                     if ($data && $data['rekomendasi'] != "-") {
@@ -155,13 +159,17 @@ function getKTPImage() {
             </div>
             <?php if ($data == null) { ?> 
                 <div class="mt-0 form-group text-start">
-                    <div id="formJenisPembayaran" class="d-flex justify-content-center w-100">
+                <div id="formJenisPembayaran" class="d-flex justify-content-center w-100">    
+                    <div>
+                        <br>
                         <button type="button" class="btn btn-primary" id="buttonFormSelanjutnya" disabled>Selanjutnya</button>
-                    </div>
+                    </div>    
+                </div>
                 </div>
                 <div id="additionalFields" class="text-start"></div>
             <?php } else { ?>
                 <div class="mt-0 form-group text-start">
+                    <br>
                     <label for="jenis_pembayaran" onload="updateForm()">Jenis Pembayaran</label>
                     <select id="jenis_pembayaran" name="jenis_pembayaran" class="form-select" aria-label="Default select example" required onchange="updateForm()">
                     <option value="">Pilih Jenis Pembayaran</option>
@@ -171,6 +179,7 @@ function getKTPImage() {
                 </div>
                 <div id="additionalFields" class="text-start">
                     <?php if ($data['jenis_pembayaran'] == "tabungan") { ?>
+                        <br>
                         <label for="tabungan_hamil">Tabungan Ibu Hamil</label>
                         <select id="tabungan_hamil" name="tabungan_hamil" class="form-select" required onchange="showRequiredDocuments()">
                             <option value="">Pilih Tabungan</option>
@@ -179,6 +188,7 @@ function getKTPImage() {
                         </select>
                         <div id="dataFields" class="d-flex flex-column"></div>
                         <?php } else if ($data['jenis_pembayaran'] == "jkn") {?>
+                        <br>
                         <label for="kepemilikan_jaminan">Kepemilikan Jaminan Kesehatan Nasional</label>
                         <select id="kepemilikan_jaminan" name="kepemilikan_jaminan" class="form-select" required onchange="updateJknFields()">
                             <option value="">Pilih Kepemilikan</option>
@@ -187,6 +197,7 @@ function getKTPImage() {
                         </select>
                         <div id="jknFields">
                             <?php if ($data['status'] === 'aktif' || $data['status'] === 'non aktif') { ?>
+                                <br>
                                 <label for="status_jaminan">Status Jaminan</label>
                                 <select id="status_jaminan" name="status_jaminan" class="form-select" required onchange="updateStatusFields()">
                                     <option value="">Pilih Status</option>
@@ -195,6 +206,7 @@ function getKTPImage() {
                                 </select>
                                 <div id="statusFields">
                                     <?php if ($data['status'] === 'aktif') { ?>
+                                        <br>
                                         <label for="jkn_aktif">JKN Aktif</label>
                                         <select id="jkn_aktif" name="jkn_aktif" class="form-select" required onchange="showRequiredDocuments()">
                                             <option value="">Pilih JKN</option>
@@ -203,11 +215,12 @@ function getKTPImage() {
                                         </select>
                                         <div id="dataFields" class="d-flex flex-column"></div>
                                     <?php } else if ($data['status'] === 'non aktif') { ?>
-                                        <label for="jkn_tidakAktif">Isi data berikut untuk pengurusan JKN</label>
+                                        <br>
                                         <div id="dataFields" class="d-flex flex-column"></div>
                                     <?php } ?>
                                 </div>
                             <?php } else if ($data['status'] === 'tidak punya') {?>
+                                <br>
                                 <label for="tipe_jkn">Tipe JKN</label>
                                 <select id="tipe_jkn" name="tipe_jkn" class="form-select" required onchange="showRequiredDocuments()">
                                     <option value="">Pilih Tipe</option>

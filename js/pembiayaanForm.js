@@ -1,4 +1,3 @@
-var buttonSelanjutnya = document.getElementById('buttonFormSelanjutnya');
 const ktpField = document.getElementById('ktp')
 const kkField = document.getElementById('kk')
 const pasFotoField = document.getElementById('pas_foto')
@@ -32,20 +31,26 @@ function openSpinner() {
     body.appendChild(spinnerDiv);
 }
 
-buttonSelanjutnya.addEventListener('click', () => {
-    const formJenisPembayaran = document.getElementById('formJenisPembayaran');
 
-    formJenisPembayaran.innerHTML = `
-    <div>
-        <label for="jenis_pembayaran" onload="updateForm()">Jenis Pembayaran</label>
-        <select id="jenis_pembayaran" name="jenis_pembayaran" class="form-select" aria-label="Default select example" required onchange="updateForm()">
-        <option value="">Pilih Jenis Pembayaran</option>
-        <option value="tabungan">Tabungan Ibu Hamil</option>
-        <option value="jkn">Jaminan Kesehatan Nasional</option>
-        </select>
-    </div>
-    `
-})
+if (document.getElementById('buttonFormSelanjutnya')) {
+    var buttonSelanjutnya = document.getElementById('buttonFormSelanjutnya');
+
+    buttonSelanjutnya.addEventListener('click', () => {
+        const formJenisPembayaran = document.getElementById('formJenisPembayaran');
+    
+        formJenisPembayaran.innerHTML = `
+        <div>
+            <br>
+            <label for="jenis_pembayaran" onload="updateForm()">Jenis Pembayaran</label>
+            <select id="jenis_pembayaran" name="jenis_pembayaran" class="form-select" aria-label="Default select example" required onchange="updateForm()">
+            <option value="">Pilih Jenis Pembayaran</option>
+            <option value="tabungan">Tabungan Ibu Hamil</option>
+            <option value="jkn">Jaminan Kesehatan Nasional</option>
+            </select>
+        </div>
+        `
+    })
+}
 
 function updateForm() {
     var jenisPembayaran = document.getElementById('jenis_pembayaran').value;
@@ -54,6 +59,7 @@ function updateForm() {
 
     if (jenisPembayaran === 'tabungan') {
         additionalFields.innerHTML = `
+            <br>
             <label for="tabungan_hamil">Tabungan Ibu Hamil</label>
             <select id="tabungan_hamil" name="tabungan_hamil" class="form-select" required onchange="showRequiredDocuments()">
                 <option value="">Pilih Tabungan</option>
@@ -64,6 +70,7 @@ function updateForm() {
         `;
     } else if (jenisPembayaran === 'jkn') {
         additionalFields.innerHTML = `
+            <br>
             <label for="kepemilikan_jaminan">Kepemilikan Jaminan Kesehatan Nasional</label>
             <select id="kepemilikan_jaminan" name="kepemilikan_jaminan" class="form-select" required onchange="updateJknFields()">
                 <option value="">Pilih Kepemilikan</option>
@@ -82,6 +89,7 @@ function updateJknFields() {
 
     if (kepemilikanJaminan === 'punya') {
         jknFields.innerHTML = `
+            <br>
             <label for="status_jaminan">Status Jaminan</label>
             <select id="status_jaminan" name="status_jaminan" class="form-select" required onchange="updateStatusFields()">
                 <option value="">Pilih Status</option>
@@ -92,6 +100,7 @@ function updateJknFields() {
         `;
     } else if (kepemilikanJaminan === 'tidak_punya') {
         jknFields.innerHTML = `
+            <br>
             <label for="tipe_jkn">Tipe JKN</label>
             <select id="tipe_jkn" name="tipe_jkn" class="form-select" required onchange="showRequiredDocuments()">
                 <option value="">Pilih Tipe</option>
@@ -110,6 +119,7 @@ function updateStatusFields() {
 
     if (statusJaminan === 'aktif') {
         statusFields.innerHTML = `
+            <br>
             <label for="jkn_aktif">JKN Aktif</label>
             <select id="jkn_aktif" name="jkn_aktif" class="form-select" required onchange="showRequiredDocuments()">
                 <option value="">Pilih JKN</option>
@@ -120,7 +130,6 @@ function updateStatusFields() {
         `;
     } else if (statusJaminan === 'tidak_aktif') {
         statusFields.innerHTML = `
-            <label for="jkn_tidakAktif">Isi data berikut untuk pengurusan JKN</label>
             <div id="dataFields"></div>
         `;
         showRequiredDocuments();
@@ -133,6 +142,7 @@ function showRequiredDocuments() {
     if (document.getElementById('dataFields')) {
         var dataFields = document.getElementById('dataFields');
         dataFields.innerHTML = `
+        <br>
         <div class="d-flex justify-content-center w-100">
             <button onclick="openSpinner()" type="submit" class="btn btn-primary">INPUT</button>
         </div>
