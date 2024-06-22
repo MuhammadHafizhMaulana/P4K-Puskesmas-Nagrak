@@ -20,6 +20,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     mysqli_stmt_fetch($stmtCheck);
     mysqli_stmt_close($stmtCheck);
 
+    if ($user > 0) {
+        $pembiayaanData = "SELECT * FROM `pembiayaan` WHERE `id_user` = ?";
+        $stmt = mysqli_prepare($connect, $pembiayaanData);
+        mysqli_stmt_bind_param($stmt, "i", $id);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        
+        // Fetch the data as an associative array
+        $pembiayaanData = mysqli_fetch_assoc($result);
+        mysqli_stmt_close($stmt);
+    }
+
     // Inisialisasi data dari POST
     $id_user = $_SESSION['id'];
     $jenis_pembayaran = ($_POST['jenis_pembayaran']);
@@ -71,9 +83,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
      $pas_foto_name = unggahFile($pas_foto, "pas_foto_", $id_user, $target_dir, 'pas_foto');
      $rekomendasi_name = unggahFile($rekomendasi, "rekomendasi_", $id_user, $target_dir, 'rekomendasi');
 
-     // Mengubah nilai null menjadi string kosong atau simbol placeholder
-    $rujukan_name = $rujukan_name ?? '-';
-    $rekomendasi_name = $rekomendasi_name ?? '-';
+    //  // Mengubah nilai null menjadi string kosong atau simbol placeholder
+    // $rujukan_name = $rujukan_name ?? '-';
+    // $rekomendasi_name = $rekomendasi_name ?? '-';
  
 
     if ($jenis_pembayaran === "tabungan") {
@@ -124,8 +136,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Persiapkan query dengan prepared statement
     if ($user > 0) {
+        $ktp_name = $ktp_name ?? $pembiayaanData['ktp'];
+        $kk_name = $kk_name ?? $pembiayaanData['kk'];
+        $pas_foto_name = $pas_foto_name ?? $pembiayaanData['pas_foto'];
+        $rujukan_name = $rujukan_name ?? $pembiayaanData['rujukan'];
+        $rekomendasi_name = $rekomendasi_name ?? $pembiayaanData['rekomendasi'];
+
         $query = "UPDATE `pembiayaan` SET `jenis_pembayaran` = ?, `status` = ?, `jenis_tabungan` = ?, `ktp` = ?, `kk` = ?, `rujukan` = ?, `rekomendasi` = ?, `pas_foto` = ? WHERE `id_user` = ?";
     } else {
+         // Mengubah nilai null menjadi string kosong atau simbol placeholder
+        $rujukan_name = $rujukan_name ?? '-';
+        $rekomendasi_name = $rekomendasi_name ?? '-';
+    
         $query = "INSERT INTO `pembiayaan`(`jenis_pembayaran`, `status`, `jenis_tabungan`, `ktp`, `kk`, `rujukan`, `rekomendasi`, `pas_foto`, `id_user`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     }
     $stmt = mysqli_prepare($connect, $query);
