@@ -183,7 +183,7 @@ function getKTPImage() {
                         <label for="tabungan_hamil">Tabungan Ibu Hamil</label>
                         <select id="tabungan_hamil" name="tabungan_hamil" class="form-select" required onchange="showRequiredDocuments()">
                             <option value="">Pilih Tabungan</option>
-                            <option value="dada_linmas" <?php if ($data['jenis_tabungan'] === 'dadalinmas') echo 'selected'; ?>>DADA LINMAS</option>
+                            <option value="dada_linmas" <?php if ($data['jenis_tabungan'] === 'dadalinmas') echo 'selected'; ?>>Dadalinmas</option>
                             <option value="saldo_pribadi" <?php if ($data['jenis_tabungan'] === 'saldo_pribadi') echo 'selected'; ?>>Saldo Pribadi</option>
                         </select>
                         <div id="dataFields" class="d-flex flex-column"></div>
