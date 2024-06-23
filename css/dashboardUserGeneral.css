@@ -74,7 +74,7 @@
 }
 
 .content img {
-    width: 10vw;
+    /* width: 10vw; */
     min-width: 100px;
 }
 
@@ -92,7 +92,7 @@
 
 
 .carousel-item {
-    height: 35vw;
+    height: 30vw;
     background-size: cover;
     background-position: center;
 }

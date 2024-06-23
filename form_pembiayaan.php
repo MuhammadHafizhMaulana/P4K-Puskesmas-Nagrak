@@ -71,7 +71,7 @@ function getKTPImage() {
     </nav>
     <div id="formDonorDarah">
         <h1 style="font-weight: bold; font-size: xxx-large">
-            Pembiayaan Persalinan
+            Biaya Persalinan
         </h1>
         <br/>
         <p>
@@ -158,8 +158,8 @@ function getKTPImage() {
                 <input accept=".jpeg, .jpg, .png" type="file" id="rekomendasi" name="rekomendasi" class="form-control" >
             </div>
             <?php if ($data == null) { ?> 
-                <div class="mt-0 form-group text-start">
-                <div id="formJenisPembayaran" class="d-flex justify-content-center w-100">    
+                <div class="mt-0 text-start">
+                <div id="formJenisPembayaran" class="d-flex justify-content-center">    
                     <div>
                         <br>
                         <button type="button" class="btn btn-primary" id="buttonFormSelanjutnya" disabled>Selanjutnya</button>
@@ -183,7 +183,7 @@ function getKTPImage() {
                         <label for="tabungan_hamil">Tabungan Ibu Hamil</label>
                         <select id="tabungan_hamil" name="tabungan_hamil" class="form-select" required onchange="showRequiredDocuments()">
                             <option value="">Pilih Tabungan</option>
-                            <option value="dada_linmas" <?php if ($data['jenis_tabungan'] === 'dadalinmas') echo 'selected'; ?>>DADA LINMAS</option>
+                            <option value="dada_linmas" <?php if ($data['jenis_tabungan'] === 'dadalinmas') echo 'selected'; ?>>Dadalinmas</option>
                             <option value="saldo_pribadi" <?php if ($data['jenis_tabungan'] === 'saldo_pribadi') echo 'selected'; ?>>Saldo Pribadi</option>
                         </select>
                         <div id="dataFields" class="d-flex flex-column"></div>
@@ -252,6 +252,6 @@ function getKTPImage() {
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>
-    <script src="js/pembiayaanForm.js"></script>
+    <script src="js/pembiayaan_Form.js"></script>
 </body>
 </html>

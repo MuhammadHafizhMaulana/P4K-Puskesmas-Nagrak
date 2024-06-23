@@ -39,7 +39,7 @@ if (document.getElementById('buttonFormSelanjutnya')) {
         const formJenisPembayaran = document.getElementById('formJenisPembayaran');
     
         formJenisPembayaran.innerHTML = `
-        <div>
+        <div class="w-100">
             <br>
             <label for="jenis_pembayaran" onload="updateForm()">Jenis Pembayaran</label>
             <select id="jenis_pembayaran" name="jenis_pembayaran" class="form-select" aria-label="Default select example" required onchange="updateForm()">
@@ -63,7 +63,7 @@ function updateForm() {
             <label for="tabungan_hamil">Tabungan Ibu Hamil</label>
             <select id="tabungan_hamil" name="tabungan_hamil" class="form-select" required onchange="showRequiredDocuments()">
                 <option value="">Pilih Tabungan</option>
-                <option value="dada_linmas">DADA LINMAS</option>
+                <option value="dada_linmas">Dadalinmas</option>
                 <option value="saldo_pribadi">Saldo Pribadi</option>
             </select>
             <div id="dataFields"></div>
