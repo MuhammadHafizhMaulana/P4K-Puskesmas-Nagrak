@@ -1,7 +1,7 @@
 var goldarField = document.getElementById('goldar');
 var waktuPengecekanField = document.getElementById('waktu_pengecekan_goldar');
 var buttonSubmitJadwal = document.getElementById('submitJadwal');
-var usiaKandunganField = document.getElementById('usia_kandungan');
+
 
 
 function openSpinner() {
@@ -32,13 +32,7 @@ function openSpinner() {
     body.appendChild(spinnerDiv);
 }
 
-usiaKandunganField.addEventListener('input', function () {
-    console.log('cek')
-    if (usiaKandunganField.value == "") {
-        document.getElementById('submitGoldar').disabled = true;
-    } else 
-        document.getElementById('submitGoldar').disabled = false;
-})
+
 
 function checkGoldar() {
     var goldarField = document.getElementById('goldar');

@@ -115,7 +115,7 @@ function getUserData() {
                   </td>
                   <td class="col-2">
                     <div class="d-flex justify-content-evenly">
-                      <a href="kesehatan_user.php?id=${user.id}">
+                      <a href="detail_user.php?id=${user.id}">
                         <button type="button" class="btn btn-outline-primary">
                           <div style="width: 27px; height: 27px">
                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
