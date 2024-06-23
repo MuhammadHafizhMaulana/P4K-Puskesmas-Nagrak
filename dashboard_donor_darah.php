@@ -114,16 +114,45 @@ $sql = mysqli_query($connect, $query);
     <div class="container">
       <div class="row d-flex align-items-center mt-5">
         <div class="col-4 d-flex justify-content-center align-items-center">
-          <img src="./assets/logo-hatii.png" alt="Logo Hati">
+          <img src="./assets/logo-donor-darah-2.png" alt="Logo Hati">
         </div>
         <div class="children-content col-8">
-          <h1>
-            Golongan Darah Anda!
-          </h1>
-          <?php
+          <div class="d-flex align-items-end justify-content-between mb-2">
+            <h1 class="m-0 p-0">
+            Golongan Darah Anda
+            </h1>
+            <?php if ($status != 'menunggu') { ?>
+              <button type="button" onclick="window.location.href='donor_darah.php'" class="mainButton btn btn-danger">
+                <?php echo $status == 'tidak diketahui' ? 'Daftarkan' : 'Edit' ?><p class="m-0">Pendonor Darah</p>
+              </button>
+            <?php } ?>
+          </div>
+          <div id="countdown"></div>
+            <?php if (isset($taksiran_persalinan)) { ?>
+              <script>
+                var taksiranPersalinan = "<?php echo $taksiran_persalinan; ?>";
+              </script>
+            <?php } ?>
+          <div class="alert alert-primary text-center" role="alert">
+            <?php if ($status == "tidak diketahui") { ?>
+              Anda belum mendaftarkan (periksa) golongan darah anda, silahkan daftarkan golongan darah anda.
+            <?php } else if ($status == "diketahui"){ ?>
+              <h6>Golongan Darah Anda adalah <?php echo strtoupper($goldar); ?></h6>
+              <?php if($usia_kandungan == null): ?>
+              <h6>Anda belum menginputkan HPHT</h6>
+              <?php elseif ($usia_kandungan == "LAHIR"): ?>
+              <h6>Anda sedang tidak mengandung</h6>
+              <?php else: ?>
+              <h6>Usia kandungan anda <?= $usia_kandungan ?> pada <?= date('d-m-Y') ?></h6>
+              <?php endif; ?>
+            <?php } else if ($status == "diketahui") { ?>
+              <h6>Anda sedang dalam proses menunggu pemeriksaan golongan darah.</h6>
+            <?php } ?>
+          </div>
+          <!-- <?php
           if ($status == "tidak diketahui") {
           ?>
-          <div style="max-width: 400px; text-align: center;" class="alert alert-primary" role="alert">
+          <div class="alert alert-primary text-center" role="alert">
             <h6>Anda belum mendaftarkan (periksa) golongan darah anda, daftarkan di bawah</h6>
           </div>
           <button onclick="window.location.href='donor_darah.php'" type="button" class="mainButton btn btn-danger">
@@ -157,7 +186,7 @@ $sql = mysqli_query($connect, $query);
           <div style="max-width: 400px; text-align: center;" class="alert alert-primary" role="alert">
             <h6>Anda sedang dalam proses menunggu pemeriksaan golongan darah.</h6>
           </div>
-          <?php } ?>
+          <?php } ?> -->
         </div>
       </div>
     </div>
