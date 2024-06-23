@@ -15,7 +15,7 @@ function startCountdown(endTime, display) {
         var weeks = Math.floor((distance % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24 * 7));
         var days = Math.floor((distance % (1000 * 60 * 60 * 24 * 7)) / (1000 * 60 * 60 * 24));
 
-        display.textContent = months + " Bulan " + weeks + " Minggu " + days + " Hari ";
+        display.textContent = months + " Bulan " + weeks + " Minggu " + days + " Hari menuju persalinan";
 
         if (distance < 0) {
             clearInterval(interval);

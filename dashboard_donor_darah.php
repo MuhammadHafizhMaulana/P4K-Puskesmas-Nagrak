@@ -127,15 +127,15 @@ $sql = mysqli_query($connect, $query);
               </button>
             <?php } ?>
           </div>
-          <div id="countdown"></div>
-            <?php if (isset($taksiran_persalinan)) { ?>
-              <script>
-                var taksiranPersalinan = "<?php echo $taksiran_persalinan; ?>";
-              </script>
-            <?php } ?>
           <div class="alert alert-primary text-center" role="alert">
             <?php if ($status == "tidak diketahui") { ?>
-              Anda belum mendaftarkan (periksa) golongan darah anda, silahkan daftarkan golongan darah anda.
+              <h6>Anda belum mendaftarkan (periksa) golongan darah anda, silahkan daftarkan golongan darah anda.</h6>
+              <h6 id="countdown"></h6>
+              <?php if (isset($taksiran_persalinan)) { ?>
+                <script>
+                  var taksiranPersalinan = "<?php echo $taksiran_persalinan; ?>";
+                </script>
+              <?php } ?>
             <?php } else if ($status == "diketahui"){ ?>
               <h6>Golongan Darah Anda adalah <?php echo strtoupper($goldar); ?></h6>
               <?php if($usia_kandungan == null): ?>
@@ -145,8 +145,20 @@ $sql = mysqli_query($connect, $query);
               <?php else: ?>
               <h6>Usia kandungan anda <?= $usia_kandungan ?> pada <?= date('d-m-Y') ?></h6>
               <?php endif; ?>
+              <h6 id="countdown"></h6>
+              <?php if (isset($taksiran_persalinan)) { ?>
+                <script>
+                  var taksiranPersalinan = "<?php echo $taksiran_persalinan; ?>";
+                </script>
+              <?php } ?>
             <?php } else if ($status == "diketahui") { ?>
               <h6>Anda sedang dalam proses menunggu pemeriksaan golongan darah.</h6>
+              <h6 id="countdown"></h6>
+              <?php if (isset($taksiran_persalinan)) { ?>
+                <script>
+                  var taksiranPersalinan = "<?php echo $taksiran_persalinan; ?>";
+                </script>
+              <?php } ?>
             <?php } ?>
           </div>
           <!-- <?php
