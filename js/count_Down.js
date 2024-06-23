@@ -26,18 +26,15 @@ function startCountdown(endTime, display) {
 
 // Start countdown when modal is shown
 document.addEventListener('DOMContentLoaded', function() {
-    var buttonAlert = document.getElementById('buttonAlert');
-    if (buttonAlert) {
-        buttonAlert.click();
+    
+    var countdownDisplay = document.getElementById('countdown');
+    if (countdownDisplay && typeof taksiranPersalinan !== 'undefined') {
+        startCountdown(taksiranPersalinan, countdownDisplay);
     }
 
-    var modal = document.getElementById('exampleModal');
-    if (modal) {
-        modal.addEventListener('shown.bs.modal', function () {
-            var countdownDisplay = document.getElementById('countdown');
-            if (countdownDisplay && typeof taksiranPersalinan !== 'undefined') {
-                startCountdown(taksiranPersalinan, countdownDisplay);
-            }
-        });
-    }
+    // var modal = document.getElementById('exampleModal');
+    // if (modal) {
+    //     modal.addEventListener('shown.bs.modal', function () {
+    //     });
+    // }
 });
