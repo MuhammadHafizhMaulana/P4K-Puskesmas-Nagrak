@@ -32,7 +32,6 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login_admin') {
           <a class="nav-link" href="data_user.php">User</a>
           <a class="nav-link" href="listKesehatanUser.php">Kesehatan User</a>
           <a class="nav-link" href="pendonor.php">Pendonor</a>
-          <a class="nav-link" href="kb.php">KB</a>
           <a class="nav-link" href="profile.php">Profile</a>
           <a class="nav-link" href="proses/logout.php">Logout</a>
         </div>

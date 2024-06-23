@@ -13,7 +13,7 @@ if (isset($_GET['id'])) {
 
     $id = $_GET['id'];
     // Query untuk mengambil data pengguna berdasarkan id yang sudah didekripsi
-    $query = "SELECT * FROM kesehatan_user WHERE id_user = ?";
+    $query = " SELECT ku.*, kb.* FROM kesehatan_user ku INNER JOIN kb ON ku.id_user = kb.id_user WHERE ku.id_user = ?";
     $stmt = mysqli_prepare($connect, $query);
     mysqli_stmt_bind_param($stmt, "i", $id);
     mysqli_stmt_execute($stmt);
@@ -25,6 +25,7 @@ if (isset($_GET['id'])) {
     mysqli_stmt_bind_param($stmt, "i", $id);
     mysqli_stmt_execute($stmt);
     $nameResult = mysqli_stmt_get_result($stmt);
+    
     // Periksa apakah data ditemukan
     if (mysqli_num_rows($result) > 0) {
         // Ambil data pengguna
@@ -85,7 +86,6 @@ if (isset($_GET['id'])) {
                     <a class="nav-link" href="data_user.php">User</a>
                     <a class="nav-link" href="listKesehatanUser.php">Kesehatan User</a>
                     <a class="nav-link" href="pendonor.php">Pendonor</a>
-                    <a class="nav-link" href="kb.php">KB</a>
                     <a class="nav-link" href="profile.php">Profile</a>
                     <a class="nav-link" href="proses/logout.php">Logout</a>
                 </div>
@@ -152,12 +152,18 @@ if (isset($_GET['id'])) {
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 text-start">Terakhir Update</div>
+                <div class="col-5 text-start">Terakhir User Update</div>
                 <div class="col-1">:</div>
                 <div class="col-6 text-start">
                     <?php echo $data['tanggal_input'] ? ucwords($data['tanggal_input']) : '-' ?>
                 </div>
             </div>
+            <br><br>
+            <h1 style="
+                font-weight: bold;
+                ">
+</div>
+
         </div>
 
 
