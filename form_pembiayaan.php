@@ -71,7 +71,7 @@ function getKTPImage() {
     </nav>
     <div id="formDonorDarah">
         <h1 style="font-weight: bold; font-size: xxx-large">
-            Pembiayaan Persalinan
+            Biaya Persalinan
         </h1>
         <br/>
         <p>
@@ -158,8 +158,8 @@ function getKTPImage() {
                 <input accept=".jpeg, .jpg, .png" type="file" id="rekomendasi" name="rekomendasi" class="form-control" >
             </div>
             <?php if ($data == null) { ?> 
-                <div class="mt-0 form-group text-start">
-                <div id="formJenisPembayaran" class="d-flex justify-content-center w-100">    
+                <div class="mt-0 text-start">
+                <div id="formJenisPembayaran" class="d-flex justify-content-center">    
                     <div>
                         <br>
                         <button type="button" class="btn btn-primary" id="buttonFormSelanjutnya" disabled>Selanjutnya</button>
@@ -252,6 +252,6 @@ function getKTPImage() {
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>
-    <script src="js/pembiayaanForm.js"></script>
+    <script src="js/pembiayaan_Form.js"></script>
 </body>
 </html>

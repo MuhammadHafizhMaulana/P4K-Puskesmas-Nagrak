@@ -41,7 +41,7 @@ if (isset($_GET['success'])) {
   <title>Pembiayaan</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <link rel="stylesheet" href="./css/dashboard_UserGeneral.css">
+  <link rel="stylesheet" href="./css/dashboardUserGeneral.css">
 </head>
 
 <body>
@@ -84,7 +84,7 @@ if (isset($_GET['success'])) {
     <div class="container">
       <div class="row d-flex align-items-center mt-5">
         <div class="col-4 d-none d-lg-flex justify-content-center align-items-center">
-          <img src="./assets/logo-donor-darah.png" alt="Logo Donor Darah">
+          <img src="./assets/logo-pembiayaan.png" alt="Logo Donor Darah">
         </div>
         <div class="children-content col-12 col-lg-8">
           <div class="d-flex align-items-end justify-content-between mb-2">
@@ -96,84 +96,90 @@ if (isset($_GET['success'])) {
             </button>
           </div>
           <?php if ($pembiayaanData) { ?>
-            <div class="alert alert-primary w-100" role="alert">
-              <div id="carouselExampleCaptions" class="carousel slide m-0 m-md-5">
-                <div class="carousel-indicators">
-                  <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                  <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                  <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                  <?php if ($pembiayaanData['rujukan'] != "-" && $pembiayaanData['rekomendasi'] != '-') {?>
-                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
-                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4" aria-label="Slide 5"></button>
-                  <?php } else if ($pembiayaanData['rujukan'] != "-" || $pembiayaanData['rekomendasi'] != '-') { ?> 
-                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
-                  <?php } ?>
-                </div>
-                <div class="carousel-inner">
-                  <div class="rounded-1 carousel-item active" style='background-image: url("./proses/check_ktp.php");'>
-                    <div class="carousel-caption d-block">
-                      <button  data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="openPhotoDialog('ktp')" type="button" class="btn btn-primary">
-                        <h6 class="m-0">Lihat detail foto KTP</h6>
-                      </button>
-                    </div>
+            <div style="overflow-y: scroll; max-height: calc(100vh - 166px)">
+              <div class="alert alert-primary w-100 m-0" role="alert">
+                <div id="carouselExampleCaptions" class="carousel slide m-0 m-md-5" data-bs-ride="carousel" data-bs-interval="3000">
+                  <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    <?php if ($pembiayaanData['rujukan'] != "-" && $pembiayaanData['rekomendasi'] != '-') {?>
+                      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4" aria-label="Slide 5"></button>
+                    <?php } else if ($pembiayaanData['rujukan'] != "-" || $pembiayaanData['rekomendasi'] != '-') { ?> 
+                      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                    <?php } ?>
                   </div>
-                  <div class="rounded-1 carousel-item" style='background-image: url("./proses/check_kk.php");'>
-                    <div class="carousel-caption d-block">
-                      <button  data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="openPhotoDialog('kk')" type="button" class="btn btn-primary">
-                        <h6 class="m-0">Lihat detail foto KK</h6>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="rounded-1 carousel-item" style='background-image: url("./proses/check_pas_foto.php");'>
-                    <div class="carousel-caption d-block">
-                      <button  data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="openPhotoDialog('pas_foto')" type="button" class="btn btn-primary">
-                        <h6 class="m-0">Lihat detail Pas Foto</h6>
-                      </button>
-                    </div>
-                  </div>
-                  <?php if ($pembiayaanData['rujukan'] != "-") { ?>
-                    <div class="rounded-1 carousel-item" style='background-image: url("./proses/check_rujukan.php");'>
+                  <div class="carousel-inner">
+                    <div class="rounded-1 carousel-item active" style='background-image: url("./proses/check_ktp.php");'>
                       <div class="carousel-caption d-block">
-                        <button  data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="openPhotoDialog('rujukan')" type="button" class="btn btn-primary">
-                          <h6 class="m-0">Lihat detail foto Rujukan</h6>
+                        <button  data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="openPhotoDialog('ktp')" type="button" class="btn btn-primary">
+                          <h6 class="m-0">Lihat detail foto KTP</h6>
                         </button>
                       </div>
-                    </div>  
-                  <?php } ?>
-                  <?php if ($pembiayaanData['rekomendasi'] != "-") { ?>
-                    <div class="rounded-1 carousel-item" style='background-image: url("./proses/check_rekomendasi.php");'>
+                    </div>
+                    <div class="rounded-1 carousel-item" style='background-image: url("./proses/check_kk.php");'>
                       <div class="carousel-caption d-block">
-                        <button  data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="openPhotoDialog('rekomendasi')" type="button" class="btn btn-primary">
-                          <h6 class="m-0">Lihat detail foto Rekomendasi</h6>
+                        <button  data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="openPhotoDialog('kk')" type="button" class="btn btn-primary">
+                          <h6 class="m-0">Lihat detail foto KK</h6>
                         </button>
                       </div>
-                    </div>  
-                  <?php } ?>
+                    </div>
+                    <div class="rounded-1 carousel-item" style='background-image: url("./proses/check_pas_foto.php");'>
+                      <div class="carousel-caption d-block">
+                        <button  data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="openPhotoDialog('pas_foto')" type="button" class="btn btn-primary">
+                          <h6 class="m-0">Lihat detail Pas Foto</h6>
+                        </button>
+                      </div>
+                    </div>
+                    <?php if ($pembiayaanData['rujukan'] != "-") { ?>
+                      <div class="rounded-1 carousel-item" style='background-image: url("./proses/check_rujukan.php");'>
+                        <div class="carousel-caption d-block">
+                          <button  data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="openPhotoDialog('rujukan')" type="button" class="btn btn-primary">
+                            <h6 class="m-0">Lihat detail foto Rujukan</h6>
+                          </button>
+                        </div>
+                      </div>  
+                    <?php } ?>
+                    <?php if ($pembiayaanData['rekomendasi'] != "-") { ?>
+                      <div class="rounded-1 carousel-item" style='background-image: url("./proses/check_rekomendasi.php");'>
+                        <div class="carousel-caption d-block">
+                          <button  data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="openPhotoDialog('rekomendasi')" type="button" class="btn btn-primary">
+                            <h6 class="m-0">Lihat detail foto Rekomendasi</h6>
+                          </button>
+                        </div>
+                      </div>  
+                    <?php } ?>
+                  </div>
+                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                    <div class="bg-primary w">
+                      <span class="m-0 carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                    </div>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                    <div class="bg-primary">
+                      <span class="m-0 carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                    </div>
+                  </button>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-                  <div class="bg-primary w">
-                    <span class="m-0 carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                  </div>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-                  <div class="bg-primary">
-                    <span class="m-0 carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                  </div>
-                </button>
-              </div>
-              <div class="m-0 alert alert-success" role="alert">
-                <h4 class="alert-heading">Detail Data Pembiayaan Anda!</h4>
-                <hr>
-                <p class="mb-0">Jenis pembayaran yang anda pilih adalah <?php echo $pembiayaanData['jenis_pembayaran'] == 'jkn' ? 'Jaminan Kesehatan Nasional' : 'Tabungan' ?><?php
-                if ($pembiayaanData['jenis_tabungan'] != '-') {
-                  echo " ({$pembiayaanData['jenis_tabungan']})";
-                }
-                ?> dengan status <?php echo $pembiayaanData['status'] ?>
-                </p>
+                <div class="m-0 alert alert-success" role="alert">
+                  <h4 class="alert-heading">Detail Data Pembiayaan Anda!</h4>
+                  <hr>
+                  <p class="mb-0">Jenis pembayaran yang anda pilih adalah <?php echo $pembiayaanData['jenis_pembayaran'] == 'jkn' ? 'Jaminan Kesehatan Nasional' : 'Tabungan' ?><?php
+                  if ($pembiayaanData['jenis_tabungan'] != '-') {
+                    echo " ({$pembiayaanData['jenis_tabungan']})";
+                  }
+                  ?> dengan status <?php echo $pembiayaanData['status'] ?>
+                  </p>
+                </div>
               </div>
             </div>
+          <?php } else {?>
+            <div class="alert alert-primary text-center" role="alert">
+            <h6>Anda belum menginputkan data pembiayaan!!</h6>
+          </div>
           <?php } ?>
         </div>
       </div>

@@ -42,11 +42,16 @@ body {
     height: 75px;
 }
 
+form {
+    width: 100%;
+    max-width: 320px;
+}
+
 #formDonorDarah {
     margin-top: 105px;
     height: min-content;
     min-height: 100vh;
-    width: 620px;
+    max-width: 100vw;
     background-color: white;
     padding: 60px;
     display: flex;
@@ -62,7 +67,8 @@ body {
     padding: 10px 15px;
     outline: none;
     border-radius: 0px;
-    width: 320px;
+    width: 100%;
+    max-width: 320px;
   }
   
   .form-select:focus {
@@ -80,19 +86,20 @@ body {
   }
   
 .form-control:focus {
-    border: none; /* Menghapus semua border */
-    border-bottom: 2px solid #007bff; /* Menambahkan border bawah */
-    box-shadow: none /* Menambahkan efek bayangan */
+    border: none;
+    border-bottom: 2px solid #007bff;
+    box-shadow: none;
   }
 
 .form-group {
     text-align: start;
-    width: 320px;
+    max-width: 320px;
     margin: 20px 0px 0px;
 }
 
 .form-group input {
-    width: 320px;
+    width: 100%;
+    max-width: 320px;
 }
 
 #dataFields {
@@ -100,12 +107,12 @@ body {
 }
 
 #formFields {
-    width: 320px;
+    width: 100%;
 }
 
 .boxPhoto {
     background-size: cover;
-    width: 320px;
+    width: 100%;
     height: 200px;
     background-position: center;
 }
