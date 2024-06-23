@@ -2,46 +2,83 @@
 session_start();
 if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login_admin') {
     header('Location: login_admin.php');
-    exit(); // tambahkan exit setelah redirect
+    exit();
 }
 
 // Sambungan ke database
 include '../proses/koneksi.php';
 
-// Periksa apakah parameter id ada di URL
-if (isset($_GET['id'])) {
+// Periksa apakah parameter id ada di URL dan apakah valid
+if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+    $id_user = intval($_GET['id']);
 
-    $id = $_GET['id'];
+    // Function untuk merubah format tanggal
+    function formatTanggal($tanggal_input) {
+        $timestamp = strtotime($tanggal_input);
+        return date("d M Y", $timestamp);
+    }
+
     // Query untuk mengambil data pengguna berdasarkan id yang sudah didekripsi
-    $query = "SELECT ku.*, kb.*, p.*, s.* FROM kesehatan_user ku 
-              INNER JOIN kb ON ku.id_user = kb.id_user 
-              INNER JOIN pembiayaan p ON ku.id_user = p.id_user 
-              INNER JOIN sarpras s ON ku.id_user = s.id_user 
-              WHERE ku.id_user = ?";
+    $query = "SELECT * FROM kesehatan_user WHERE id_user = ?";
     $stmt = mysqli_prepare($connect, $query);
-    mysqli_stmt_bind_param($stmt, "i", $id);
+    mysqli_stmt_bind_param($stmt, "i", $id_user);
     mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
+    $kesehatan_userresult = mysqli_stmt_get_result($stmt);
+
+    if (!$kesehatan_userresult) {
+        die('Query gagal: ' . mysqli_error($connect));
+    }
+
+    $query = "SELECT * FROM pembiayaan WHERE id_user = ?";
+    $stmt_pembiayaan = mysqli_prepare($connect, $query);
+    mysqli_stmt_bind_param($stmt_pembiayaan, "i", $id_user);
+    mysqli_stmt_execute($stmt_pembiayaan);
+    $pembiayaanresult = mysqli_stmt_get_result($stmt_pembiayaan);
+
+    if (!$pembiayaanresult) {
+        die('Query gagal: ' . mysqli_error($connect));
+    }
+
+    $query = "SELECT * FROM sarpras WHERE id_user = ?";
+    $stmt_sarpras = mysqli_prepare($connect, $query);
+    mysqli_stmt_bind_param($stmt_sarpras, "i", $id_user);
+    mysqli_stmt_execute($stmt_sarpras);
+    $sarprasresult = mysqli_stmt_get_result($stmt_sarpras);
+
+    if (!$sarprasresult) {
+        die('Query gagal: ' . mysqli_error($connect));
+    }
+
+    $query = "SELECT * FROM kb WHERE id_user = ? ORDER BY tanggal_input DESC";
+    $stmt_kb = mysqli_prepare($connect, $query);
+    mysqli_stmt_bind_param($stmt_kb, "i", $id_user);
+    mysqli_stmt_execute($stmt_kb);
+    $kbresult = mysqli_stmt_get_result($stmt_kb);
+
+    if (!$kbresult) {
+        die('Query gagal: ' . mysqli_error($connect));
+    }
 
     $query = "SELECT `nama` FROM user WHERE id = ?";
-    $stmt = mysqli_prepare($connect, $query);
-    mysqli_stmt_bind_param($stmt, "i", $id);
-    mysqli_stmt_execute($stmt);
-    $nameResult = mysqli_stmt_get_result($stmt);
+    $stmt_user = mysqli_prepare($connect, $query);
+    mysqli_stmt_bind_param($stmt_user, "i", $id_user);
+    mysqli_stmt_execute($stmt_user);
+    $nameResult = mysqli_stmt_get_result($stmt_user);
+
+    if (!$nameResult) {
+        die('Query gagal: ' . mysqli_error($connect));
+    }
+
+    $kesehatan = mysqli_fetch_assoc($kesehatan_userresult);
+    $pembiayaan = mysqli_fetch_assoc($pembiayaanresult);
+    $sarpras = mysqli_fetch_assoc($sarprasresult);
+
+    if (isset($kesehatan['tanggal_input'])) {
+        $kesehatan['tanggal_input'] = formatTanggal($kesehatan['tanggal_input']);
+    }
     
-    // Periksa apakah data ditemukan
-    if (mysqli_num_rows($result) > 0) {
-        // Ambil data pengguna
-        $data = mysqli_fetch_assoc($result);
-
-        // Function untuk merubah format tanggal
-        function formatTanggal($tanggal_input) {
-            $timestamp = strtotime($tanggal_input);
-            $tanggal_format = date("d M Y", $timestamp);
-            return $tanggal_format;
-        }
-
-        $data['tanggal_input'] = formatTanggal($data['tanggal_input']);
+    // Jika data pengguna ditemukan, tampilkan halaman
+    if ($kesehatan || $pembiayaan || $sarpras || $kb) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -88,16 +125,15 @@ if (isset($_GET['id'])) {
         </div>
     </nav>
     <div id="boxKesehatanUser">
-        <h1 style="font-weight: bold; ">Detail Data User</h1>
+        <h1 style="font-weight: bold;">Detail Data User</h1>
         <br><br>
         <div class="w-100">
             <div class="d-flex justify-content-between align-items-end">
                 <h3 class=" text-start m-0" style="font-weight: bold;">Detail Data Goldar User</h3>
-                <a class="" href="form_pembiayaan.php">
+                <a class="" href="kesehatan_user.php?id=<?php echo $id_user; ?>">
                     <button type="button" class="btn btn-primary">Edit</button>
+                </a>
             </div>
-
-            </a>
             <div class="row">
                 <div class="col-5 text-start">Nama</div>
                 <div class="col-1">:</div>
@@ -115,146 +151,171 @@ if (isset($_GET['id'])) {
                 <div class="col-5 text-start">Goldar</div>
                 <div class="col-1">:</div>
                 <div class="col-6 text-start">
-                    <?php echo $data['goldar'] ? $data['goldar'] : '-' ?>
+                    <?php echo isset($kesehatan['goldar']) ? $kesehatan['goldar'] : '-' ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-5 text-start">Usia Kandungan</div>
                 <div class="col-1">:</div>
                 <div class="col-6 text-start">
-                    <?php echo $data['usia_kandungan'] ? $data['usia_kandungan'] : '-' ?> Minggu
+                    <?php echo isset($kesehatan['usia_kandungan']) ? $kesehatan['usia_kandungan'] : '-' ?> Minggu
                 </div>
             </div>
             <div class="row">
                 <div class="col-5 text-start">Status Goldar</div>
                 <div class="col-1">:</div>
                 <div class="col-6 text-start">
-                    <?php echo $data['status'] ? ucwords($data['status']) : '-' ?>
+                    <?php echo isset($kesehatan['status']) ? ucwords($kesehatan['status']) : '-' ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-5 text-start">Terakhir User Update</div>
                 <div class="col-1">:</div>
                 <div class="col-6 text-start">
-                    <?php echo $data['tanggal_input'] ? ucwords($data['tanggal_input']) : '-' ?>
+                    <?php echo isset($kesehatan['tanggal_input']) ? ucwords($kesehatan['tanggal_input']) : '-' ?>
                 </div>
             </div>
             <br><br>
             <div class="d-flex justify-content-between align-items-end">
                 <h3 class=" text-start m-0" style="font-weight: bold;">Detail Data Pembayaran</h3>
-                <a class="" href="form_pembiayaan.php">
-                    <button type="button" class="btn btn-primary">Edit</button>
-                </a>
             </div>
             <br>
             <div class="row">
                 <div class="col-5 text-start">Jenis Pembayaran</div>
                 <div class="col-1">:</div>
                 <div class="col-6 text-start">
-                    <?php echo $data['jenis_pembayaran'] ? $data['jenis_pembayaran'] : '-' ?>
+                    <?php echo isset($pembiayaan['jenis_pembayaran']) ? $pembiayaan['jenis_pembayaran'] : '-' ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-5 text-start">Status</div>
                 <div class="col-1">:</div>
                 <div class="col-6 text-start">
-                    <?php echo $data['status'] ? $data['status'] : '-' ?>
+                    <?php echo isset($pembiayaan['status']) ? $pembiayaan['status'] : '-' ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-5 text-start">Jenis Tabungan</div>
                 <div class="col-1">:</div>
                 <div class="col-6 text-start">
-                    <?php echo $data['jenis_tabungan'] ? $data['jenis_tabungan'] : '-' ?>
+                    <?php echo isset($pembiayaan['jenis_tabungan']) ? $pembiayaan['jenis_tabungan'] : '-' ?>
                 </div>
             </div>
             <br><br>
             <div class="d-flex justify-content-between align-items-end">
                 <h3 class=" text-start m-0" style="font-weight: bold;">Detail Data Sarpras</h3>
-                <a class="" href="form_pembiayaan.php">
-                    <button type="button" class="btn btn-primary">Edit</button>
-                </a>
             </div>
             <br>
             <div class="row">
                 <div class="col-5 text-start">Transportasi</div>
                 <div class="col-1">:</div>
                 <div class="col-6 text-start">
-                    <?php echo $data['transportasi'] ? $data['transportasi'] : '-' ?>
+                    <?php echo isset($sarpras['transportasi']) ? $sarpras['transportasi'] : '-' ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-5 text-start">Nama Sopir</div>
                 <div class="col-1">:</div>
                 <div class="col-6 text-start">
-                    <?php echo $data['nama_supir'] ? $data['nama_supir'] : '-' ?>
+                    <?php echo isset($sarpras['nama_supir']) ? $sarpras['nama_supir'] : '-' ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-5 text-start">No Sopir</div>
                 <div class="col-1">:</div>
                 <div class="col-6 text-start">
-                    <?php echo $data['no_supir'] ? $data['no_supir'] : '-' ?>
+                    <?php echo isset($sarpras['no_supir']) ? $sarpras['no_supir'] : '-' ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-5 text-start">Nama Pendamping</div>
                 <div class="col-1">:</div>
                 <div class="col-6 text-start">
-                    <?php echo $data['nama_pendamping'] ? $data['nama_pendamping'] : '-' ?>
+                    <?php echo isset($sarpras['nama_pendamping']) ? $sarpras['nama_pendamping'] : '-' ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-5 text-start">NO Pendamping</div>
                 <div class="col-1">:</div>
                 <div class="col-6 text-start">
-                    <?php echo $data['no_pendamping'] ? $data['no_pendamping'] : '-' ?>
+                    <?php echo isset($sarpras['no_pendamping']) ? $sarpras['no_pendamping'] : '-' ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-5 text-start">Rumah Sakit Tujuan</div>
                 <div class="col-1">:</div>
                 <div class="col-6 text-start">
-                    <?php echo $data['tujuan'] ? $data['tujuan'] : '-' ?>
+                    <?php echo isset($sarpras['tujuan']) ? $sarpras['tujuan'] : '-' ?>
                 </div>
             </div>
             <br><br>
+            <?php
+                // Ambil semua data KB dari hasil query
+                $data_kb = [];
+                while ($row_kb = mysqli_fetch_assoc($kbresult)) {
+                    $data_kb[] = $row_kb;
+                }
+
+                // Jika terdapat data KB, lakukan pemformatan tanggal
+            foreach ($data_kb as &$kb) {
+                if (isset($kb['tanggal_input'])) {
+                    $kb['tanggal_input'] = formatTanggal($kb['tanggal_input']);
+                }
+                // Pastikan untuk menutup penggunaan mysqli_fetch_assoc()
+                unset($kb);
+            }
+            ?>
             <div class="d-flex justify-content-between align-items-end">
                 <h3 class=" text-start m-0" style="font-weight: bold;">Detail Data KB User</h3>
-                <a class="" href="form_pembiayaan.php">
-                    <button type="button" class="btn btn-primary">Edit</button>
-                </a>
+
             </div>
             <br>
+
+            <?php foreach ($data_kb as $kb_item): ?>
             <div class="row">
                 <div class="col-5 text-start">Tujuan</div>
                 <div class="col-1">:</div>
                 <div class="col-6 text-start">
-                    <?php echo $data['tujuan'] ? $data['tujuan'] : '-' ?>
+                    <?php echo isset($kb_item['tujuan']) ? $kb_item['tujuan'] : '-' ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-5 text-start">Metode</div>
                 <div class="col-1">:</div>
                 <div class="col-6 text-start">
-                    <?php echo $data['jenis'] ? $data['jenis'] : '-' ?>
+                    <?php echo isset($kb_item['jenis']) ? $kb_item['jenis'] : '-' ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5 text-start">Tanggal Input</div>
+                <div class="col-1">:</div>
+                <div class="col-6 text-start">
+                    <?php echo isset($kb_item['tanggal_input']) ? $kb_item['tanggal_input'] : '-' ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-5 text-start">Deskripsi</div>
                 <div class="col-1">:</div>
                 <div class="col-6 text-start">
-                    <textarea disabled><?php echo $data['deskripsi'] ? ucwords($data['deskripsi']) : '-' ?></textarea>
+                    <textarea
+                        disabled><?php echo isset($kb_item['deskripsi']) ? ucwords($kb_item['deskripsi']) : '-' ?></textarea>
                 </div>
             </div>
+            <div class="row mt-3">
+                <div class="col-12 text-end">
+                    <a href="editDataKB.php?id_user=<?php echo $id_user; ?>&id=<?php echo $kb_item['id']; ?>" class="btn btn-primary">Edit</a>
+                </div>
+                <br><br>
+                <br><br>
+                <?php endforeach; ?>
+            </div>
         </div>
-    </div>
 
-    <script src="../js/adminKesehatanUser&DetailPendonor.js"></script>
+        <script src="../js/adminKesehatanUser&DetailPendonor.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-    </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+        </script>
 </body>
 
 </html>
@@ -265,10 +326,14 @@ if (isset($_GET['id'])) {
 
     // Tutup statement
     mysqli_stmt_close($stmt);
-} else {
-    echo "ID tidak ditemukan dalam URL.";
-}
+    mysqli_stmt_close($stmt_pembiayaan);
+    mysqli_stmt_close($stmt_sarpras);
+    mysqli_stmt_close($stmt_kb);
+    mysqli_stmt_close($stmt_user);
 
 // Tutup koneksi
 mysqli_close($connect);
+} else {
+    echo "ID tidak valid atau tidak disediakan.";
+}
 ?>

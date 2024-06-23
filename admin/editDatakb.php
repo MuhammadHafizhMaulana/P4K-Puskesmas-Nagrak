@@ -9,11 +9,12 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login_admin') {
 include '../proses/koneksi.php';
 
 // Periksa apakah parameter id ada di URL
-if (isset($_GET['id'])) {
+if (isset($_GET['id_user']) && (isset($_GET['id']))) {
 
+    $id_user = $_GET['id_user'];
     $id = $_GET['id'];
     // Query untuk mengambil data pengguna berdasarkan id yang sudah didekripsi
-    $query = " SELECT ku.*, kb.* FROM kesehatan_user ku INNER JOIN kb ON ku.id_user = kb.id_user WHERE ku.id_user = ?";
+    $query = " SELECT * FROM kb WHERE id = ?";
     $stmt = mysqli_prepare($connect, $query);
     mysqli_stmt_bind_param($stmt, "i", $id);
     mysqli_stmt_execute($stmt);
@@ -22,7 +23,7 @@ if (isset($_GET['id'])) {
 
     $query = "SELECT `nama`FROM user WHERE id = ?";
     $stmt = mysqli_prepare($connect, $query);
-    mysqli_stmt_bind_param($stmt, "i", $id);
+    mysqli_stmt_bind_param($stmt, "i", $id_user);
     mysqli_stmt_execute($stmt);
     $nameResult = mysqli_stmt_get_result($stmt);
     
@@ -35,7 +36,7 @@ if (isset($_GET['id'])) {
         function formatTanggal($tanggal_input)
         {
             $timestamp = strtotime($tanggal_input);
-            $tanggal_format = date("d M Y", $timestamp);
+            $tanggal_format = date("d M Y", $timestamp); // Ubah format sesuai kebutuhan
 
             return $tanggal_format;
         }
@@ -45,12 +46,12 @@ if (isset($_GET['id'])) {
         if (isset($_GET['success'])) {
             $proccessIsSuccess = true;
             if ($_GET['success'] == "update_successful") {
-                $message = "Anda berhasil mengedit golongan darah.";
+                $message = "Anda berhasil mengubah data KB.";
             }
         } else if (isset($_GET['gagal'])) {
             $proccessIsSuccess = false;
             if ($_GET['error'] == "update_failed") {
-                $message = "Edit golongan darah gagal dilakukan.";
+                $message = "Edit gagal.";
             }
         }
 ?>
@@ -86,7 +87,7 @@ if (isset($_GET['id'])) {
                     <a class="nav-link" href="data_user.php">User</a>
                     <a class="nav-link" href="listKesehatanUser.php">Kesehatan User</a>
                     <a class="nav-link" href="pendonor.php">Pendonor</a>
-                    <a class="nav-link" href="profile_admin.php">Profile</a>
+                    <a class="nav-link" href="profile.php">Profile</a>
                     <a class="nav-link" href="proses/logout.php">Logout</a>
                 </div>
             </div>
@@ -112,43 +113,18 @@ if (isset($_GET['id'])) {
                             } ?>
                 </div>
             </div>
-            <div class="row align-items-center">
-                <div class="col-5 text-start">Goldar</div>
+            <div class="row">
+                <div class="col-5 text-start">Tujuan</div>
                 <div class="col-1">:</div>
-                <div class="col-6">
-                    <form class="text-start d-flex align-items-center p-0">
-                        <div class="form-group m-0">
-                            <select id="goldarGet" name="goldarGet" class="form-select" disabled required>
-                                <option value="-" <?php if ($data['goldar'] === '-') echo 'selected'; ?>>-</option>
-                                <option value="a+" <?php if ($data['goldar'] === 'a+') echo 'selected'; ?>>A+</option>
-                                <option value="o+" <?php if ($data['goldar'] === 'o+') echo 'selected'; ?>>O+</option>
-                                <option value="b+" <?php if ($data['goldar'] === 'b+') echo 'selected'; ?>>B+</option>
-                                <option value="ab+" <?php if ($data['goldar'] === 'ab+') echo 'selected'; ?>>AB+
-                                </option>
-                                <option value="a-" <?php if ($data['goldar'] === 'a-') echo 'selected'; ?>>A-</option>
-                                <option value="o-" <?php if ($data['goldar'] === 'o-') echo 'selected'; ?>>O-</option>
-                                <option value="b-" <?php if ($data['goldar'] === 'b-') echo 'selected'; ?>>B-</option>
-                                <option value="ab-" <?php if ($data['goldar'] === 'ab-') echo 'selected'; ?>>AB-
-                                </option>
-                            </select>
-                        </div>
-                        <button id="btn-edit-goldar" type="button" onclick="editGoldar()"
-                            class="btn btn-primary">Edit</button>
-                    </form>
+                <div class="col-6 text-start">
+                    <?php echo $data['tujuan'] ? $data['tujuan'] : '-' ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 text-start">Usia Kandungan</div>
+                <div class="col-5 text-start">Jenis</div>
                 <div class="col-1">:</div>
                 <div class="col-6 text-start">
-                    <?php echo $data['usia_kandungan'] ? $data['usia_kandungan'] : '-' ?> Minggu
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-5 text-start">Status Goldar</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
-                    <?php echo $data['status'] ? ucwords($data['status']) : '-' ?>
+                    <?php echo $data['jenis'] ? ucwords($data['jenis']) : '-' ?>
                 </div>
             </div>
             <div class="row">
@@ -158,66 +134,80 @@ if (isset($_GET['id'])) {
                     <?php echo $data['tanggal_input'] ? ucwords($data['tanggal_input']) : '-' ?>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-5 text-start">Deskripsi</div>
+                <div class="col-1">:</div>
+                <div class="col-6 text-start">
+                    <form method="post" action="proses/editDeskripsi.php">
+                        <textarea name="deskripsi" id="" ><?php echo $data['deskripsi'] ? ucwords($data['deskripsi']) : '-' ?></textarea>
+
+                        <input type="hidden" name="id" value=" <?php echo $data['id']?> ">
+                        <input type="hidden" name="id_user" value=" <?php echo $data['id_user']?> ">
+                        <input type="submit">
+                    </form>
+                    
+                </div>
+            </div>
             <br><br>
             <h1 style="
                 font-weight: bold;
                 ">
-</div>
-
         </div>
 
+    </div>
 
-        <!-- Modal Konfirmasi Hapus -->
-        <div class="modal fade" id="confirmUpdateModal" tabindex="-1" aria-labelledby="confirmUpdateModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <form class="modal-content" method="post" action="proses/edit_goldar_user_proses.php">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="confirmUpdateModalLabel">Konfirmasi</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <input type="hidden" value="<?php echo $id ?>" name="id" id="id">
-                        <input type="hidden" name="goldar" id="goldar">
-                        Apakah Anda yakin ingin mengedit golongan darah?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-warning">Iya</button>
-                    </div>
-                </form>
-            </div>
+
+    <!-- Modal Konfirmasi Hapus -->
+    <div class="modal fade" id="confirmUpdateModal" tabindex="-1" aria-labelledby="confirmUpdateModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <form class="modal-content" method="post" action="proses/edit_goldar_user_proses.php">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmUpdateModalLabel">Konfirmasi</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" value="<?php echo $id ?>" name="id" id="id">
+                    <input type="hidden" name="goldar" id="goldar">
+                    Apakah Anda yakin ingin mengedit golongan darah?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-warning">Iya</button>
+                </div>
+            </form>
         </div>
-        <button style="display: none;" id="buttonAlert" type="button" class="btn btn-primary" data-bs-toggle="modal"
-            data-bs-target="#exampleModal"></button>
+    </div>
+    <button style="display: none;" id="buttonAlert" type="button" class="btn btn-primary" data-bs-toggle="modal"
+        data-bs-target="#exampleModal"></button>
 
-        <?php
+    <?php
                 if (isset($_GET['success']) || isset($_GET['error'])) { ?>
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5 text-primary" id="exampleModalLabel">
-                            <?php echo $proccessIsSuccess ? "BERHASIL" : "GAGAL" ?></h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="alert alert-primary text-center" role="alert">
-                            <?php echo $message ?>
-                        </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 text-primary" id="exampleModalLabel">
+                        <?php echo $proccessIsSuccess ? "BERHASIL" : "GAGAL" ?></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-primary text-center" role="alert">
+                        <?php echo $message ?>
                     </div>
                 </div>
             </div>
         </div>
-        <?php
+    </div>
+    <?php
                 }
                 ?>
 
-        <script src="../js/adminKesehatanUser&DetailPendonor.js"></script>
+    <script src="../js/adminKesehatanUser&DetailPendonor.js"></script>
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-        </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>

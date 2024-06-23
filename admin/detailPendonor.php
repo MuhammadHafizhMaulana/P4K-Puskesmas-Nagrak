@@ -79,7 +79,7 @@ if (isset($_GET['id'])) {
                     <a class="nav-link" href="data_user.php">User</a>
                     <a class="nav-link" href="listKesehatanUser.php">Kesehatan User</a>
                     <a class="nav-link" href="pendonor.php">Pendonor</a>
-                    <a class="nav-link" href="profile.php">Profile</a>
+                    <a class="nav-link" href="profile_admin.php">Profile</a>
                     <a class="nav-link" href="proses/logout.php">Logout</a>
                 </div>
             </div>

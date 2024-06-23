@@ -50,12 +50,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    // Persiapkan query dengan prepared statement
-    if ($user > 0) {
-        $query = "UPDATE `kb` SET `tujuan` = ?, `jenis` = ? WHERE `id_user` = ?";
-    } else {
-        $query = "INSERT INTO `kb`(`tujuan`, `jenis`, `id_user`) VALUES (?, ?, ?)";
-    }
+    
+    $query = "INSERT INTO `kb`(`tujuan`, `jenis`, `id_user`, `tanggal_input`) VALUES (?, ?, ?, NOW() )";
+    
     $stmt = mysqli_prepare($connect, $query);
 
     if ($stmt) {
