@@ -68,7 +68,7 @@
     box-shadow: 0 -8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
-.content .children-content button {
+.content .children-content .mainButton {
     width: 200px;
     text-align: center;
 }
@@ -88,6 +88,26 @@
 .content .box-table-body {
     max-height: 400px;
     overflow-y: scroll;
+}
+
+
+.carousel-item {
+    height: 35vw;
+    background-size: cover;
+    background-position: center;
+}
+
+.carousel-control-prev .bg-primary, .carousel-control-next .bg-primary {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carousel-item .detailFoto {
+    border-radius: 100%;
 }
 
 
