@@ -123,6 +123,19 @@
     .banner h1 {
         font-size: 70px;
     }
+
+    .content {
+        padding: 0px;
+    }
+
+    .carousel-item {
+        height: 50vw;
+    }
+
+    .content img {
+        /* width: 10vw; */
+        margin: 10vw 20vw;
+    }
   }
 
 

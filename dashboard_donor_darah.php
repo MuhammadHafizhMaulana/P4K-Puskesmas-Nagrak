@@ -71,7 +71,7 @@ $sql = mysqli_query($connect, $query);
   <title>Home</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <link rel="stylesheet" href="./css/dashboard_UserGeneral.css">
+  <link rel="stylesheet" href="./css/dashboardUserGeneral.css">
 </head>
 
 <body>
@@ -113,10 +113,10 @@ $sql = mysqli_query($connect, $query);
   <div class="content">
     <div class="container">
       <div class="row d-flex align-items-center mt-5">
-        <div class="col-4 d-flex justify-content-center align-items-center">
-          <img src="./assets/logo-donor-darah-2.png" alt="Logo Hati">
+        <div class="col-12 col-lg-4 d-flex justify-content-center align-items-center">
+          <img src="./assets/logo-goldar.png" alt="Logo Hati">
         </div>
-        <div class="children-content col-8">
+        <div class="children-content col-lg-8 col-12">
           <div class="d-flex align-items-end justify-content-between mb-2">
             <h1 class="m-0 p-0">
             Golongan Darah Anda
@@ -151,7 +151,7 @@ $sql = mysqli_query($connect, $query);
                   var taksiranPersalinan = "<?php echo $taksiran_persalinan; ?>";
                 </script>
               <?php } ?>
-            <?php } else if ($status == "diketahui") { ?>
+            <?php } else if ($status == "menunggu") { ?>
               <h6>Anda sedang dalam proses menunggu pemeriksaan golongan darah.</h6>
               <h6 id="countdown"></h6>
               <?php if (isset($taksiran_persalinan)) { ?>
@@ -161,51 +161,13 @@ $sql = mysqli_query($connect, $query);
               <?php } ?>
             <?php } ?>
           </div>
-          <!-- <?php
-          if ($status == "tidak diketahui") {
-          ?>
-          <div class="alert alert-primary text-center" role="alert">
-            <h6>Anda belum mendaftarkan (periksa) golongan darah anda, daftarkan di bawah</h6>
-          </div>
-          <button onclick="window.location.href='donor_darah.php'" type="button" class="mainButton btn btn-danger">
-            Daftarkan Golongan Darah
-          </button>
-          <?php
-          } else if ($status == "diketahui") {
-          ?>
-          <div style="max-width: 400px; text-align: center;" class="alert alert-primary" role="alert">
-            <h6>Golongan Darah Anda adalah <?php echo strtoupper($goldar); ?></h6>
-            <?php if($usia_kandungan == null): ?>
-            <h6>Anda belum menginputkan HPHT</h6>
-            <?php elseif ($usia_kandungan == "LAHIR"): ?>
-            <h6>Anda sedang tidak mengandung</h6>
-            <?php else: ?>
-            <h6>Usia kandungan anda <?= $usia_kandungan ?> pada <?= date('d-m-Y') ?></h6>
-            <?php endif; ?>
-            <div id="countdown"></div>
-            <?php if (isset($taksiran_persalinan)) { ?>
-              <script>
-                var taksiranPersalinan = "<?php echo $taksiran_persalinan; ?>";
-              </script>
-            <?php } ?>
-          </div>
-          <button onclick="window.location.href='donor_darah.php'" type="button" class="mainButton btn btn-danger">
-            Edit Golongan Darah
-          </button>
-          <?php
-          } else if ($status == "menunggu") {
-          ?>
-          <div style="max-width: 400px; text-align: center;" class="alert alert-primary" role="alert">
-            <h6>Anda sedang dalam proses menunggu pemeriksaan golongan darah.</h6>
-          </div>
-          <?php } ?> -->
         </div>
       </div>
     </div>
     <div class="container">
-      <div class="row d-flex align-items-center mt-5">
-        <div class="col-4 d-none d-lg-flex justify-content-center align-items-center">
-          <img src="./assets/logo-donor-darah.png" alt="Logo Donor Darah">
+      <div class="row d-flex align-items-center">
+        <div class="col-12 col-lg-4 d-flex justify-content-center align-items-center">
+          <img src="./assets/logo-donor-darah-2.png" alt="Logo Donor Darah">
         </div>
         <div class="children-content col-12 col-lg-8">
           <div class="d-flex align-items-end justify-content-between mb-2">
@@ -228,14 +190,14 @@ $sql = mysqli_query($connect, $query);
                 style="width : 15px; min-width: 15px; height: 15px; border-radius: 100%; border: solid 1px; background: #CFE2FF"
                 class="border-danger code">
               </div>
-              <h6 class="ms-2 m-0 p-0">Golongan darah yang sesuai dengan anda.</h6>
+              <h6 class="ms-2 m-0 p-0">Pendonor yang anda inputkan.</h6>
             </div>
             <div class="col-6 d-flex align-items-center">
               <div
                 style="width : 15px; min-width: 15px; height: 15px; border-radius: 100%; border: solid 1px; background: #FEFFD9"
                 class="border-danger code">
               </div>
-              <h6 class="ms-2 m-0 p-0">Golongan darah yang tidak sesuai dengan anda.</h6>
+              <h6 class="ms-2 m-0 p-0">Pendonor yang orang lain inputkan.</h6>
             </div>
           </div>
           <?php } ?>
@@ -244,7 +206,6 @@ $sql = mysqli_query($connect, $query);
               <tr style="background: #FDFFA0;" div>
                 <th class="col-1" scope="col"></th>
                 <th class="col-6 text-center" scope="col">Nama</th>
-                <!-- <th class="col-4" scope="col">Nomor HP</th> -->
                 <th class="col-5 text-center" scope="col">Goldar</th>
               </tr>
             </thead>
@@ -260,7 +221,7 @@ $sql = mysqli_query($connect, $query);
                   foreach ($data_array as $i => $data) {
                   ?>
                 <tr
-                  style="background: <?php echo $data['goldar'] == $goldar && $data['goldar'] != '-' ? '#CFE2FF' : '#FEFFD9';  ?>">
+                  style="background: <?php echo $data['id_user'] == $id ? '#CFE2FF' : '#FEFFD9';  ?>">
                   <th class="col-1" scope="row"><?php echo $i + 1; ?></th>
                   <td class="col-6"><?php echo strtoupper($data['nama']); ?></td>
                   <!-- <td class="col-4"><?php echo $data['nomorHP']; ?></td> -->
@@ -319,7 +280,7 @@ $sql = mysqli_query($connect, $query);
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
   </script>
   <script src="./js/dashboardDonorDarah.js"></script>
-  <script src="js/count_Down.js"></script>
+  <script src="js/countDown.js"></script>
 </body>
 
 </html>
