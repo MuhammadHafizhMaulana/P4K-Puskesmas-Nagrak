@@ -4,6 +4,7 @@ var nomorHpField = document.getElementById('nomorHP');
 var submitNamaNomorPendonor = document.getElementById('submitNamaNomorPendonor');
 var firstSubmitPendonor = document.getElementsByClassName("first-submit-pendonor")[0];
 var prevNomorHP = "";
+var nomorHPValid = false;
 const nomorHpPattern = /^[0-9]+$/;
 
 
@@ -36,7 +37,7 @@ function openSpinner() {
 }
 
 function checkButtonSubmitNamaNomorForm() {
-    if (nomorHpField.value == "" || namaField.value == "") {
+    if (nomorHpField.value == "" || namaField.value == "" || !nomorHPValid) {
         submitNamaNomorPendonor.disabled = true;
     } else {
         submitNamaNomorPendonor.disabled = false;
@@ -55,5 +56,22 @@ nomorHpField.addEventListener('input', function () {
     } else {
         this.value = prevNomorHP;
     }
+
+    if (this.value.length >= 10 && this.value.startsWith("08")) {
+        nomorHPValid = true;
+    } else {
+        nomorHPValid = false;
+    }
+
+    if (document.getElementById('nomorHPAlert')) {
+        const nomorHPAlert = document.getElementById('nomorHPAlert')
+
+        if (!nomorHPValid) {
+            nomorHPAlert.innerHTML = "Nomor HP harus diawali '08' dan memiliki lebih dari 9 karakter";
+        } else {
+            nomorHPAlert.innerHTML = '';
+        }
+    }
+
     checkButtonSubmitNamaNomorForm();
 })

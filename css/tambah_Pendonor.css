@@ -42,11 +42,17 @@ body {
     height: 75px;
 }
 
+form {
+    width: 100%;
+    max-width: 320px;
+}
+
 #formTambahPendonor {
     margin-top: 105px;
     height: min-content;
     min-height: 100vh;
-    width: 620px;
+    max-width: 620px;
+    width: 100%;
     background-color: white;
     padding: 60px;
     display: flex;
@@ -62,7 +68,8 @@ body {
     padding: 10px 15px;
     outline: none;
     border-radius: 0px;
-    width: 320px;
+    width: 100%;
+    max-width: 320px;
 }
 
 .form-select:focus {
@@ -90,10 +97,11 @@ body {
 
 .form-group {
     text-align: start;
-    width: 320px;
+    max-width: 320px;
     margin: 20px 0px 0px;
 }
 
 .form-group input {
-    width: 320px;
+    width: 100%;
+    max-width: 320px;
 }

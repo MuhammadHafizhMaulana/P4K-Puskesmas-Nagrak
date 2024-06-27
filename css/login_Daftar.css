@@ -22,18 +22,6 @@ form {
 }
 
 #formRegistrasi, #formLogin {
-    /* height: min-content;
-    min-height: 100vh;
-    width: 620px;
-    background-color: white;
-    padding: 60px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    color: black; */
-
-    /* margin-top: 105px; */
     height: min-content;
     min-height: 100vh;
     max-width: 620px;

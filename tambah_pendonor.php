@@ -37,7 +37,7 @@ mysqli_stmt_close($stmt);
     <title>Tambah Pendonor</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="./css/tambahPendonor.css">
+    <link rel="stylesheet" href="./css/tambah_Pendonor.css">
 </head>
 
 <body>
@@ -127,7 +127,7 @@ mysqli_stmt_close($stmt);
                                 <input id="namaUser" value="<?php echo strtoupper($nama) ?>" type="text" disabled>
                                 <input id="nomorHPUser" value="<?php echo strtoupper($nomorHP) ?>" type="text" disabled>
                             </div>
-                            <div style="width: 100%;" class="form-group">
+                            <div style="width: 100%;">
                                 <label for="waktu_pengecekan_goldar">Tentukan tanggal pengecekan golongan darah
                                     pendonor</label>
                                 <input style="width: 100%;" type="date" class="form-control"
@@ -156,6 +156,7 @@ mysqli_stmt_close($stmt);
                 <label for="nomorHP">Nomor HP Pendonor</label>
                 <input type="text" class="form-control" id="nomorHP" name="nomorHP"
                     placeholder="Masukan nomor HP pendonor" required>
+                <div id="nomorHPAlert" class="form-text text-danger"></div>
             </div>
             <br>
             <button id="submitNamaNomorPendonor" onclick="openSpinner()" type="submit"
@@ -172,7 +173,7 @@ mysqli_stmt_close($stmt);
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>
-    <script src="js/<?php echo $nomorHPPendonor ? "tambah_Pendonor_Second.js" : "tambah_Pendonor_First.js" ?>"></script>
+    <script src="js/<?php echo $nomorHPPendonor ? "tambah_Pendonor_Second.js" : "tambah_PendonorFirst.js" ?>"></script>
 </body>
 
 </html>

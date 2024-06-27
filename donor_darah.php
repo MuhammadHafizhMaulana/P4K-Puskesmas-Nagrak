@@ -129,7 +129,7 @@ if ($usia_kandungan) {
                             <input id="nama" value="<?php echo $nama; ?>" type="hidden" disabled>
                             <input id="nomorHP" value="<?php echo $nomorHP; ?>" type="hidden" disabled>
                             <input id="alamat" value="<?php echo $alamat; ?>" type="hidden" disabled>
-                            <div style="width: 100%;" class="form-group">
+                            <div style="width: 100%;">
                                 <label for="waktu_pengecekan_goldar">Tentukan tanggal pengecekan golongan darah</label>
                                 <input style="width: 100%;" type="date" class="form-control"
                                     id="waktu_pengecekan_goldar" name="waktu_pengecekan_goldar">
