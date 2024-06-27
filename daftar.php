@@ -13,7 +13,7 @@ if (isset($_SESSION['status']) && $_SESSION['status'] == 'login') { // Periksa a
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Pasien</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="./css/loginDaftar.css">
+    <link rel="stylesheet" href="./css/login_Daftar.css">
 </head>
 
 <body>
@@ -44,33 +44,38 @@ if (isset($_SESSION['status']) && $_SESSION['status'] == 'login') { // Periksa a
         </p>
         <form action="proses/daftar_proses.php" method="post">
             <div class="form-group">
-                <input oninput="formValid()" type="text" class="form-control registrasi-form" id="nama" name="nama" placeholder="Masukkan nama lengkap ibu" required>
+                <label for="nama">Masukkan nama lengkap</label>
+                <input oninput="formValid()" type="text" class="form-control registrasi-form" id="nama" name="nama" placeholder="nama lengkap" required>
             </div>
 
             <div class="form-group">
-                <input oninput="formValid()" type="number" min="0" class="form-control registrasi-form" id="umur" name="usia" placeholder="Masukkan usia ibu" min="0" required>
+                <label for="usia">Masukkan usia (tahun)</label>
+                <input oninput="formValid()" type="number" min="0" class="form-control registrasi-form" id="umur" name="usia" placeholder="usia" min="0" required>
             </div>
 
             <div class="form-group">
-                <input oninput="formValid()" type="text" class="form-control registrasi-form" id="nomer" name="nomorHP" placeholder="Masukkan nomor HP ibu" required>
+                <label for="nomorHP">Masukkan nomor HP</label>
+                <input oninput="formValid()" type="text" class="form-control registrasi-form" id="nomer" name="nomorHP" placeholder="nomor HP" required>
             </div>
 
             <div class="form-group">
-                <textarea oninput="formValid()" class="form-control registrasi-form" name="alamat" id="alamat" placeholder="Masukkan alamat ibu" required></textarea>
+                <label for="alamat">Masukkan alamat</label>
+                <textarea oninput="formValid()" class="form-control registrasi-form" name="alamat" id="alamat" placeholder="alamat" required></textarea>
             </div>
 
             <div class="form-group">
-                <input type="password" class="form-control" id="password" name="password" placeholder="Masukan password" required>
+                <label for="password">Masukkan password</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="password" required>
                 <div id="passwordAlert" class="form-text text-danger"></div>
             </div>
 
             <div class="form-group">
-                <label for=""> Masukkan HPHT</label>
+                <label for="hpht">Masukkan HPHT</label>
                 <input type="date" oninput="formValid()" class="form-control registrasi-form" name="hpht" id="hpht" placeholder="HPHT" required>
             </div>
             <br>
 
-            <button onclick="openSpinner()" id="submitButton" type="submit" disabled type="submit" class="btn btn-secondary">
+            <button onclick="openSpinner()" id="submitButton" type="submit" disabled class="btn btn-secondary">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
                 </svg>
@@ -90,7 +95,7 @@ if (isset($_SESSION['status']) && $_SESSION['status'] == 'login') { // Periksa a
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script src="./js/loginDaftar.js"></script>
+    <script src="./js/login_Daftar.js"></script>
 </body>
 
 </html>

@@ -123,7 +123,7 @@ $sql = mysqli_query($connect, $query);
             </h1>
             <?php if ($status != 'menunggu') { ?>
               <button type="button" onclick="window.location.href='donor_darah.php'" class="mainButton btn btn-danger">
-                <?php echo $status == 'tidak diketahui' ? 'Daftarkan' : 'Edit' ?><p class="m-0">Pendonor Darah</p>
+                <?php echo $status == 'tidak diketahui' ? 'Daftarkan' : 'Edit' ?><p class="m-0">Golongan Darah</p>
               </button>
             <?php } ?>
           </div>

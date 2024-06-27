@@ -16,10 +16,28 @@ body {
     background-color: rgba(0, 0, 0, 0.2);
 }
 
+form {
+    width: 100%;
+    max-width: 320px;
+}
+
 #formRegistrasi, #formLogin {
-    height: min-content;
+    /* height: min-content;
     min-height: 100vh;
     width: 620px;
+    background-color: white;
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: black; */
+
+    /* margin-top: 105px; */
+    height: min-content;
+    min-height: 100vh;
+    max-width: 620px;
+    width: 100%;
     background-color: white;
     padding: 60px;
     display: flex;
@@ -45,12 +63,12 @@ body {
 
 .form-group {
     text-align: start;
-    width: 320px;
+    max-width: 320px;
     margin: 20px 0px 0px;
 }
 
-.form-group input {
-    width: 320px;
+.form-group input, .form-group textarea {
+    max-width: 320px;
 }
 
 button {

@@ -9,12 +9,14 @@ var fieldStatus = false;
 var passwordStatus = false
 
 passwordField.addEventListener('input', function () {
-    if (passwordPattern.test(passwordField.value)) {
-        passwordStatus = true
-        passwordAlert.innerText = ""
-    } else {
-        passwordStatus = false
-        passwordAlert.innerText = "Password harus berisi minimal 8 karakter dan mengandung huruf kapital, huruf kecil, dan angka"
+    if(document.getElementById('formRegistrasi')) {
+        if (passwordPattern.test(passwordField.value)) {
+            passwordStatus = true
+            passwordAlert.innerText = ""
+        } else {
+            passwordStatus = false
+            passwordAlert.innerText = "Password harus berisi minimal 8 karakter dan mengandung huruf kapital, huruf kecil, dan angka"
+        }
     }
 
     checkSubmitValid();
@@ -31,10 +33,18 @@ nomorHpField.addEventListener('input', function () {
 })
 
 function checkSubmitValid() {
-    if (fieldStatus && passwordStatus) {
-        document.getElementById('submitButton').disabled = false;
+    if (document.getElementById('formRegistrasi')) {
+        if (fieldStatus && passwordStatus) {
+            document.getElementById('submitButton').disabled = false;
+        } else {
+            document.getElementById('submitButton').disabled = true;
+        }
     } else {
-        document.getElementById('submitButton').disabled = true;
+        if (fieldStatus) {
+            document.getElementById('submitButton').disabled = false;
+        } else {
+            document.getElementById('submitButton').disabled = true;
+        }
     }
 }
 

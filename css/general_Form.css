@@ -51,7 +51,8 @@ form {
     margin-top: 105px;
     height: min-content;
     min-height: 100vh;
-    max-width: 100vw;
+    max-width: 620px;
+    width: 100%;
     background-color: white;
     padding: 60px;
     display: flex;
