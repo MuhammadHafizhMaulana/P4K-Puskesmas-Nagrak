@@ -113,12 +113,11 @@ form {
 .boxPhoto {
     background-size: cover;
     width: 100%;
-    height: 200px;
     background-position: center;
 }
 
 .photoDescription {
-    opacity: 0;
+    opacity: 1;
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
@@ -135,4 +134,20 @@ form {
     padding: 0;
     color: white;
   }
+
+.modal-photo-dialog {
+    max-width: fit-content;
+    margin: auto;
+}
+
+@media (min-width: 576px) {
+    .modal-photo-dialog {
+        max-width: fit-content;
+        margin: 1.75rem auto;
+    }
+
+    .photoDescription {
+        opacity: 0;
+    }
+}
 

@@ -130,12 +130,6 @@ $sql = mysqli_query($connect, $query);
           <div class="alert alert-primary text-center" role="alert">
             <?php if ($status == "tidak diketahui") { ?>
               <h6>Anda belum mendaftarkan (periksa) golongan darah anda, silahkan daftarkan golongan darah anda.</h6>
-              <h6 id="countdown"></h6>
-              <?php if (isset($taksiran_persalinan)) { ?>
-                <script>
-                  var taksiranPersalinan = "<?php echo $taksiran_persalinan; ?>";
-                </script>
-              <?php } ?>
             <?php } else if ($status == "diketahui"){ ?>
               <h6>Golongan Darah Anda adalah <?php echo strtoupper($goldar); ?></h6>
               <?php if($usia_kandungan == null): ?>
@@ -145,7 +139,9 @@ $sql = mysqli_query($connect, $query);
               <?php else: ?>
               <h6>Usia kandungan anda <?= $usia_kandungan ?> pada <?= date('d-m-Y') ?></h6>
               <?php endif; ?>
-              <h6 id="countdown"></h6>
+              <div class="alert alert-warning m-0" role="alert" style="border-radius: 20px;">
+                <h6 class="m-0" style="font-weight: bold;" id="countdown"></h6>
+              </div>
               <?php if (isset($taksiran_persalinan)) { ?>
                 <script>
                   var taksiranPersalinan = "<?php echo $taksiran_persalinan; ?>";
@@ -153,7 +149,9 @@ $sql = mysqli_query($connect, $query);
               <?php } ?>
             <?php } else if ($status == "menunggu") { ?>
               <h6>Anda sedang dalam proses menunggu pemeriksaan golongan darah.</h6>
-              <h6 id="countdown"></h6>
+              <div class="alert alert-warning m-0" role="alert" style="border-radius: 20px;">
+                <h6 class="m-0" style="font-weight: bold;" id="countdown"></h6>
+              </div>
               <?php if (isset($taksiran_persalinan)) { ?>
                 <script>
                   var taksiranPersalinan = "<?php echo $taksiran_persalinan; ?>";

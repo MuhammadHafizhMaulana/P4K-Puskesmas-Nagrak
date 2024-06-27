@@ -92,7 +92,6 @@
 
 
 .carousel-item {
-    height: 30vw;
     background-size: cover;
     background-position: center;
 }
@@ -108,6 +107,11 @@
 
 .carousel-item .detailFoto {
     border-radius: 100%;
+}
+
+.modal-photo-dialog {
+    max-width: fit-content;
+    margin: auto;
 }
 
 
@@ -128,14 +132,16 @@
         padding: 0px;
     }
 
-    .carousel-item {
-        height: 50vw;
-    }
-
     .content img {
         /* width: 10vw; */
         margin: 10vw 20vw;
     }
   }
 
+  @media (min-width: 576px) {
+    .modal-photo-dialog {
+        max-width: fit-content;
+        margin: 1.75rem auto;
+    }
+}
 

@@ -213,20 +213,23 @@ if (isset($_GET['success'])) {
   <?php } ?>
   <?php if ($pembiayaanData) { ?>
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-dialog  modal-dialog-centered modal-photo-dialog">
             <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="titlePhotoDialog"></h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <img id="contentPhotoDialog" alt="" srcset="">
+                <div style=" overflow-x: scroll; width: 100%; max-width: min-content;">
+                  <img style="height: 70vh;" id="contentPhotoDialog" alt="" srcset="">
+                </div>
             </div>
             </div>
         </div>
     </div>
   <?php } ?>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  <script src="js/dashboard_Pembiayaan.js"></script>
+  <script src="js/dashboardPembiayaan.js"></script>
 </body>
 </html>

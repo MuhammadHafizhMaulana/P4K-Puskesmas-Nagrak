@@ -86,7 +86,7 @@ function getKTPImage() {
                     <button style="display:contents" onclick="openPhotoDialog('ktp')" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="border: none; padding: 0">
                         <div id="photoKTP" class="boxPhoto rounded-3 border border-2 border-primary" style='background-image: url("./proses/check_ktp.php");'>
                         <div class="photoDescription w-100 h-100 rounded-2">
-                            <h4 class="text-white">Lihat Detail Foto</h4>
+                            <h4 class="text-white">Klik untuk melihat detail</h4>
                         </div>
                         </div>
                     </button>
@@ -100,7 +100,7 @@ function getKTPImage() {
                     <button style="display:contents" onclick="openPhotoDialog('kk')" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="border: none; padding: 0">
                         <div id="photoKK" class="boxPhoto rounded-3 border border-2 border-primary" style='background-image: url("./proses/check_kk.php");'>
                         <div class="photoDescription w-100 h-100 rounded-2">
-                            <h4 class="text-white">Lihat Detail Foto</h4>
+                            <h4 class="text-white">Klik untuk melihat detail</h4>
                         </div>
                         </div>
                     </button>
@@ -114,7 +114,7 @@ function getKTPImage() {
                     <button style="display:contents" onclick="openPhotoDialog('rujukan')" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="border: none; padding: 0">
                         <div id="photoRujukan" class="boxPhoto rounded-3 border border-2 border-primary" style='background-image: url("./proses/check_rujukan.php");'>
                         <div class="photoDescription w-100 h-100 rounded-2">
-                            <h4 class="text-white">Lihat Detail Foto</h4>
+                            <h4 class="text-white">Klik untuk melihat detail</h4>
                         </div>
                         </div>
                     </button>
@@ -132,7 +132,7 @@ function getKTPImage() {
                     <button style="display:contents" onclick="openPhotoDialog('pas_foto')" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="border: none; padding: 0">
                         <div id="photoPasFoto" class="boxPhoto rounded-3 border border-2 border-primary" style='background-image: url("./proses/check_pas_foto.php");'>
                         <div class="photoDescription w-100 h-100 rounded-2">
-                            <h4 class="text-white">Lihat Detail Foto</h4>
+                            <h4 class="text-white">Klik untuk melihat detail</h4>
                         </div>
                         </div>
                     </button>
@@ -146,7 +146,7 @@ function getKTPImage() {
                     <button style="display:contents" onclick="openPhotoDialog('rekomendasi')" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="border: none; padding: 0">
                         <div id="photoRekomendasi" class="boxPhoto rounded-3 border border-2 border-primary" style='background-image: url("./proses/check_rekomendasi.php");'>
                         <div class="photoDescription w-100 h-100 rounded-2">
-                            <h4 class="text-white">Lihat Detail Foto</h4>
+                            <h4 class="text-white">Klik untuk melihat detail</h4>
                         </div>
                         </div>
                     </button>
@@ -237,21 +237,23 @@ function getKTPImage() {
                    
         <!-- Modal -->
         <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-dialog  modal-dialog-centered modal-photo-dialog">
             <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="titlePhotoDialog"></h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <img id="contentPhotoDialog" alt="" srcset="">
+                <div style=" overflow-x: scroll; width: 100%; max-width: min-content;">
+                  <img style="height: 70vh;" id="contentPhotoDialog" alt="" srcset="">
+                </div>
             </div>
             </div>
         </div>
-        </div>
+    </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>
-    <script src="js/pembiayaan_Form.js"></script>
+    <script src="js/pembiayaanForm.js"></script>
 </body>
 </html>
