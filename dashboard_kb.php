@@ -3,6 +3,29 @@ session_start();
 if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login') {
   header('Location: index.php');
 }
+
+include './proses/koneksi.php';
+$id = $_SESSION['id'];
+
+$dataKB = "SELECT * FROM `kb` WHERE `id_user` = ?";
+$stmt = mysqli_prepare($connect, $dataKB);
+mysqli_stmt_bind_param($stmt, "i", $id);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+
+// Fetch the data as an associative array
+$dataKB = mysqli_fetch_assoc($result);
+mysqli_stmt_close($stmt);
+
+if (isset($_GET['success'])) {
+  $proccessIsSuccess = true;
+  if ($_GET['success'] == "input") {
+    $message = "Anda berhasil menambahkan data konsul KB";
+  }
+} else if (isset($_GET['gagal'])) {
+  $proccessIsSuccess = false;
+  $message = "Proses input data konsul KB dilakukan!!";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,10 +33,10 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login') {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home</title>
+  <title>Dashboard KB</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <link rel="stylesheet" href="css/dashboardCustomer.css">
+  <link rel="stylesheet" href="css/dashboardUserGeneral.css">
 </head>
 
 <body>
@@ -54,54 +77,89 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login') {
   </div>
   <div class="content">
     <div class="container">
-      <div class="row d-flex align-items-center">
-        <div class="col-12 col-lg-6 d-flex justify-content-center">
-          <img src="./assets/logo2-kemenkes.png" alt="Logo Kemenkes">
+      <div class="row d-flex align-items-center mt-5">
+        <div class="col-12 col-lg-4 d-flex justify-content-center align-items-center">
+          <img src="./assets/logo-goldar.png" alt="Logo Hati">
         </div>
-        <div class="col-12 col-lg-6">
-          <h1>Apa KB Pasca Salin</h1>
-          <p>KB Pascasalin adalah upaya pencegahan kehamilan setelah persalinan menggunakan alat kontrasepsi selama masa
-            nifas (sampai 42 hari pasca persalinan).</p>
-          <h1>Apa saja alat kontrasepsi yang dapat digunakan?</h1><br>
-          <p>
+        <div class="children-content col-lg-8 col-12">
+          <div class="d-flex align-items-end justify-content-between mb-2">
+            <h1 class="m-0 p-0">
+            Deskripsi KB
+            </h1>
+              <button type="button" onclick="window.location.href='donor_darah.php'" class="mainButton btn btn-danger">
+                Daftarkan<p class="m-0">Golongan Darah</p>
+              </button>
+          </div>
+          <div id="boxDeskripsi" style="overflow-y: scroll; max-height: calc(100vh - 169px)">
+            <div class="d-flex align-items-center">
+                <h1 class="me-1 text-danger">#</h1>
+                <h4>Apa KB Pasca Salin?</h4>
+            </div>
+            <p>
+              KB Pascasalin adalah upaya pencegahan kehamilan setelah persalinan menggunakan alat kontrasepsi selama masa nifas (sampai 42 hari pasca persalinan).
+            </p>
+            <div class="d-flex align-items-center">
+                <h1 class="me-1 text-danger">#</h1>
+                <h4> Apa saja alat kontrasepsi yang dapat digunakan?</h4>
+            </div>
+            <p>
+              Alat kontrasepsi yang dapat digunakan yaitu:
+            </p>
+            <ul>
+              <li><h6>Alat kontrasepsi dalam rahim (AKDR) atau IUD</h6></li>
+              <p>
+                AKDR adalah alat kontrasepsi berbentuk kecil, elastis dan berlengan, yang dipasang di dalam rahim. AKDR adalah alat kontrasepsi paling efektif dan paling direkomendasikan oleh tenaga kesehatan. Keunggulan AKDR di antaranya: memberikan perlindungan jangka panjang terhadap kehamilan, tidak mengganggu produksi ASI, tidak menimbulkan efek samping hormonal, dan dapat segera dipasang setelah melahirkan. Kekurangan AKDR yaitu Tidak mencegah IMS (infeksi menular seksual), dapat menimbulkan nyeri haid, haid lebih lama dan banyak, serta perbercakan (spotting) di luar siklus haid.
+              </p>
+              <li><h6>Implan hormonal</h6></li>
+              <p>
+                Alat kontrasepsi ini memiliki bentuk seperti batang korek api dan akan dimasukkan ke bagian bawah kulit, biasanya pada lengan bagian atas. KB implan akan mengeluarkan hormon secara perlahan, dan bisa mencegah terjadinya kehamilan hingga tiga tahun. Kekurangan KB implan di antaranya: harga cenderung mahal, memiliki efek samping hormonal seperti menstruasi tidak teratur, berat badan naik, tekanan darah naik, pembengkakan dan memar pada area kulit yang terpasang, serta tidak mencegah penularan IMS.
+              </p>
+              <li><h6>Suntik hormonal</h6></li>
+              <p>
+                Metode suntik terbagi menjadi dua jenis, yaitu suntik pertiga bulan dan suntik persatu bulan, sehingga pasien perlu kontrol setiap satu atau tiga bulan untuk menerima KB suntik. Sama halnya dengan metode implan, metode ini memiliki kekurangan berikut: biaya yang agak mahal karena perlu kontrol, memiliki efek samping hormonal seperti menstruasi tidak teratur, berat badan naik, tekanan darah naik, serta tidak mencegah penularan IMS.
+              </p>
+              <li><h6>Pil hormonal</h6></li>
+              <p>
+                Pil adalah alat kontrasepsi yang efektivitasnya paling rendah. Hal ini karena jangka perlindungan terhadap kehamilan yang singkat (hitungan hari), sehingga pil perlu dikonsumsi setiap hari. Selain itu terdapat peluang pasien lupa mengonsumsi pil setiap harinya yang semakin menurunkan efektivitas pil. Pil memiliki kekurangan seperti alat kontrasepsi hormonal lain (implan dan suntik).
+              </p>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row d-flex align-items-center">
+        <div class="col-12 col-lg-4 d-flex justify-content-center align-items-center">
+          <img src="./assets/logo-donor-darah-2.png" alt="Logo Donor Darah">
+        </div>
+        <div class="children-content col-12 col-lg-8">
+          <div class="d-flex align-items-end justify-content-between mb-2">
+            <h1 class="m-0 p-0">
+              Pogram KB Anda
+            </h1>
+            <?php if (!$dataKB) { ?>
+              <button type="button" onclick="window.location.href='pilihKB.php'" class="mainButton btn btn-danger">
+                Masukan
+                <p class="m-0">Program KB</p>
+              </button>
+            <?php } ?>
+          </div>
 
-            Alat kontrasepsi yang dapat digunakan yaitu: <br><br>
-
-            1. Alat kontrasepsi dalam rahim (AKD) atau IUD <br><br>
-
-            AKDR adalah alat kontrasepsi berbentuk kecil, elastis dan berlengan, yang dipasang di dalam rahim. AKDR
-            adalah alat kontrasepsi paling efektif dan paling direkomendasikan oleh tenaga kesehatan. Keunggulan AKDR di
-            antaranya: memberikan perlindungan jangka panjang terhadap kehamilan, tidak mengganggu produksi ASI, tidak
-            menimbulkan efek samping hormonal, dan dapat segera dipasang setelah melahirkan. Kekurangan AKDR yaitu Tidak
-            mencegah IMS (infeksi menular seksual), dapat menimbulkan nyeri haid, haid lebih lama dan banyak, serta
-            perbercakan (spotting) di luar siklus haid.<br><br>
-
-            2. Implan hormonal<br><br>
-
-            Alat kontrasepsi ini memiliki bentuk seperti batang korek api dan akan dimasukkan ke bagian bawah kulit,
-            blasanya pada lengan bagian atas. KB implan akan mengeluarkan hormon secara perlahan, dan bisa mencegah
-            terjadinya kehamilan hingga tiga tahun. Kekurangan KB implan di antaranya: harga cenderung mahal, memiliki
-            efek samping hormonal seperti menstruasi tidak teratur, berat badan naik, tekanan darah naik, pembengkakan
-            dan memar pada area kulit yang terpasang, serta tidak mencegah penularan IMS.<br><br>
-
-            3. Suntik hormonal<br><br>
-
-            Metode suntik terbagi menjadi dua jenis, yaitu suntik pertiga bulan dan suntik persatu bulan, sehingga
-            pasien perlu kontrol setiap satu atau tiga bulan untuk menerima KB suntik. Sama halnya dengan metode implan,
-            metode ini memiliki kekurangan berikut: biaya yang agak mahal karena perlu kontrol, memiliki efek samping
-            hormonal seperti menstruasi tidak teratur, berat badan naik, tekanan darah naik, serta tidak mencegah
-            penularan IMS.<br><br>
-
-            4. Pil hormonal<br><br>
-
-            Pil adalah alat kontrasepsi yang efektivitasnya paling rendah. Hal ini karena jangka perlindungan terhadap
-            kehamilan yang singkat (hitungan hari), sehingga pil perlu dikonsumsi setiap hari. Selain itu terdapat
-            peluang pasien lupa mengonsumsi pil setiap harinya yang semakin menurunkan efektivitas pil. Pil memiliki
-            kekurangan seperti alat kontrasepsi hormonal lain (implan dan suntik).</p><br><br>
-            <a href="pilihKB.php">
-            <button type="button" class="btn btn-primary">Pilih Kb anda</button>
-          </a>
-
+          <div class="alert alert-primary text-center" role="alert">
+            <?php if ($dataKB) { ?>
+              <h6>
+                Anda memilih Program KB untuk <?= $dataKB['tujuan'] ?> dengan mettode (<?= $dataKB['jenis'] ?>)
+              </h6>
+              <div class="alert alert-warning m-0" role="alert" style="border-radius: 20px;">
+                <h6 class="m-0 text-start" style="font-weight: bold;">Hasil Konsultasi :</h6>
+                <p class="m-0 text-center">
+                    <?= $dataKB['deskripsi'] ? $dataKB['deskripsi'] : 'Menunggu hasil konsultasi dengan dokter.' ?>
+                </p>
+              </div>     
+            <?php } else { ?>
+              <h6>Anda belum mendaftarkan program KB anda, silahkan daftarkan program KB anda.</h6>
+            <?php } ?>
+          </div>
         </div>
       </div>
     </div>
@@ -109,10 +167,32 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login') {
   <div class="row" id="footer">
     <div class="col"></div>
   </div>
-
+  <button style="display: none;" id="buttonAlert" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"></button>
+  <!-- Modal -->
+  <?php if (isset($_GET['success']) || isset($_GET['gagal'])) { ?>
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5 text-primary" id="exampleModalLabel">
+            <?php echo $proccessIsSuccess ? "BERHASIL" : "GAGAL" ?></h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="alert alert-primary" role="alert">
+            <?php echo $message ?>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <?php
+  }
+  ?>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
   </script>
+  <script src="./js/dashboardKonsulKB.js"></script>
 </body>
 
 </html>

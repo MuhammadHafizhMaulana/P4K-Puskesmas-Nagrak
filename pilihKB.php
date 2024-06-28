@@ -5,6 +5,22 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login') {
 }
 
 include './proses/koneksi.php';
+$id = $_SESSION['id'];
+
+$dataKB = "SELECT * FROM `kb` WHERE `id_user` = ?";
+$stmt = mysqli_prepare($connect, $dataKB);
+mysqli_stmt_bind_param($stmt, "i", $id);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+
+// Fetch the data as an associative array
+$dataKB = mysqli_fetch_assoc($result);
+mysqli_stmt_close($stmt);
+
+if ($dataKB) {
+    header('Location: ./dashboard_kb.php');
+    exit();
+}
 
 $id = $_SESSION['id'];
 
@@ -64,16 +80,17 @@ mysqli_stmt_close($stmt);
         </p>
         <form id="formKB" method="post" action="proses/kbproses.php" enctype="multipart/form-data">
             <div class="form-group text-start">
-                <label for="tujuan" onload="updateForm()">Jenis Pembayaran</label>
+                <label for="tujuan" onload="updateForm()">Pilih tujuan menggunakan KB</label>
                 <select id="tujuan" name="tujuan" class="form-select" aria-label="Default select example" required
                     onchange="updateForm()">
-                    <option value="">Pilih tujuan anda menggunakan KB</option>
+                    <option value="">Pilih tujuan</option>
                     <option value="menyudahi">Menyudahi Kehamilan </option>
                     <option value="menjarakan">Menjarakkan Kehamilan</option>
                 </select>
             </div>
             <div id="additionalFields" class="text-start"></div>
-            <button id="submitForm" type="button"  data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-danger">INPUT</button>
+            <!-- <div id="buttonInputForm"></div> -->
+            <!-- <button id="submitForm" type="button"  data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-danger">INPUT</button> -->
             <!-- Modal -->
             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -85,16 +102,15 @@ mysqli_stmt_close($stmt);
                         </div>
                         <div class="modal-body">
                             <div class="alert alert-warning" role="alert">
-                                Setelah tombol "Input" ditekan, anda akan diarahkan ke whatsapp untuk mengirim pesan
-                                permintaan konsul KB kepada dokter.
+                            Setelah tombol "Input" ditekan, anda akan diarahkan ke whatsapp untuk mengirim pesan permintaan konsul KB kepada dokter.
                             </div>
                             <input id="nama" value="<?php echo $nama; ?>" type="hidden" disabled>
                             <input id="nomorHP" value="<?php echo $nomorHP; ?>" type="hidden" disabled>
                             <input id="alamat" value="<?php echo $alamat; ?>" type="hidden" disabled>
-                            <div style="width: 100%;" class="form-group">
-                                <label for="waktu_konsul">Tentukan tanggal untuk konsul KB</label>
+                            <div style="width: 100%;">
+                                <label for="waktu_konsultasi">Tentukan tanggal untuk konsul KB</label>
                                 <input style="width: 100%;" type="date" class="form-control"
-                                    id="waktu_konsul" name="waktu_konsul">
+                                    id="waktu_konsultasi" name="waktu_konsultasi">
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -111,8 +127,8 @@ mysqli_stmt_close($stmt);
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>
-    <script src="js/form_KB.js"></script>
-    <script src="js/konsulKB.js"></script>
+    <script src="js/formKB.js"></script>
+    <script src="js/konsul_KB.js"></script>
 </body>
 
 </html>

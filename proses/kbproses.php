@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($mow === "iya") {
             $jenis = "mow";
         } else if ($mow === "tidak") {
-            $jenis = "tidak mau mow";
+            $jenis = "tidak ingin mow";
         }
     } else if ($tujuan === "menjarakan") {
         if ($penyakit1 === "tidak") {
@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($penyakit2 === "tidak") {
                 $jenis = "kondom + kb hormonal";
             } else if ($penyakit2 === "iya") {
-                $jenis = "konsultasi dulu";
+                $jenis = "dikonsultasikan terlebih dahulu";
             }
         }
     }
@@ -67,19 +67,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Pesan berhasil
         if ($result) {
-            header('Location: ../dashboard_kb.php?pesan=success');
+            header('Location: ../dashboard_kb.php?success=input');
         } else {
-            header('Location: ../dashboard_kb.php?pesan=error_menyimpandata');
+            header('Location: ../dashboard_kb.php?gagal=error_menyimpandata');
         }
     } else {
         // Tampilkan pesan jika persiapan statement gagal
-        header('Location: ../dashboard_kb.php?pesan=error_periapanquery');
+        header('Location: ../dashboard_kb.php?gagal=error_periapanquery');
     }
 
     // Tutup koneksi
     mysqli_close($connect);
 } else {
     // Jika permintaan bukan dari metode POST
-    header('Location: ../dashboard_kb.php?pesan=error_methodnotallowed');
+    header('Location: ../dashboard_kb.php?gagal=error_methodnotallowed');
 }
 ?>
