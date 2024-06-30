@@ -34,6 +34,14 @@ function getKTPImage() {
         }
     }
 }
+
+$query = "SELECT `nama`, `nomorHP`, `alamat` FROM `user` WHERE `id` = ?";
+$stmt = mysqli_prepare($connect, $query);
+mysqli_stmt_bind_param($stmt, "i", $id);
+mysqli_stmt_execute($stmt);
+mysqli_stmt_bind_result($stmt, $nama, $nomorHP, $alamat);
+mysqli_stmt_fetch($stmt);
+mysqli_stmt_close($stmt);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -157,8 +165,17 @@ function getKTPImage() {
                 <?php }} ?>
                 <input accept=".jpeg, .jpg, .png" type="file" id="rekomendasi" name="rekomendasi" class="form-control" >
             </div>
-            <?php if ($data == null) { ?> 
-                <div class="mt-0 text-start">
+
+            <?php if ($data == null) { ?>
+                <div id="formDetailPembiayaan">
+                    <div class="d-flex justify-content-center">    
+                        <div>
+                            <br>
+                            <button type="button" class="btn btn-danger" id="buttonFormSelanjutnya" disabled>Selanjutnya</button>
+                        </div>    
+                    </div>
+                </div> 
+                <!-- <div class="mt-0 text-start">
                 <div id="formJenisPembayaran" class="d-flex justify-content-center">    
                     <div>
                         <br>
@@ -166,9 +183,44 @@ function getKTPImage() {
                     </div>    
                 </div>
                 </div>
-                <div id="additionalFields" class="text-start"></div>
+                <div id="additionalFields" class="text-start"></div> -->
             <?php } else { ?>
-                <div class="mt-0 form-group text-start">
+                <div id="formDetailPembiayaan">
+                    <div class="form-group">
+                        <label for="saldoTabungan">Masukkan saldo tabungan persalinan yang sudah dimiliki</label>
+                        <div class="d-flex align-items-center">
+                            Rp.
+                            <input oninput="cekKelengkapanField()" type="number" value="<?= $data['saldo_tabungan'] ?>" min="0" class="form-control registrasi-form fieldSelainFoto" id="saldoTabungan" name="saldoTabungan" placeholder="saldo tabungan" min="0" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="jenis_pembayaran">Jenis pembiayaan yang digunakan</label>
+                        <select onchange="cekJenisPembiayaan()" id="jenis_pembayaran" name="jenis_pembayaran" class="form-select fieldSelainFoto" aria-label="Default select example" required>
+                            <option value="-">Pilih jenis pembiayaan</option>
+                            <option value="BPJS Aktif" <?php if ($data['jenis_pembayaran'] === 'BPJS Aktif') echo 'selected' ?>>BPJS Aktif</option>
+                            <option value="BPJS Tidak Aktif (Tidak Punya)" <?php if ($data['jenis_pembayaran'] === 'BPJS Tidak Aktif (Tidak Punya)') echo 'selected' ?>>BPJS Tidak Aktif (Tidak Punya)</option>
+                            <option value="Saldo Tabungan" <?php if ($data['jenis_pembayaran'] === 'Saldo Tabungan') echo 'selected' ?>>Saldo Tabungan</option>
+                        </select>
+                    </div>
+
+                    <div id="formNomorBPJS">
+                        <?php if ($data['jenis_pembayaran'] == 'BPJS Aktif') { ?>
+                            <div class="form-group">
+                                <label for="nomorBPJS">Masukan nomor BPJS</label>
+                                <input oninput="cekKelengkapanField()" type="text" min="0" class="form-control registrasi-form fieldSelainFoto" id="nomorBPJS" name="nomorBPJS" placeholder="nomor BPJS" min="0" value="<?= $data['nomor_bpjs'] ?>" required>
+                            </div>
+                        <?php } ?>
+                    </div>
+
+                    <div id="dataFields">
+                        <br>
+                        <div class="d-flex justify-content-center w-100">
+                            <button id="buttonSubmit" type="submit" class="btn btn-danger">Input</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="mt-0 form-group text-start">
                     <br>
                     <label for="jenis_pembayaran" onload="updateForm()">Jenis Pembayaran</label>
                     <select id="jenis_pembayaran" name="jenis_pembayaran" class="form-select" aria-label="Default select example" required onchange="updateForm()">
@@ -231,8 +283,36 @@ function getKTPImage() {
                             <?php } ?>
                         </div>
                     <?php } ?>
-                </div>
+                </div> -->
             <?php } ?>
+            <div class="modal fade" id="modalKonsultasi" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Form Pengisian Data KB</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="alert alert-warning" role="alert">
+                            Setelah tombol "Input" ditekan, anda akan diarahkan ke whatsapp untuk mengirim pesan permintaan konsul Pembiayaan kepada nakes.
+                            </div>
+                            <input id="nama" value="<?php echo $nama; ?>" type="hidden" disabled>
+                            <input id="nomorHP" value="<?php echo $nomorHP; ?>" type="hidden" disabled>
+                            <input id="alamat" value="<?php echo $alamat; ?>" type="hidden" disabled>
+                            <div style="width: 100%;">
+                                <label for="waktu_konsultasi">Tentukan tanggal untuk konsul KB</label>
+                                <input style="width: 100%;" type="date" class="form-control"
+                                    id="waktu_konsultasi" name="waktu_konsultasi">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                            <button id="submitJadwal" disabled onclick="openSpinner()" type="submit"
+                                data-bs-dismiss="modal" class="btn btn-primary">Input</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </form>
                    
         <!-- Modal -->
@@ -250,10 +330,10 @@ function getKTPImage() {
             </div>
             </div>
         </div>
-    </div>
+        </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>
-    <script src="js/pembiayaanForm.js"></script>
+    <script src="js/pembiayaan_Form.js"></script>
 </body>
 </html>

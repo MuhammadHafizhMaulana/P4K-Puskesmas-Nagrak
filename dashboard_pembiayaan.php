@@ -84,19 +84,19 @@ if (isset($_GET['success'])) {
     <div class="container">
       <div class="row d-flex align-items-center mt-5">
         <div class=" col-12 col-lg-4 d-flex justify-content-center align-items-center">
-          <img src="./assets/logo-pembiayaan.png" alt="Logo Donor Darah">
+          <img src="./assets/logo-pembiayaan-2.png" alt="Logo Donor Darah">
         </div>
         <div class="children-content col-12 col-lg-8">
           <div class="d-flex align-items-end justify-content-between mb-2">
             <h1 class="m-0 p-0">
               Data Pembiayaan
             </h1>
-            <button type="button" onclick="window.location.href='form_pembiayaan.php'" class="mainButton btn btn-primary"><?php echo $pembiayaanData ? "Edit"  : "Tambah"; ?>
+            <button type="button" onclick="window.location.href='form_pembiayaan.php'" class="mainButton btn btn-danger"><?php echo $pembiayaanData ? "Edit"  : "Tambah"; ?>
               <p class="m-0">Data Pembiayaan</p>
             </button>
           </div>
           <?php if ($pembiayaanData) { ?>
-            <div class="border border-primary alert w-100 m-0" style="background-color: #FDFFA0; overflow-y: scroll; max-height: calc(100vh - 166px)" role="alert">
+            <div class="border border-primary alert w-100 m-0" style="background-color: #FDFFA0; overflow-y: scroll; max-height: calc(100vh - 169px)" role="alert">
               <div id="carouselExampleCaptions" class="carousel slide m-0 m-md-3" data-bs-ride="carousel" data-bs-interval="3000">
                 <div class="carousel-indicators">
                   <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>

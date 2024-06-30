@@ -35,6 +35,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Inisialisasi data dari POST
     $id_user = $_SESSION['id'];
     $jenis_pembayaran = ($_POST['jenis_pembayaran']);
+    $saldoTabungan = isset($_POST['saldoTabungan']) ? $_POST['saldoTabungan'] : null;
+    $nomorBPJS = isset($_POST['nomorBPJS']) ? $_POST['nomorBPJS'] : null;
     $tabungan_hamil = isset($_POST['tabungan_hamil']) ? $_POST['tabungan_hamil'] : null;
     $kepemilikan_jaminan = isset($_POST['kepemilikan_jaminan']) ? $_POST['kepemilikan_jaminan'] : null;
     $status_jaminan = isset($_POST['status_jaminan']) ? $_POST['status_jaminan'] : null;
@@ -45,7 +47,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $statusInput = null;
     $jenisTabungan = null;
 
-
+    if ($nomorBPJS == null) {
+        $nomorBPJS = '-';
+    }
      // Inisialisasi data dari FILES
      $ktp = isset($_FILES['ktp']) ? $_FILES['ktp'] : null;
      $kk = isset($_FILES['kk']) ? $_FILES['kk'] : null;
@@ -137,20 +141,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $rujukan_name = $rujukan_name ?? $pembiayaanData['rujukan'];
         $rekomendasi_name = $rekomendasi_name ?? $pembiayaanData['rekomendasi'];
 
-        $query = "UPDATE `pembiayaan` SET `jenis_pembayaran` = ?, `status` = ?, `jenis_tabungan` = ?, `ktp` = ?, `kk` = ?, `rujukan` = ?, `rekomendasi` = ?, `pas_foto` = ? WHERE `id_user` = ?";
+        $query = "UPDATE `pembiayaan` SET `jenis_pembayaran` = ?, `status` = ?, `jenis_tabungan` = ?, `ktp` = ?, `kk` = ?, `rujukan` = ?, `rekomendasi` = ?, `pas_foto` = ?, `saldo_tabungan` = ?, `nomor_bpjs` = ? WHERE `id_user` = ?";
     } else {
          // Mengubah nilai null menjadi string kosong atau simbol placeholder
         $rujukan_name = $rujukan_name ?? '-';
         $rekomendasi_name = $rekomendasi_name ?? '-';
     
-        $query = "INSERT INTO `pembiayaan`(`jenis_pembayaran`, `status`, `jenis_tabungan`, `ktp`, `kk`, `rujukan`, `rekomendasi`, `pas_foto`, `id_user`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $query = "INSERT INTO `pembiayaan`(`jenis_pembayaran`, `status`, `jenis_tabungan`, `ktp`, `kk`, `rujukan`, `rekomendasi`, `pas_foto`, `saldo_tabungan`, `nomor_bpjs`, `id_user`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     }
     $stmt = mysqli_prepare($connect, $query);
     
 
     if ($stmt) {
         // Bind parameter ke placeholder
-        mysqli_stmt_bind_param($stmt, "ssssssssi", $jenisPembayaranInput, $statusInput, $jenisTabungan, $ktp_name, $kk_name, $rujukan_name, $rekomendasi_name, $pas_foto_name, $id_user);
+        mysqli_stmt_bind_param($stmt, "sssssssssii", $jenis_pembayaran, $statusInput, $jenisTabungan, $ktp_name, $kk_name, $rujukan_name, $rekomendasi_name, $pas_foto_name, $saldoTabungan, $nomorBPJS, $id_user);
 
         // Jalankan prepared statement
         $result = mysqli_stmt_execute($stmt);

@@ -114,7 +114,7 @@ $sql = mysqli_query($connect, $query);
     <div class="container">
       <div class="row d-flex align-items-center mt-5">
         <div class="col-12 col-lg-4 d-flex justify-content-center align-items-center">
-          <img src="./assets/logo-goldar.png" alt="Logo Hati">
+          <img src="./assets/logo-goldar-2.png" alt="Logo Hati">
         </div>
         <div class="children-content col-lg-8 col-12">
           <div class="d-flex align-items-end justify-content-between mb-2">
