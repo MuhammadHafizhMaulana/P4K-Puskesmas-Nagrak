@@ -18,7 +18,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nama_pendamping = ucwords($_POST['nama_pendamping']);
     $no_pendamping = $_POST['no_pendamping'];
     $tujuan = $_POST['tujuan'];
+    $penolong = $_POST['penolong'];
+    $nama_penolong = $_POST['nama_penolong'];
+    $usg = $_POST['usg'];
+    $tanggal_usg = $_POST['tanggal_usg'];
+    $umur_usg = $_POST['umur_usg'];
+    $status_usg = $_POST['status_usg'];
     $id_user = $_SESSION['id'];
+
+    // Memproses kondisi berdasarkan nilai $usg
+    if ($usg === 'pernah') {
+        $usg_input = "$usg + $tanggal_usg + $umur_usg + $status_usg";
+    } else {
+        $usg_input = 'belum';
+    }
+
+    // Memproses kondisi berdasarkan nilai $penolong
+    $penolong_input = $penolong . " + " . $nama_penolong;
 
     // Validasi nomor HP dengan pola tertentu
     $nomorHPPattern = '/^[0-9]+$/';
@@ -27,24 +43,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit(); // Batalkan proses jika nomor HP tidak sesuai pola
     }
 
-    // Persiapkan query dengan prepared statement
-    $query = "INSERT INTO `sarpras`(`transportasi`, `nama_supir`, `no_supir`, `nama_pendamping`, `no_pendamping`, `tujuan`, `id_user`) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    // Cek apakah data sudah ada sebelumnya untuk pengguna tersebut
+    $query_check = "SELECT COUNT(*) as count FROM `sarpras` WHERE `id_user` = ?";
+    $stmt_check = mysqli_prepare($connect, $query_check);
+    mysqli_stmt_bind_param($stmt_check, "i", $id_user);
+    mysqli_stmt_execute($stmt_check);
+    mysqli_stmt_bind_result($stmt_check, $count);
+    mysqli_stmt_fetch($stmt_check);
+    mysqli_stmt_close($stmt_check);
+
+    if ($count > 0) {
+        // Persiapkan query UPDATE dengan prepared statement
+        $query = "UPDATE `sarpras` SET `transportasi` = ?, `nama_supir` = ?, `no_supir` = ?, `nama_pendamping` = ?, `no_pendamping` = ?, `tujuan` = ?, `penolong` = ?, `usg` = ? WHERE `id_user` = ?";
+    } else {
+        // Persiapkan query INSERT dengan prepared statement
+        $query = "INSERT INTO `sarpras`(`transportasi`, `nama_supir`, `no_supir`, `nama_pendamping`, `no_pendamping`, `tujuan`, `penolong`, `usg`, `id_user`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    }
     $stmt = mysqli_prepare($connect, $query);
 
     if ($stmt) {
         // Bind parameter ke placeholder
-        mysqli_stmt_bind_param($stmt, "ssssssi", $transportasi, $nama_supir, $no_supir, $nama_pendamping, $no_pendamping, $tujuan, $id_user);
+        mysqli_stmt_bind_param($stmt, "ssssssssi", $transportasi, $nama_supir, $no_supir, $nama_pendamping, $no_pendamping, $tujuan, $penolong_input, $usg_input, $id_user);
 
         // Jalankan prepared statement
         $result = mysqli_stmt_execute($stmt);
 
+        // Pesan berhasil
         if ($result) {
-            // Redirect berdasarkan hasil eksekusi
-            header('Location: ../dashboard_sarpras.php?success=addSarpras');
-            exit();
+            if ($user > 0) {
+                header('Location: ../dashboard_sarpras.php?success=edit');
+            } else {
+                header('Location: ../dashboard_sarpras.php?success=input');
+            }
         } else {
-            header('Location: ../dashboard_donor_darah.php?gagal=1');
-            exit();
+            header('Location: ../dashboard_sarpras.php?pesan=eror_menyimpandata');
         }
     } else {
         echo "Error: " . mysqli_error($connect);
