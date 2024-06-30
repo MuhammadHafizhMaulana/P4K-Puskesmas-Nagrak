@@ -175,15 +175,6 @@ mysqli_stmt_close($stmt);
                         </div>    
                     </div>
                 </div> 
-                <!-- <div class="mt-0 text-start">
-                <div id="formJenisPembayaran" class="d-flex justify-content-center">    
-                    <div>
-                        <br>
-                        <button type="button" class="btn btn-primary" id="buttonFormSelanjutnya" disabled>Selanjutnya</button>
-                    </div>    
-                </div>
-                </div>
-                <div id="additionalFields" class="text-start"></div> -->
             <?php } else { ?>
                 <div id="formDetailPembiayaan">
                     <div class="form-group">
@@ -208,7 +199,7 @@ mysqli_stmt_close($stmt);
                         <?php if ($data['jenis_pembayaran'] == 'BPJS Aktif') { ?>
                             <div class="form-group">
                                 <label for="nomorBPJS">Masukan nomor BPJS</label>
-                                <input oninput="cekKelengkapanField()" type="text" min="0" class="form-control registrasi-form fieldSelainFoto" id="nomorBPJS" name="nomorBPJS" placeholder="nomor BPJS" min="0" value="<?= $data['nomor_bpjs'] ?>" required>
+                                <input oninput="cekFormatNomorBPJS()" type="text" min="0" class="form-control registrasi-form fieldSelainFoto" id="nomorBPJS" name="nomorBPJS" placeholder="nomor BPJS" min="0" value="<?= $data['nomor_bpjs'] ?>" required>
                             </div>
                         <?php } ?>
                     </div>
@@ -220,99 +211,37 @@ mysqli_stmt_close($stmt);
                         </div>
                     </div>
                 </div>
-                <!-- <div class="mt-0 form-group text-start">
-                    <br>
-                    <label for="jenis_pembayaran" onload="updateForm()">Jenis Pembayaran</label>
-                    <select id="jenis_pembayaran" name="jenis_pembayaran" class="form-select" aria-label="Default select example" required onchange="updateForm()">
-                    <option value="">Pilih Jenis Pembayaran</option>
-                    <option value="tabungan" <?php if ($data['jenis_pembayaran'] === 'tabungan') echo 'selected'; ?>>Tabungan Ibu Hamil</option>
-                    <option value="jkn"<?php if ($data['jenis_pembayaran'] === 'jkn') echo 'selected'; ?>>Jaminan Kesehatan Nasional</option>
-                    </select>
-                </div>
-                <div id="additionalFields" class="text-start">
-                    <?php if ($data['jenis_pembayaran'] == "tabungan") { ?>
-                        <br>
-                        <label for="tabungan_hamil">Tabungan Ibu Hamil</label>
-                        <select id="tabungan_hamil" name="tabungan_hamil" class="form-select" required onchange="showRequiredDocuments()">
-                            <option value="">Pilih Tabungan</option>
-                            <option value="dada_linmas" <?php if ($data['jenis_tabungan'] === 'dadalinmas') echo 'selected'; ?>>Dadalinmas</option>
-                            <option value="saldo_pribadi" <?php if ($data['jenis_tabungan'] === 'saldo_pribadi') echo 'selected'; ?>>Saldo Pribadi</option>
-                        </select>
-                        <div id="dataFields" class="d-flex flex-column"></div>
-                        <?php } else if ($data['jenis_pembayaran'] == "jkn") {?>
-                        <br>
-                        <label for="kepemilikan_jaminan">Kepemilikan Jaminan Kesehatan Nasional</label>
-                        <select id="kepemilikan_jaminan" name="kepemilikan_jaminan" class="form-select" required onchange="updateJknFields()">
-                            <option value="">Pilih Kepemilikan</option>
-                            <option value="punya" <?php if ($data['status'] === 'aktif' || $data['status'] === 'non aktif') echo 'selected'; ?>>Punya</option>
-                            <option value="tidak_punya" <?php if ($data['status'] === 'tidak punya') echo 'selected'; ?>>Tidak Punya</option>
-                        </select>
-                        <div id="jknFields">
-                            <?php if ($data['status'] === 'aktif' || $data['status'] === 'non aktif') { ?>
-                                <br>
-                                <label for="status_jaminan">Status Jaminan</label>
-                                <select id="status_jaminan" name="status_jaminan" class="form-select" required onchange="updateStatusFields()">
-                                    <option value="">Pilih Status</option>
-                                    <option value="aktif" <?php if ($data['status'] === 'aktif') echo 'selected'; ?>>Aktif</option>
-                                    <option value="tidak_aktif" <?php if ($data['status'] === 'non aktif') echo 'selected'; ?>>Tidak Aktif</option>
-                                </select>
-                                <div id="statusFields">
-                                    <?php if ($data['status'] === 'aktif') { ?>
-                                        <br>
-                                        <label for="jkn_aktif">JKN Aktif</label>
-                                        <select id="jkn_aktif" name="jkn_aktif" class="form-select" required onchange="showRequiredDocuments()">
-                                            <option value="">Pilih JKN</option>
-                                            <option value="jkn_pbi" <?php if ($data['jenis_tabungan'] === 'pbi') echo 'selected'; ?>>JKN PBI</option>
-                                            <option value="mandiri" <?php if ($data['jenis_tabungan'] === 'mandiri') echo 'selected'; ?>>Mandiri</option>
-                                        </select>
-                                        <div id="dataFields" class="d-flex flex-column"></div>
-                                    <?php } else if ($data['status'] === 'non aktif') { ?>
-                                        <br>
-                                        <div id="dataFields" class="d-flex flex-column"></div>
-                                    <?php } ?>
-                                </div>
-                            <?php } else if ($data['status'] === 'tidak punya') {?>
-                                <br>
-                                <label for="tipe_jkn">Tipe JKN</label>
-                                <select id="tipe_jkn" name="tipe_jkn" class="form-select" required onchange="showRequiredDocuments()">
-                                    <option value="">Pilih Tipe</option>
-                                    <option value="pbi" <?php if ($data['jenis_tabungan'] === 'pbi') echo 'selected'; ?>>PBI</option>
-                                    <option value="mandiri" <?php if ($data['jenis_tabungan'] === 'mandiri') echo 'selected'; ?>>Mandiri</option>
-                                </select>
-                                <div id="dataFields" class="d-flex flex-column"></div>
-                            <?php } ?>
-                        </div>
-                    <?php } ?>
-                </div> -->
             <?php } ?>
-            <div class="modal fade" id="modalKonsultasi" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Form Pengisian Data KB</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="alert alert-warning" role="alert">
-                            Setelah tombol "Input" ditekan, anda akan diarahkan ke whatsapp untuk mengirim pesan permintaan konsul Pembiayaan kepada nakes.
+            <?php if (!$data) { ?>
+                <div class="modal fade" id="modalKonsultasi" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Form Pengisian Data KB</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <input id="nama" value="<?php echo $nama; ?>" type="hidden" disabled>
-                            <input id="nomorHP" value="<?php echo $nomorHP; ?>" type="hidden" disabled>
-                            <input id="alamat" value="<?php echo $alamat; ?>" type="hidden" disabled>
-                            <div style="width: 100%;">
-                                <label for="waktu_konsultasi">Tentukan tanggal untuk konsul KB</label>
-                                <input style="width: 100%;" type="date" class="form-control"
-                                    id="waktu_konsultasi" name="waktu_konsultasi">
+                            <div class="modal-body">
+                                <div class="alert alert-warning" role="alert">
+                                Setelah tombol "Input" ditekan, anda akan diarahkan ke whatsapp untuk mengirim pesan permintaan konsul Pembiayaan kepada nakes.
+                                </div>
+                                <input id="nama" value="<?php echo $nama; ?>" type="hidden" disabled>
+                                <input id="nomorHP" value="<?php echo $nomorHP; ?>" type="hidden" disabled>
+                                <input id="alamat" value="<?php echo $alamat; ?>" type="hidden" disabled>
+                                <div style="width: 100%;">
+                                    <label for="waktu_konsultasi">Tentukan tanggal untuk konsul Pembiayaan</label>
+                                    <input style="width: 100%;" type="date" class="form-control"
+                                        id="waktu_konsultasi" name="waktu_konsultasi">
+                                </div>
                             </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                            <button id="submitJadwal" disabled onclick="openSpinner()" type="submit"
-                                data-bs-dismiss="modal" class="btn btn-primary">Input</button>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                <button id="submitJadwal" disabled onclick="openSpinner()" type="submit"
+                                    data-bs-dismiss="modal" class="btn btn-primary">Input</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            <?php } ?>
         </form>
                    
         <!-- Modal -->
@@ -334,6 +263,6 @@ mysqli_stmt_close($stmt);
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>
-    <script src="js/pembiayaan_Form.js"></script>
+    <script src="js/pembiayaanForm.js"></script>
 </body>
 </html>

@@ -1,6 +1,8 @@
 const ktpField = document.getElementById('ktp')
 const kkField = document.getElementById('kk')
 const pasFotoField = document.getElementById('pas_foto')
+const nomorBPJSPattern = /^[0-9]+$/;
+let prevNomorBPJS = '';
 
 
 function openSpinner() {
@@ -75,106 +77,9 @@ if (document.getElementById('buttonFormSelanjutnya')) {
     })
 }
 
-// function updateForm() {
-//     var jenisPembayaran = document.getElementById('jenis_pembayaran').value;
-//     var additionalFields = document.getElementById('additionalFields');
-//     additionalFields.innerHTML = '';
-
-//     if (jenisPembayaran === 'tabungan') {
-//         additionalFields.innerHTML = `
-//             <br>
-//             <label for="tabungan_hamil">Tabungan Ibu Hamil</label>
-//             <select id="tabungan_hamil" name="tabungan_hamil" class="form-select" required onchange="showRequiredDocuments()">
-//                 <option value="">Pilih Tabungan</option>
-//                 <option value="dada_linmas">Dadalinmas</option>
-//                 <option value="saldo_pribadi">Saldo Pribadi</option>
-//             </select>
-//             <div id="dataFields"></div>
-//         `;
-//     } else if (jenisPembayaran === 'jkn') {
-//         additionalFields.innerHTML = `
-//             <br>
-//             <label for="kepemilikan_jaminan">Kepemilikan Jaminan Kesehatan Nasional</label>
-//             <select id="kepemilikan_jaminan" name="kepemilikan_jaminan" class="form-select" required onchange="updateJknFields()">
-//                 <option value="">Pilih Kepemilikan</option>
-//                 <option value="punya">Punya</option>
-//                 <option value="tidak_punya">Tidak Punya</option>
-//             </select>
-//             <div id="jknFields"></div>
-//         `;
-//     }
-// }
-
-// function updateJknFields() {
-//     var kepemilikanJaminan = document.getElementById('kepemilikan_jaminan').value;
-//     var jknFields = document.getElementById('jknFields');
-//     jknFields.innerHTML = '';
-
-//     if (kepemilikanJaminan === 'punya') {
-//         jknFields.innerHTML = `
-//             <br>
-//             <label for="status_jaminan">Status Jaminan</label>
-//             <select id="status_jaminan" name="status_jaminan" class="form-select" required onchange="updateStatusFields()">
-//                 <option value="">Pilih Status</option>
-//                 <option value="aktif">Aktif</option>
-//                 <option value="tidak_aktif">Tidak Aktif</option>
-//             </select>
-//             <div id="statusFields"></div>
-//         `;
-//     } else if (kepemilikanJaminan === 'tidak_punya') {
-//         jknFields.innerHTML = `
-//             <br>
-//             <label for="tipe_jkn">Tipe JKN</label>
-//             <select id="tipe_jkn" name="tipe_jkn" class="form-select" required onchange="showRequiredDocuments()">
-//                 <option value="">Pilih Tipe</option>
-//                 <option value="pbi">PBI</option>
-//                 <option value="mandiri">Mandiri</option>
-//             </select>
-//             <div id="dataFields"></div>
-//         `;
-//     }
-// }
-
-// function updateStatusFields() {
-//     var statusJaminan = document.getElementById('status_jaminan').value;
-//     var statusFields = document.getElementById('statusFields');
-//     statusFields.innerHTML = '';
-
-//     if (statusJaminan === 'aktif') {
-//         statusFields.innerHTML = `
-//             <br>
-//             <label for="jkn_aktif">JKN Aktif</label>
-//             <select id="jkn_aktif" name="jkn_aktif" class="form-select" required onchange="showRequiredDocuments()">
-//                 <option value="">Pilih JKN</option>
-//                 <option value="jkn_pbi">JKN PBI</option>
-//                 <option value="mandiri">Mandiri</option>
-//             </select>
-//             <div id="dataFields"></div>
-//         `;
-//     } else if (statusJaminan === 'tidak_aktif') {
-//         statusFields.innerHTML = `
-//             <div id="dataFields"></div>
-//         `;
-//         showRequiredDocuments();
-//     }
-// }
-
 document.addEventListener('DOMContentLoaded', () => {
-    // showRequiredDocuments();
     updateBoxPhotoHeight();
 } );
-
-// function showRequiredDocuments() {
-//     if (document.getElementById('dataFields')) {
-//         var dataFields = document.getElementById('dataFields');
-//         dataFields.innerHTML = `
-//         <br>
-//         <div class="d-flex justify-content-center w-100">
-//             <button onclick="openSpinner()" type="submit" class="btn btn-primary">INPUT</button>
-//         </div>
-//         `;
-//     }
-// }
 
 function openPhotoDialog(photoName) {
     const titleDialog = document.getElementById('titlePhotoDialog');
@@ -250,11 +155,12 @@ function cekJenisPembiayaan() {
             nomorBPJS.innerHTML = `
                 <div class="form-group">
                     <label for="nomorBPJS">Masukan nomor BPJS</label>
-                    <input oninput="cekKelengkapanField()" type="text" min="0" class="form-control registrasi-form fieldSelainFoto" id="nomorBPJS" name="nomorBPJS" placeholder="nomor BPJS" min="0" required>
+                    <input oninput="cekFormatNomorBPJS()" type="text" min="0" class="form-control registrasi-form fieldSelainFoto" id="nomorBPJS" name="nomorBPJS" placeholder="nomor BPJS" min="0" required>
                 </div>
             `;
         } else {
             nomorBPJS.innerHTML = ``;
+            prevNomorBPJS = '';
         }
     }
 
@@ -281,32 +187,50 @@ function cekKelengkapanField(event) {
 }
 
 
+function cekFormatNomorBPJS() {
+    if (document.getElementById('nomorBPJS')) {
+        const nomorBPJS = document.getElementById('nomorBPJS');
+
+        if (nomorBPJS.value === "") {
+            prevNomorBPJS = "";
+        } else if (nomorBPJSPattern.test(nomorBPJS.value)) {
+            prevNomorBPJS = nomorBPJS.value;
+        } else {
+            nomorBPJS.value = prevNomorBPJS;
+        }
+    
+    }
+
+    cekKelengkapanField();
+}
+
 
 // Dialog konsultasi
 
 
-
-var waktuKonsultasi = document.getElementById('waktu_konsultasi');
-var buttonSubmitDialog = document.getElementById('submitJadwal');
-
-
-// Aktifkan atau nonaktifkan tombol submit berdasarkan input di field waktu
-waktuKonsultasi.addEventListener('input', function () {
-    buttonSubmitDialog.disabled = !waktuKonsultasi.value;
-});
-
-// Event listener untuk dialog submit
-buttonSubmitDialog.addEventListener("click", function (event) {
-    // Ambil nilai-nilai dari field form
-    var nama = document.getElementById('nama').value;
-    var nomorHP = document.getElementById('nomorHP').value;
-    var alamat = document.getElementById('alamat').value;
-    const saldoTabungan = document.getElementById('saldoTabungan').value;
-    const jenisPembiayaan = document.getElementById('jenis_pembayaran').value;
-
-    // Buat URL WhatsApp
-    var urlToWhatsapp = `https://wa.me/6285540570790?text=Halo, perkenalkan saya *${nama}* dengan nomor handphone *${nomorHP}* yang beralamatkan di *${alamat}* ingin melakukan konsultasi KB pada *${waktuKonsultasi.value}*. Saat ini, saldo tabungan persalinan yang sudah saya miliki adalah Rp ${saldoTabungan} dan juga jenis pembiayaan yang akan saya gunakan yaitu  ${jenisPembiayaan}`;
-
-    // Buka URL di tab baru
-    window.open(urlToWhatsapp, "_blank");
-});
+if (document.getElementById('waktu_konsultasi')) {
+    var waktuKonsultasi = document.getElementById('waktu_konsultasi');
+    var buttonSubmitDialog = document.getElementById('submitJadwal');
+    
+    
+    // Aktifkan atau nonaktifkan tombol submit berdasarkan input di field waktu
+    waktuKonsultasi.addEventListener('input', function () {
+        buttonSubmitDialog.disabled = !waktuKonsultasi.value;
+    });
+    
+    // Event listener untuk dialog submit
+    buttonSubmitDialog.addEventListener("click", function (event) {
+        // Ambil nilai-nilai dari field form
+        var nama = document.getElementById('nama').value;
+        var nomorHP = document.getElementById('nomorHP').value;
+        var alamat = document.getElementById('alamat').value;
+        const saldoTabungan = document.getElementById('saldoTabungan').value;
+        const jenisPembiayaan = document.getElementById('jenis_pembayaran').value;
+    
+        // Buat URL WhatsApp
+        var urlToWhatsapp = `https://wa.me/6285540570790?text=Halo, perkenalkan saya *${nama}* dengan nomor handphone *${nomorHP}* yang beralamatkan di *${alamat}* ingin melakukan konsultasi KB pada *${waktuKonsultasi.value}*. Saat ini, saldo tabungan persalinan yang sudah saya miliki adalah Rp ${saldoTabungan} dan juga jenis pembiayaan yang akan saya gunakan yaitu  ${jenisPembiayaan}`;
+    
+        // Buka URL di tab baru
+        window.open(urlToWhatsapp, "_blank");
+    });
+}

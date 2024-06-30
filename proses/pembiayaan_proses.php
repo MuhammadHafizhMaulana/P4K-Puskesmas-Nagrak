@@ -34,22 +34,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Inisialisasi data dari POST
     $id_user = $_SESSION['id'];
-    $jenis_pembayaran = ($_POST['jenis_pembayaran']);
+    $jenis_pembayaran = isset($_POST['jenis_pembayaran']) ? $_POST['jenis_pembayaran'] : '-';
     $saldoTabungan = isset($_POST['saldoTabungan']) ? $_POST['saldoTabungan'] : null;
-    $nomorBPJS = isset($_POST['nomorBPJS']) ? $_POST['nomorBPJS'] : null;
-    $tabungan_hamil = isset($_POST['tabungan_hamil']) ? $_POST['tabungan_hamil'] : null;
-    $kepemilikan_jaminan = isset($_POST['kepemilikan_jaminan']) ? $_POST['kepemilikan_jaminan'] : null;
-    $status_jaminan = isset($_POST['status_jaminan']) ? $_POST['status_jaminan'] : null;
-    $tipe_jkn = isset($_POST['tipe_jkn']) ? $_POST['tipe_jkn'] : null;
-    $jkn_aktif = isset($_POST['jkn_aktif']) ? $_POST['jkn_aktif'] : null;
-    $jkn_tidakAktif = isset($_POST['jkn_tidakAktif']) ? $_POST['jkn_tidakAktif'] : null;
-    $jenisPembayaranInput = null;
-    $statusInput = null;
-    $jenisTabungan = null;
+    $nomorBPJS = isset($_POST['nomorBPJS']) ? $_POST['nomorBPJS'] : '-';
 
-    if ($nomorBPJS == null) {
-        $nomorBPJS = '-';
-    }
      // Inisialisasi data dari FILES
      $ktp = isset($_FILES['ktp']) ? $_FILES['ktp'] : null;
      $kk = isset($_FILES['kk']) ? $_FILES['kk'] : null;
@@ -88,51 +76,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
      $rekomendasi_name = unggahFile($rekomendasi, "rekomendasi_", $id_user, $target_dir, 'rekomendasi');
  
 
-    if ($jenis_pembayaran === "tabungan") {
-        if ($tabungan_hamil === "dada_linmas") {
-            $jenisPembayaranInput = "tabungan";
-            $statusInput = "aktif";
-            $jenisTabungan = "dadalinmas";
-        } else if ($tabungan_hamil === "saldo_pribadi") {
-            $jenisPembayaranInput = "tabungan";
-            $statusInput = "aktif";
-            $jenisTabungan = "saldo_pribadi";
-        }
-    } else if ($jenis_pembayaran === "jkn") {
-        if ($kepemilikan_jaminan === "punya") {
-            if ($status_jaminan === "aktif") {
-                if ($jkn_aktif === "mandiri") {
-                    $jenisPembayaranInput = "jkn";
-                    $statusInput = "aktif";
-                    $jenisTabungan = "mandiri";
-                } else if ($jkn_aktif === "jkn_pbi") {
-                    $jenisPembayaranInput = "jkn";
-                    $statusInput = "aktif";
-                    $jenisTabungan = "pbi";
-                }
-            } else if ($status_jaminan === "tidak_aktif") {
-                $jenisPembayaranInput = "jkn";
-                $statusInput = "non aktif";
-                $jenisTabungan = "-";
-            }
-        } else if ($kepemilikan_jaminan === "tidak_punya") {
-            if ($tipe_jkn === "pbi") {
-                $jenisPembayaranInput = "jkn";
-                $statusInput = "tidak punya";
-                $jenisTabungan = "pbi";
-            } else if ($tipe_jkn === "mandiri") {
-                $jenisPembayaranInput = "jkn";
-                $statusInput = "tidak punya";
-                $jenisTabungan = "mandiri";
-            }
-        }
-    } else {
-        // Jika jenis pembayaran tidak ditemukan
-        $jenisPembayaranInput = null; // Atau nilai default yang sesuai
-    }
-
-    $jenis_pembayaran = isset($_POST['jenis_pembayaran']) ? $_POST['jenis_pembayaran'] : null;
-
     // Persiapkan query dengan prepared statement
     if ($user > 0) {
         $ktp_name = $ktp_name ?? $pembiayaanData['ktp'];
@@ -141,20 +84,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $rujukan_name = $rujukan_name ?? $pembiayaanData['rujukan'];
         $rekomendasi_name = $rekomendasi_name ?? $pembiayaanData['rekomendasi'];
 
-        $query = "UPDATE `pembiayaan` SET `jenis_pembayaran` = ?, `status` = ?, `jenis_tabungan` = ?, `ktp` = ?, `kk` = ?, `rujukan` = ?, `rekomendasi` = ?, `pas_foto` = ?, `saldo_tabungan` = ?, `nomor_bpjs` = ? WHERE `id_user` = ?";
+        $query = "UPDATE `pembiayaan` SET `jenis_pembayaran` = ?, `ktp` = ?, `kk` = ?, `rujukan` = ?, `rekomendasi` = ?, `pas_foto` = ?, `saldo_tabungan` = ?, `nomor_bpjs` = ? WHERE `id_user` = ?";
     } else {
          // Mengubah nilai null menjadi string kosong atau simbol placeholder
         $rujukan_name = $rujukan_name ?? '-';
         $rekomendasi_name = $rekomendasi_name ?? '-';
     
-        $query = "INSERT INTO `pembiayaan`(`jenis_pembayaran`, `status`, `jenis_tabungan`, `ktp`, `kk`, `rujukan`, `rekomendasi`, `pas_foto`, `saldo_tabungan`, `nomor_bpjs`, `id_user`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $query = "INSERT INTO `pembiayaan`(`jenis_pembayaran`, `ktp`, `kk`, `rujukan`, `rekomendasi`, `pas_foto`, `saldo_tabungan`, `nomor_bpjs`, `id_user`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     }
     $stmt = mysqli_prepare($connect, $query);
     
 
     if ($stmt) {
         // Bind parameter ke placeholder
-        mysqli_stmt_bind_param($stmt, "sssssssssii", $jenis_pembayaran, $statusInput, $jenisTabungan, $ktp_name, $kk_name, $rujukan_name, $rekomendasi_name, $pas_foto_name, $saldoTabungan, $nomorBPJS, $id_user);
+        mysqli_stmt_bind_param($stmt, "sssssssii", $jenis_pembayaran, $ktp_name, $kk_name, $rujukan_name, $rekomendasi_name, $pas_foto_name, $saldoTabungan, $nomorBPJS, $id_user);
 
         // Jalankan prepared statement
         $result = mysqli_stmt_execute($stmt);
