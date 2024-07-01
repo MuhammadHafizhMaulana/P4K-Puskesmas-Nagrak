@@ -27,7 +27,7 @@ function openPhotoDialog(photoName) {
 function updateCarouselHeight() {
     var items = document.querySelectorAll('.carousel-item');
     items.forEach(function(item) {
-        item.style.height = item.offsetWidth * 0.75 + 'px';
+        item.style.height = item.offsetWidth * 0.6 + 'px';
     });
 }
 

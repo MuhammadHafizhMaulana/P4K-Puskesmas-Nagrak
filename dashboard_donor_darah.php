@@ -71,7 +71,7 @@ $sql = mysqli_query($connect, $query);
   <title>Home</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <link rel="stylesheet" href="./css/dashboardUserGeneral.css">
+  <link rel="stylesheet" href="./css/dashboard_User_General.css">
 </head>
 
 <body>
@@ -90,27 +90,60 @@ $sql = mysqli_query($connect, $query);
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav ms-auto">
-        <div class="navbar-nav ms-auto">
-          <a class="nav-link active" aria-current="page" href="home.php">Home</a>
+          <a class="nav-link" aria-current="page" href="home.php">Home</a>
           <a class="nav-link" href="dashboard_pembiayaan.php">Pembiayaan</a>
           <a class="nav-link" href="dashboard_sarpras.php">Sarpras</a>
-          <a class="nav-link" href="dashboard_donor_darah.php">Donor Darah</a>
+          <a class="nav-link active" href="dashboard_donor_darah.php">Donor Darah</a>
           <a class="nav-link" href="dashboard_kb.php">Konsul KB</a>
           <a class="nav-link" href="profile.php">Profile</a>
           <a class="nav-link" href="proses/logout.php">Logout</a>
         </div>
-      </div>
     </div>
   </nav>
 
-  <div class="banner">
+  <div class="banner banner1" style="background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url('./assets/banner-goldar.jpg');">
     <div>
-      <h1>Donor Darah</h1>
+      <h1>BASKOM SI DORA</h1>
       <br>
-      <h5>Website Program Perencanaan Persalinan dan Pencegahan Komplikasi (P4K) Puskesmas Nagrak!</h5>
+      <h3>"Bebaskan Komplikasi Persalinan dengan Siaga Donor Darah"</h3>
     </div>
   </div>
   <div class="content">
+    <div class="container">
+      <div class="row d-flex align-items-center mt-5">
+        <div class="col-12 col-lg-4 d-flex justify-content-center align-items-center">
+          <img src="./assets/logo-goldar.png" alt="Logo Hati">
+        </div>
+        <div class="children-content col-lg-8 col-12">
+          <div class="d-flex align-items-end justify-content-between mb-2">
+            <h1 class="m-0 p-0">
+              Deskripsi Program
+            </h1>
+            <button type="button" onclick="window.location.href='donor_darah.php'" class="mainButton btn btn-danger">
+              Lihat<p class="m-0">Penjelasan Menu</p>
+            </button>
+          </div>
+          <div id="boxDeskripsi" style="overflow-y: scroll; max-height: calc(100vh - 169px)">
+            <div class="d-flex align-items-center">
+              <h1 class="me-1 text-danger">#</h1>
+              <h4>Apa itu "BASKOM SI DORA"?</h4>
+            </div>
+            <p>
+              BASKOM SI DORA yang memiliki kepanjangan Bebaskan Komplikasi Persalinan dengan Siaga Donor Darah merupakan program dari Puskesmas Nagrak untuk memberikan solusi serta monitoring terkait kebutuhan darah ibu menuju persalinan. Dalam mengakses program ini, anda perlu menginputkan golongan darah anda. Formulir input golongan darah dapat anda akses dengan mengklik tombol "Daftarkan Golongan Darah" yang berada di bawah ini.
+            </p>
+            <p>
+              Apabila anda belum mengetahui golongan darah yang anda miliki, anda dapat memilih opsi "Belum Mengetahui" di dalam formulir input golongan darah. Sehingga, setelah ketika anda menekan tombol input, anda akan diarahkan ke whatsapp untuk melakukan perjanjikan pengecekan golongan darah dengan nakes. Setelah pengecekan golongan darah dilakukan, data golongan darah anda akan otomatis diisikan oleh tenaga kesehatan.
+            </p>
+            <p>
+              Di dalam program "BASKOM SI DORA", dibutuhkan juga data pendonor darah dari setiap ibu hamil. Setiap ibu hamil dapat menginputkan pendonor dari orang - orang terdekat mereka seperti suami ataupun anggota keluarga lainnya. Setiap ibu hamil dapat menginpukan lebih dari 1 pendonor darah. Formulir pendonor darah dapat diakses dengan cara mengklik tombol "Daftarkan Pendonor Darah" yang berada di bawah ini.
+            </p>
+            <p>
+              Apabila pendonor darah belum mengetahui golongan darah yang dia miliki, anda dapat memilih opsi "Belum Mengetahui" di dalam formulir input golongan darah pendonor. Sehingga, setelah ketika anda menekan tombol input, anda akan diarahkan ke whatsapp untuk melakukan perjanjikan pengecekan golongan darah pendonor dengan nakes. Setelah pengecekan golongan darah dilakukan, data golongan darah pendonor akan otomatis diisikan oleh tenaga kesehatan.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="container">
       <div class="row d-flex align-items-center mt-5">
         <div class="col-12 col-lg-4 d-flex justify-content-center align-items-center">

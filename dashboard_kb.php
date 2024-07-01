@@ -36,7 +36,7 @@ if (isset($_GET['success'])) {
   <title>Dashboard KB</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <link rel="stylesheet" href="css/dashboardUserGeneral.css">
+  <link rel="stylesheet" href="css/dashboard_User_General.css">
 </head>
 
 <body>
@@ -55,24 +55,22 @@ if (isset($_GET['success'])) {
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav ms-auto">
-        <div class="navbar-nav ms-auto">
-          <a class="nav-link active" aria-current="page" href="home.php">Home</a>
+          <a class="nav-link" aria-current="page" href="home.php">Home</a>
           <a class="nav-link" href="dashboard_pembiayaan.php">Pembiayaan</a>
           <a class="nav-link" href="dashboard_sarpras.php">Sarpras</a>
           <a class="nav-link" href="dashboard_donor_darah.php">Donor Darah</a>
-          <a class="nav-link" href="dashboard_kb.php">Konsul KB</a>
+          <a class="nav-link active" href="dashboard_kb.php">Konsul KB</a>
           <a class="nav-link" href="profile.php">Profile</a>
           <a class="nav-link" href="proses/logout.php">Logout</a>
         </div>
-      </div>
     </div>
   </nav>
 
-  <div class="banner">
+  <div class="banner banner2" style="background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url('./assets/banner-hati.jpg');">
     <div>
-      <h1>Selamat Datang</h1>
+      <h1>KELANA BAHTERA</h1>
       <br>
-      <h5>Website Program Perencanaan Persalinan dan Pencegahan Komplikasi (P4K) Puskesmas Nagrak!</h5>
+      <h3>"Keluarga Berencana, Awal Bahagia dan Sejahtera"</h3>
     </div>
   </div>
   <div class="content">
@@ -84,16 +82,23 @@ if (isset($_GET['success'])) {
         <div class="children-content col-lg-8 col-12">
           <div class="d-flex align-items-end justify-content-between mb-2">
             <h1 class="m-0 p-0">
-            Deskripsi KB
+            Deskripsi Program
             </h1>
               <button type="button" onclick="window.location.href='donor_darah.php'" class="mainButton btn btn-danger">
-                Daftarkan<p class="m-0">Golongan Darah</p>
+              Lihat<p class="m-0">Penjelasan Menu</p>
               </button>
           </div>
           <div id="boxDeskripsi" style="overflow-y: scroll; max-height: calc(100vh - 169px)">
             <div class="d-flex align-items-center">
+              <h1 class="me-1 text-danger">#</h1>
+              <h4>Apa itu "KELANA BAHTERA"?</h4>
+            </div>
+            <p>
+              KELANA BAHTERA yang memiliki kepanjangan Keluarga Berencana Awal Bahagia dan Sejahtera merupakan program dari Puskesmas Nagrak untuk memberikan bantuan kepada masyarakat untuk memilih dan menentukan program KB yang sesuai.
+            </p>
+            <div class="d-flex align-items-center">
                 <h1 class="me-1 text-danger">#</h1>
-                <h4>Apa KB Pasca Salin?</h4>
+                <h4>Apa itu KB Pasca Salin?</h4>
             </div>
             <p>
               KB Pascasalin adalah upaya pencegahan kehamilan setelah persalinan menggunakan alat kontrasepsi selama masa nifas (sampai 42 hari pasca persalinan).

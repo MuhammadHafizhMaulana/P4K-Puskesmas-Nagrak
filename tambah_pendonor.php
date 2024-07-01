@@ -57,15 +57,13 @@ mysqli_stmt_close($stmt);
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav ms-auto">
-                    <div class="navbar-nav ms-auto">
-                        <a class="nav-link active" aria-current="page" href="home.php">Home</a>
-                        <a class="nav-link" href="dashboard_pembiayaan.php">Pembiayaan</a>
-                        <a class="nav-link" href="dashboard_sarpras.php">Sarpras</a>
-                        <a class="nav-link" href="dashboard_donor_darah.php">Donor Darah</a>
-                        <a class="nav-link" href="dashboard_kb.php">Konsul KB</a>
-                        <a class="nav-link" href="profile.php">Profile</a>
-                        <a class="nav-link" href="proses/logout.php">Logout</a>
-                    </div>
+                    <a class="nav-link active" aria-current="page" href="home.php">Home</a>
+                    <a class="nav-link" href="dashboard_pembiayaan.php">Pembiayaan</a>
+                    <a class="nav-link" href="dashboard_sarpras.php">Sarpras</a>
+                    <a class="nav-link" href="dashboard_donor_darah.php">Donor Darah</a>
+                    <a class="nav-link" href="dashboard_kb.php">Konsul KB</a>
+                    <a class="nav-link" href="profile.php">Profile</a>
+                    <a class="nav-link" href="proses/logout.php">Logout</a>
                 </div>
             </div>
     </nav>
@@ -107,7 +105,7 @@ mysqli_stmt_close($stmt);
                 </select>
             </div>
             <br />
-            <button id="submitPendonor" onclick="openSpinner()" type="submit" class="btn btn-danger">INPUT</button>
+            <button id="submitPendonor" onclick="openSpinner()" type="submit" class="btn btn-danger">Input</button>
             <!-- Modal -->
             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -160,7 +158,7 @@ mysqli_stmt_close($stmt);
             </div>
             <br>
             <button id="submitNamaNomorPendonor" onclick="openSpinner()" type="submit"
-                class="btn btn-danger">INPUT</button>
+                class="btn btn-danger">Input</button>
         </form>
         <?php
         }

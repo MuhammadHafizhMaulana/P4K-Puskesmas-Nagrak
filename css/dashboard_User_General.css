@@ -15,12 +15,16 @@
 }
 
 .my-navbar a:hover {
-    color: black;
+    color: #d25864;
     font-weight: bold;
 }
 
 .my-navbar img {
     height: 75px;
+}
+
+.navbar-nav .active {
+    color: #DC3545;
 }
 
 
@@ -31,17 +35,28 @@
     z-index: -1;
     width: 100vw;
     height: calc(100vh - 105px);
-    background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url('../assets/banner-hati.jpg');
+    /* background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url('../assets/banner-hati.jpg'); */
     background-size: cover;
     background-position: center;
     display: flex;
-    flex-direction: row;
+    /* flex-direction: row; */
     align-items: center;
 }
 
 .banner div {
-    text-align: right;
+    /* text-align: right; */
     max-width: 450px;
+}
+
+.banner1 {
+    text-align: left;
+    flex-direction: row;
+}
+
+
+.banner2 {
+    text-align: right;
+    flex-direction: row-reverse;
 }
 
 .banner h1 {

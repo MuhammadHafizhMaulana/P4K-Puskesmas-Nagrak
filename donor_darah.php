@@ -45,7 +45,7 @@ if ($usia_kandungan) {
     <title>Donor Darah</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="./css/general_Form.css">
+    <link rel="stylesheet" href="./css/general-Form.css">
 </head>
 
 <body>
@@ -63,11 +63,11 @@ if ($usia_kandungan) {
           </svg></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav ms-auto">
-          <a class="nav-link active" aria-current="page" href="home.php">Home</a>
+        <div class="navbar-nav ms-auto">
+          <a class="nav-link" aria-current="page" href="home.php">Home</a>
           <a class="nav-link" href="dashboard_pembiayaan.php">Pembiayaan</a>
           <a class="nav-link" href="dashboard_sarpras.php">Sarpras</a>
-          <a class="nav-link" href="dashboard_donor_darah.php">Donor Darah</a>
+          <a class="nav-link active" href="dashboard_donor_darah.php">Donor Darah</a>
           <a class="nav-link" href="dashboard_kb.php">Konsul KB</a>
           <a class="nav-link" href="profile.php">Profile</a>
           <a class="nav-link" href="proses/logout.php">Logout</a>
@@ -111,7 +111,7 @@ if ($usia_kandungan) {
                 </select>
             </div>
             <br />
-            <button id="submitGoldar" onclick="openSpinner()" type="submit" class="btn btn-danger">INPUT</button>
+            <button id="submitGoldar" onclick="openSpinner()" type="submit" class="btn btn-danger">Input</button>
             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog">

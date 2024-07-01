@@ -54,7 +54,7 @@ if ($status_usg === 'belum') {
     <title>Form Pembiayaan</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="./css/general_Form.css">
+    <link rel="stylesheet" href="./css/general-Form.css">
     <style>
         .hidden {
             display: none;
@@ -78,9 +78,9 @@ if ($status_usg === 'belum') {
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav ms-auto">
-                    <a class="nav-link active" aria-current="page" href="home.php">Home</a>
+                    <a class="nav-link" aria-current="page" href="home.php">Home</a>
                     <a class="nav-link" href="dashboard_pembiayaan.php">Pembiayaan</a>
-                    <a class="nav-link" href="dashboard_sarpras.php">Sarpras</a>
+                    <a class="nav-link active" href="dashboard_sarpras.php">Sarpras</a>
                     <a class="nav-link" href="dashboard_donor_darah.php">Donor Darah</a>
                     <a class="nav-link" href="dashboard_kb.php">Konsul KB</a>
                     <a class="nav-link" href="profile.php">Profile</a>
