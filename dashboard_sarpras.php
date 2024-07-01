@@ -31,6 +31,15 @@ if (isset($_GET['success'])) {
   }
 }
 
+// Function untuk merubah format tanggal
+function formatTanggal($tanggal_input)
+{
+    $timestamp = strtotime($tanggal_input);
+    $tanggal_format = date("d M Y", $timestamp);
+
+    return $tanggal_format;
+}
+
 // Memisahkan jenis penolong dan nama penolong
 $penolong_data = isset($sarprasData['penolong']) ? explode(' + ', $sarprasData['penolong']) : ['', ''];
 $jenis_penolong = trim($penolong_data[0]);
@@ -42,6 +51,8 @@ $status_usg = isset($usg_data[0]) ? $usg_data[0] : '';
 $tanggal_usg = isset($usg_data[1]) ? $usg_data[1] : '';
 $umur_usg = isset($usg_data[2]) ? $usg_data[2] : '';
 $hasil_usg = isset($usg_data[3]) ? $usg_data[3] : '';
+
+$tanggal_usg = formatTanggal($tanggal_usg);
 
 if ($status_usg === 'belum') {
     // Lakukan sesuatu jika status USG adalah "belum"
@@ -60,7 +71,7 @@ if ($status_usg === 'belum') {
   <title>Sarpras</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <link rel="stylesheet" href="css/dashboardCustomer.css">
+  <link rel="stylesheet" href="css/dashboard_User_General.css">
 </head>
 
 <body>
@@ -90,60 +101,154 @@ if ($status_usg === 'belum') {
       </div>
   </nav>
 
-  <div class="banner">
+  <div class="banner banner2" style="background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url('./assets/banner-sarpras.jpg');">
     <div>
       <h1>ADIPURA</h1>
       <br>
-      <h5> ATASI, DAMPINGI IBU PUNAHKAN PENDARAHAN</h5>
+      <h3>"Atasi, Dampingi Ibu Punahkan Pendarahan"</h3>
     </div>
   </div>
   <div class="content">
     <div class="container">
-      <div class="row d-flex align-items-center">
-        <div class="col-12 col-lg-6 d-flex justify-content-center">
-          <img src="./assets/logo2-kemenkes.png" alt="Logo Kemenkes">
+      <div class="row d-flex align-items-center mt-5">
+        <div class="col-12 col-lg-4 d-flex justify-content-center align-items-center">
+          <img src="./assets/logo-goldar.png" alt="Logo Hati">
         </div>
-        <div class="col-12 col-lg-6">
-          <h1>Sarana Prasarana</h1>
-          <p>Perdarahan pasca salin merupakan penyebab kematian nomor satu pada angka kematian ibu. Kematian akibat perdarahan pasca salin selain disebabkan oleh faktor medis juga dapat disebabkan oleh multifaktorial salah satunya terlambat mendapatkan penanganan. Hal ini dapat dicegah dengan terdatanya transportasi dengan lengkap sehingga pada saat persalinan semua telah disiapkan dengan baik.</p>
-
-          <button type="button" class="btn btn-primary" onclick="window.location.href='form_sarpras.php'">
-            <p class="m-0">
-              <?php if ($sarprasData) { ?>
-              Edit Data Anda
-              <?php } else {?>
-              Tambah Data Anda
+        <div class="children-content col-lg-8 col-12">
+          <div class="d-flex align-items-end justify-content-between mb-2">
+            <h1 class="m-0 p-0">
+              Deskripsi Program
+            </h1>
+            <button type="button" onclick="window.location.href='donor_darah.php'" class="mainButton btn btn-danger">
+              Lihat<p class="m-0">Penjelasan Menu</p>
+            </button>
+          </div>
+          <div id="boxDeskripsi" style="overflow-y: scroll; max-height: calc(100vh - 169px)">
+            <div class="d-flex align-items-center">
+              <h1 class="me-1 text-danger">#</h1>
+              <h4>Apa itu "ADIPURA"?</h4>
+            </div>
+            <p>
+              ADIPURA yang memiliki kepanjangan Atasi Dampingi Ibu Punahkan Pendarahan merupakan program dari Puskesmas Nagrak untuk memastikan kesiapan sarana prasana persalinan. Data yang perlu diinputkan antara lain : 
             </p>
-            <?php } ?>
-          </button>
-          <?php if ($sarprasData) { ?>
-          <br><br>
-          <div class="m-0 alert alert-primary" role="alert">
-            <h4 class="alert-heading">Detail Data Sarpras Anda!</h4>
-            <p class="mb-0">
-              Transportasi : <?php echo $sarprasData['transportasi'] ? $sarprasData['transportasi'] : '-' ?><br>
-              Nama Supir : <?php echo $sarprasData['nama_supir'] ? $sarprasData['nama_supir'] : '-' ?><br>
-              No Supir : <?php echo $sarprasData['no_supir'] ? $sarprasData['no_supir'] : '-' ?><br>
-              Nama Pendamping :
-              <?php echo $sarprasData['nama_pendamping'] ? $sarprasData['nama_pendamping'] : '-' ?><br>
-              No Pendamping : <?php echo $sarprasData['no_pendamping'] ? $sarprasData['no_pendamping'] : '-' ?><br>
-              Tujuan : <?php echo $sarprasData['tujuan'] ? $sarprasData['tujuan'] : '-' ?><br>
-              Penolong :
-              <?php echo $sarprasData['penolong'] ? "Penolong anda adalah " . $jenis_penolong . " dengan nama " . $nama_penolong : '-'; ?><br>
-              <?php if($status_usg === 'pernah') { ?>
-              USG :
-              <?php echo $sarprasData['usg'] ? "Anda pernah melakukan USG pada ". $tanggal_usg. " dengan umur USG yaitu ". $umur_usg . " minggu, dengan kondisi USG ". $hasil_usg : '-' ?><br>
-              <?php } else if ($status_usg === 'belum') {?>
-              USG : <?php echo $sarprasData['usg'] ? $sarprasData['usg'] : '-' ?><br>
-              <?php } ?>
+            <ul>
+              <li>
+                <p>Transportasi yang akan digunakan</p>
+              </li>
+              <li>
+                <p>Nama dari supir transportasi</p>
+              </li>
+              <li>
+                <p>Nomor handphone dari supir transportasi</p>
+              </li>
+              <li>
+                <p>Nama pendamping saat persalinan</p>
+              </li>
+              <li>
+                <p>Penolong persalinan</p>
+              </li>
+              <li>
+                <p>Data USG jika ada</p>
+              </li>
+            </ul>
+            <p>
+              Perdarahan pasca salin merupakan penyebab kematian nomor satu pada angka kematian ibu. Kematian akibat perdarahan pasca salin selain disebabkan oleh faktor medis juga dapat disebabkan oleh multifaktorial salah satunya terlambat mendapatkan penanganan. Hal ini dapat dicegah dengan terdatanya transportasi dengan lengkap sehingga pada saat persalinan semua telah disiapkan dengan baik.
             </p>
           </div>
         </div>
-        <?php } else {?>
-        <div class="alert alert-primary text-center" role="alert">
-          <h6>Anda belum menginputkan data pembiayaan!!</h6>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row d-flex align-items-center mt-5">
+        <div class="col-12 col-lg-4 d-flex justify-content-center align-items-center">
+          <img src="./assets/logo-sarpras.png" alt="Logo Hati">
         </div>
-        <?php } ?>
+        <div class="children-content col-lg-8 col-12">
+          <div class="d-flex align-items-end justify-content-between mb-2">
+            <h1 class="m-0 p-0">
+            Data Sarpras Anda
+            </h1>
+            <button type="button" onclick="window.location.href='form_sarpras.php'" class="mainButton btn btn-danger">
+              <?php echo $sarprasData ? 'Edit' : 'Daftarkan' ?><p class="m-0">Data Sarpras</p>
+            </button>
+          </div>
+          <div class="alert alert-primary <?= $sarprasData ? '' : 'text-center'?>" role="alert">
+            <?php if ($sarprasData) { ?>
+              <ul>
+                <li>
+                  <h6>Transportasi</h6>
+                </li>
+                <p>Transportasi yang anda pilih adalah <?php echo $sarprasData['transportasi'] ? $sarprasData['transportasi'] : '-' ?></p>
+                <li>
+                  <h6>Supir Transportasi</h6>
+                </li>
+                <p>
+                  Supir transportasi yang anda gunakan yaitu <?php echo $sarprasData['nama_supir'] ? ucwords($sarprasData['nama_supir']) : '-' ?> dengan nomor handphone <?php echo $sarprasData['no_supir'] ? $sarprasData['no_supir'] : '-' ?>.
+                </p>
+                <li>
+                  <h6>Pendamping Persalinan</h6>
+                </li>
+                <p>
+                  Pendamping persalinan anda yaitu <?php echo $sarprasData['nama_pendamping'] ? ucwords($sarprasData['nama_pendamping']) : '-' ?> dengan nomor handphone <?php echo $sarprasData['no_pendamping'] ? $sarprasData['no_pendamping'] : '-' ?>.
+                </p>
+                <li>
+                  <h6>Tempat Persalinan</h6>
+                </li>
+                <p>
+                  Tempat persalinan yang adna pilih adalah <?php echo $sarprasData['tujuan'] ? $sarprasData['tujuan'] : '-' ?>.
+                </p>
+                <li>
+                  <h6>Penolong Persalinan</h6>
+                </li>
+                <p>
+                  <?php echo $sarprasData['penolong'] ? "Penolong persalinan anda adalah " . $jenis_penolong . " dengan nama " . ucwords($nama_penolong) : '-'; ?><br>
+                </p>
+                <li>
+                  <h6>Data USG</h6>
+                </li>
+                <p>
+                  <?php if($status_usg === 'pernah') { ?>
+                  <?php echo $sarprasData['usg'] ? "Anda pernah melakukan USG pada ". $tanggal_usg. " dengan umur USG yaitu ". $umur_usg . " minggu, dengan kondisi USG ". $hasil_usg : '-' ?><br>
+                  <?php } else if ($status_usg === 'belum') {?>
+                  Tidak ada data USG.
+                  <?php } ?>
+                </p>
+              </ul>
+            <?php } else { ?>
+              Anda belum mendaftarkan data sarpras anda, silahkan daftarkan data sarpras anda.
+            <?php } ?>
+            <!-- <?php if ($status == "tidak diketahui") { ?>
+              <h6>Anda belum mendaftarkan (periksa) golongan darah anda, silahkan daftarkan golongan darah anda.</h6>
+            <?php } else if ($status == "diketahui"){ ?>
+              <h6>Golongan Darah Anda adalah <?php echo strtoupper($goldar); ?></h6>
+              <?php if($usia_kandungan == null): ?>
+              <h6>Anda belum menginputkan HPHT</h6>
+              <?php elseif ($usia_kandungan == "LAHIR"): ?>
+              <h6>Anda sedang tidak mengandung</h6>
+              <?php else: ?>
+              <h6>Usia kandungan anda <?= $usia_kandungan ?> pada <?= date('d-m-Y') ?></h6>
+              <?php endif; ?>
+              <div class="alert alert-warning m-0" role="alert" style="border-radius: 20px;">
+                <h6 class="m-0" style="font-weight: bold;" id="countdown"></h6>
+              </div>
+              <?php if (isset($taksiran_persalinan)) { ?>
+                <script>
+                  var taksiranPersalinan = "<?php echo $taksiran_persalinan; ?>";
+                </script>
+              <?php } ?>
+            <?php } else if ($status == "menunggu") { ?>
+              <h6>Anda sedang dalam proses menunggu pemeriksaan golongan darah.</h6>
+              <div class="alert alert-warning m-0" role="alert" style="border-radius: 20px;">
+                <h6 class="m-0" style="font-weight: bold;" id="countdown"></h6>
+              </div>
+              <?php if (isset($taksiran_persalinan)) { ?>
+                <script>
+                  var taksiranPersalinan = "<?php echo $taksiran_persalinan; ?>";
+                </script>
+              <?php } ?>
+            <?php } ?> -->
+          </div>
+        </div>
       </div>
     </div>
 

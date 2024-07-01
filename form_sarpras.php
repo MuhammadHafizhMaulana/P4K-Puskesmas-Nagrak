@@ -91,17 +91,17 @@ if ($status_usg === 'belum') {
     </nav>
     <div id="formDonorDarah">
         <h1 style="font-weight: bold; font-size: xxx-large">
-            Biaya Persalinan
+            Sarana Prasarana
         </h1>
         <br />
         <p>
-            Lengkapi data berikut untuk melengkapi data pembayaran anda
+            Lengkapi data sarana prasarana anda berikut
         </p>
 
         <form method="post" action="proses/sarpras_proses.php">
             <div class="form-group">
                 <label for="transportasi" class="form-label">Pilih Transportasi Anda</label>
-                <select id="transportasi" name="transportasi" class="form-select" aria-label="Default <select id="
+                <select id="transportasi" name="transportasi" class="form-select" id="
                     transportasi" name="transportasi" class="form-select" aria-label="Default select example" required>
                     <option value="">Pilih Jenis Transportasi Anda</option>
                     <option value="ambulance desa"
@@ -117,29 +117,24 @@ if ($status_usg === 'belum') {
             </div>
             <div class="form-group">
                 <label for="nama_supir" class="form-label">Nama Supir</label>
-                <input type="text" id="nama_supir" name="nama_supir" class="form-control" placeholder="Nama Supir"
+                <input type="text" id="nama_supir" name="nama_supir" class="form-control" placeholder="nama supir"
                     value="<?php echo htmlspecialchars(isset($data['nama_supir']) ? $data['nama_supir'] : '', ENT_QUOTES); ?>"
                     required>
             </div>
             <div class="form-group">
-                <label for="no_supir" class="form-label">Nomor Supir</label>
-                <input type="text" id="no_supir" name="no_supir" class="form-control" placeholder="No Supir"
+                <label for="no_supir" class="form-label">Nomor Handphone Supir</label>
+                <input type="text" id="no_supir" name="no_supir" class="form-control" placeholder="nomor handphone"
                     value="<?php echo htmlspecialchars(isset($data['no_supir']) ? $data['no_supir'] : '', ENT_QUOTES); ?>"
                     required>
             </div>
             <div class="form-group">
-                <label for="nama_pendamping" class="form-label">Nama Pendamping</label>
-                <input type="text" id="nama_pendamping" name="nama_pendamping" class="form-control"
-                    placeholder="Nama Pendamping"
-                    value="<?php echo htmlspecialchars(isset($data['nama_pendamping']) ? $data['nama_pendamping'] : '', ENT_QUOTES); ?>"
+                <label for="nama_pendamping" class="form-label">Nama Pendamping Persalinan</label>
+                <input type="text" id="nama_pendamping" name="nama_pendamping" class="form-control" placeholder="nama pendamping" value="<?php echo htmlspecialchars(isset($data['nama_pendamping']) ? $data['nama_pendamping'] : '', ENT_QUOTES); ?>"
                     required>
             </div>
             <div class="form-group">
-                <label for="no_pendamping" class="form-label">Nomor Pendamping</label>
-                <input type="text" id="no_pendamping" name="no_pendamping" class="form-control"
-                    placeholder="Nomor Pendamping"
-                    value="<?php echo htmlspecialchars(isset($data['no_pendamping']) ? $data['no_pendamping'] : '', ENT_QUOTES); ?>"
-                    required>
+                <label for="no_pendamping" class="form-label">Nomor Handphone Pendamping</label>
+                <input type="text" id="no_pendamping" name="no_pendamping" class="form-control" placeholder="nomor handphone" value="<?php echo htmlspecialchars(isset($data['no_pendamping']) ? $data['no_pendamping'] : '', ENT_QUOTES); ?>" required>
             </div>
             <div class="form-group">
                 <label for="tujuan" class="form-label">Tempat Persalinan</label>
@@ -151,18 +146,17 @@ if ($status_usg === 'belum') {
                 <label for="penolong" class="form-label">Pilih Penolong Persalinan Anda</label>
                 <select id="penolong" name="penolong" class="form-select" aria-label="Default select example" required>
                     <option value="">Pilih Penolong Persalinan Anda</option>
-                    <option value="bidan/dokter umum"
-                        <?php if ($jenis_penolong === 'bidan/dokter umum') echo 'selected'; ?>>Bidan / Dokter Umum
+                    <option value="bidan / dokter umum"
+                        <?php if ($jenis_penolong === 'bidan / dokter umum') echo 'selected'; ?>>Bidan / Dokter Umum
                     </option>
                     <option value="dokter kandungan"
                         <?php if ($jenis_penolong === 'dokter kandungan') echo 'selected'; ?>>Dokter Kandungan</option>
                 </select>
             </div>
             <div class="form-group">
-                <label for="nama_penolong" class="form-label">Nama Penolong Persalinan Anda (Misal Bidan
-                    Herlina)</label>
+                <label for="nama_penolong" class="form-label">Nama Penolong Persalinan Anda</label>
                 <input type="text" id="nama_penolong" name="nama_penolong" class="form-control"
-                    placeholder="Nama Penolong Persalinan Anda"
+                    placeholder="contoh : Bidan Herlina"
                     value="<?php echo htmlspecialchars($nama_penolong, ENT_QUOTES); ?>" required>
             </div>
             <div class="form-group">
