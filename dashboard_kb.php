@@ -84,7 +84,7 @@ if (isset($_GET['success'])) {
             <h1 class="m-0 p-0">
             Deskripsi Program
             </h1>
-              <button type="button" onclick="window.location.href='donor_darah.php'" class="mainButton btn btn-danger">
+              <button onclick="triggerUpdateRasioVideo()" data-bs-toggle="modal" data-bs-target="#bukaVideoPenjelasan" type="button" class="mainButton btn btn-danger">
               Lihat<p class="m-0">Penjelasan Menu</p>
               </button>
           </div>
@@ -174,6 +174,19 @@ if (isset($_GET['success'])) {
   </div>
   <button style="display: none;" id="buttonAlert" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"></button>
   <!-- Modal -->
+  <div class="modal fade" id="bukaVideoPenjelasan" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered modal-photo-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="titlePhotoDialog">Video Penjelasan P4K</h1>
+          <button onclick="closeDialogVideoPenjelasan()" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <iframe id="videoPenjelasan" style="width : 80vw;" src="https://www.youtube.com/embed/Of-mrv90OLw?si=oTOcD2NfBBvWgC5j" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
   <?php if (isset($_GET['success']) || isset($_GET['gagal'])) { ?>
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -198,6 +211,7 @@ if (isset($_GET['success'])) {
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
   </script>
   <script src="./js/dashboardKonsulKB.js"></script>
+  <script src="./js/userHome.js"></script>
 </body>
 
 </html>

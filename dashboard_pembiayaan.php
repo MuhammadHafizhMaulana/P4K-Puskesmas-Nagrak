@@ -88,7 +88,7 @@ if (isset($_GET['success'])) {
             <h1 class="m-0 p-0">
               Deskripsi Program
             </h1>
-            <button type="button" onclick="window.location.href='donor_darah.php'" class="mainButton btn btn-danger">
+            <button onclick="triggerUpdateRasioVideo()" data-bs-toggle="modal" data-bs-target="#bukaVideoPenjelasan" type="button" class="mainButton btn btn-danger">
               Lihat<p class="m-0">Penjelasan Menu</p>
             </button>
           </div>
@@ -243,93 +243,6 @@ if (isset($_GET['success'])) {
                 <h6>Anda belum mendaftarkan data pembiayaan anda, silahkan daftarkan data pembiayaan anda.</h6>
               <?php } ?>
             </div>
-
-
-            <!-- <div class="border border-primary alert w-100 m-0" style="background-color: #FDFFA0; overflow-y: scroll; max-height: calc(100vh - 169px)" role="alert">
-              <div class="alert alert-primary text-center" role="alert">
-                <?php if ($pembiayaanData) { ?>
-                  <h6>
-                    Saldo tabungan persalinan yang sudah anda miliki sebanyak Rp. <?= $pembiayaanData['saldo_tabungan'] ?>. Jenis pembiayaan yang anda pilih yaitu <?= $pembiayaanData['jenis_pembayaran'] ?> <?= $pembiayaanData['jenis_pembayaran'] == 'BPJS Aktif' ? ' dengan nomor BPJS ' . $pembiayaanData['nomor_bpjs'] . '.' : '.' ?>
-                  </h6>
-                  <div class="alert alert-warning m-0" role="alert" style="border-radius: 20px;">
-                    <h6 class="m-0 text-start" style="font-weight: bold;">Hasil Konsultasi :</h6>
-                    <p class="m-0 text-center">
-                        <?= $pembiayaanData['deskripsi'] ? $pembiayaanData['deskripsi'] : 'Menunggu hasil konsultasi dengan dokter.' ?>
-                    </p>
-                  </div>     
-                <?php } else { ?>
-                  <h6>Anda belum mendaftarkan data pembiayaan anda, silahkan daftarkan data pembiayaan anda.</h6>
-                <?php } ?>
-              </div>
-              <br>
-              <div id="carouselExampleCaptions" class="carousel slide m-0 mx-md-5" data-bs-ride="carousel" data-bs-interval="3000">
-                <div class="carousel-indicators">
-                  <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                  <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                  <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                  <?php if ($pembiayaanData['rujukan'] != "-" && $pembiayaanData['rekomendasi'] != '-') { ?>
-                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
-                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4" aria-label="Slide 5"></button>
-                  <?php } else if ($pembiayaanData['rujukan'] != "-" || $pembiayaanData['rekomendasi'] != '-') { ?> 
-                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
-                  <?php } ?>
-                </div>
-                <div class="border border-primary border-5 carousel-inner" style="border-radius: 20px;
-    ">
-                  <div class="rounded-1 carousel-item active" style='background-image: url("./proses/check_ktp.php");'>
-                    <div class="carousel-caption d-block">
-                      <button  data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="openPhotoDialog('ktp')" type="button" class="btn btn-primary">
-                        <h6 class="m-0">Lihat detail foto KTP</h6>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="rounded-1 carousel-item" style='background-image: url("./proses/check_kk.php");'>
-                    <div class="carousel-caption d-block">
-                      <button  data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="openPhotoDialog('kk')" type="button" class="btn btn-primary">
-                        <h6 class="m-0">Lihat detail foto KK</h6>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="rounded-1 carousel-item" style='background-image: url("./proses/check_pas_foto.php");'>
-                    <div class="carousel-caption d-block">
-                      <button  data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="openPhotoDialog('pas_foto')" type="button" class="btn btn-primary">
-                        <h6 class="m-0">Lihat detail Pas Foto</h6>
-                      </button>
-                    </div>
-                  </div>
-                  <?php if ($pembiayaanData['rujukan'] != "-") { ?>
-                    <div class="rounded-1 carousel-item" style='background-image: url("./proses/check_rujukan.php");'>
-                      <div class="carousel-caption d-block">
-                        <button  data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="openPhotoDialog('rujukan')" type="button" class="btn btn-primary">
-                          <h6 class="m-0">Lihat detail foto Rujukan</h6>
-                        </button>
-                      </div>
-                    </div>  
-                  <?php } ?>
-                  <?php if ($pembiayaanData['rekomendasi'] != "-") { ?>
-                    <div class="rounded-1 carousel-item" style='background-image: url("./proses/check_rekomendasi.php");'>
-                      <div class="carousel-caption d-block">
-                        <button  data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="openPhotoDialog('rekomendasi')" type="button" class="btn btn-primary">
-                          <h6 class="m-0">Lihat detail foto Rekomendasi</h6>
-                        </button>
-                      </div>
-                    </div>  
-                  <?php } ?>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-                  <div class="bg-primary w">
-                    <span class="m-0 carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                  </div>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-                  <div class="bg-primary">
-                    <span class="m-0 carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                  </div>
-                </button>
-              </div>
-            </div> -->
           <?php } else { ?>
             <div class="alert alert-primary text-center" role="alert">
               <h6>Anda belum menginputkan data pembiayaan!!</h6>
@@ -345,6 +258,19 @@ if (isset($_GET['success'])) {
   <button style="display: none;" id="buttonAlert" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"></button>
 
   <!-- Modal -->
+  <div class="modal fade" id="bukaVideoPenjelasan" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered modal-photo-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="titlePhotoDialog">Video Penjelasan P4K</h1>
+          <button onclick="closeDialogVideoPenjelasan()" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <iframe id="videoPenjelasan" style="width : 80vw;" src="https://www.youtube.com/embed/Of-mrv90OLw?si=oTOcD2NfBBvWgC5j" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
   <?php
   if (isset($_GET['success']) || isset($_GET['gagal'])) { ?>
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -384,6 +310,7 @@ if (isset($_GET['success'])) {
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <script src="js/dashboard_Pembiayaan.js"></script>
+  <script src="./js/userHome.js"></script>
 </body>
 
 </html>
