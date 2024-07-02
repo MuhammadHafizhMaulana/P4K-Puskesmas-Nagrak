@@ -1,9 +1,15 @@
+/* body {
+    background-color: #BEC97B;
+    display: flex;
+    justify-content: center;
+} */
+
 .my-navbar {
     position: fixed;
     top: 0;
     background-color: #FDFFA0;
     padding: 10px 10vw;
-    width: 100vw;
+    width: 100%;
     z-index: 2;
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
     color: black;

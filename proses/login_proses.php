@@ -42,7 +42,7 @@ if ($stmt) {
 
 
             // Jika sesuai, redirect ke halaman home
-            header('Location: ../home.php');
+            header('Location: ../home.php?login=success');
         } else {
             // Jika tidak sesuai, redirect ke halaman login dengan pesan gagal
             header('Location: ../index.php?pesan=gagal');

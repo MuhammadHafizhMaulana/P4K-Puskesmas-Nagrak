@@ -33,10 +33,10 @@ if (isset($_GET['success'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard KB</title>
+  <title>Konsul KB</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <link rel="stylesheet" href="css/dashboard_User_General.css">
+  <link rel="stylesheet" href="css/dashboardUserGeneral.css">
 </head>
 
 <body>
@@ -54,15 +54,18 @@ if (isset($_GET['success'])) {
           </svg></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav ms-auto">
+        <div class="navbar-nav ms-auto align-items-center">
           <a class="nav-link" aria-current="page" href="home.php">Home</a>
           <a class="nav-link" href="dashboard_pembiayaan.php">Pembiayaan</a>
           <a class="nav-link" href="dashboard_sarpras.php">Sarpras</a>
           <a class="nav-link" href="dashboard_donor_darah.php">Donor Darah</a>
           <a class="nav-link active" href="dashboard_kb.php">Konsul KB</a>
           <a class="nav-link" href="profile.php">Profile</a>
-          <a class="nav-link" href="proses/logout.php">Logout</a>
+          <a class="nav-link" href="proses/logout.php">
+            <button type="button" class="btn btn-outline-danger">Logout</button>
+          </a>
         </div>
+      </div>
     </div>
   </nav>
 
@@ -178,7 +181,7 @@ if (isset($_GET['success'])) {
     <div class="modal-dialog  modal-dialog-centered modal-photo-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="titlePhotoDialog">Video Penjelasan P4K</h1>
+          <h1 class="modal-title fs-5">Video Penjelasan P4K</h1>
           <button onclick="closeDialogVideoPenjelasan()" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">

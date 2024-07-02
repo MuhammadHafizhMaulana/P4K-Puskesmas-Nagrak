@@ -86,7 +86,7 @@ function updateStatusFields() {
             <br>
             <div class="alert alert-primary text-center m-0" role="alert">
                 <h6 class="m-0">Kami merekomendasikan untuk menggunakan Kondom + KB Hormonal, diutamakan implan, namun jika tidak bersedia disuntik masih ada pil.</h6>
-                <h6 class="m-0">Tekan tombol input untul melanjutkan konsultasi dengan nakes</h6>
+                <h6 class="m-0">Konsultasikan dengan Nakes dengan membuat janji terlebih dahulu setelah menekan tombol input</h6>
             </div>
         `;
     }
@@ -110,6 +110,10 @@ function showInputButton() {
     if (inputField.value == 'iya' || inputField.value == "tidak") {
         const boxButton = document.getElementById('dataFields')
         boxButton.innerHTML = `
+            <br>
+            <div class="alert alert-primary text-center m-0" role="alert">
+                <h6 class="m-0">Konsultasikan dengan Nakes dengan membuat janji terlebih dahulu setelah menekan tombol input</h6>
+            </div>
             <br>
             <div class="d-flex justify-content-center w-100">
                 <button id="submitForm" type="button"  data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-danger">INPUT</button>
