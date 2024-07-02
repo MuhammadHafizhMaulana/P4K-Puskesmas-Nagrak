@@ -103,9 +103,9 @@ if ($status_usg === 'belum') {
         <form method="post" action="proses/sarpras_proses.php">
             <div class="form-group">
                 <label for="transportasi" class="form-label">Pilih Transportasi Anda</label>
-                <select id="transportasi" name="transportasi" class="form-select" id="
+                <select oninput="cekValidButton()" id="transportasi" name="transportasi" class="form-select" id="
                     transportasi" name="transportasi" class="form-select" aria-label="Default select example" required>
-                    <option value="">Pilih Jenis Transportasi Anda</option>
+                    <option value="-">Pilih Jenis Transportasi Anda</option>
                     <option value="ambulance desa"
                         <?php if (isset($data['transportasi']) && $data['transportasi'] === 'ambulance desa') echo 'selected'; ?>>
                         Ambulance Desa</option>
@@ -119,35 +119,37 @@ if ($status_usg === 'belum') {
             </div>
             <div class="form-group">
                 <label for="nama_supir" class="form-label">Nama Supir</label>
-                <input type="text" id="nama_supir" name="nama_supir" class="form-control" placeholder="nama supir"
+                <input oninput="cekValidButton()" type="text" id="nama_supir" name="nama_supir" class="form-control" placeholder="nama supir"
                     value="<?php echo htmlspecialchars(isset($data['nama_supir']) ? $data['nama_supir'] : '', ENT_QUOTES); ?>"
                     required>
             </div>
             <div class="form-group">
                 <label for="no_supir" class="form-label">Nomor Handphone Supir</label>
-                <input type="text" id="no_supir" name="no_supir" class="form-control" placeholder="nomor handphone"
+                <input oninput="cekValidButton()" type="text" id="no_supir" name="no_supir" class="form-control" placeholder="nomor handphone"
                     value="<?php echo htmlspecialchars(isset($data['no_supir']) ? $data['no_supir'] : '', ENT_QUOTES); ?>"
                     required>
+                <div id="nomorHPSupirAlert" class="form-text text-danger"></div>
             </div>
             <div class="form-group">
                 <label for="nama_pendamping" class="form-label">Nama Pendamping Persalinan</label>
-                <input type="text" id="nama_pendamping" name="nama_pendamping" class="form-control" placeholder="nama pendamping" value="<?php echo htmlspecialchars(isset($data['nama_pendamping']) ? $data['nama_pendamping'] : '', ENT_QUOTES); ?>"
+                <input oninput="cekValidButton()" type="text" id="nama_pendamping" name="nama_pendamping" class="form-control" placeholder="nama pendamping" value="<?php echo htmlspecialchars(isset($data['nama_pendamping']) ? $data['nama_pendamping'] : '', ENT_QUOTES); ?>"
                     required>
             </div>
             <div class="form-group">
                 <label for="no_pendamping" class="form-label">Nomor Handphone Pendamping</label>
-                <input type="text" id="no_pendamping" name="no_pendamping" class="form-control" placeholder="nomor handphone" value="<?php echo htmlspecialchars(isset($data['no_pendamping']) ? $data['no_pendamping'] : '', ENT_QUOTES); ?>" required>
+                <input oninput="cekValidButton()" type="text" id="no_pendamping" name="no_pendamping" class="form-control" placeholder="nomor handphone" value="<?php echo htmlspecialchars(isset($data['no_pendamping']) ? $data['no_pendamping'] : '', ENT_QUOTES); ?>" required>
+                <div id="nomorHPPendampingAlert" class="form-text text-danger"></div>
             </div>
             <div class="form-group">
                 <label for="tujuan" class="form-label">Tempat Persalinan</label>
-                <input type="text" id="tujuan" name="tujuan" class="form-control" placeholder="Tempat Persalinan"
+                <input oninput="cekValidButton()" type="text" id="tujuan" name="tujuan" class="form-control" placeholder="tempat persalinan"
                     value="<?php echo htmlspecialchars(isset($data['tujuan']) ? $data['tujuan'] : '', ENT_QUOTES); ?>"
                     required>
             </div>
             <div class="form-group">
                 <label for="penolong" class="form-label">Pilih Penolong Persalinan Anda</label>
-                <select id="penolong" name="penolong" class="form-select" aria-label="Default select example" required>
-                    <option value="">Pilih Penolong Persalinan Anda</option>
+                <select oninput="cekValidButton()" id="penolong" name="penolong" class="form-select" aria-label="Default select example" required>
+                    <option value="-">Pilih Penolong Persalinan Anda</option>
                     <option value="bidan / dokter umum"
                         <?php if ($jenis_penolong === 'bidan / dokter umum') echo 'selected'; ?>>Bidan / Dokter Umum
                     </option>
@@ -157,7 +159,7 @@ if ($status_usg === 'belum') {
             </div>
             <div class="form-group">
                 <label for="nama_penolong" class="form-label">Nama Penolong Persalinan Anda</label>
-                <input type="text" id="nama_penolong" name="nama_penolong" class="form-control"
+                <input oninput="cekValidButton()" type="text" id="nama_penolong" name="nama_penolong" class="form-control"
                     placeholder="contoh : Bidan Herlina"
                     value="<?php echo htmlspecialchars($nama_penolong, ENT_QUOTES); ?>" required>
             </div>
@@ -165,41 +167,45 @@ if ($status_usg === 'belum') {
                 <label for="usg" class="form-label">Apakah Pernah USG</label>
                 <select id="usg" name="usg" class="form-select" aria-label="Default select example" required
                     onchange="updateForm()">
-                    <option value="">Pilih Jawaban Anda</option>
+                    <option value="-">Pilih Jawaban Anda</option>
                     <option value="pernah" <?php if ($status_usg === 'pernah') echo 'selected'; ?>>Pernah</option>
                     <option value="belum" <?php if ($status_usg === 'belum') echo 'selected'; ?>>Belum</option>
                 </select>
-            </div><?php if ($status_usg === 'pernah') { ?>
-            <div id="tanggal-usg-group" class="form-group">
-                <label for="tanggal-usg" class="form-label">Tanggal USG Terakhir</label>
-                <input type="date" id="tanggal-usg" name="tanggal_usg" class="form-control"
-                    value="<?php echo htmlspecialchars($tanggal_usg, ENT_QUOTES); ?>" required>
             </div>
-            <div id="umur-usg-group" class="form-group">
-                <label for="umur_usg" class="form-label">Berapakah Usia Kandungan Saat USG Terakhir (Minggu)</label>
-                <input type="number" id="umur_usg" name="umur_usg" class="form-control"
-                    value="<?php echo htmlspecialchars($umur_usg, ENT_QUOTES); ?>" required>
-            </div>
-            <div id="status-usg-group" class="form-group">
-                <label for="status_usg" class="form-label">Bagaimana Hasil USG Terakhir Anda</label>
-                <select id="status_usg" name="status_usg" class="form-select" aria-label="Default select example"
-                    required>
-                    <option value="">Pilih Jawaban Anda</option>
-                    <option value="baik" <?php if ($hasil_usg === 'baik') echo 'selected'; ?>>Baik</option>
-                    <option value="tidak baik" <?php if ($hasil_usg === 'tidak baik') echo 'selected'; ?>>Tidak
-                        Baik</option>
-                </select>
+            <?php if ($status_usg === 'pernah') { ?>
+            <div id="additionalFields" class="d-flex flex-column">
+                <div id="tanggal-usg-group" class="form-group">
+                    <label for="tanggal-usg" class="form-label">Tanggal USG Terakhir</label>
+                    <input oninput="cekValidButton()" type="date" id="tanggal-usg" name="tanggal_usg" class="form-control"
+                        value="<?php echo htmlspecialchars($tanggal_usg, ENT_QUOTES); ?>" required>
+                </div>
+                <div id="umur-usg-group" class="form-group">
+                    <label for="umur_usg" class="form-label">Berapakah Usia Kandungan Saat USG Terakhir (Minggu)</label>
+                    <input oninput="cekValidButton()" type="number" id="umur_usg" min="0" name="umur_usg" class="form-control"
+                        value="<?php echo htmlspecialchars($umur_usg, ENT_QUOTES); ?>" required>
+                </div>
+                <div id="status-usg-group" class="form-group">
+                    <label for="status_usg" class="form-label">Bagaimana Hasil USG Terakhir Anda</label>
+                    <select oninput="cekValidButton()" id="status_usg" name="status_usg" class="form-select" aria-label="Default select example"
+                        required>
+                        <option value="-">Pilih Jawaban Anda</option>
+                        <option value="baik" <?php if ($hasil_usg === 'baik') echo 'selected'; ?>>Baik</option>
+                        <option value="tidak baik" <?php if ($hasil_usg === 'tidak baik') echo 'selected'; ?>>Tidak
+                            Baik</option>
+                    </select>
+                </div>
             </div>
             <?php } else { ?>
             <div id="additionalFields" class="d-flex flex-column"></div>
             <?php } ?>
-            <input type="submit" value="Submit" class="btn btn-primary">
+            <br>
+            <button id="buttonSubmit" type="submit" value="Input" class="btn btn-danger">Input</button>
         </form>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>
-    <script src="js/sarprasForm.js"></script>
+    <script src="js/sarpras_Form.js"></script>
 </body>
 
 </html>
