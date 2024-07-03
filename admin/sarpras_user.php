@@ -13,7 +13,7 @@ if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
     // Query untuk mengambil data pengguna berdasarkan id yang sudah didekripsi
-    $query = "SELECT * FROM kesehatan_user WHERE id_user = ?";
+    $query = "SELECT * FROM sarpras WHERE id_user = ?";
     $stmt = mysqli_prepare($connect, $query);
     mysqli_stmt_bind_param($stmt, "i", $id);
     mysqli_stmt_execute($stmt);
@@ -28,22 +28,6 @@ if (isset($_GET['id'])) {
     $nameResult = mysqli_stmt_get_result($stmt);
     $ambil_nama = mysqli_fetch_assoc($nameResult);
 
-    // Function untuk merubah format tanggal
-    function formatTanggal($tanggal_input) {
-        $timestamp = strtotime($tanggal_input);
-        return date("d M Y", $timestamp);
-    }
-
-    if ($data) {
-        if (!empty($data['tanggal_input'])) {
-            $data['tanggal_input'] = formatTanggal($data['tanggal_input']);
-        } else {
-            $data['tanggal_input'] = '-';
-        }
-    }
-
-    $data['hpht'] = formatTanggal($data['hpht']);
-    $data['taksiran_persalinan'] = formatTanggal($data['taksiran_persalinan']);
 
     $proccessIsSuccess = null;
     $message = "";
@@ -59,13 +43,36 @@ if (isset($_GET['id'])) {
             $message = "Edit golongan darah gagal dilakukan.";
         }
     }
+
+        // Function untuk merubah format tanggal
+    function formatTanggal($tanggal_input)
+    {
+        $timestamp = strtotime($tanggal_input);
+        $tanggal_format = date("d M Y", $timestamp);
+
+        return $tanggal_format;
+    }
+
+    // Memisahkan jenis penolong dan nama penolong
+    $penolong_data = isset($data['penolong']) ? explode(' + ', $sarprasData['penolong']) : ['', ''];
+    $jenis_penolong = trim($penolong_data[0]);
+    $nama_penolong = trim($penolong_data[1]);
+    mysqli_close($connect);
+
+    $usg_data = isset($data['usg']) ? explode(' + ', $data['usg']) : ['', '', '', ''];
+    $status_usg = isset($usg_data[0]) ? $usg_data[0] : '';
+    $tanggal_usg = isset($usg_data[1]) ? $usg_data[1] : '';
+    $umur_usg = isset($usg_data[2]) ? $usg_data[2] : '';
+    $hasil_usg = isset($usg_data[3]) ? $usg_data[3] : '';
+
+    $tanggal_usg = formatTanggal($tanggal_usg);
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit User</title>
+    <title>Sarpras User</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/adminKesehatanUser&DetailPendonor.css">
 </head>
@@ -93,69 +100,101 @@ if (isset($_GET['id'])) {
         </div>
     </nav>
     <div id="boxKesehatanUser">
-        <h1 style="font-weight: bold;">Data Kesehatan User</h1>
+        <h1 style="font-weight: bold;">Data Sarpras User</h1>
         <br>
         <?php if ($data) { ?>
         <div class="w-100">
             <div class="row">
-                <div class="col-5 text-start">Nama</div>
+                <div class="col-5 text-start">Nama Pasien</div>
                 <div class="col-1">:</div>
                 <div class="col-6 text-start">
                     <?php echo isset($ambil_nama['nama']) ? ucwords($ambil_nama['nama']) : "-"; ?>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-5 text-start">Transportasi</div>
+                <div class="col-1">:</div>
+                <div class="col-6 text-start">
+                    <?php echo isset($data['transportasi']) ? ucwords($data['transportasi']) : "-"; ?>
+                </div>
+            </div>
             <div class="row align-items-center">
-                <div class="col-5 text-start">Goldar</div>
+                <div class="col-5 text-start">Nama Supir</div>
                 <div class="col-1">:</div>
-                <div class="col-6">
-                    <form class="text-start d-flex align-items-center p-0">
-                        <div class="form-group m-0">
-                            <select id="goldarGet" name="goldarGet" class="form-select" disabled required>
-                                <option value="-" <?php if ($data['goldar'] === '-') echo 'selected'; ?>>-</option>
-                                <option value="a+" <?php if ($data['goldar'] === 'a+') echo 'selected'; ?>>A+</option>
-                                <option value="o+" <?php if ($data['goldar'] === 'o+') echo 'selected'; ?>>O+</option>
-                                <option value="b+" <?php if ($data['goldar'] === 'b+') echo 'selected'; ?>>B+</option>
-                                <option value="ab+" <?php if ($data['goldar'] === 'ab+') echo 'selected'; ?>>AB+</option>
-                                <option value="a-" <?php if ($data['goldar'] === 'a-') echo 'selected'; ?>>A-</option>
-                                <option value="o-" <?php if ($data['goldar'] === 'o-') echo 'selected'; ?>>O-</option>
-                                <option value="b-" <?php if ($data['goldar'] === 'b-') echo 'selected'; ?>>B-</option>
-                                <option value="ab-" <?php if ($data['goldar'] === 'ab-') echo 'selected'; ?>>AB-</option>
-                            </select>
-                        </div>
-                        <button id="btn-edit-goldar" type="button" onclick="editGoldar()" class="btn btn-primary">Edit</button>
-                    </form>
+                <div class="col-6 text-start">
+                <?php echo $data['nama_supir'] ? $data['nama_supir'] : '-' ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 text-start">HPHT</div>
+                <div class="col-5 text-start">Nomor Supir</div>
                 <div class="col-1">:</div>
                 <div class="col-6 text-start">
-                    <?php echo $data['hpht'] ? $data['hpht'] : '-' ?>
+                    <?php echo $data['no_supir'] ? $data['no_supir'] : '-' ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 text-start">Taksiran Persalinan</div>
+                <div class="col-5 text-start">Nama Pendamping</div>
                 <div class="col-1">:</div>
                 <div class="col-6 text-start">
-                    <?php echo $data['taksiran_persalinan'] ? $data['taksiran_persalinan'] : '-' ?>
+                    <?php echo $data['nama_pendamping'] ? $data['nama_pendamping'] : '-' ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 text-start">Status Goldar</div>
+                <div class="col-5 text-start">Nomor Pendamping</div>
                 <div class="col-1">:</div>
                 <div class="col-6 text-start">
-                    <?php echo $data['status'] ? ucwords($data['status']) : '-' ?>
+                    <?php echo $data['no_pendamping'] ? ucwords($data['no_pendamping']) : '-' ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 text-start">Terakhir User Update</div>
+                <div class="col-5 text-start">Rumah Sakit Tujuan</div>
                 <div class="col-1">:</div>
                 <div class="col-6 text-start">
-                    <?php echo $data['tanggal_input'] ? ucwords($data['tanggal_input']) : '-' ?>
+                    <?php echo $data['tujuan'] ? ucwords($data['tujuan']) : '-' ?>
                 </div>
             </div>
-            <br><br>
-            <h1 style="font-weight: bold;"></h1>
+            <div class="row">
+                <div class="col-5 text-start">Jenis Penolong</div>
+                <div class="col-1">:</div>
+                <div class="col-6 text-start">
+                    <?php echo $data['tujuan'] ? ucwords($data['tujuan']) : '-' ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5 text-start">Nama Penolong</div>
+                <div class="col-1">:</div>
+                <div class="col-6 text-start">
+                    <?php echo $data['tujuan'] ? ucwords($data['tujuan']) : '-' ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5 text-start">USG</div>
+                <div class="col-1">:</div>
+                <div class="col-6 text-start">
+                    <?php echo $data['tujuan'] ? ucwords($data['tujuan']) : '-' ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5 text-start">Tanggal USG</div>
+                <div class="col-1">:</div>
+                <div class="col-6 text-start">
+                    <?php echo $data['tujuan'] ? ucwords($data['tujuan']) : '-' ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5 text-start">Umur Kehamilan saat USG</div>
+                <div class="col-1">:</div>
+                <div class="col-6 text-start">
+                    <?php echo $data['tujuan'] ? ucwords($data['tujuan']) : '-' ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5 text-start">Kondisi USG</div>
+                <div class="col-1">:</div>
+                <div class="col-6 text-start">
+                    <?php echo $data['tujuan'] ? ucwords($data['tujuan']) : '-' ?>
+                </div>
+            </div>
         </div>
         <?php } else { ?>
         <h2>User atas nama <?php echo $ambil_nama['nama'] ?> belum melakukan penginputan data</h2>
@@ -215,7 +254,6 @@ if (isset($_GET['id'])) {
 <?php
     // Tutup statement dan koneksi di sini
     mysqli_stmt_close($stmt);
-    mysqli_close($connect);
 } else {
     echo "ID tidak ditemukan.";
 }

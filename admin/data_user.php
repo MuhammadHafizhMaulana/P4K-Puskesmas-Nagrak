@@ -77,10 +77,11 @@ if (isset($_GET['status'])) {
             <tr style="background: #FDFFA0;" div>
               <th class="col-1 text-center" scope="col">No</th>
               <th class="col-2 text-center" scope="col">Nama</th>
-              <th class="col-1 text-center" scope="col">Usia</th>
               <th class="col-2 text-center" scope="col">Nomor HP</th>
-              <th class="col-2 text-center" scope="col">Alamat</th>
-              <th class="col-2 text-center" scope="col">Kesehatan</th>
+              <th class="col-1 text-center" scope="col">Kesehatan</th>
+              <th class="col-1 text-center" scope="col">Pembiayaan</th>
+              <th class="col-1 text-center" scope="col">Sarpras</th>
+              <th class="col-1 text-center" scope="col">Konsul KB</th>
               <th class="col-2 text-center" scope="col">Aksi</th>
             </tr>
           </thead>
@@ -148,7 +149,7 @@ if (isset($_GET['status'])) {
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
   </script>
 </body>
-<script src="../js/admin_DataUser.js"></script>
+<script src="../js/adminDataUser.js"></script>
 </body>
 
 </html>
