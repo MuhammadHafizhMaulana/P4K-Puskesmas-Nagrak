@@ -84,7 +84,7 @@ if (isset($_GET['success'])) {
     <div class="container">
       <div class="row d-flex align-items-center mt-5">
         <div class="col-12 col-lg-4 d-flex justify-content-center align-items-center">
-          <img src="./assets/logo-goldar.png" alt="Logo Hati">
+          <img src="./assets/logo-deskripsi.png" alt="Logo Deskripsi">
         </div>
         <div class="children-content col-lg-8 col-12">
           <div class="d-flex align-items-end justify-content-between mb-2">
@@ -265,11 +265,11 @@ if (isset($_GET['success'])) {
     <div class="modal-dialog  modal-dialog-centered modal-photo-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5">Video Penjelasan P4K</h1>
+          <h1 class="modal-title fs-5">Video Penjelasan Menu</h1>
           <button onclick="closeDialogVideoPenjelasan()" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <iframe id="videoPenjelasan" style="width : 80vw;" src="https://www.youtube.com/embed/Of-mrv90OLw?si=oTOcD2NfBBvWgC5j" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <iframe id="videoPenjelasan" style="width : 80vw;" src="https://www.youtube.com/embed/_9yVJB5qEkQ?si=5w94bIKOq_On4dX3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </div>
       </div>
     </div>

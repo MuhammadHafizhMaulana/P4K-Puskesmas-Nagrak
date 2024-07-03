@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($result) {
             // Redirect jika berhasil
-            if ($inputProcess) {
+            if ($user == 0) {
                 header('Location: ../dashboard_donor_darah.php?success=input');
                 exit();
             } else {
