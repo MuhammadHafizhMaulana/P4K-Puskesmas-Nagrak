@@ -9,14 +9,13 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login_admin') {
 include '../proses/koneksi.php';
 
 // Periksa apakah parameter id ada di URL
-if (isset($_GET['id_user']) && (isset($_GET['id']))) {
+if (isset($_GET['id'])) {
 
-    $id_user = $_GET['id_user'];
-    $id = $_GET['id'];
+    $id_user = $_GET['id'];
     // Query untuk mengambil data pengguna berdasarkan id yang sudah didekripsi
-    $query = " SELECT * FROM kb WHERE id = ?";
+    $query = " SELECT * FROM kb WHERE id_user = ?";
     $stmt = mysqli_prepare($connect, $query);
-    mysqli_stmt_bind_param($stmt, "i", $id);
+    mysqli_stmt_bind_param($stmt, "i", $id_user);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
 
@@ -28,9 +27,9 @@ if (isset($_GET['id_user']) && (isset($_GET['id']))) {
     $nameResult = mysqli_stmt_get_result($stmt);
     
     // Periksa apakah data ditemukan
-    if (mysqli_num_rows($result) > 0) {
-        // Ambil data pengguna
-        $data = mysqli_fetch_assoc($result);
+    
+    $data = mysqli_fetch_assoc($result);
+    $ambil_nama = mysqli_fetch_assoc($nameResult);
 
         // Function untuk merubah format tanggal
         function formatTanggal($tanggal_input)
@@ -41,7 +40,9 @@ if (isset($_GET['id_user']) && (isset($_GET['id']))) {
             return $tanggal_format;
         }
 
-        $data['tanggal_input'] = formatTanggal($data['tanggal_input']);
+        if ($data && !empty($data['tanggal_input'])) {
+            $data['tanggal_input'] = formatTanggal($data['tanggal_input']);
+        }
 
         if (isset($_GET['success'])) {
             $proccessIsSuccess = true;
@@ -64,7 +65,7 @@ if (isset($_GET['id_user']) && (isset($_GET['id']))) {
     <title>Edit User</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/adminKesehatanUser&DetailPendonor.css">
+    <link rel="stylesheet" href="../css/generalForm.css">
 </head>
 
 <body>
@@ -87,65 +88,60 @@ if (isset($_GET['id_user']) && (isset($_GET['id']))) {
                     <a class="nav-link" href="data_user.php">User</a>
                     <a class="nav-link" href="listKesehatanUser.php">Kesehatan User</a>
                     <a class="nav-link" href="pendonor.php">Pendonor</a>
-                    <a class="nav-link" href="profile.php">Profile</a>
+                    <a class="nav-link" href="profile_admin.php">Profile</a>
                     <a class="nav-link" href="proses/logout.php">Logout</a>
                 </div>
             </div>
         </div>
     </nav>
-    <div id="boxKesehatanUser">
-        <h1 style="
-                font-weight: bold;
-                ">
-            Data Kesehatan User
-        </h1>
+    <div id="formDonorDarah">
+        <div class="d-flex justify-content-between align-items-end">
+            <h1 class="text-start m-0" style="font-weight: bold;">Data KB User</h1>
+        </div>
         <br>
+        <?php if ($data) { ?>
         <div class="w-100">
             <div class="row">
-                <div class="col-5 text-start">Nama</div>
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Nama</div>
                 <div class="col-1">:</div>
                 <div class="col-6 text-start">
-                    <?php
-                            if (mysqli_num_rows($nameResult) > 0) {
-                                // Ambil data pengguna
-                                $ambil_nama = mysqli_fetch_assoc($nameResult);
-                                echo isset($ambil_nama['nama']) ? ucwords($ambil_nama['nama']) : "-";
-                            } ?>
+                    <?php echo isset($ambil_nama['nama']) ? ucwords($ambil_nama['nama']) : "-"; ?>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-5 text-start">Tujuan</div>
+            <div class="row align-items-center">
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Tujuan KB</div>
                 <div class="col-1">:</div>
                 <div class="col-6 text-start">
                     <?php echo $data['tujuan'] ? $data['tujuan'] : '-' ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 text-start">Jenis</div>
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Jenis KB</div>
                 <div class="col-1">:</div>
                 <div class="col-6 text-start">
-                    <?php echo $data['jenis'] ? ucwords($data['jenis']) : '-' ?>
+                    <?php echo $data['jenis'] ? $data['jenis'] : '-' ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 text-start">Terakhir User Update</div>
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Tanggal Input</div>
                 <div class="col-1">:</div>
                 <div class="col-6 text-start">
-                    <?php echo $data['tanggal_input'] ? ucwords($data['tanggal_input']) : '-' ?>
+                    <?php echo $data['tanggal_input'] ? $data['tanggal_input'] : '-' ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 text-start">Deskripsi</div>
+                <div class="col-4 text-start fw-bolder fw-bolder">Deskripsi</div>
                 <div class="col-1">:</div>
-                <div class="col-6 text-start">
-                    <form method="post" action="proses/editDeskripsi.php">
-                        <textarea name="deskripsi" id="" ><?php echo $data['deskripsi'] ? ucwords($data['deskripsi']) : '-' ?></textarea>
+                <div class="col-7 text-start">
+                    <form method="post" action="proses/editDeskripsi_kb.php">
+                        <textarea name="deskripsi" rows="10"
+                            cols="40"><?php echo $data['deskripsi'] ? ucwords($data['deskripsi']) : '-' ?></textarea>
 
-                        <input type="hidden" name="id" value=" <?php echo $data['id']?> ">
-                        <input type="hidden" name="id_user" value=" <?php echo $data['id_user']?> ">
+
+                        <input type="hidden" name="id" value="<?php echo $data['id']?> ">
+                        <input type="hidden" name="id_user" value="<?php echo $data['id_user']?> ">
                         <input type="submit">
                     </form>
-                    
                 </div>
             </div>
             <br><br>
@@ -153,12 +149,16 @@ if (isset($_GET['id_user']) && (isset($_GET['id']))) {
                 font-weight: bold;
                 ">
         </div>
-
+    </div>
+    <?php } else { ?>
+    <div class="alert alert-primary text-center">
+        <h2>User atas nama <?php echo $ambil_nama['nama'] ?> belum melakukan penginputan data</h2>
+    </div>
+    <?php } ?>
     </div>
 
-
-    <!-- Modal Konfirmasi Hapus -->
-    <div class="modal fade" id="confirmUpdateModal" tabindex="-1" aria-labelledby="confirmUpdateModalLabel"
+     <!-- Modal Konfirmasi Aksi -->
+     <div class="modal fade" id="confirmUpdateModal" tabindex="-1" aria-labelledby="confirmUpdateModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <form class="modal-content" method="post" action="proses/edit_goldar_user_proses.php">
@@ -203,25 +203,17 @@ if (isset($_GET['id_user']) && (isset($_GET['id']))) {
                 }
                 ?>
 
-    <script src="../js/adminKesehatanUser&DetailPendonor.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4x04U+XrGJ1AS5HTuCJO3uuTS5IhmztgYOSMYnABzA6YkAi9d8dB" crossorigin="anonymous">
     </script>
+
 </body>
 
 </html>
+
 <?php
-    } else {
-        echo "Data pengguna tidak ditemukan.";
-    }
-
-    // Tutup statement
+    // Tutup statement dan koneksi di sini
     mysqli_stmt_close($stmt);
-} else {
-    echo "ID tidak ditemukan dalam URL.";
-}
-
-// Tutup koneksi
-mysqli_close($connect);
+    mysqli_close($connect);
+} 
 ?>

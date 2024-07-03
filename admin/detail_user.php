@@ -72,6 +72,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $kesehatan = mysqli_fetch_assoc($kesehatan_userresult);
     $pembiayaan = mysqli_fetch_assoc($pembiayaanresult);
     $sarpras = mysqli_fetch_assoc($sarprasresult);
+    $kb = mysqli_fetch_assoc($kbresult);
 
     if (isset($kesehatan['tanggal_input'])) {
         $kesehatan['tanggal_input'] = formatTanggal($kesehatan['tanggal_input']);
@@ -249,65 +250,41 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 </div>
             </div>
             <br><br>
-            <?php
-                // Ambil semua data KB dari hasil query
-                $data_kb = [];
-                while ($row_kb = mysqli_fetch_assoc($kbresult)) {
-                    $data_kb[] = $row_kb;
-                }
-
-                // Jika terdapat data KB, lakukan pemformatan tanggal
-            foreach ($data_kb as &$kb) {
-                if (isset($kb['tanggal_input'])) {
-                    $kb['tanggal_input'] = formatTanggal($kb['tanggal_input']);
-                }
-                // Pastikan untuk menutup penggunaan mysqli_fetch_assoc()
-                unset($kb);
-            }
-            ?>
+           
             <div class="d-flex justify-content-between align-items-end">
                 <h3 class=" text-start m-0" style="font-weight: bold;">Detail Data KB User</h3>
-
+                <a href="kb_user.php?id_user=<?php echo $id_user; ?>" class="btn btn-primary">Edit</a>
             </div>
             <br>
 
-            <?php foreach ($data_kb as $kb_item): ?>
             <div class="row">
                 <div class="col-5 text-start">Tujuan</div>
                 <div class="col-1">:</div>
                 <div class="col-6 text-start">
-                    <?php echo isset($kb_item['tujuan']) ? $kb_item['tujuan'] : '-' ?>
+                    <?php echo isset($kb['tujuan']) ? $kb['tujuan'] : '-' ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-5 text-start">Metode</div>
                 <div class="col-1">:</div>
                 <div class="col-6 text-start">
-                    <?php echo isset($kb_item['jenis']) ? $kb_item['jenis'] : '-' ?>
+                    <?php echo isset($kb['jenis']) ? $kb['jenis'] : '-' ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-5 text-start">Tanggal Input</div>
                 <div class="col-1">:</div>
                 <div class="col-6 text-start">
-                    <?php echo isset($kb_item['tanggal_input']) ? $kb_item['tanggal_input'] : '-' ?>
+                    <?php echo isset($kb['tanggal_input']) ? $kb['tanggal_input'] : '-' ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 text-start">Deskripsi</div>
+                <div class="col-4 text-start">Deskripsi</div>
                 <div class="col-1">:</div>
-                <div class="col-6 text-start">
-                    <textarea
-                        disabled><?php echo isset($kb_item['deskripsi']) ? ucwords($kb_item['deskripsi']) : '-' ?></textarea>
+                <div class="col-7 text-start">
+                    <textarea rows="10" cols="40"
+                        disabled><?php echo isset($kb['deskripsi']) ? ucwords($kb['deskripsi']) : '-' ?></textarea>
                 </div>
-            </div>
-            <div class="row mt-3">
-                <div class="col-12 text-end">
-                    <a href="editDataKB.php?id_user=<?php echo $id_user; ?>&id=<?php echo $kb_item['id']; ?>" class="btn btn-primary">Edit</a>
-                </div>
-                <br><br>
-                <br><br>
-                <?php endforeach; ?>
             </div>
         </div>
 

@@ -12,14 +12,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     include 'koneksi.php';
     $id = $_SESSION['id'];
 
-    $queryCheck = "SELECT COUNT(*) AS user FROM kb WHERE id_user = ?";
-    $stmtCheck = mysqli_prepare($connect, $queryCheck);
-    mysqli_stmt_bind_param($stmtCheck, "i", $id);
-    mysqli_stmt_execute($stmtCheck);
-    mysqli_stmt_bind_result($stmtCheck, $user);
-    mysqli_stmt_fetch($stmtCheck);
-    mysqli_stmt_close($stmtCheck);
-
     // Inisialisasi data dari POST
     $id_user = $_SESSION['id'];
     $tujuan = $_POST['tujuan'];
@@ -50,30 +42,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    
-    $query = "INSERT INTO `kb`(`tujuan`, `jenis`, `id_user`, `tanggal_input`) VALUES (?, ?, ?, NOW() )";
-    
-    $stmt = mysqli_prepare($connect, $query);
+    // Cek apakah data sudah ada
+    $queryCheck = "SELECT COUNT(*) AS user FROM kb WHERE id_user = ?";
+    $stmtCheck = mysqli_prepare($connect, $queryCheck);
+    mysqli_stmt_bind_param($stmtCheck, "i", $id_user);
+    mysqli_stmt_execute($stmtCheck);
+    mysqli_stmt_bind_result($stmtCheck, $userCount);
+    mysqli_stmt_fetch($stmtCheck);
+    mysqli_stmt_close($stmtCheck);
 
-    if ($stmt) {
-        // Bind parameter ke placeholder
-        mysqli_stmt_bind_param($stmt, "ssi", $tujuan, $jenis, $id_user);
-
-        // Jalankan prepared statement
-        $result = mysqli_stmt_execute($stmt);
-
-        // Tutup statement
-        mysqli_stmt_close($stmt);
-
-        // Pesan berhasil
-        if ($result) {
-            header('Location: ../dashboard_kb.php?success=input');
-        } else {
-            header('Location: ../dashboard_kb.php?gagal=error_menyimpandata');
-        }
+    if ($userCount > 0) {
+        // Jika data sudah ada, lakukan UPDATE
+        $update_query = "UPDATE `kb` SET `tujuan` = ?, `jenis` = ?, `tanggal_input` = NOW() WHERE `id_user` = ?";
+        $update_stmt = mysqli_prepare($connect, $update_query);
+        mysqli_stmt_bind_param($update_stmt, "ssi", $tujuan, $jenis, $id_user);
+        $result = mysqli_stmt_execute($update_stmt);
+        mysqli_stmt_close($update_stmt);
     } else {
-        // Tampilkan pesan jika persiapan statement gagal
-        header('Location: ../dashboard_kb.php?gagal=error_periapanquery');
+        // Jika data belum ada, lakukan INSERT
+        $insert_query = "INSERT INTO `kb`(`tujuan`, `jenis`, `id_user`, `tanggal_input`) VALUES (?, ?, ?, NOW())";
+        $insert_stmt = mysqli_prepare($connect, $insert_query);
+        mysqli_stmt_bind_param($insert_stmt, "ssi", $tujuan, $jenis, $id_user);
+        $result = mysqli_stmt_execute($insert_stmt);
+        mysqli_stmt_close($insert_stmt);
+    }
+
+    // Pesan berhasil atau gagal
+    if ($result) {
+        header('Location: ../dashboard_kb.php?success=input');
+    } else {
+        header('Location: ../dashboard_kb.php?gagal=error_menyimpandata');
     }
 
     // Tutup koneksi
