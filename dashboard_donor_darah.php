@@ -45,16 +45,16 @@ if (!isset($goldar) || $goldar == null){
 if (isset($_GET['success'])) {
   $proccessIsSuccess = true;
   if ($_GET['success'] == "input") {
-    $message = "Anda berhasil menambahkan data golongan darah dan usia kehamilan";
+    $message = "Anda berhasil menambahkan data golongan darah";
   } else if ($_GET['success'] == "edit") {
-    $message = "Anda berhasil mengubah data golongan darah dan usia kehamilan";
+    $message = "Anda berhasil mengubah data golongan darah";
   } else if ($_GET['success'] == "addPendonor") {
     $message = "Anda berhasil menambahkan data pendonor darah";
   }
 } else if (isset($_GET['gagal'])) {
   $proccessIsSuccess = false;
   if ($_GET['gagal'] == "1") {
-    $message = "Proses input atau edit data golongan darah dan usia kehamilan gagal dilakukan!!";
+    $message = "Proses input atau edit data golongan darah gagal dilakukan!!";
   }
 }
 
@@ -115,7 +115,7 @@ $sql = mysqli_query($connect, $query);
     <div class="container">
       <div class="row d-flex align-items-center mt-5">
         <div class="col-12 col-lg-4 d-flex justify-content-center align-items-center">
-          <img src="./assets/logo-goldar.png" alt="Logo Hati">
+          <img src="./assets/logo-deskripsi.png" alt="Logo Deskripsi">
         </div>
         <div class="children-content col-lg-8 col-12">
           <div class="d-flex align-items-end justify-content-between mb-2">
@@ -216,7 +216,6 @@ $sql = mysqli_query($connect, $query);
 
           <?php
           if (mysqli_num_rows($sql) > 0) {
-            if ($status == "diketahui") {
           ?>
           <div class="row mb-2">
             <div class="col-6 d-flex align-items-center">
@@ -234,7 +233,6 @@ $sql = mysqli_query($connect, $query);
               <h6 class="ms-2 m-0 p-0">Pendonor yang orang lain inputkan.</h6>
             </div>
           </div>
-          <?php } ?>
           <table class="table m-0">
             <thead>
               <tr style="background: #FDFFA0;" div>
@@ -292,11 +290,11 @@ $sql = mysqli_query($connect, $query);
     <div class="modal-dialog  modal-dialog-centered modal-photo-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5">Video Penjelasan P4K</h1>
+          <h1 class="modal-title fs-5">Video Penjelasan Menu</h1>
           <button onclick="closeDialogVideoPenjelasan()" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <iframe id="videoPenjelasan" style="width : 80vw;" src="https://www.youtube.com/embed/Of-mrv90OLw?si=oTOcD2NfBBvWgC5j" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <iframe id="videoPenjelasan" style="width : 80vw;" src="https://www.youtube.com/embed/DI1-sAZglqM?si=oUOT6k_5c2PEBWds" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </div>
       </div>
     </div>

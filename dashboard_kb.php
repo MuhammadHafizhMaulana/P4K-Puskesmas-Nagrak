@@ -80,7 +80,7 @@ if (isset($_GET['success'])) {
     <div class="container">
       <div class="row d-flex align-items-center mt-5">
         <div class="col-12 col-lg-4 d-flex justify-content-center align-items-center">
-          <img src="./assets/logo-goldar.png" alt="Logo Hati">
+          <img src="./assets/logo-deskripsi.png" alt="Logo Deskripsi">
         </div>
         <div class="children-content col-lg-8 col-12">
           <div class="d-flex align-items-end justify-content-between mb-2">
@@ -138,7 +138,7 @@ if (isset($_GET['success'])) {
     <div class="container">
       <div class="row d-flex align-items-center">
         <div class="col-12 col-lg-4 d-flex justify-content-center align-items-center">
-          <img src="./assets/logo-donor-darah-2.png" alt="Logo Donor Darah">
+          <img src="./assets/logo-kb.png" alt="Logo KB">
         </div>
         <div class="children-content col-12 col-lg-8">
           <div class="d-flex align-items-end justify-content-between mb-2">
@@ -156,7 +156,7 @@ if (isset($_GET['success'])) {
           <div class="alert alert-primary text-center" role="alert">
             <?php if ($dataKB) { ?>
               <h6>
-                Anda memilih Program KB untuk <?= $dataKB['tujuan'] ?> dengan mettode (<?= $dataKB['jenis'] ?>)
+                Anda memilih Program KB untuk <?= $dataKB['tujuan'] ?> dengan metode (<?= $dataKB['jenis'] ?>)
               </h6>
               <div class="alert alert-warning m-0" role="alert" style="border-radius: 20px;">
                 <h6 class="m-0 text-start" style="font-weight: bold;">Hasil Konsultasi :</h6>
@@ -181,11 +181,11 @@ if (isset($_GET['success'])) {
     <div class="modal-dialog  modal-dialog-centered modal-photo-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5">Video Penjelasan P4K</h1>
+          <h1 class="modal-title fs-5">Video Penjelasan Menu</h1>
           <button onclick="closeDialogVideoPenjelasan()" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <iframe id="videoPenjelasan" style="width : 80vw;" src="https://www.youtube.com/embed/Of-mrv90OLw?si=oTOcD2NfBBvWgC5j" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <iframe id="videoPenjelasan" style="width : 80vw;" src="https://www.youtube.com/embed/mJYtzH89m_A?si=ld3vKEqAwe7tPNmp" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </div>
       </div>
     </div>

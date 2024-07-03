@@ -199,7 +199,7 @@ if ($status_usg === 'belum') {
             <div id="additionalFields" class="d-flex flex-column"></div>
             <?php } ?>
             <br>
-            <button id="buttonSubmit" type="submit" value="Input" class="btn btn-danger">Input</button>
+            <button <?= $data ? '' : 'disabled' ?> id="buttonSubmit" type="submit" value="Input" class="btn btn-danger">Input</button>
         </form>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"

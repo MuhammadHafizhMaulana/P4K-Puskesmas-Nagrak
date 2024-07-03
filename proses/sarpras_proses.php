@@ -70,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Pesan berhasil
         if ($result) {
-            if ($user > 0) {
+            if ($count > 0) {
                 header('Location: ../dashboard_sarpras.php?success=edit');
             } else {
                 header('Location: ../dashboard_sarpras.php?success=input');
