@@ -34,10 +34,10 @@ mysqli_stmt_close($stmt);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tambah Pendonor</title>
+    <title>Form Tambah Pendonor</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="./css/tambah_Pendonor.css">
+    <link rel="stylesheet" href="./css/generalForm.css">
 </head>
 
 <body>
@@ -56,18 +56,21 @@ mysqli_stmt_close($stmt);
                     </svg></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav ms-auto">
-                    <a class="nav-link active" aria-current="page" href="home.php">Home</a>
+                <div class="navbar-nav ms-auto align-items-center">
+                    <a class="nav-link" aria-current="page" href="home.php">Home</a>
                     <a class="nav-link" href="dashboard_pembiayaan.php">Pembiayaan</a>
                     <a class="nav-link" href="dashboard_sarpras.php">Sarpras</a>
-                    <a class="nav-link" href="dashboard_donor_darah.php">Donor Darah</a>
+                    <a class="nav-link active" href="dashboard_donor_darah.php">Donor Darah</a>
                     <a class="nav-link" href="dashboard_kb.php">Konsul KB</a>
                     <a class="nav-link" href="profile.php">Profile</a>
-                    <a class="nav-link" href="proses/logout.php">Logout</a>
+                    <a class="nav-link" href="proses/logout.php">
+                        <button type="button" class="btn btn-outline-danger">Logout</button>
+                    </a>
                 </div>
             </div>
+        </div>
     </nav>
-    <div id="formTambahPendonor">
+    <div id="formDonorDarah">
         <h1 style="font-weight: bold; font-size: xxx-large">
             Form Pendonor Darah
         </h1>

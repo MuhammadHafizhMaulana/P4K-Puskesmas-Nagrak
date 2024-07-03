@@ -13,13 +13,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Inisialisasi data dari POST
     $transportasi = $_POST['transportasi'];
-    $nama_supir = ucwords($_POST['nama_supir']);
+    $nama_supir = ucwords(strtolower($_POST['nama_supir']));
     $no_supir = $_POST['no_supir'];
-    $nama_pendamping = ucwords($_POST['nama_pendamping']);
+    $nama_pendamping = ucwords(strtolower($_POST['nama_pendamping']));
     $no_pendamping = $_POST['no_pendamping'];
     $tujuan = $_POST['tujuan'];
     $penolong = $_POST['penolong'];
-    $nama_penolong = $_POST['nama_penolong'];
+    $nama_penolong = ucwords(strtolower($_POST['nama_penolong']));
     $usg = $_POST['usg'];
     $tanggal_usg = $_POST['tanggal_usg'];
     $umur_usg = $_POST['umur_usg'];

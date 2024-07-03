@@ -12,7 +12,7 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login') {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <link rel="stylesheet" href="css/dashboard_User_General.css">
+  <link rel="stylesheet" href="css/dashboardUserGeneral.css">
 </head>
 
 <body>
@@ -27,14 +27,16 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login') {
           </svg></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav ms-auto">
+        <div class="navbar-nav ms-auto align-items-center">
           <a class="nav-link active" aria-current="page" href="home.php">Home</a>
           <a class="nav-link" href="dashboard_pembiayaan.php">Pembiayaan</a>
           <a class="nav-link" href="dashboard_sarpras.php">Sarpras</a>
           <a class="nav-link" href="dashboard_donor_darah.php">Donor Darah</a>
           <a class="nav-link" href="dashboard_kb.php">Konsul KB</a>
           <a class="nav-link" href="profile.php">Profile</a>
-          <a class="nav-link" href="proses/logout.php">Logout</a>
+          <a class="nav-link" href="proses/logout.php">
+            <button type="button" class="btn btn-outline-danger">Logout</button>
+          </a>
         </div>
       </div>
     </div>
@@ -54,8 +56,17 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login') {
           <img src="./assets/logo2-kemenkes.png" alt="Logo Kemenkes">
         </div>
         <div class="col-12 col-lg-6">
-          <h1>Apa itu P4K?</h1>
-          <p>Program Perencanaan Persalinan dan Pencegahan Komplikasi (P4K) merupakan salah satu upaya percepatan penurunan Angka Kematian Ibu dan Bayi Baru Lahir melalui peningkatan akses dan mutu pelayanan antenatal, pertolongan persalinan, pencegahan komplikasi dan keluarga berencana oleh Tenaga Kesehatan.</p>
+          <div class="d-flex align-items-end justify-content-between mb-2">
+            <h1 class="m-0 p-0">
+              Apa itu P4K?
+            </h1>
+            <button onclick="triggerUpdateRasioVideo()" data-bs-toggle="modal" data-bs-target="#bukaVideoPenjelasan" type="button" class="mainButton btn btn-danger">
+              Lihat<p class="m-0">Penjelasan Menu</p>
+            </button>
+          </div>
+          <p>
+            Program Perencanaan Persalinan dan Pencegahan Komplikasi (P4K) merupakan salah satu upaya percepatan penurunan Angka Kematian Ibu dan Bayi Baru Lahir melalui peningkatan akses dan mutu pelayanan antenatal, pertolongan persalinan, pencegahan komplikasi dan keluarga berencana oleh Tenaga Kesehatan.
+          </p>
           <h1>Apa tujuan P4K?</h1>
           <p>P4K memiliki beberapa tujuan antara lain:</p>
           <ul>
@@ -74,7 +85,63 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login') {
     <div class="col"></div>
   </div>
 
+
+  <!-- Modal -->
+  <div class="modal fade" id="bukaVideoPenjelasan" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered modal-photo-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">Video Penjelasan P4K</h1>
+          <button onclick="closeDialogVideoPenjelasan()" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <iframe id="videoPenjelasan" style="width : 80vw;" src="https://www.youtube.com/embed/Of-mrv90OLw?si=oTOcD2NfBBvWgC5j" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+  <?php
+  if (isset($_GET['login'])) {
+    if ($_GET['login'] == "success") { 
+  ?>
+    <button id="buttonPanduanWebsite" style="display: none;" data-bs-toggle="modal" data-bs-target="#panduanWebsite" type="button" class="mainButton btn btn-danger">
+      <p class="m-0">Panduan Website</p>
+    </button>
+    <div class="modal fade" id="panduanWebsite" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <h4 class="text-center">Panduan Dalam Mengakses Website P4K</h4>
+            <br>
+            <ul>
+              <li><h5>Disarankan mengisi semua menu secara berurutan</h5></li>
+              <img class="border border-1 border-primary rounded-2" src="./assets/navbar.png" alt="navbar" style="width: 100%;">
+              <p>
+                Website ini memiliki 4 menu utama yaitu : Pembiayaan, Sarpras, Donor Darah dan Konsul KB. Di dalam menu - menu tersebut, terdapat formulir yang harus diisi. Dalam mengakses menu tersebut, disarankan untuk mengakses secara berutan dimulai dari menu Pembiayaan hingga Konsul KB agar tidak ada formulir yang terlewati. 
+              </p>
+              <li><h5>Melihat video pejelasan menu</h5></li>
+              <img class="border border-1 border-primary rounded-2" src="./assets/tombolLihatPenjelasanMenu.png" alt="navbar" style="width: 100%;">
+              <p>
+                Di menu Home, Pembiayaan, Sarpras, Donor Darah, dan Konsul KB terdapat video penjelasan menu yang dapat diakses dengan menekan tombol "Lihat Penjelasan Menu" di tiap menu. Di dalam menu Home, anda dapat melihat video penjelasan tentang P4K. Sementara itu, di menu Pembiayaan, Sarpras, Donor Darah dan Konsul KB anda dapat melihat video tutorial dalam mengisi formulir di menu - menu tersebut.
+              </p>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const buttonPanduan = document.getElementById('buttonPanduanWebsite');
+
+        buttonPanduan.click();
+      })
+    </script>
+  <?php  } } ?>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="./js/userHome.js"></script>
 </body>
 
 </html>
