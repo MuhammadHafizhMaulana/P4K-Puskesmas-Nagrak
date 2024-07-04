@@ -2,7 +2,7 @@
 session_start();
 if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login_admin') {
     header('Location: login_admin.php');
-    exit();
+    exit(); // tambahkan exit setelah redirect
 }
 
 // Sambungan ke database
@@ -10,74 +10,76 @@ include '../proses/koneksi.php';
 
 // Periksa apakah parameter id ada di URL
 if (isset($_GET['id'])) {
-    $id = $_GET['id'];
 
+    $id = $_GET['id'];
     // Query untuk mengambil data pengguna berdasarkan id yang sudah didekripsi
-    $query = "SELECT * FROM kesehatan_user WHERE id_user = ?";
+    $query = " SELECT ku.*, kb.* FROM kesehatan_user ku INNER JOIN kb ON ku.id_user = kb.id_user WHERE ku.id_user = ?";
     $stmt = mysqli_prepare($connect, $query);
     mysqli_stmt_bind_param($stmt, "i", $id);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
-    $data = mysqli_fetch_assoc($result);
 
-    // Query untuk mengambil nama pengguna
-    $query = "SELECT `nama` FROM user WHERE id = ?";
+
+    $query = "SELECT `nama`FROM user WHERE id = ?";
     $stmt = mysqli_prepare($connect, $query);
     mysqli_stmt_bind_param($stmt, "i", $id);
     mysqli_stmt_execute($stmt);
     $nameResult = mysqli_stmt_get_result($stmt);
-    $ambil_nama = mysqli_fetch_assoc($nameResult);
+    
+    // Periksa apakah data ditemukan
+    if (mysqli_num_rows($result) > 0) {
+        // Ambil data pengguna
+        $data = mysqli_fetch_assoc($result);
 
-    // Function untuk merubah format tanggal
-    function formatTanggal($tanggal_input) {
-        $timestamp = strtotime($tanggal_input);
-        return date("d M Y", $timestamp);
-    }
+        // Function untuk merubah format tanggal
+        function formatTanggal($tanggal_input)
+        {
+            $timestamp = strtotime($tanggal_input);
+            $tanggal_format = date("d M Y", $timestamp);
 
-    if ($data) {
-        if (!empty($data['tanggal_input'])) {
-            $data['tanggal_input'] = formatTanggal($data['tanggal_input']);
-        } else {
-            $data['tanggal_input'] = '-';
+            return $tanggal_format;
         }
-    }
 
-    $data['hpht'] = formatTanggal($data['hpht']);
-    $data['taksiran_persalinan'] = formatTanggal($data['taksiran_persalinan']);
+        $data['tanggal_input'] = formatTanggal($data['tanggal_input']);
+        $data['hpht'] = formatTanggal($data['hpht']);
+        $data['taksiran_persalinan'] = formatTanggal($data['taksiran_persalinan']);
 
-    $proccessIsSuccess = null;
-    $message = "";
-
-    if (isset($_GET['success'])) {
-        $proccessIsSuccess = true;
-        if ($_GET['success'] == "update_successful") {
-            $message = "Anda berhasil mengedit golongan darah.";
+        if (isset($_GET['success'])) {
+            $proccessIsSuccess = true;
+            if ($_GET['success'] == "update_successful") {
+                $message = "Anda berhasil mengedit golongan darah.";
+            }
+        } else if (isset($_GET['gagal'])) {
+            $proccessIsSuccess = false;
+            if ($_GET['error'] == "update_failed") {
+                $message = "Edit golongan darah gagal dilakukan.";
+            }
         }
-    } elseif (isset($_GET['error'])) {
-        $proccessIsSuccess = false;
-        if ($_GET['error'] == "update_failed") {
-            $message = "Edit golongan darah gagal dilakukan.";
-        }
-    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kesehatan User</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>Edit User</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/adminKesehatanUser&DetailPendonor.css">
 </head>
+
 <body>
     <nav class="my-navbar navbar navbar-expand-lg">
         <div class="container-fluid">
             <a class="navbar-brand" href="home.php">
                 <img src="../assets/logo-kemenkes.png" alt="Logo Kemenkes">
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                        fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
                     </svg></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -93,15 +95,23 @@ if (isset($_GET['id'])) {
         </div>
     </nav>
     <div id="boxKesehatanUser">
-        <h1 style="font-weight: bold;">Data Kesehatan User</h1>
+        <h1 style="
+                font-weight: bold;
+                ">
+            Data Kesehatan User
+        </h1>
         <br>
-        <?php if ($data) { ?>
         <div class="w-100">
             <div class="row">
                 <div class="col-5 text-start">Nama</div>
                 <div class="col-1">:</div>
                 <div class="col-6 text-start">
-                    <?php echo isset($ambil_nama['nama']) ? ucwords($ambil_nama['nama']) : "-"; ?>
+                    <?php
+                            if (mysqli_num_rows($nameResult) > 0) {
+                                // Ambil data pengguna
+                                $ambil_nama = mysqli_fetch_assoc($nameResult);
+                                echo isset($ambil_nama['nama']) ? ucwords($ambil_nama['nama']) : "-";
+                            } ?>
                 </div>
             </div>
             <div class="row align-items-center">
@@ -115,29 +125,25 @@ if (isset($_GET['id'])) {
                                 <option value="a+" <?php if ($data['goldar'] === 'a+') echo 'selected'; ?>>A+</option>
                                 <option value="o+" <?php if ($data['goldar'] === 'o+') echo 'selected'; ?>>O+</option>
                                 <option value="b+" <?php if ($data['goldar'] === 'b+') echo 'selected'; ?>>B+</option>
-                                <option value="ab+" <?php if ($data['goldar'] === 'ab+') echo 'selected'; ?>>AB+</option>
+                                <option value="ab+" <?php if ($data['goldar'] === 'ab+') echo 'selected'; ?>>AB+
+                                </option>
                                 <option value="a-" <?php if ($data['goldar'] === 'a-') echo 'selected'; ?>>A-</option>
                                 <option value="o-" <?php if ($data['goldar'] === 'o-') echo 'selected'; ?>>O-</option>
                                 <option value="b-" <?php if ($data['goldar'] === 'b-') echo 'selected'; ?>>B-</option>
-                                <option value="ab-" <?php if ($data['goldar'] === 'ab-') echo 'selected'; ?>>AB-</option>
+                                <option value="ab-" <?php if ($data['goldar'] === 'ab-') echo 'selected'; ?>>AB-
+                                </option>
                             </select>
                         </div>
-                        <button id="btn-edit-goldar" type="button" onclick="editGoldar()" class="btn btn-primary">Edit</button>
+                        <button id="btn-edit-goldar" type="button" onclick="editGoldar()"
+                            class="btn btn-primary">Edit</button>
                     </form>
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 text-start">HPHT</div>
+                <div class="col-5 text-start">Usia Kandungan</div>
                 <div class="col-1">:</div>
                 <div class="col-6 text-start">
-                    <?php echo $data['hpht'] ? $data['hpht'] : '-' ?>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-5 text-start">Taksiran Persalinan</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
-                    <?php echo $data['taksiran_persalinan'] ? $data['taksiran_persalinan'] : '-' ?>
+                    <?php echo $data['usia_kandungan'] ? $data['usia_kandungan'] .'Minggu' : '-' ?> 
                 </div>
             </div>
             <div class="row">
@@ -154,72 +160,94 @@ if (isset($_GET['id'])) {
                     <?php echo $data['tanggal_input'] ? ucwords($data['tanggal_input']) : '-' ?>
                 </div>
             </div>
-            <br><br>
-            <h1 style="font-weight: bold;"></h1>
-        </div>
-        <?php } else { ?>
-            <div class="alert alert-primary text-center">
-            <h2>User atas nama <?php echo $ambil_nama['nama'] ?> belum melakukan penginputan data</h2>
+            <div class="row">
+                <div class="col-5 text-start">Taksiran Persalinan</div>
+                <div class="col-1">:</div>
+                <div class="col-6 text-start">
+                    <?php echo $data['taksiran_persalinan'] ? ucwords($data['taksiran_persalinan']) : '-' ?>
+                </div>
             </div>
-        
-        <?php } ?>
-    </div>
+            <div class="row">
+                <div class="col-5 text-start">HPHT</div>
+                <div class="col-1">:</div>
+                <div class="col-6 text-start">
+                    <?php echo $data['hpht'] ? ucwords($data['hpht']) : '-' ?>
+                </div>
+            </div>
+            <br><br>
+            <h1 style="
+                font-weight: bold;
+                ">
+</div>
 
-    <!-- Modal Konfirmasi Hapus -->
-    <div class="modal fade" id="confirmUpdateModal" tabindex="-1" aria-labelledby="confirmUpdateModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <form class="modal-content" method="POST" action="../proses/update_golongan_darah.php">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="confirmUpdateModalLabel">Konfirmasi Edit Golongan Darah</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Apakah Anda yakin ingin mengedit golongan darah user ini?
-                    <input id="idUser" name="idUser" type="hidden" value="<?php echo $id; ?>">
-                    <input id="valueGoldar" name="valueGoldar" type="hidden">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary">Edit</button>
-                </div>
-            </form>
         </div>
-    </div>
-    <br><br>
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-B4gt1jrGC7Jh4x04U+XrGJ1AS5HTuCJO3uuTS5IhmztgYOSMYnABzA6YkAi9d8dB" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9EX3SI5l6tKHwpQN91aVQZyyzRXfuwW8Q+4MGbR2xF6qnGSiNk5h9g" crossorigin="anonymous"></script>
-    <script>
-        const proccessIsSuccess = "<?php echo $proccessIsSuccess; ?>";
-        const message = "<?php echo $message; ?>";
 
-        if (proccessIsSuccess && message) {
-            if (proccessIsSuccess == 1) {
-                alert(message);
-            } else {
-                alert(message);
-            }
-        }
+        <!-- Modal Konfirmasi Hapus -->
+        <div class="modal fade" id="confirmUpdateModal" tabindex="-1" aria-labelledby="confirmUpdateModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <form class="modal-content" method="post" action="proses/edit_goldar_user_proses.php">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="confirmUpdateModalLabel">Konfirmasi</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" value="<?php echo $id ?>" name="id" id="id">
+                        <input type="hidden" name="goldar" id="goldar">
+                        Apakah Anda yakin ingin mengedit golongan darah?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-warning">Iya</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <button style="display: none;" id="buttonAlert" type="button" class="btn btn-primary" data-bs-toggle="modal"
+            data-bs-target="#exampleModal"></button>
 
-        function editGoldar() {
-            document.getElementById("goldarGet").disabled = false;
-            document.getElementById("btn-edit-goldar").setAttribute("data-bs-toggle", "modal");
-            document.getElementById("btn-edit-goldar").setAttribute("data-bs-target", "#confirmUpdateModal");
-            const goldarElement = document.getElementById("goldarGet");
-            goldarElement.addEventListener("change", () => {
-                const valueGoldar = goldarElement.value;
-                document.getElementById("valueGoldar").value = valueGoldar;
-            });
-        }
-    </script>
+        <?php
+                if (isset($_GET['success']) || isset($_GET['error'])) { ?>
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5 text-primary" id="exampleModalLabel">
+                            <?php echo $proccessIsSuccess ? "BERHASIL" : "GAGAL" ?></h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-primary text-center" role="alert">
+                            <?php echo $message ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php
+                }
+                ?>
+
+        <script src="../js/adminKesehatanUser&DetailPendonor.js"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+        </script>
 </body>
-</html>
 
+</html>
 <?php
-    // Tutup statement dan koneksi di sini
+    } else {
+        echo "Data pengguna tidak ditemukan.";
+    }
+
+    // Tutup statement
     mysqli_stmt_close($stmt);
-    mysqli_close($connect);
 } else {
-    echo "ID tidak ditemukan.";
+    echo "ID tidak ditemukan dalam URL.";
 }
+
+// Tutup koneksi
+mysqli_close($connect);
 ?>

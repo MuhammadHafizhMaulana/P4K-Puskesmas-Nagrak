@@ -53,6 +53,19 @@ if (isset($_GET['id'])) {
     $rekomendasi_path = getImagePath($rekomendasi);
     $rujukan_path = getImagePath($rujukan);
 
+    $proccessIsSuccess = null;
+    if (isset($_GET['success'])) {
+        $proccessIsSuccess = true;
+        if ($_GET['success'] == "update_successful") {
+            $message = "Anda berhasil mengubah deskripsi pembiayaan.";
+        }
+    } else if (isset($_GET['gagal'])) {
+        $proccessIsSuccess = false;
+        if ($_GET['gagal'] == "update_failed") {
+            $message = "Edit gagal.";
+        }
+    }
+
     
 ?>
 <!DOCTYPE html>
@@ -206,9 +219,38 @@ if (isset($_GET['id'])) {
         <?php } ?>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
-        integrity="sha384-B4gt1jrGC7Jh4x04U+XrGJ1AS5HTuCJO3uuTS5IhmztgYOSMYnABzA6YkAi9d8dB" crossorigin="anonymous">
-    </script>
+    <?php if (isset($proccessIsSuccess)) { ?>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 text-primary" id="exampleModalLabel">
+                        <?php echo $proccessIsSuccess ? "BERHASIL" : "GAGAL" ?></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-primary text-center" role="alert">
+                        <?php echo $message ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php } ?>
+
+    <?php if (isset($_GET['success']) || isset($_GET['gagal'])) { ?>
+  <script>
+    window.onload = function () {
+      var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {
+        keyboard: false
+      });
+      myModal.show();
+    };
+  </script>
+  <?php } ?>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
 </body>
 

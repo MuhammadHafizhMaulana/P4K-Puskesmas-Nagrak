@@ -2,59 +2,52 @@
 session_start();
 if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login_admin') {
     header('Location: login_admin.php');
-    exit(); // tambahkan exit setelah redirect
+    exit();
 }
 
-// Sambungan ke database
 include '../proses/koneksi.php';
 
-// Periksa apakah parameter id ada di URL
 if (isset($_GET['id'])) {
-
     $id_user = $_GET['id'];
-    // Query untuk mengambil data pengguna berdasarkan id yang sudah didekripsi
-    $query = " SELECT * FROM kb WHERE id_user = ?";
+
+    $query = "SELECT * FROM kb WHERE id_user = ?";
     $stmt = mysqli_prepare($connect, $query);
     mysqli_stmt_bind_param($stmt, "i", $id_user);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
 
-
-    $query = "SELECT `nama`FROM user WHERE id = ?";
+    $query = "SELECT `nama` FROM user WHERE id = ?";
     $stmt = mysqli_prepare($connect, $query);
     mysqli_stmt_bind_param($stmt, "i", $id_user);
     mysqli_stmt_execute($stmt);
     $nameResult = mysqli_stmt_get_result($stmt);
-    
-    // Periksa apakah data ditemukan
-    
+
     $data = mysqli_fetch_assoc($result);
     $ambil_nama = mysqli_fetch_assoc($nameResult);
 
-        // Function untuk merubah format tanggal
-        function formatTanggal($tanggal_input)
-        {
-            $timestamp = strtotime($tanggal_input);
-            $tanggal_format = date("d M Y", $timestamp); // Ubah format sesuai kebutuhan
+    function formatTanggal($tanggal_input)
+    {
+        $timestamp = strtotime($tanggal_input);
+        $tanggal_format = date("d M Y", $timestamp);
+        return $tanggal_format;
+    }
 
-            return $tanggal_format;
-        }
+    if ($data && !empty($data['tanggal_input'])) {
+        $data['tanggal_input'] = formatTanggal($data['tanggal_input']);
+    }
 
-        if ($data && !empty($data['tanggal_input'])) {
-            $data['tanggal_input'] = formatTanggal($data['tanggal_input']);
+    $proccessIsSuccess = null;
+    if (isset($_GET['success'])) {
+        $proccessIsSuccess = true;
+        if ($_GET['success'] == "update_successful") {
+            $message = "Anda berhasil mengubah deskripsi KB.";
         }
-
-        if (isset($_GET['success'])) {
-            $proccessIsSuccess = true;
-            if ($_GET['success'] == "update_successful") {
-                $message = "Anda berhasil mengubah data KB.";
-            }
-        } else if (isset($_GET['gagal'])) {
-            $proccessIsSuccess = false;
-            if ($_GET['error'] == "update_failed") {
-                $message = "Edit gagal.";
-            }
+    } else if (isset($_GET['gagal'])) {
+        $proccessIsSuccess = false;
+        if ($_GET['gagal'] == "update_failed") {
+            $message = "Edit gagal.";
         }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -102,52 +95,46 @@ if (isset($_GET['id'])) {
         <?php if ($data) { ?>
         <div class="w-100">
             <div class="row">
-                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Nama</div>
+                <div class="col-12 col-sm-5 text-start fw-bolder">Nama</div>
                 <div class="col-1">:</div>
                 <div class="col-6 text-start">
                     <?php echo isset($ambil_nama['nama']) ? ucwords($ambil_nama['nama']) : "-"; ?>
                 </div>
             </div>
             <div class="row align-items-center">
-                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Tujuan KB</div>
+                <div class="col-12 col-sm-5 text-start fw-bolder">Tujuan KB</div>
                 <div class="col-1">:</div>
                 <div class="col-6 text-start">
                     <?php echo $data['tujuan'] ? $data['tujuan'] : '-' ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Jenis KB</div>
+                <div class="col-12 col-sm-5 text-start fw-bolder">Jenis KB</div>
                 <div class="col-1">:</div>
                 <div class="col-6 text-start">
                     <?php echo $data['jenis'] ? $data['jenis'] : '-' ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Tanggal Input</div>
+                <div class="col-12 col-sm-5 text-start fw-bolder">Tanggal Input</div>
                 <div class="col-1">:</div>
                 <div class="col-6 text-start">
                     <?php echo $data['tanggal_input'] ? $data['tanggal_input'] : '-' ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-4 text-start fw-bolder fw-bolder">Deskripsi</div>
+                <div class="col-4 text-start fw-bolder">Deskripsi</div>
                 <div class="col-1">:</div>
                 <div class="col-7 text-start">
                     <form method="post" action="proses/editDeskripsi_kb.php">
-                        <textarea name="deskripsi" rows="10"
-                            cols="40"><?php echo $data['deskripsi'] ? ucwords($data['deskripsi']) : '-' ?></textarea>
-
-
-                        <input type="hidden" name="id" value="<?php echo $data['id']?> ">
-                        <input type="hidden" name="id_user" value="<?php echo $data['id_user']?> ">
+                        <textarea name="deskripsi" rows="10" cols="40"><?php echo $data['deskripsi'] ? ucwords($data['deskripsi']) : '-' ?></textarea>
+                        <input type="hidden" name="id" value="<?php echo $data['id']?>">
+                        <input type="hidden" name="id_user" value="<?php echo $data['id_user']?>">
                         <input type="submit">
                     </form>
                 </div>
             </div>
             <br><br>
-            <h1 style="
-                font-weight: bold;
-                ">
         </div>
     </div>
     <?php } else { ?>
@@ -157,32 +144,7 @@ if (isset($_GET['id'])) {
     <?php } ?>
     </div>
 
-     <!-- Modal Konfirmasi Aksi -->
-     <div class="modal fade" id="confirmUpdateModal" tabindex="-1" aria-labelledby="confirmUpdateModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <form class="modal-content" method="post" action="proses/edit_goldar_user_proses.php">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="confirmUpdateModalLabel">Konfirmasi</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <input type="hidden" value="<?php echo $id ?>" name="id" id="id">
-                    <input type="hidden" name="goldar" id="goldar">
-                    Apakah Anda yakin ingin mengedit golongan darah?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-warning">Iya</button>
-                </div>
-            </form>
-        </div>
-    </div>
-    <button style="display: none;" id="buttonAlert" type="button" class="btn btn-primary" data-bs-toggle="modal"
-        data-bs-target="#exampleModal"></button>
-
-    <?php
-                if (isset($_GET['success']) || isset($_GET['error'])) { ?>
+    <?php if (isset($proccessIsSuccess)) { ?>
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -199,21 +161,28 @@ if (isset($_GET['id'])) {
             </div>
         </div>
     </div>
-    <?php
-                }
-                ?>
+    <?php } ?>
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
-        integrity="sha384-B4gt1jrGC7Jh4x04U+XrGJ1AS5HTuCJO3uuTS5IhmztgYOSMYnABzA6YkAi9d8dB" crossorigin="anonymous">
-    </script>
+    <?php if (isset($_GET['success']) || isset($_GET['gagal'])) { ?>
+  <script>
+    window.onload = function () {
+      var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {
+        keyboard: false
+      });
+      myModal.show();
+    };
+  </script>
+  <?php } ?>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
 </body>
 
 </html>
 
 <?php
-    // Tutup statement dan koneksi di sini
     mysqli_stmt_close($stmt);
     mysqli_close($connect);
-} 
+}
 ?>
