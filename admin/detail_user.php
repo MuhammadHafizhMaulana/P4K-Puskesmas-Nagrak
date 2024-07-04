@@ -74,8 +74,31 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $sarpras = mysqli_fetch_assoc($sarprasresult);
     $kb = mysqli_fetch_assoc($kbresult);
 
-    if (isset($kesehatan['tanggal_input'])) {
-        $kesehatan['tanggal_input'] = formatTanggal($kesehatan['tanggal_input']);
+    // Memisahkan jenis penolong dan nama penolong
+    $penolong_data = isset($sarpras['penolong']) ? explode(' + ', $sarpras['penolong']) : ['', ''];
+    $jenis_penolong = trim($penolong_data[0]);
+    $nama_penolong = trim($penolong_data[1]);
+
+    $usg_data = isset($sarpras['usg']) ? explode(' + ', $sarpras['usg']) : ['', '', '', ''];
+    $status_usg = isset($usg_data[0]) ? $usg_data[0] : '';
+    $tanggal_usg = isset($usg_data[1]) ? $usg_data[1] : '';
+    $umur_usg = isset($usg_data[2]) ? $usg_data[2] : '';
+    $hasil_usg = isset($usg_data[3]) ? $usg_data[3] : '';
+
+    if ($sarpras) {
+        if (!empty($ksarpras['tanggal_usg'])) {
+            $kesehatan['tanggal_usg'] = formatTanggal($kesehatan['tanggal_usg']);
+        } else {
+            $kesehatan['tanggal_usg'] = '-';
+        }
+    }
+    
+    if ($kesehatan) {
+        if (!empty($kesehatan['tanggal_input'])) {
+            $kesehatan['tanggal_input'] = formatTanggal($kesehatan['tanggal_input']);
+        } else {
+            $kesehatan['tanggal_input'] = '-';
+        }
     }
     
     // Jika data pengguna ditemukan, tampilkan halaman
@@ -179,6 +202,9 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             <br><br>
             <div class="d-flex justify-content-between align-items-end">
                 <h3 class=" text-start m-0" style="font-weight: bold;">Detail Data Pembayaran</h3>
+                <a class="" href="pembiayaan_user.php?id=<?php echo $id_user; ?>">
+                    <button type="button" class="btn btn-primary">Edit</button>
+                </a>
             </div>
             <br>
             <div class="row">
@@ -202,6 +228,21 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                     <?php echo isset($pembiayaan['jenis_tabungan']) ? $pembiayaan['jenis_tabungan'] : '-' ?>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-5 text-start">Saldo Tabungan</div>
+                <div class="col-1">:</div>
+                <div class="col-6 text-start">
+                    <?php echo isset($pembiayaan['saldo_tabungan']) ? 'Rp. '. $pembiayaan['saldo_tabungan'] : '-' ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 text-start">Deskripsi</div>
+                <div class="col-1">:</div>
+                <div class="col-7 text-start">
+                    <textarea rows="10" cols="40"
+                        disabled><?php echo isset($pembiayaan['deskripsi']) ? ucwords($pembiayaan['deskripsi']) : '-' ?></textarea>
+                </div>
+            </div>
             <br><br>
             <div class="d-flex justify-content-between align-items-end">
                 <h3 class=" text-start m-0" style="font-weight: bold;">Detail Data Sarpras</h3>
@@ -215,14 +256,14 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 text-start">Nama Sopir</div>
+                <div class="col-5 text-start">Nama Supir</div>
                 <div class="col-1">:</div>
                 <div class="col-6 text-start">
                     <?php echo isset($sarpras['nama_supir']) ? $sarpras['nama_supir'] : '-' ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 text-start">No Sopir</div>
+                <div class="col-5 text-start">No Supir</div>
                 <div class="col-1">:</div>
                 <div class="col-6 text-start">
                     <?php echo isset($sarpras['no_supir']) ? $sarpras['no_supir'] : '-' ?>
@@ -236,7 +277,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 text-start">NO Pendamping</div>
+                <div class="col-5 text-start">No Pendamping</div>
                 <div class="col-1">:</div>
                 <div class="col-6 text-start">
                     <?php echo isset($sarpras['no_pendamping']) ? $sarpras['no_pendamping'] : '-' ?>
@@ -249,6 +290,49 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                     <?php echo isset($sarpras['tujuan']) ? $sarpras['tujuan'] : '-' ?>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-5 text-start">Jenis Penolong</div>
+                <div class="col-1">:</div>
+                <div class="col-6 text-start">
+                    <?php echo isset($jenis_penolong) ? $jenis_penolong : '-' ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5 text-start">Nama Penolong</div>
+                <div class="col-1">:</div>
+                <div class="col-6 text-start">
+                    <?php echo isset($nama_penolong) ? $nama_penolong : '-' ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5 text-start">USG</div>
+                <div class="col-1">:</div>
+                <div class="col-6 text-start">
+                    <?php echo isset($status_usg) ? $status_usg : '-' ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5 text-start">Tanggal USG</div>
+                <div class="col-1">:</div>
+                <div class="col-6 text-start">
+                    <?php echo isset($tanggal_usg) ? $tanggal_usg : '-' ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5 text-start">Umur Kandungan USG</div>
+                <div class="col-1">:</div>
+                <div class="col-6 text-start">
+                    <?php echo isset($umur_usg) ? $umur_usg : '-' ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5 text-start">Hasil USG</div>
+                <div class="col-1">:</div>
+                <div class="col-6 text-start">
+                    <?php echo isset($hasil_usg) ? $hasil_usg : '-' ?>
+                </div>
+            </div>
+            
             <br><br>
            
             <div class="d-flex justify-content-between align-items-end">
@@ -300,7 +384,6 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     } else {
         echo "Data pengguna tidak ditemukan.";
     }
-
     // Tutup statement
     mysqli_stmt_close($stmt);
     mysqli_stmt_close($stmt_pembiayaan);
