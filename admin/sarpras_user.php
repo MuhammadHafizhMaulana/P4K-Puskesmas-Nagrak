@@ -92,92 +92,92 @@ if (isset($_GET['id'])) {
         <div class="w-100">
             <div class="row">
                 <div class="col-12 col-sm-6 text-start fw-bolder fw-bolder">Nama Pasien</div>
-                <div class="col-1">:</div>
-                <div class="col-5 text-start">
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-5 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($ambil_nama['nama']) ? ucwords($ambil_nama['nama']) : "-"; ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12 col-sm-6 text-start fw-bolder fw-bolder">Transportasi</div>
-                <div class="col-1">:</div>
-                <div class="col-5 text-start">
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-5 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($data['transportasi']) ? ucwords($data['transportasi']) : "-"; ?>
                 </div>
             </div>
             <div class="row align-items-center">
                 <div class="col-12 col-sm-6 text-start fw-bolder fw-bolder">Nama Supir</div>
-                <div class="col-1">:</div>
-                <div class="col-5 text-start">
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-5 ms-2 mb-2 m-sm-0  text-start">
                 <?php echo $data['nama_supir'] ? $data['nama_supir'] : '-' ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12 col-sm-6 text-start fw-bolder fw-bolder">Nomor Supir</div>
-                <div class="col-1">:</div>
-                <div class="col-5 text-start">
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-5 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo $data['no_supir'] ? $data['no_supir'] : '-' ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12 col-sm-6 text-start fw-bolder fw-bolder">Nama Pendamping</div>
-                <div class="col-1">:</div>
-                <div class="col-5 text-start">
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-5 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo $data['nama_pendamping'] ? $data['nama_pendamping'] : '-' ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12 col-sm-6 text-start fw-bolder fw-bolder">Nomor Pendamping</div>
-                <div class="col-1">:</div>
-                <div class="col-5 text-start">
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-5 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo $data['no_pendamping'] ? ucwords($data['no_pendamping']) : '-' ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12 col-sm-6 text-start fw-bolder fw-bolder">Rumah Sakit Tujuan</div>
-                <div class="col-1">:</div>
-                <div class="col-5 text-start">
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-5 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo $data['tujuan'] ? ucwords($data['tujuan']) : '-' ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12 col-sm-6 text-start fw-bolder fw-bolder">Jenis Penolong</div>
-                <div class="col-1">:</div>
-                <div class="col-5 text-start">
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-5 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo $jenis_penolong ? ucwords($jenis_penolong) : '-' ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12 col-sm-6 text-start fw-bolder fw-bolder">Nama Penolong</div>
-                <div class="col-1">:</div>
-                <div class="col-5 text-start">
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-5 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo $nama_penolong ? ucwords($nama_penolong) : '-' ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12 col-sm-6 text-start fw-bolder fw-bolder">USG</div>
-                <div class="col-1">:</div>
-                <div class="col-5 text-start">
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-5 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo $status_usg ? ucwords($status_usg) : '-' ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12 col-sm-6 text-start fw-bolder fw-bolder">Tanggal USG</div>
-                <div class="col-1">:</div>
-                <div class="col-5 text-start">
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-5 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo $tanggal_usg ? ucwords($tanggal_usg) : '-' ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12 col-sm-6 text-start fw-bolder fw-bolder">Umur Kehamilan saat USG</div>
-                <div class="col-1">:</div>
-                <div class="col-5 text-start">
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-5 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo $umur_usg ? ucwords($umur_usg) .' Minggu' : '-' ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12 col-sm-6 text-start fw-bolder fw-bolder">Kondisi USG</div>
-                <div class="col-1">:</div>
-                <div class="col-5 text-start">
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-5 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo $hasil_usg ? ucwords($hasil_usg) : '-' ?>
                 </div>
             </div>
@@ -187,7 +187,9 @@ if (isset($_GET['id'])) {
         <?php } ?>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-B4gt1jrGC7Jh4x04U+XrGJ1AS5HTuCJO3uuTS5IhmztgYOSMYnABzA6YkAi9d8dB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
 </body>
 </html>
 

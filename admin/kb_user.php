@@ -96,36 +96,36 @@ if (isset($_GET['id'])) {
         <div class="w-100">
             <div class="row">
                 <div class="col-12 col-sm-5 text-start fw-bolder">Nama</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($ambil_nama['nama']) ? ucwords($ambil_nama['nama']) : "-"; ?>
                 </div>
             </div>
             <div class="row align-items-center">
                 <div class="col-12 col-sm-5 text-start fw-bolder">Tujuan KB</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo $data['tujuan'] ? $data['tujuan'] : '-' ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12 col-sm-5 text-start fw-bolder">Jenis KB</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo $data['jenis'] ? $data['jenis'] : '-' ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12 col-sm-5 text-start fw-bolder">Tanggal Input</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo $data['tanggal_input'] ? $data['tanggal_input'] : '-' ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-4 text-start fw-bolder">Deskripsi</div>
-                <div class="col-1">:</div>
-                <div class="col-7 text-start">
+                <div class="col-12 col-sm-4 text-start fw-bolder">Deskripsi</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-7 ms-2 mb-2 m-sm-0  text-start">
                     <form method="post" action="proses/editDeskripsi_kb.php">
                         <textarea name="deskripsi" rows="10" cols="40"><?php echo $data['deskripsi'] ? ucwords($data['deskripsi']) : '-' ?></textarea>
                         <input type="hidden" name="id" value="<?php echo $data['id']?>">

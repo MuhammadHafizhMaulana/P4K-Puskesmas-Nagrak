@@ -159,9 +159,9 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 </a>
             </div>
             <div class="row">
-                <div class="col-5 text-start">Nama</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Nama</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php
                         if (mysqli_num_rows($nameResult) > 0) {
                             // Ambil data pengguna
@@ -172,30 +172,30 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 text-start">Goldar</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Goldar</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($kesehatan['goldar']) ? $kesehatan['goldar'] : '-' ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 text-start">Usia Kandungan</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Usia Kandungan</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($kesehatan['usia_kandungan']) ? $kesehatan['usia_kandungan'] : '-' ?> Minggu
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 text-start">Status Goldar</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Status Goldar</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($kesehatan['status']) ? ucwords($kesehatan['status']) : '-' ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 text-start">Terakhir User Update</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Terakhir User Update</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($kesehatan['tanggal_input']) ? ucwords($kesehatan['tanggal_input']) : '-' ?>
                 </div>
             </div>
@@ -208,37 +208,37 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             </div>
             <br>
             <div class="row">
-                <div class="col-5 text-start">Jenis Pembayaran</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Jenis Pembayaran</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($pembiayaan['jenis_pembayaran']) ? $pembiayaan['jenis_pembayaran'] : '-' ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 text-start">Status</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Status</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($pembiayaan['status']) ? $pembiayaan['status'] : '-' ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 text-start">Jenis Tabungan</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Jenis Tabungan</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($pembiayaan['jenis_tabungan']) ? $pembiayaan['jenis_tabungan'] : '-' ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 text-start">Saldo Tabungan</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Saldo Tabungan</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($pembiayaan['saldo_tabungan']) ? 'Rp. '. $pembiayaan['saldo_tabungan'] : '-' ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-4 text-start">Deskripsi</div>
-                <div class="col-1">:</div>
-                <div class="col-7 text-start">
+                <div class="col-12 col-sm-4 text-start fw-bolder fw-bolder">Deskripsi</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-7 ms-2 mb-2 m-sm-0  text-start">
                     <textarea rows="10" cols="40"
                         disabled><?php echo isset($pembiayaan['deskripsi']) ? ucwords($pembiayaan['deskripsi']) : '-' ?></textarea>
                 </div>
@@ -249,86 +249,86 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             </div>
             <br>
             <div class="row">
-                <div class="col-5 text-start">Transportasi</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Transportasi</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($sarpras['transportasi']) ? $sarpras['transportasi'] : '-' ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 text-start">Nama Supir</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Nama Supir</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($sarpras['nama_supir']) ? $sarpras['nama_supir'] : '-' ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 text-start">No Supir</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">No Supir</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($sarpras['no_supir']) ? $sarpras['no_supir'] : '-' ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 text-start">Nama Pendamping</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Nama Pendamping</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($sarpras['nama_pendamping']) ? $sarpras['nama_pendamping'] : '-' ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 text-start">No Pendamping</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">No Pendamping</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($sarpras['no_pendamping']) ? $sarpras['no_pendamping'] : '-' ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 text-start">Rumah Sakit Tujuan</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Rumah Sakit Tujuan</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($sarpras['tujuan']) ? $sarpras['tujuan'] : '-' ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 text-start">Jenis Penolong</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Jenis Penolong</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($jenis_penolong) ? $jenis_penolong : '-' ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 text-start">Nama Penolong</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Nama Penolong</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($nama_penolong) ? $nama_penolong : '-' ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 text-start">USG</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">USG</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($status_usg) ? $status_usg : '-' ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 text-start">Tanggal USG</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Tanggal USG</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($tanggal_usg) ? $tanggal_usg : '-' ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 text-start">Umur Kandungan USG</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Umur Kandungan USG</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($umur_usg) ? $umur_usg : '-' ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 text-start">Hasil USG</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Hasil USG</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($hasil_usg) ? $hasil_usg : '-' ?>
                 </div>
             </div>
@@ -342,30 +342,30 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             <br>
 
             <div class="row">
-                <div class="col-5 text-start">Tujuan</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Tujuan</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($kb['tujuan']) ? $kb['tujuan'] : '-' ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 text-start">Metode</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Metode</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($kb['jenis']) ? $kb['jenis'] : '-' ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 text-start">Tanggal Input</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Tanggal Input</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($kb['tanggal_input']) ? $kb['tanggal_input'] : '-' ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-4 text-start">Deskripsi</div>
-                <div class="col-1">:</div>
-                <div class="col-7 text-start">
+                <div class="col-12 col-sm-4 text-start fw-bolder fw-bolder">Deskripsi</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-7 ms-2 mb-2 m-sm-0  text-start">
                     <textarea rows="10" cols="40"
                         disabled><?php echo isset($kb['deskripsi']) ? ucwords($kb['deskripsi']) : '-' ?></textarea>
                 </div>

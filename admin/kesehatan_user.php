@@ -123,16 +123,16 @@ if (isset($_GET['id'])) {
         <br>
         <div class="w-100">
             <div class="row">
-                <div class="col-5 text-start">Nama</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-12 col-sm-5 text-start fw-bolder">Nama</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                 <?php echo isset($ambil_nama['nama']) ? ucwords($ambil_nama['nama']) : "-"; ?>
                 </div>
             </div>
             <div class="row align-items-center">
-                <div class="col-5 text-start">Goldar</div>
-                <div class="col-1">:</div>
-                <div class="col-6">
+                <div class="col-12 col-sm-5 text-start fw-bolder">Goldar</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <form class="text-start d-flex align-items-center p-0">
                         <div class="form-group m-0">
                             <select id="goldarGet" name="goldarGet" class="form-select" disabled required>
@@ -155,37 +155,37 @@ if (isset($_GET['id'])) {
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 text-start">Usia Kandungan</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-12 col-sm-5 text-start fw-bolder">Usia Kandungan</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo $data['usia_kandungan'] ? $data['usia_kandungan'] .'Minggu' : '-' ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 text-start">Status Goldar</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-12 col-sm-5 text-start fw-bolder">Status Goldar</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo $data['status'] ? ucwords($data['status']) : '-' ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 text-start">Terakhir User Update</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-12 col-sm-5 text-start fw-bolder">Terakhir User Update</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo $data['tanggal_input'] ? ucwords($data['tanggal_input']) : '-' ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 text-start">Taksiran Persalinan</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-12 col-sm-5 text-start fw-bolder">Taksiran Persalinan</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo $data['taksiran_persalinan'] ? ucwords($data['taksiran_persalinan']) : '-' ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 text-start">HPHT</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-12 col-sm-5 text-start fw-bolder">HPHT</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo $data['hpht'] ? ucwords($data['hpht']) : '-' ?>
                 </div>
             </div>

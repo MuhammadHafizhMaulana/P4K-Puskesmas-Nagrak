@@ -115,36 +115,36 @@ if (isset($_GET['id'])) {
         <div class="w-100">
             <div class="row">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Nama</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($ambil_nama['nama']) ? ucwords($ambil_nama['nama']) : "-"; ?>
                 </div>
             </div>
             <div class="row align-items-center">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Jenis Pembayaran</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo $data['jenis_pembayaran'] ? $data['jenis_pembayaran'] : '-' ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Saldo Tabungan</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo $data['saldo_tabungan'] ? $data['saldo_tabungan'] : '-' ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Nomor BPJS</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo $data['nomor_bpjs'] ? $data['nomor_bpjs'] : '-' ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Foto KTP</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php if ($ktp_path) { ?>
                         <img src="<?php echo $ktp_path; ?>" alt="Foto KTP User" style="width: 150px; height: auto;">
                     <?php } else { ?>
@@ -154,8 +154,8 @@ if (isset($_GET['id'])) {
             </div>
             <div class="row">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Foto KK</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php if ($kk_path) { ?>
                         <img src="<?php echo $kk_path; ?>" alt="Foto KK User" style="width: 150px; height: auto;">
                     <?php } else { ?>
@@ -165,8 +165,8 @@ if (isset($_GET['id'])) {
             </div>
             <div class="row">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Pas Foto</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php if ($pas_foto_path) { ?>
                         <img src="<?php echo $pas_foto_path; ?>" alt="Pas Foto User" style="width: 150px; height: auto;">
                     <?php } else { ?>
@@ -176,8 +176,8 @@ if (isset($_GET['id'])) {
             </div>
             <div class="row">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Rekomendasi</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php if ($rekomendasi_path) { ?>
                         <img src="<?php echo $rekomendasi_path; ?>" alt="Rekomendasi User" style="width: 150px; height: auto;">
                     <?php } else { ?>
@@ -187,8 +187,8 @@ if (isset($_GET['id'])) {
             </div>
             <div class="row">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Rujukan</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php if ($rujukan_path) { ?>
                         <img src="<?php echo $rujukan_path; ?>" alt="Rujukan User" style="width: 150px; height: auto;">
                     <?php } else { ?>
@@ -198,8 +198,8 @@ if (isset($_GET['id'])) {
             </div>
             <div class="row">
                 <div class="col-4 text-start fw-bolder fw-bolder">Deskripsi</div>
-                <div class="col-1">:</div>
-                <div class="col-7 text-start">
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-7 ms-2 mb-2 m-sm-0  text-start">
                     <form method="post" action="proses/editDeskripsi_pembiayaan.php">
                         <textarea name="deskripsi" rows="10"
                             cols="40"><?php echo $data['deskripsi'] ? ucwords($data['deskripsi']) : '-' ?></textarea>
