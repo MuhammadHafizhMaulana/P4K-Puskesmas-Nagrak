@@ -75,15 +75,15 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $kb = mysqli_fetch_assoc($kbresult);
 
     // Memisahkan jenis penolong dan nama penolong
-    $penolong_data = isset($sarpras['penolong']) ? explode(' + ', $sarpras['penolong']) : ['', ''];
+    $penolong_data = isset($sarpras['penolong']) ? explode(' + ', $sarpras['penolong']) : ['-', '-'];
     $jenis_penolong = trim($penolong_data[0]);
     $nama_penolong = trim($penolong_data[1]);
 
-    $usg_data = isset($sarpras['usg']) ? explode(' + ', $sarpras['usg']) : ['', '', '', ''];
-    $status_usg = isset($usg_data[0]) ? $usg_data[0] : '';
-    $tanggal_usg = isset($usg_data[1]) ? $usg_data[1] : '';
-    $umur_usg = isset($usg_data[2]) ? $usg_data[2] : '';
-    $hasil_usg = isset($usg_data[3]) ? $usg_data[3] : '';
+    $usg_data = isset($sarpras['usg']) ? explode(' + ', $sarpras['usg']) : ['-', '-', '-', '-'];
+    $status_usg = isset($usg_data[0]) ? $usg_data[0] : '-';
+    $tanggal_usg = isset($usg_data[1]) ? $usg_data[1] : '-';
+    $umur_usg = isset($usg_data[2]) ? $usg_data[2] : '-';
+    $hasil_usg = isset($usg_data[3]) ? $usg_data[3] : '-';
 
     if ($sarpras) {
         if (!empty($ksarpras['tanggal_usg'])) {
@@ -101,6 +101,16 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         }
     }
     
+    if ($kesehatan['status'] != 'diketahui') {
+        $kesehatan['status'] = '-';
+    }
+
+    if (is_null($kesehatan['goldar']) || $kesehatan['goldar'] === '') {
+        $kesehatan['goldar'] = '-';
+    }
+    
+    
+
     // Jika data pengguna ditemukan, tampilkan halaman
     if ($kesehatan || $pembiayaan || $sarpras || $kb) {
 ?>
@@ -182,7 +192,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Usia Kandungan</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                    <?php echo isset($kesehatan['usia_kandungan']) ? $kesehatan['usia_kandungan'] : '-' ?> Minggu
+                    <?php echo isset($kesehatan['usia_kandungan']) ? $kesehatan['usia_kandungan'].' Minggu' : '-' ?>
                 </div>
             </div>
             <div class="row">
@@ -215,20 +225,6 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 </div>
             </div>
             <div class="row">
-                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Status</div>
-                <div class="col-1 d-none d-sm-block">:</div>
-                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                    <?php echo isset($pembiayaan['status']) ? $pembiayaan['status'] : '-' ?>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Jenis Tabungan</div>
-                <div class="col-1 d-none d-sm-block">:</div>
-                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                    <?php echo isset($pembiayaan['jenis_tabungan']) ? $pembiayaan['jenis_tabungan'] : '-' ?>
-                </div>
-            </div>
-            <div class="row">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Saldo Tabungan</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
@@ -236,11 +232,10 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 </div>
             </div>
             <div class="row">
-                <div class="col-12 col-sm-4 text-start fw-bolder fw-bolder">Deskripsi</div>
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Deskripsi</div>
                 <div class="col-1 d-none d-sm-block">:</div>
-                <div class="col-12 col-sm-7 ms-2 mb-2 m-sm-0  text-start">
-                    <textarea rows="10" cols="40"
-                        disabled><?php echo isset($pembiayaan['deskripsi']) ? ucwords($pembiayaan['deskripsi']) : '-' ?></textarea>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
+                    <?php echo isset($pembiayaan['deskripsi']) ? ucwords($pembiayaan['deskripsi']) : '-' ?>
                 </div>
             </div>
             <br><br>
@@ -290,7 +285,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                     <?php echo isset($sarpras['tujuan']) ? $sarpras['tujuan'] : '-' ?>
                 </div>
             </div>
-            <div class="row">
+                <div class="row">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Jenis Penolong</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
@@ -363,11 +358,10 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 </div>
             </div>
             <div class="row">
-                <div class="col-12 col-sm-4 text-start fw-bolder fw-bolder">Deskripsi</div>
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Deskripsi</div>
                 <div class="col-1 d-none d-sm-block">:</div>
-                <div class="col-12 col-sm-7 ms-2 mb-2 m-sm-0  text-start">
-                    <textarea rows="10" cols="40"
-                        disabled><?php echo isset($kb['deskripsi']) ? ucwords($kb['deskripsi']) : '-' ?></textarea>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
+                    <?php echo isset($kb['deskripsi']) ? ucwords($kb['deskripsi']) : '-' ?>
                 </div>
             </div>
         </div>

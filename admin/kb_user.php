@@ -7,8 +7,8 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login_admin') {
 
 include '../proses/koneksi.php';
 
-if (isset($_GET['id'])) {
-    $id_user = $_GET['id'];
+if (isset($_GET['id_user'])) {
+    $id_user = $_GET['id_user'];
 
     $query = "SELECT * FROM kb WHERE id_user = ?";
     $stmt = mysqli_prepare($connect, $query);
