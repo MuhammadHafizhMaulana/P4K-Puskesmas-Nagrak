@@ -28,31 +28,6 @@ if (isset($_GET['id'])) {
     $nameResult = mysqli_stmt_get_result($stmt);
     $ambil_nama = mysqli_fetch_assoc($nameResult);
 
-    // Path ke foto
-    $kk = "../data_user/kk/kk_$id";
-    $ktp = "../data_user/ktp/ktp_$id";
-    $pas_foto = "../data_user/pas_foto/pas_foto_$id";
-    $rekomendasi = "../data_user/rekomendasi/rekomendasi_$id";
-    $rujukan = "../rujukan/rujukan/rujukan_$id";
-
-    // Function to check and return the correct image path
-    function getImagePath($basePath) {
-        $extensions = ['jpg', 'jpeg', 'png'];
-        foreach ($extensions as $ext) {
-            $filePath = "$basePath.$ext";
-            if (file_exists($filePath)) {
-                return $filePath;
-            }
-        }
-        return null;
-    }
-
-    $kk_path = getImagePath($kk);
-    $ktp_path = getImagePath($ktp);
-    $pas_foto_path = getImagePath($pas_foto);
-    $rekomendasi_path = getImagePath($rekomendasi);
-    $rujukan_path = getImagePath($rujukan);
-
     $proccessIsSuccess = null;
     if (isset($_GET['success'])) {
         $proccessIsSuccess = true;
@@ -144,9 +119,15 @@ if (isset($_GET['id'])) {
             <div class="row">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Foto KTP</div>
                 <div class="col-1 d-none d-sm-block">:</div>
-                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                    <?php if ($ktp_path) { ?>
-                        <img src="<?php echo $ktp_path; ?>" alt="Foto KTP User" style="width: 150px; height: auto;">
+                <div class="col-12 col-sm-6 ms-2 mb-2 ms-sm-0  text-start">
+                    <?php if ($data['ktp']) { ?>
+                        <button style="display:contents" onclick="openPhotoDialog('ktp', `<?= $data['id_user'] ?>`)" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="border: none; padding: 0">
+                            <div id="photoKTP" class="boxPhoto rounded-3 border border-2 border-primary" style='background-image: url("./proses/getUserKTP.php?id=<?= $data["id_user"] ?>");'>
+                                <div class="photoDescription w-100 h-100 rounded-2">
+                                    <h4 class="text-white">Klik untuk melihat detail</h4>
+                                </div>
+                            </div>
+                        </button>
                     <?php } else { ?>
                         Tidak ada foto
                     <?php } ?>
@@ -155,9 +136,15 @@ if (isset($_GET['id'])) {
             <div class="row">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Foto KK</div>
                 <div class="col-1 d-none d-sm-block">:</div>
-                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                    <?php if ($kk_path) { ?>
-                        <img src="<?php echo $kk_path; ?>" alt="Foto KK User" style="width: 150px; height: auto;">
+                <div class="col-12 col-sm-6 ms-2 mb-2 ms-sm-0  text-start">
+                    <?php if ($data['kk']) { ?>
+                        <button style="display:contents" onclick="openPhotoDialog('kk', `<?= $data['id_user'] ?>`)" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="border: none; padding: 0">
+                            <div id="photoKTP" class="boxPhoto rounded-3 border border-2 border-primary" style='background-image: url("./proses/getUserKK.php?id=<?= $data["id_user"] ?>");'>
+                                <div class="photoDescription w-100 h-100 rounded-2">
+                                    <h4 class="text-white">Klik untuk melihat detail</h4>
+                                </div>
+                            </div>
+                        </button>
                     <?php } else { ?>
                         Tidak ada foto
                     <?php } ?>
@@ -166,9 +153,15 @@ if (isset($_GET['id'])) {
             <div class="row">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Pas Foto</div>
                 <div class="col-1 d-none d-sm-block">:</div>
-                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                    <?php if ($pas_foto_path) { ?>
-                        <img src="<?php echo $pas_foto_path; ?>" alt="Pas Foto User" style="width: 150px; height: auto;">
+                <div class="col-12 col-sm-6 ms-2 mb-2 ms-sm-0  text-start">
+                    <?php if ($data['pas_foto']) { ?>
+                        <button style="display:contents" onclick="openPhotoDialog('pas_foto', `<?= $data['id_user'] ?>`)" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="border: none; padding: 0">
+                            <div id="photoKTP" class="boxPhoto rounded-3 border border-2 border-primary" style='background-image: url("./proses/getUserPasFoto.php?id=<?= $data["id_user"] ?>");'>
+                                <div class="photoDescription w-100 h-100 rounded-2">
+                                    <h4 class="text-white">Klik untuk melihat detail</h4>
+                                </div>
+                            </div>
+                        </button>
                     <?php } else { ?>
                         Tidak ada foto
                     <?php } ?>
@@ -177,9 +170,15 @@ if (isset($_GET['id'])) {
             <div class="row">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Rekomendasi</div>
                 <div class="col-1 d-none d-sm-block">:</div>
-                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                    <?php if ($rekomendasi_path) { ?>
-                        <img src="<?php echo $rekomendasi_path; ?>" alt="Rekomendasi User" style="width: 150px; height: auto;">
+                <div class="col-12 col-sm-6 ms-2 mb-2 ms-sm-0  text-start">
+                    <?php if ($data['rekomendasi']) { ?>
+                        <button style="display:contents" onclick="openPhotoDialog('rekomendasi', `<?= $data['id_user'] ?>`)" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="border: none; padding: 0">
+                            <div id="photoKTP" class="boxPhoto rounded-3 border border-2 border-primary" style='background-image: url("./proses/getUserRekomendasi.php?id=<?= $data["id_user"] ?>");'>
+                                <div class="photoDescription w-100 h-100 rounded-2">
+                                    <h4 class="text-white">Klik untuk melihat detail</h4>
+                                </div>
+                            </div>
+                        </button>
                     <?php } else { ?>
                         Tidak ada foto
                     <?php } ?>
@@ -188,26 +187,51 @@ if (isset($_GET['id'])) {
             <div class="row">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Rujukan</div>
                 <div class="col-1 d-none d-sm-block">:</div>
-                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                    <?php if ($rujukan_path) { ?>
-                        <img src="<?php echo $rujukan_path; ?>" alt="Rujukan User" style="width: 150px; height: auto;">
+                <div class="col-12 col-sm-6 ms-2 mb-2 ms-sm-0  text-start">
+                    <?php if ($data['rujukan']) { ?>
+                        <button style="display:contents" onclick="openPhotoDialog('rujukan', `<?= $data['id_user'] ?>`)" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="border: none; padding: 0">
+                            <div id="photoKTP" class="boxPhoto rounded-3 border border-2 border-primary" style='background-image: url("./proses/getUserRujukan.php?id=<?= $data["id_user"] ?>");'>
+                                <div class="photoDescription w-100 h-100 rounded-2">
+                                    <h4 class="text-white">Klik untuk melihat detail</h4>
+                                </div>
+                            </div>
+                        </button>
                     <?php } else { ?>
                         Tidak ada foto
                     <?php } ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-4 text-start fw-bolder fw-bolder">Deskripsi</div>
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Hasil Konsultasi</div>
                 <div class="col-1 d-none d-sm-block">:</div>
-                <div class="col-12 col-sm-7 ms-2 mb-2 m-sm-0  text-start">
-                    <form method="post" action="proses/editDeskripsi_pembiayaan.php">
-                        <textarea name="deskripsi" rows="10"
-                            cols="40"><?php echo $data['deskripsi'] ? ucwords($data['deskripsi']) : '-' ?></textarea>
-
-
+                <div class="col-12 col-sm-6 ms-2 mb-2 ms-sm-0  text-start">
+                    <form method="post" action="proses/editDeskripsi_pembiayaan.php" style="max-width: -webkit-fill-available;">
+                        <textarea <?= $data['deskripsi'] ? 'disabled' : '' ?> id="deskripsi" oninput="cekFieldHasilKonsultasi()" name="deskripsi" class="form-control" style="width: 100%; height: 150px" style="width: -webkit-fill-available;" placeholder="masukan hasil konsultasi disini"><?php echo $data['deskripsi'] ? ucwords($data['deskripsi']) : '' ?></textarea>
                         <input type="hidden" name="id" value="<?php echo $data['id']?> ">
                         <input type="hidden" name="id_user" value="<?php echo $data['id_user']?> ">
-                        <input type="submit">
+                        <div class="w-100 d-flex justify-content-center mt-1">
+                            <button id="buttonUpdateKonsultasi" type="button" <?= $data['deskripsi'] ? 'onclick="editHasilKonsultasi()"' : 'disabled data-bs-toggle="modal" data-bs-target="#confirmUpdateModal"' ?> class="btn btn-primary">
+                                <p class="m-0" id="buttonHasilKonsulName"><?= $data['deskripsi'] ? 'Edit' : 'Input'  ?></p>
+                                <p class="m-0">Hasil Konsultasi</p>
+                            </button>
+                        </div>
+                        <div class="modal fade" id="confirmUpdateModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Konfirmasi</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Apakah anda yakin ingin menyimpan hasil konsultasi?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                    <button onclick="openSpinner()" type="submit" class="btn btn-warning" data-bs-dismiss="modal">Iya</button>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -219,6 +243,8 @@ if (isset($_GET['id'])) {
         <?php } ?>
     </div>
 
+
+    <!-- Modal -->
     <?php if (isset($proccessIsSuccess)) { ?>
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -238,6 +264,22 @@ if (isset($_GET['id'])) {
     </div>
     <?php } ?>
 
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog  modal-dialog-centered modal-photo-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="titlePhotoDialog"></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div style=" overflow-x: scroll; width: 100%; max-width: min-content;">
+                  <img style="height: 70vh;" id="contentPhotoDialog" alt="" srcset="">
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
     <?php if (isset($_GET['success']) || isset($_GET['gagal'])) { ?>
   <script>
     window.onload = function () {
@@ -251,6 +293,7 @@ if (isset($_GET['id'])) {
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="../js/admin_Pembiayaan.js"></script>
 
 </body>
 

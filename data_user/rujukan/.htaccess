@@ -1,7 +1,8 @@
 RewriteEngine On
 
-# Blokir akses langsung ke semua file dalam folder ktp
+# Blokir akses langsung ke semua file dalam folder ktp getUserRujukan
 RewriteCond %{REQUEST_URI} !^/check_rujukan.php$ [NC]
+RewriteCond %{REQUEST_URI} !^/getUserRujukan.php$ [NC]
 RewriteRule .* - [F]
 
 # Logging (jika didukung oleh server)

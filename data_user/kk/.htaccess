@@ -2,6 +2,7 @@ RewriteEngine On
 
 # Blokir akses langsung ke semua file dalam folder ktp
 RewriteCond %{REQUEST_URI} !^/check_kk.php$ [NC]
+RewriteCond %{REQUEST_URI} !^/getUserKK.php$ [NC]
 RewriteRule .* - [F]
 
 # Logging (jika didukung oleh server)

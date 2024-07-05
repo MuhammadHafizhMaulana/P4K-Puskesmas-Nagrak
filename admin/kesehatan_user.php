@@ -202,7 +202,7 @@ if (isset($_GET['id'])) {
     </div>
 
 
-    <!-- Modal Konfirmasi Hapus -->
+    <!-- Modal Konfirmasi Edit -->
     <div class="modal fade" id="confirmUpdateModal" tabindex="-1" aria-labelledby="confirmUpdateModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
