@@ -84,7 +84,7 @@ if (isset($_GET['id'])) {
     <title>Edit User</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/adminKesehatanUser&DetailPendonor.css">
+    <link rel="stylesheet" href="../css/adminKesehatanUserDanDetailPendonor.css">
 </head>
 
 <body>
@@ -218,7 +218,7 @@ if (isset($_GET['id'])) {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-warning">Iya</button>
+                    <button type="submit" class="btn btn-warning" onclick="openSpinner()" data-bs-dismiss="modal">Iya</button>
                 </div>
             </form>
         </div>
@@ -248,7 +248,7 @@ if (isset($_GET['id'])) {
                 }
                 ?>
 
-    <script src="../js/adminKesehatanUser&DetailPendonor.js"></script>
+    <script src="../js/adminKesehatanUserDanDetailPendonor.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
