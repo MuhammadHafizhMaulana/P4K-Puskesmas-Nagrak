@@ -29,11 +29,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Memeriksa apakah eksekusi berhasil
         if ($result) {
             // Redirect dengan parameter sukses
-            header("Location: ../kb_user.php?id=" . urlencode($id_user) . "&success=update_successful");
+            header("Location: ../kb_user.php?id_user=" . urlencode($id_user) . "&success=update_successful");
             exit();
         } else {
             // Redirect dengan parameter gagal
-            header("Location: ../kb_user.php?id=" . urlencode($id_user) . "&gagal=update_gagal");
+            header("Location: ../kb_user.php?id_user=" . urlencode($id_user) . "&gagal=update_gagal");
             exit();
         }
 
