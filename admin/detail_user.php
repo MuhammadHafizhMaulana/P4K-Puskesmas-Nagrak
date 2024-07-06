@@ -83,6 +83,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $pembiayaan = mysqli_fetch_assoc($pembiayaanresult);
     $sarpras = mysqli_fetch_assoc($sarprasresult);
     $kb = mysqli_fetch_assoc($kbresult);
+    $ambil_nama = mysqli_fetch_assoc($nameResult);
     
 
     // Memisahkan jenis penolong dan nama penolong
@@ -155,6 +156,11 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             display: none;
         }
 
+        .show-on-print-nama-bawah{
+                display: none;
+        }
+
+
         @media print {
             .hide-on-print {
                 display: none !important;
@@ -179,6 +185,14 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 height: auto; /* Biarkan tinggi mengikuti proporsi aslinya */
                 margin-left: 0;
                 margin-right: 0;
+            }
+
+            .show-on-print-nama-atas{
+                display: none;
+            }
+
+            .show-on-print-nama-bawah{
+                display: flex;
             }
 
             .br-print {
@@ -237,6 +251,13 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 </a>
             </div>
             <br class="hide-on-print">
+            <div class="row show-on-print-nama-atas">
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Nama</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
+                <?php echo isset($ambil_nama['nama']) ? $ambil_nama['nama'] : '-' ?>
+                </div>
+            </div>
             <div class="row hide-on-print">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Jenis Pembayaran</div>
                 <div class="col-1 d-none d-sm-block">:</div>
@@ -360,17 +381,11 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 </a>
             </div>
             <br class="hide-on-print">
-            <div class="row show-on-print">
+            <div class="row show-on-print-nama-bawah">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Nama</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                    <?php
-                        if (mysqli_num_rows($nameResult) > 0) {
-                            // Ambil data pengguna
-                            $ambil_nama = mysqli_fetch_assoc($nameResult);
-                            echo isset($ambil_nama['nama']) ? ucwords($ambil_nama['nama']) : "-";
-                        }
-                    ?>
+                <?php echo isset($ambil_nama['nama']) ? $ambil_nama['nama'] : '-' ?>
                 </div>
             </div>
             <div class="row show-on-print">
