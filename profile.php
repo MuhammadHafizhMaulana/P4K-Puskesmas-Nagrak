@@ -56,7 +56,7 @@
     </nav>
     <div id="formDonorDarah">
         <?php if ($pembiayaan) { ?>
-            <img style="width: 70%; max-width: 250px" class="border border-2 border-primary rounded-circle" src="./proses/check_pas_foto.php" alt="Pas Foto">
+            <div  id="profilePhoto" style="width: 70%; max-width: 250px; background-image: url('./proses/check_pas_foto.php'); background-size: cover; background-position: center;" class="border border-2 border-primary rounded-circle"></div>
         <?php } ?>
         <br>
         <div class="w-100">
@@ -85,6 +85,21 @@
         </div>
     </div>
     
+  <script>
+    function updateProfilePhotoHeight() {
+        var items = document.getElementById('profilePhoto');
+        items.style.height = items.offsetWidth * 1 + 'px';
+        console.log('tes')
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        updateProfilePhotoHeight()
+    })
+
+    window.addEventListener('resize', () => {
+        updateProfilePhotoHeight();
+    })
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
   </script>

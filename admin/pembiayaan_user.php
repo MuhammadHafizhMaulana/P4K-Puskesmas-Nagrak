@@ -106,16 +106,18 @@ if (isset($_GET['id'])) {
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Saldo Tabungan</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                    <?php echo $data['saldo_tabungan'] ? $data['saldo_tabungan'] : '-' ?>
+                    <?php echo $data['saldo_tabungan'] ? 'Rp. '. $data['saldo_tabungan'] : '-' ?>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Nomor BPJS</div>
-                <div class="col-1 d-none d-sm-block">:</div>
-                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                    <?php echo $data['nomor_bpjs'] ? $data['nomor_bpjs'] : '-' ?>
+            <?php if ($data['jenis_pembayaran'] == "BPJS Aktif") { ?>
+                <div class="row">
+                    <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Nomor BPJS</div>
+                    <div class="col-1 d-none d-sm-block">:</div>
+                    <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
+                        <?php echo $data['nomor_bpjs'] ? $data['nomor_bpjs'] : '-' ?>
+                    </div>
                 </div>
-            </div>
+            <?php } ?>
             <div class="row">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Foto KTP</div>
                 <div class="col-1 d-none d-sm-block">:</div>
