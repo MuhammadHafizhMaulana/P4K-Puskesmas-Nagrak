@@ -105,7 +105,7 @@ if (isset($_GET['id'])) {
                 <div class="col-12 col-sm-5 text-start fw-bolder">Tujuan KB</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                    <?php echo $data['tujuan'] ? ucwords($data['tujuan']) : '-' ?>
+                    <?php echo $data['tujuan'] ? ucwords($data['tujuan']) : '-' ?> Kehamilan
                 </div>
             </div>
             <div class="row">

@@ -96,7 +96,7 @@ if (isset($_GET['id'])) {
                 </div>
             </div>
             <div class="row align-items-center">
-                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Jenis Pembayaran</div>
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Jenis Pembiayaan</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo $data['jenis_pembayaran'] ? $data['jenis_pembayaran'] : '-' ?>

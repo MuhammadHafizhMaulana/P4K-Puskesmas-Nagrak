@@ -89,7 +89,6 @@
     function updateProfilePhotoHeight() {
         var items = document.getElementById('profilePhoto');
         items.style.height = items.offsetWidth * 1 + 'px';
-        console.log('tes')
     }
 
     document.addEventListener('DOMContentLoaded', () => {
