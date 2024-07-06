@@ -151,9 +151,13 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             display: none;
         }
 
+        .br-print {
+            display: none;
+        }
+
         @media print {
             .hide-on-print {
-                display: none;
+                display: none !important;
             }
 
             .show-print {
@@ -163,14 +167,22 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             .hide-page-title {
                 display: none;
             }
+            
+            .pasFoto{
+                display: flex;
+                justify-content: center; /* Untuk menempatkan elemen di tengah secara horizontal */
+                align-items: center; /* Untuk menempatkan elemen di tengah secara vertikal */
+            }
 
             .show-on-print-foto {
-                position: absolute;
-                bottom: 20px; /* Menempatkan elemen 20px dari bagian bawah halaman */
-                left: 50%;
-                transform: translateX(-50%);
-                width: 350px; /* Sesuaikan lebar foto sesuai kebutuhan */
+                width: 250px; /* Sesuaikan lebar foto sesuai kebutuhan */
                 height: auto; /* Biarkan tinggi mengikuti proporsi aslinya */
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            .br-print {
+            display: block;
             }
 
             @page {
@@ -215,10 +227,132 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     </nav>
     <div id="boxKesehatanUser">
         <h1 style="font-weight: bold;" class="hide-on-print">Detail Data User</h1>
-        <h1 style="font-weight: bold;" class="show-print">Print Data User</h1>
         <br class="hide-on-print"><br class="hide-on-print">
         <br class="show-print"><br class="show-print">
         <div class="w-100">
+        <div class="d-flex justify-content-between align-items-end hide-on-print">
+                <h3 class=" text-start m-0 hide-on-print" style="font-weight: bold;">Detail Data Pembayaran</h3>
+                <a class="hide-on-print" href="pembiayaan_user.php?id=<?php echo $id_user; ?>">
+                    <button type="button" class="btn btn-primary">Edit</button>
+                </a>
+            </div>
+            <br class="hide-on-print">
+            <div class="row hide-on-print">
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Jenis Pembayaran</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
+                    <?php echo isset($pembiayaan['jenis_pembayaran']) ? $pembiayaan['jenis_pembayaran'] : '-' ?>
+                </div>
+            </div>
+            <div class="row hide-on-print">
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Saldo Tabungan</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
+                    <?php echo isset($pembiayaan['saldo_tabungan']) ? 'Rp. '. $pembiayaan['saldo_tabungan'] : '-' ?>
+                </div>
+            </div>
+            <div class="row hide-on-print">
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Foto KTP</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0 text-start">
+                <?php if (isset($pembiayaan['ktp'])) { 
+                    if ($pembiayaan['ktp'] === '-') {
+                        echo '-';
+                    } elseif ($pembiayaan['ktp']) { ?>
+                    <img src="./proses/getUserKTP.php?id=<?= $pembiayaan["id_user"] ?>" alt="KTP User"
+                        class="boxPhoto rounded-3 border border-2 border-primary w-100 mb-3 mt-2">
+                    <?php } else { ?>
+                    -
+                    <?php } 
+                } else { ?>
+                    -
+                    <?php } ?>
+                </div>
+
+            </div>
+            <div class="row hide-on-print">
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Foto Kartu Keluarga</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
+                <?php if (isset($pembiayaan['kk'])) { 
+                    if ($pembiayaan['kk'] === '-') {
+                        echo '-';
+                    } elseif ($pembiayaan['kk']) { ?>
+                    <img src="./proses/getUserkk.php?id=<?= $pembiayaan["id_user"] ?>" alt="KK User"
+                        class="boxPhoto rounded-3 border border-2 border-primary w-100 mb-3">
+                    <?php } else { ?>
+                    -
+                    <?php } 
+                } else { ?>
+                    -
+                    <?php } ?>
+                </div>
+            </div>
+            <div class="row pasFoto">
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder hide-on-print">Pas Foto</div>
+                <div class="col-1 d-none d-sm-block hide-on-print">:</div>
+                <h1 style="font-weight: bold;" class="show-print m-0">Print Data User</h1>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0 text-start show-on-print-foto">
+                <br class="br-print">
+                <?php if (isset($pembiayaan['pas_foto'])) { 
+                    if ($pembiayaan['pas_foto'] === '-') {
+                        echo '-';
+                    } elseif ($pembiayaan['pas_foto']) { ?>
+                    <img src="./proses/getUserPasFoto.php?id=<?= $pembiayaan["id_user"] ?>" alt="Pas Foto User"
+                        class="boxPhoto rounded-3 border border-2 border-primary w-100 mb-3">
+                    <?php } else { ?>
+                    -
+                    <?php } 
+                } else { ?>
+                    -
+                    <?php } ?>
+                </div>
+            </div>
+            <div class="row hide-on-print">
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Rekomendasi</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
+                    <?php if (isset($pembiayaan['rekomendasi'])) { 
+                        if ($pembiayaan['rekomendasi'] === '-') {
+                            echo '-';
+                        } elseif ($pembiayaan['rekomendasi']) { ?>
+                    <img src="./proses/getUserRekomendasi.php?id=<?= $pembiayaan["id_user"] ?>" alt="Rekomendasi User"
+                        class="boxPhoto rounded-3 border border-2 border-primary w-100 mb-3">
+                    <?php } else { ?>
+                    -
+                    <?php } 
+                    } else { ?>
+                    -
+                    <?php } ?>
+                </div>
+            </div>
+            <div class="row hide-on-print">
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Rujukan</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
+                    <?php if (isset($pembiayaan['rujukan'])) { 
+                    if ($pembiayaan['rujukan'] === '-') {
+                        echo '-';
+                    } elseif ($pembiayaan['rujukan']) { ?>
+                    <img src="./proses/getUserRujukan.php?id=<?= $pembiayaan["id_user"] ?>" alt="Rujukan User"
+                        class="boxPhoto rounded-3 border border-2 border-primary w-100 mb-2">
+                    <?php } else { ?>
+                    -
+                    <?php } 
+                } else { ?>
+                    -
+                    <?php } ?>
+                </div>
+            </div>
+            <div class="row hide-on-print">
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Deskripsi</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
+                <?php echo isset($pembiayaan['deskripsi']) && $pembiayaan['deskripsi'] ? $pembiayaan['deskripsi'] : '-'; ?>
+
+                </div>
+            </div>
+            <br class="hide-on-print"><br class="hide-on-print">
             <div class="d-flex justify-content-between align-items-end hide-on-print">
                 <h3 class=" text-start m-0 hide-on-print" style="font-weight: bold;">Detail Data Goldar User</h3>
                 <a class="hide-on-print" href="kesehatan_user.php?id=<?php echo $id_user; ?>">
@@ -292,7 +426,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
             // Batasi data pendonor hanya 2
             $data_pendonor = array_slice($data_pendonor, 0, 2);
-            
+
             ?>
             <div class="d-flex justify-content-between align-items-end hide-on-print">
                 <h3 class="text-start m-0 hide-on-print" style="font-weight: bold;">Detail Data Pendonor</h3>
@@ -362,128 +496,6 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             </div>
             <br>
             <?php } ?>
-
-            <br class="hide-on-print"><br class="hide-on-print">
-            <div class="d-flex justify-content-between align-items-end hide-on-print">
-                <h3 class=" text-start m-0 hide-on-print" style="font-weight: bold;">Detail Data Pembayaran</h3>
-                <a class="hide-on-print" href="pembiayaan_user.php?id=<?php echo $id_user; ?>">
-                    <button type="button" class="btn btn-primary">Edit</button>
-                </a>
-            </div>
-            <br class="hide-on-print">
-            <div class="row hide-on-print">
-                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Jenis Pembayaran</div>
-                <div class="col-1 d-none d-sm-block">:</div>
-                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                    <?php echo isset($pembiayaan['jenis_pembayaran']) ? $pembiayaan['jenis_pembayaran'] : '-' ?>
-                </div>
-            </div>
-            <div class="row hide-on-print">
-                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Saldo Tabungan</div>
-                <div class="col-1 d-none d-sm-block">:</div>
-                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                    <?php echo isset($pembiayaan['saldo_tabungan']) ? 'Rp. '. $pembiayaan['saldo_tabungan'] : '-' ?>
-                </div>
-            </div>
-            <div class="row hide-on-print">
-                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Foto KTP</div>
-                <div class="col-1 d-none d-sm-block">:</div>
-                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0 text-start">
-                <?php if (isset($pembiayaan['ktp'])) { 
-                    if ($pembiayaan['ktp'] === '-') {
-                        echo '-';
-                    } elseif ($pembiayaan['ktp']) { ?>
-                    <img src="./proses/getUserKTP.php?id=<?= $pembiayaan["id_user"] ?>" alt="KTP User"
-                        class="boxPhoto rounded-3 border border-2 border-primary w-100 mb-3 mt-2">
-                    <?php } else { ?>
-                    -
-                    <?php } 
-                } else { ?>
-                    -
-                    <?php } ?>
-                </div>
-
-            </div>
-            <div class="row hide-on-print">
-                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Foto Kartu Keluarga</div>
-                <div class="col-1 d-none d-sm-block">:</div>
-                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                <?php if (isset($pembiayaan['kk'])) { 
-                    if ($pembiayaan['kk'] === '-') {
-                        echo '-';
-                    } elseif ($pembiayaan['kk']) { ?>
-                    <img src="./proses/getUserkk.php?id=<?= $pembiayaan["id_user"] ?>" alt="KK User"
-                        class="boxPhoto rounded-3 border border-2 border-primary w-100 mb-3">
-                    <?php } else { ?>
-                    -
-                    <?php } 
-                } else { ?>
-                    -
-                    <?php } ?>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder hide-on-print">Pas Foto</div>
-                <div class="col-1 d-none d-sm-block hide-on-print">:</div>
-                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0 text-start show-on-print-foto">
-                <?php if (isset($pembiayaan['pas_foto'])) { 
-                    if ($pembiayaan['pas_foto'] === '-') {
-                        echo '-';
-                    } elseif ($pembiayaan['pas_foto']) { ?>
-                    <img src="./proses/getUserPasFoto.php?id=<?= $pembiayaan["id_user"] ?>" alt="Pas Foto User"
-                        class="boxPhoto rounded-3 border border-2 border-primary w-100 mb-3">
-                    <?php } else { ?>
-                    -
-                    <?php } 
-                } else { ?>
-                    -
-                    <?php } ?>
-                </div>
-            </div>
-            <div class="row hide-on-print">
-                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Rekomendasi</div>
-                <div class="col-1 d-none d-sm-block">:</div>
-                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                    <?php if (isset($pembiayaan['rekomendasi'])) { 
-                        if ($pembiayaan['rekomendasi'] === '-') {
-                            echo '-';
-                        } elseif ($pembiayaan['rekomendasi']) { ?>
-                    <img src="./proses/getUserRekomendasi.php?id=<?= $pembiayaan["id_user"] ?>" alt="Rekomendasi User"
-                        class="boxPhoto rounded-3 border border-2 border-primary w-100 mb-3">
-                    <?php } else { ?>
-                    -
-                    <?php } 
-                    } else { ?>
-                    -
-                    <?php } ?>
-                </div>
-            </div>
-            <div class="row hide-on-print">
-                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Rujukan</div>
-                <div class="col-1 d-none d-sm-block">:</div>
-                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                    <?php if (isset($pembiayaan['rujukan'])) { 
-                    if ($pembiayaan['rujukan'] === '-') {
-                        echo '-';
-                    } elseif ($pembiayaan['rujukan']) { ?>
-                    <img src="./proses/getUserRujukan.php?id=<?= $pembiayaan["id_user"] ?>" alt="Rujukan User"
-                        class="boxPhoto rounded-3 border border-2 border-primary w-100 mb-2">
-                    <?php } else { ?>
-                    -
-                    <?php } 
-                } else { ?>
-                    -
-                    <?php } ?>
-                </div>
-            </div>
-            <div class="row hide-on-print">
-                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Deskripsi</div>
-                <div class="col-1 d-none d-sm-block">:</div>
-                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                <?php echo isset($pembiayaan['deskripsi']) && $pembiayaan['deskripsi'] ? $pembiayaan['deskripsi'] : '-'; ?>
-
-                </div>
-            </div>
             <br class="hide-on-print"><br class="hide-on-print">
             <div class="d-flex justify-content-between align-items-end hide-on-print">
                 <h3 class=" text-start m-0 hide-on-print" style="font-weight: bold;">Detail Data Sarpras</h3>
@@ -578,7 +590,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
             <div class="d-flex justify-content-between align-items-end hide-on-print">
                 <h3 class=" text-start m-0 hide-on-print" style="font-weight: bold;">Detail Data KB User</h3>
-                <a href="kb_user.php?id_user=<?php echo $id_user; ?>" class="btn btn-primary hide-on-print">Edit</a>
+                <a href="kb_user.php?id=<?php echo $id_user; ?>" class="btn btn-primary hide-on-print">Edit</a>
             </div>
             <br class="hide-on-print">
 
