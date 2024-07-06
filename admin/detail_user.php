@@ -141,7 +141,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     <title>Detail User</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/adminKesehatanUser&DetailPendonor.css">
+    <link rel="stylesheet" href="../css/adminKesehatanUserDanDetailPendonor.css">
     <style>
         h3 {
             text-align: left;
@@ -639,7 +639,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             </div>
         </div>
 
-        <script src="../js/adminKesehatanUser&DetailPendonor.js"></script>
+        <script src="../js/adminKesehatanUserDanDetailPendonor.js"></script>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">

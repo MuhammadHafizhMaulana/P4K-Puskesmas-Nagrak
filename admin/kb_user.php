@@ -105,14 +105,14 @@ if (isset($_GET['id'])) {
                 <div class="col-12 col-sm-5 text-start fw-bolder">Tujuan KB</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                    <?php echo $data['tujuan'] ? $data['tujuan'] : '-' ?>
+                    <?php echo $data['tujuan'] ? ucwords($data['tujuan']) : '-' ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12 col-sm-5 text-start fw-bolder">Jenis KB</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                    <?php echo $data['jenis'] ? $data['jenis'] : '-' ?>
+                    <?php echo $data['jenis'] ? ucwords($data['jenis']) : '-' ?>
                 </div>
             </div>
             <div class="row">
@@ -123,14 +123,36 @@ if (isset($_GET['id'])) {
                 </div>
             </div>
             <div class="row">
-                <div class="col-12 col-sm-4 text-start fw-bolder">Deskripsi</div>
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Hasil Konsultasi</div>
                 <div class="col-1 d-none d-sm-block">:</div>
-                <div class="col-12 col-sm-7 ms-2 mb-2 m-sm-0  text-start">
-                    <form method="post" action="proses/editDeskripsi_kb.php">
-                        <textarea name="deskripsi" rows="10" cols="40"><?php echo $data['deskripsi'] ? ucwords($data['deskripsi']) : '-' ?></textarea>
-                        <input type="hidden" name="id" value="<?php echo $data['id']?>">
-                        <input type="hidden" name="id_user" value="<?php echo $data['id_user']?>">
-                        <input type="submit">
+                <div class="col-12 col-sm-6 ms-2 mb-2 ms-sm-0  text-start">
+                    <form method="post" action="proses/editDeskripsi_kb.php" style="max-width: -webkit-fill-available;">
+                        <textarea <?= $data['deskripsi'] ? 'disabled' : '' ?> id="deskripsi" oninput="cekFieldHasilKonsultasi()" name="deskripsi" class="form-control" style="width: 100%; height: 150px" style="width: -webkit-fill-available;" placeholder="masukan hasil konsultasi disini"><?php echo $data['deskripsi'] ? $data['deskripsi'] : '' ?></textarea>
+                        <input type="hidden" name="id" value="<?php echo $data['id']?> ">
+                        <input type="hidden" name="id_user" value="<?php echo $data['id_user']?> ">
+                        <div class="w-100 d-flex justify-content-center mt-1">
+                            <button id="buttonUpdateKonsultasi" type="button" <?= $data['deskripsi'] ? 'onclick="editHasilKonsultasi()"' : 'disabled data-bs-toggle="modal" data-bs-target="#confirmUpdateModal"' ?> class="btn btn-primary">
+                                <p class="m-0" id="buttonHasilKonsulName"><?= $data['deskripsi'] ? 'Edit' : 'Input'  ?></p>
+                                <p class="m-0">Hasil Konsultasi</p>
+                            </button>
+                        </div>
+                        <div class="modal fade" id="confirmUpdateModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Konfirmasi</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Apakah anda yakin ingin menyimpan hasil konsultasi?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                    <button onclick="openSpinner()" type="submit" class="btn btn-warning" data-bs-dismiss="modal">Iya</button>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -176,6 +198,7 @@ if (isset($_GET['id'])) {
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="../js/adminDetailKB.js"></script>
 
 </body>
 

@@ -4,6 +4,7 @@ var searchValue = document.getElementById('searchValue');
 var debounceTimeout;
 var spinner = document.getElementById('spinner')
 
+
 function openSpinner() {
   // Ambil elemen body dari dokumen
   var body = document.getElementsByTagName("body")[0];
@@ -34,7 +35,7 @@ function openSpinner() {
 
 function showModal(userId, userName) {
   userIdToDelete = userId;
-  document.getElementsByClassName('modal-body')[0].innerHTML = `Apakah anda yakin akan menghapus data kesehatan user dari <span style="font-weight: bold;">${userName}</span>?`
+  document.getElementsByClassName('modal-body')[0].innerHTML = `Apakah anda yakin akan menghapus data data pendonor atas nama <span style="font-weight: bold;">${userName}</span>?`
   var myModal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'), {
     keyboard: false
   });
@@ -44,12 +45,11 @@ function showModal(userId, userName) {
 function confirmDelete() {
   if (userIdToDelete !== null) {
     openSpinner();
-    window.location.href = 'proses/hapus_kesehatan_user.php?id=' + userIdToDelete;
+    window.location.href = 'proses/hapusPendonor.php?id=' + userIdToDelete;
   }
 }
 
 searchType.addEventListener('input', () => {
-  console.log(searchType.value)
   // Temukan elemen form
   const form = document.getElementById('searchForm');
 
@@ -62,19 +62,16 @@ searchType.addEventListener('input', () => {
   }
 
   var element;
-  if (searchType.value == 'nama') {
-
-    // Buat elemen element baru
+  if (searchType.value == 'nama' || searchType.value == 'nomorHP') {
     element = document.createElement('input');
     element.id = 'searchValue';
     element.name = 'searchValue';
-    element.placeholder = 'Masukan nama user';
+    element.placeholder = `Masukan ${searchType.value == 'nama' ? 'nama' : 'nomor HP'} user`;
     element.type = 'text';
     element.className = 'form-control';
     element.setAttribute('aria-label', 'Text input with dropdown button');
+    element.setAttribute('oninput', 'getUserData()');
   } else if (searchType.value == 'goldar') {
-
-    // Buat elemen select baru dengan opsi yang diinginkan
     element = document.createElement('select');
     element.id = 'searchValue';
     element.name = 'searchValue';
@@ -147,16 +144,19 @@ document.addEventListener("DOMContentLoaded", function () {
   getUserData();
 });
 
-document.getElementById('searchValue').addEventListener('input', function () {
-  getUserData();
-});
-
+function ucwords(str) {
+  return str.replace(/\b\w/g, function(char) {
+      return char.toUpperCase();
+  });
+}
 document.addEventListener("DOMContentLoaded", function () {
   document.getElementById('buttonAlert').click();
 });
 
 
 function getUserData() {
+  console.log("search type : ", searchType.value);
+  console.log('search value : ', searchValue.value);
   clearTimeout(debounceTimeout);
 
   debounceTimeout = setTimeout(() => {
@@ -165,13 +165,11 @@ function getUserData() {
 
     const searchType = document.getElementById('searchType').value;
     const searchValue = document.getElementById('searchValue').value;
-    console.log(searchValue);
-    console.log(searchType)
     const userTable = document.getElementById('userTable');
 
     spinner.setAttribute('style', 'z-index: 2')
 
-    fetch('proses/searchListKesehatanUser.php', {
+    fetch('proses/searchPendonor.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
@@ -183,25 +181,23 @@ function getUserData() {
       })
       .then(response => response.json())
       .then(data => {
-        userTable.innerHTML = '';
+        userTable.innerHTML = ''; // Kosongkan tabel
         spinner.setAttribute('style', 'z-index: 0;')
         if (data.length > 0) {
-          data.forEach((value, index) => {
-            console.log('cek')
+          data.forEach((user, index) => {
             const row = document.createElement('tr');
-            row.innerHTML = `<th claass="col-1 text-center" scope="row">${index+1}</th>
-                    <td class="col-2">${value.nama}</td>
-                    <td class="col-2 text-center">${value.status}</td>
-                    <td class="col-2 text-center">${value.goldar}</td>
-                    <td class="col-3 text-center">${value.hpht}</td>
-                    <td class="col-2">
+            row.innerHTML = `<th class="col-1 text-center" scope="row">${index+1}</th>
+                  <td class="col-4">${user.nama}</td>
+                  <td class="col-3 text-center">${user.nomorHP}</td>
+                  <td class="col-2 text-center">${ucwords(user.goldar)}</td>
+                  <td class="col-2">
                       <div class="d-flex justify-content-evenly">
-                        <a href="kesehatan_user.php?id=${value.id_user}" style="width: 27px">
+                        <a href="detailPendonor.php?id=${user.id}" onclick="openSpinner()" style="width: 27px">
                           <button type="button" class="p-0 btn btn-outline-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-lg" viewBox="0 0 16 16">
                               <path d="m9.708 6.075-3.024.379-.108.502.595.108c.387.093.464.232.38.619l-.975 4.577c-.255 1.183.14 1.74 1.067 1.74.72 0 1.554-.332 1.933-.789l.116-.549c-.263.232-.65.325-.905.325-.363 0-.494-.255-.402-.704zm.091-2.755a1.32 1.32 0 1 1-2.64 0 1.32 1.32 0 0 1 2.64 0" />
                             </svg></button>
                         </a>
-                        <button onclick="showModal('${value.id}', '${value.nama}')" type="button" class="btn btn-outline-primary">
+                        <button onclick="showModal('${user.id}', '${user.nama}')" type="button" class="btn btn-outline-primary">
                           <div style="height: 27px">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
                               <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />

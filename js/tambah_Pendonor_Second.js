@@ -76,7 +76,7 @@ buttonSubmitJadwal.addEventListener('click', function () {
     nomorUser = document.getElementById('nomorHPUser');
     namaPendonor = namaField.value.toUpperCase();
 
-    urlToWhatsapp = `https://wa.me/6285540570790?text=Halo, perkenalkan saya *${namaUser.value}* (noHP : *${nomorUser.value}*) ingin mendaftarkan saudara/i *${namaPendonor}* (noHP : *${nomorHpField.value}*) untuk melakukan pengecekan golongan darah di Puskesmas Nagrak. Berkaitan dengan hal tersebut, apakah saudara/i *${namaPendonor}* dapat melakukan pengecekan pada *${waktuPengecekanField.value}*?`
+    urlToWhatsapp = `https://wa.me/6285720848420?text=Halo, perkenalkan saya *${namaUser.value}* (noHP : *${nomorUser.value}*) ingin mendaftarkan saudara/i *${namaPendonor}* (noHP : *${nomorHpField.value}*) untuk melakukan pengecekan golongan darah di Puskesmas Nagrak. Berkaitan dengan hal tersebut, apakah saudara/i *${namaPendonor}* dapat melakukan pengecekan pada *${waktuPengecekanField.value}*?`
 
     window.open(urlToWhatsapp, "_blank");
 })

@@ -59,7 +59,7 @@ if (isset($_GET['success'])) {
 }
 
 
-$query = "SELECT * FROM `pendonor`";
+$query = "SELECT * FROM `pendonor` ORDER BY `nama` ASC";
 $sql = mysqli_query($connect, $query);
 ?>
 <!DOCTYPE html>
@@ -170,18 +170,20 @@ $sql = mysqli_query($connect, $query);
               <h6>Golongan Darah Anda adalah <?php echo strtoupper($goldar); ?></h6>
               <?php if($usia_kandungan == null): ?>
               <h6>Anda belum menginputkan HPHT</h6>
-              <?php elseif ($usia_kandungan == "LAHIR"): ?>
+              <?php elseif ($usia_kandungan == "Telah Lahir"): ?>
               <h6>Anda sedang tidak mengandung</h6>
               <?php else: ?>
               <h6>Usia kandungan anda <?= $usia_kandungan ?> pada <?= date('d-m-Y') ?></h6>
               <?php endif; ?>
-              <div class="alert alert-warning m-0" role="alert" style="border-radius: 20px;">
-                <h6 class="m-0" style="font-weight: bold;" id="countdown"></h6>
-              </div>
-              <?php if (isset($taksiran_persalinan)) { ?>
-                <script>
-                  var taksiranPersalinan = "<?php echo $taksiran_persalinan; ?>";
-                </script>
+              <?php if ($usia_kandungan != "Telah Lahir") { ?>
+                <div class="alert alert-warning m-0" role="alert" style="border-radius: 20px;">
+                  <h6 class="m-0" style="font-weight: bold;" id="countdown"></h6>
+                </div>
+                <?php if (isset($taksiran_persalinan)) { ?>
+                  <script>
+                    var taksiranPersalinan = "<?php echo $taksiran_persalinan; ?>";
+                  </script>
+                <?php } ?>
               <?php } ?>
             <?php } else if ($status == "menunggu") { ?>
               <h6>Anda sedang dalam proses menunggu pemeriksaan golongan darah.</h6>

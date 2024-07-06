@@ -19,6 +19,8 @@ if ($searchType && $searchValue) {
     }
 }
 
+$query .= " ORDER BY goldar ASC";
+
 $result = mysqli_query($connect, $query);
 $data = array();
 

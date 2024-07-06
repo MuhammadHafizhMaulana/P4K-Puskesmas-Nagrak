@@ -104,7 +104,7 @@ function getUserData() {
                   <td class="col-2 text-center">${user.nomorHP}</td>
                   <td class="col-1 justify-content-center">
                     <div class="mx-auto" style="width: min-content;">
-                      <a href="kesehatan_user.php?id=${user.id}" style="width: 27px">
+                      <a href="kesehatan_user.php?id=${user.id}" onclick="openSpinner()" style="width: 27px">
                         <button type="button" class="p-0 btn btn-outline-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-lg" viewBox="0 0 16 16">
                             <path d="m9.708 6.075-3.024.379-.108.502.595.108c.387.093.464.232.38.619l-.975 4.577c-.255 1.183.14 1.74 1.067 1.74.72 0 1.554-.332 1.933-.789l.116-.549c-.263.232-.65.325-.905.325-.363 0-.494-.255-.402-.704zm.091-2.755a1.32 1.32 0 1 1-2.64 0 1.32 1.32 0 0 1 2.64 0" />
                           </svg></button>
@@ -113,7 +113,7 @@ function getUserData() {
                   </td>
                   <td class="col-1 justify-content-center">
                     <div class="mx-auto" style="width: min-content;">
-                      <a href="pembiayaan_user.php?id=${user.id}" style="width: 27px">
+                      <a href="pembiayaan_user.php?id=${user.id}" onclick="openSpinner()" style="width: 27px">
                         <button type="button" class="p-0 btn btn-outline-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-wallet2" viewBox="0 0 16 16">
                           <path d="M12.136.326A1.5 1.5 0 0 1 14 1.78V3h.5A1.5 1.5 0 0 1 16 4.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 13.5v-9a1.5 1.5 0 0 1 1.432-1.499zM5.562 3H13V1.78a.5.5 0 0 0-.621-.484zM1.5 4a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5z"/>
                         </svg></button>
@@ -122,7 +122,7 @@ function getUserData() {
                   </td>
                   <td class="col-1 justify-content-center">
                     <div class="mx-auto" style="width: min-content;">
-                      <a href="sarpras_user.php?id=${user.id}" style="width: 27px">
+                      <a href="sarpras_user.php?id=${user.id}" onclick="openSpinner()" style="width: 27px">
                         <button type="button" class="p-0 btn btn-outline-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-boxes" viewBox="0 0 16 16">
                       <path d="M7.752.066a.5.5 0 0 1 .496 0l3.75 2.143a.5.5 0 0 1 .252.434v3.995l3.498 2A.5.5 0 0 1 16 9.07v4.286a.5.5 0 0 1-.252.434l-3.75 2.143a.5.5 0 0 1-.496 0l-3.502-2-3.502 2.001a.5.5 0 0 1-.496 0l-3.75-2.143A.5.5 0 0 1 0 13.357V9.071a.5.5 0 0 1 .252-.434L3.75 6.638V2.643a.5.5 0 0 1 .252-.434zM4.25 7.504 1.508 9.071l2.742 1.567 2.742-1.567zM7.5 9.933l-2.75 1.571v3.134l2.75-1.571zm1 3.134 2.75 1.571v-3.134L8.5 9.933zm.508-3.996 2.742 1.567 2.742-1.567-2.742-1.567zm2.242-2.433V3.504L8.5 5.076V8.21zM7.5 8.21V5.076L4.75 3.504v3.134zM5.258 2.643 8 4.21l2.742-1.567L8 1.076zM15 9.933l-2.75 1.571v3.134L15 13.067zM3.75 14.638v-3.134L1 9.933v3.134z"/>
                     </svg></button>
@@ -131,7 +131,7 @@ function getUserData() {
                   </td>
                   <td class="col-1 justify-content-center">
                     <div class="mx-auto" style="width: min-content;">
-                      <a href="kb_user.php?id=${user.id}" style="width: 27px">
+                      <a href="kb_user.php?id=${user.id}" onclick="openSpinner()" style="width: 27px">
                         <button type="button" class="p-0 btn btn-outline-primary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-plus" viewBox="0 0 16 16">
                           <path fill-rule="evenodd" d="M8 5.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 .5-.5"/>
                           <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2"/>
@@ -143,7 +143,7 @@ function getUserData() {
                   </td>
                   <td class="col-2">
                     <div class="d-flex justify-content-evenly">
-                      <a href="detail_user.php?id=${user.id}">
+                      <a href="detail_user.php?id=${user.id}" onclick="openSpinner()">
                         <button type="button" class="btn btn-outline-primary">
                           <div style="width: 27px; height: 27px">
                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">

@@ -160,27 +160,29 @@ if (isset($_GET['id'])) {
                     <?php echo $status_usg ? ucwords($status_usg) : '-' ?>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12 col-sm-6 text-start fw-bolder fw-bolder">Tanggal USG</div>
-                <div class="col-1 d-none d-sm-block">:</div>
-                <div class="col-12 col-sm-5 ms-2 mb-2 m-sm-0  text-start">
-                    <?php echo $tanggal_usg ? ucwords($tanggal_usg) : '-' ?>
+            <?php if ($data['usg'] != 'belum') { ?>
+                <div class="row">
+                    <div class="col-12 col-sm-6 text-start fw-bolder fw-bolder">Tanggal USG</div>
+                    <div class="col-1 d-none d-sm-block">:</div>
+                    <div class="col-12 col-sm-5 ms-2 mb-2 m-sm-0  text-start">
+                        <?php echo $tanggal_usg ? ucwords($tanggal_usg) : '-' ?>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-12 col-sm-6 text-start fw-bolder fw-bolder">Umur Kehamilan saat USG</div>
-                <div class="col-1 d-none d-sm-block">:</div>
-                <div class="col-12 col-sm-5 ms-2 mb-2 m-sm-0  text-start">
-                    <?php echo $umur_usg ? ucwords($umur_usg) .' Minggu' : '-' ?>
+                <div class="row">
+                    <div class="col-12 col-sm-6 text-start fw-bolder fw-bolder">Umur Kehamilan saat USG</div>
+                    <div class="col-1 d-none d-sm-block">:</div>
+                    <div class="col-12 col-sm-5 ms-2 mb-2 m-sm-0  text-start">
+                        <?php echo $umur_usg ? ucwords($umur_usg) .' Minggu' : '-' ?>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-12 col-sm-6 text-start fw-bolder fw-bolder">Kondisi USG</div>
-                <div class="col-1 d-none d-sm-block">:</div>
-                <div class="col-12 col-sm-5 ms-2 mb-2 m-sm-0  text-start">
-                    <?php echo $hasil_usg ? ucwords($hasil_usg) : '-' ?>
+                <div class="row">
+                    <div class="col-12 col-sm-6 text-start fw-bolder fw-bolder">Kondisi USG</div>
+                    <div class="col-1 d-none d-sm-block">:</div>
+                    <div class="col-12 col-sm-5 ms-2 mb-2 m-sm-0  text-start">
+                        <?php echo $hasil_usg ? ucwords($hasil_usg) : '-' ?>
+                    </div>
                 </div>
-            </div>
+            <?php } ?>
         </div>
         <?php } else { ?>
             <div class="alert alert-primary text-center"> <h2>User atas nama <?php echo $ambil_nama['nama'] ?> belum melakukan penginputan data</h2></div>
