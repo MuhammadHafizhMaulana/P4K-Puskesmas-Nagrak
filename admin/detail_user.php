@@ -69,10 +69,21 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         die('Query gagal: ' . mysqli_error($connect));
     }
 
+    $query = "SELECT * FROM pendonor WHERE id_user = ?";
+    $stmt_user = mysqli_prepare($connect, $query);
+    mysqli_stmt_bind_param($stmt_user, "i", $id_user);
+    mysqli_stmt_execute($stmt_user);
+    $pendonorResult = mysqli_stmt_get_result($stmt_user);
+
+    if (!$pendonorResult) {
+        die('Query gagal: ' . mysqli_error($connect));
+    }
+
     $kesehatan = mysqli_fetch_assoc($kesehatan_userresult);
     $pembiayaan = mysqli_fetch_assoc($pembiayaanresult);
     $sarpras = mysqli_fetch_assoc($sarprasresult);
     $kb = mysqli_fetch_assoc($kbresult);
+    
 
     // Memisahkan jenis penolong dan nama penolong
     $penolong_data = isset($sarpras['penolong']) ? explode(' + ', $sarpras['penolong']) : ['-', '-'];
@@ -100,7 +111,15 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             $kesehatan['tanggal_input'] = '-';
         }
     }
-    
+
+    if ($kesehatan) {
+        if (!empty($kesehatan['taksiran_persalinan'])) {
+            $kesehatan['taksiran_persalinan'] = formatTanggal($kesehatan['taksiran_persalinan']);
+        } else {
+            $kesehatan['taksiran_persalinan'] = '-';
+        }
+    }
+
     if ($kesehatan['status'] != 'diketahui') {
         $kesehatan['status'] = '-';
     }
@@ -108,8 +127,6 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     if (is_null($kesehatan['goldar']) || $kesehatan['goldar'] === '') {
         $kesehatan['goldar'] = '-';
     }
-    
-    
 
     // Jika data pengguna ditemukan, tampilkan halaman
     if ($kesehatan || $pembiayaan || $sarpras || $kb) {
@@ -120,7 +137,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit User</title>
+    <title>Detail User</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/adminKesehatanUserDanDetailPendonor.css">
@@ -129,11 +146,49 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             text-align: left;
             /* Atur teks menjadi rata kiri */
         }
+
+        .show-print {
+            display: none;
+        }
+
+        @media print {
+            .hide-on-print {
+                display: none;
+            }
+
+            .show-print {
+                display: block;
+            }
+
+            .hide-page-title {
+                display: none;
+            }
+
+            .show-on-print-foto {
+                position: absolute;
+                bottom: 20px; /* Menempatkan elemen 20px dari bagian bawah halaman */
+                left: 50%;
+                transform: translateX(-50%);
+                width: 350px; /* Sesuaikan lebar foto sesuai kebutuhan */
+                height: auto; /* Biarkan tinggi mengikuti proporsi aslinya */
+            }
+
+            @page {
+                margin: 0;
+                /* Mengatur margin halaman cetak menjadi 0 */
+            }
+
+            body {
+                margin: 0;
+                /* Juga mengatur margin body menjadi 0 untuk menghindari margin tambahan */
+            }
+
+        }
     </style>
 </head>
 
 <body>
-    <nav class="my-navbar navbar navbar-expand-lg">
+    <nav class="my-navbar navbar navbar-expand-lg hide-on-print">
         <div class="container-fluid">
             <a class="navbar-brand" href="home.php">
                 <img src="../assets/logo-kemenkes.png" alt="Logo Kemenkes">
@@ -159,16 +214,19 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         </div>
     </nav>
     <div id="boxKesehatanUser">
-        <h1 style="font-weight: bold;">Detail Data User</h1>
-        <br><br>
+        <h1 style="font-weight: bold;" class="hide-on-print">Detail Data User</h1>
+        <h1 style="font-weight: bold;" class="show-print">Print Data User</h1>
+        <br class="hide-on-print"><br class="hide-on-print">
+        <br class="show-print"><br class="show-print">
         <div class="w-100">
-            <div class="d-flex justify-content-between align-items-end">
-                <h3 class=" text-start m-0" style="font-weight: bold;">Detail Data Goldar User</h3>
-                <a class="" href="kesehatan_user.php?id=<?php echo $id_user; ?>">
+            <div class="d-flex justify-content-between align-items-end hide-on-print">
+                <h3 class=" text-start m-0 hide-on-print" style="font-weight: bold;">Detail Data Goldar User</h3>
+                <a class="hide-on-print" href="kesehatan_user.php?id=<?php echo $id_user; ?>">
                     <button type="button" class="btn btn-primary">Edit</button>
                 </a>
             </div>
-            <div class="row">
+            <br class="hide-on-print">
+            <div class="row show-on-print">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Nama</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
@@ -181,187 +239,375 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                     ?>
                 </div>
             </div>
-            <div class="row">
+            <div class="row show-on-print">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Goldar</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($kesehatan['goldar']) ? $kesehatan['goldar'] : '-' ?>
                 </div>
             </div>
-            <div class="row">
+            <div class="row show-on-print">
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Taksiran Persalinan</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
+                    <?php echo isset($kesehatan['taksiran_persalinan']) ? $kesehatan['taksiran_persalinan'] : '-' ?>
+                </div>
+            </div>
+            <div class="row hide-on-print">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Usia Kandungan</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($kesehatan['usia_kandungan']) ? $kesehatan['usia_kandungan'].' Minggu' : '-' ?>
                 </div>
             </div>
-            <div class="row">
+            <div class="row hide-on-print">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Status Goldar</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($kesehatan['status']) ? ucwords($kesehatan['status']) : '-' ?>
                 </div>
             </div>
-            <div class="row">
+            <div class="row hide-on-print">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Terakhir User Update</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($kesehatan['tanggal_input']) ? ucwords($kesehatan['tanggal_input']) : '-' ?>
                 </div>
             </div>
-            <br><br>
-            <div class="d-flex justify-content-between align-items-end">
-                <h3 class=" text-start m-0" style="font-weight: bold;">Detail Data Pembayaran</h3>
-                <a class="" href="pembiayaan_user.php?id=<?php echo $id_user; ?>">
+            <br class="hide-on-print"><br class="hide-on-print">
+            <?php
+            // Ambil semua data pendonor dari hasil query
+            $data_pendonor = [];
+            while ($row_pendonor = mysqli_fetch_assoc($pendonorResult)) {
+                $data_pendonor[] = $row_pendonor;
+            }
+
+            // Jika terdapat data pendonr, lakukan pemformatan tanggal
+            foreach ($data_pendonor as &$pendonor) {
+                if (isset($pendonor['tanggal_input'])) {
+                    $pendonor['tanggal_input'] = formatTanggal($pendonor['tanggal_input']);
+                }
+            }
+            unset($pendonor);
+
+            // Batasi data pendonor hanya 2
+            $data_pendonor = array_slice($data_pendonor, 0, 2);
+            
+            ?>
+            <div class="d-flex justify-content-between align-items-end hide-on-print">
+                <h3 class="text-start m-0 hide-on-print" style="font-weight: bold;">Detail Data Pendonor</h3>
+            </div>
+            <br>
+            <?php if (!empty($data_pendonor)) {
+            $counter = 1; 
+            foreach ($data_pendonor as $pendonor_item): ?>
+            <div class="row show-on-print">
+                <div class="col-12 col-sm-5 text-start fw-bolder">Nama Pendonor <?php echo $counter++; ?></div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0 text-start">
+                    <?php echo isset($pendonor_item['nama']) ? $pendonor_item['nama'] : '-' ?>
+                </div>
+            </div>
+            <div class="row hide-on-print">
+                <div class="col-12 col-sm-5 text-start fw-bolder">Nomor HP</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0 text-start">
+                    <?php echo isset($pendonor_item['nomorHP']) ? $pendonor_item['nomorHP'] : '-' ?>
+                </div>
+            </div>
+            <div class="row show-on-print">
+                <div class="col-12 col-sm-5 text-start fw-bolder">Goldar</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0 text-start">
+                    <?php echo isset($pendonor_item['goldar']) ? $pendonor_item['goldar'] : '-' ?>
+                </div>
+            </div>
+            <div class="row hide-on-print">
+                <div class="col-12 col-sm-5 text-start fw-bolder">Tanggal Input</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0 text-start">
+                    <?php echo isset($pendonor_item['tanggal_input']) ? $pendonor_item['tanggal_input'] : '-' ?>
+                </div>
+            </div>
+            <br>
+            <?php endforeach; 
+            } else { ?>
+            <div class="row hide-on-print">
+                <div class="col-12 col-sm-5 text-start fw-bolder">Nama Pendonor</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0 text-start">
+                    <?php echo '-' ?>
+                </div>
+            </div>
+            <div class="row hide-on-print">
+                <div class="col-12 col-sm-5 text-start fw-bolder">Nomor HP</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0 text-start">
+                    <?php echo '-' ?>
+                </div>
+            </div>
+            <div class="row hide-on-print">
+                <div class="col-12 col-sm-5 text-start fw-bolder">Goldar</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0 text-start">
+                    <?php echo '-' ?>
+                </div>
+            </div>
+            <div class="row hide-on-print">
+                <div class="col-12 col-sm-5 text-start fw-bolder">Tanggal Input</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0 text-start">
+                    <?php echo '-' ?>
+                </div>
+            </div>
+            <br>
+            <?php } ?>
+
+            <br class="hide-on-print"><br class="hide-on-print">
+            <div class="d-flex justify-content-between align-items-end hide-on-print">
+                <h3 class=" text-start m-0 hide-on-print" style="font-weight: bold;">Detail Data Pembayaran</h3>
+                <a class="hide-on-print" href="pembiayaan_user.php?id=<?php echo $id_user; ?>">
                     <button type="button" class="btn btn-primary">Edit</button>
                 </a>
             </div>
-            <br>
-            <div class="row">
+            <br class="hide-on-print">
+            <div class="row hide-on-print">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Jenis Pembayaran</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($pembiayaan['jenis_pembayaran']) ? $pembiayaan['jenis_pembayaran'] : '-' ?>
                 </div>
             </div>
-            <div class="row">
+            <div class="row hide-on-print">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Saldo Tabungan</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($pembiayaan['saldo_tabungan']) ? 'Rp. '. $pembiayaan['saldo_tabungan'] : '-' ?>
                 </div>
             </div>
+            <div class="row hide-on-print">
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Foto KTP</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0 text-start">
+                <?php if (isset($pembiayaan['ktp'])) { 
+                    if ($pembiayaan['ktp'] === '-') {
+                        echo '-';
+                    } elseif ($pembiayaan['ktp']) { ?>
+                    <img src="./proses/getUserKTP.php?id=<?= $pembiayaan["id_user"] ?>" alt="KTP User"
+                        class="boxPhoto rounded-3 border border-2 border-primary w-100 mb-3 mt-2">
+                    <?php } else { ?>
+                    -
+                    <?php } 
+                } else { ?>
+                    -
+                    <?php } ?>
+                </div>
+
+            </div>
+            <div class="row hide-on-print">
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Foto Kartu Keluarga</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
+                <?php if (isset($pembiayaan['kk'])) { 
+                    if ($pembiayaan['kk'] === '-') {
+                        echo '-';
+                    } elseif ($pembiayaan['kk']) { ?>
+                    <img src="./proses/getUserkk.php?id=<?= $pembiayaan["id_user"] ?>" alt="KK User"
+                        class="boxPhoto rounded-3 border border-2 border-primary w-100 mb-3">
+                    <?php } else { ?>
+                    -
+                    <?php } 
+                } else { ?>
+                    -
+                    <?php } ?>
+                </div>
+            </div>
             <div class="row">
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder hide-on-print">Pas Foto</div>
+                <div class="col-1 d-none d-sm-block hide-on-print">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0 text-start show-on-print-foto">
+                <?php if (isset($pembiayaan['pas_foto'])) { 
+                    if ($pembiayaan['pas_foto'] === '-') {
+                        echo '-';
+                    } elseif ($pembiayaan['pas_foto']) { ?>
+                    <img src="./proses/getUserPasFoto.php?id=<?= $pembiayaan["id_user"] ?>" alt="Pas Foto User"
+                        class="boxPhoto rounded-3 border border-2 border-primary w-100 mb-3">
+                    <?php } else { ?>
+                    -
+                    <?php } 
+                } else { ?>
+                    -
+                    <?php } ?>
+                </div>
+            </div>
+            <div class="row hide-on-print">
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Rekomendasi</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
+                    <?php if (isset($pembiayaan['rekomendasi'])) { 
+                        if ($pembiayaan['rekomendasi'] === '-') {
+                            echo '-';
+                        } elseif ($pembiayaan['rekomendasi']) { ?>
+                    <img src="./proses/getUserRekomendasi.php?id=<?= $pembiayaan["id_user"] ?>" alt="Rekomendasi User"
+                        class="boxPhoto rounded-3 border border-2 border-primary w-100 mb-3">
+                    <?php } else { ?>
+                    -
+                    <?php } 
+                    } else { ?>
+                    -
+                    <?php } ?>
+                </div>
+            </div>
+            <div class="row hide-on-print">
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Rujukan</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
+                    <?php if (isset($pembiayaan['rujukan'])) { 
+                    if ($pembiayaan['rujukan'] === '-') {
+                        echo '-';
+                    } elseif ($pembiayaan['rujukan']) { ?>
+                    <img src="./proses/getUserRujukan.php?id=<?= $pembiayaan["id_user"] ?>" alt="Rujukan User"
+                        class="boxPhoto rounded-3 border border-2 border-primary w-100 mb-2">
+                    <?php } else { ?>
+                    -
+                    <?php } 
+                } else { ?>
+                    -
+                    <?php } ?>
+                </div>
+            </div>
+            <div class="row hide-on-print">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Deskripsi</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                    <?php echo isset($pembiayaan['deskripsi']) ? ucwords($pembiayaan['deskripsi']) : '-' ?>
+                <?php echo isset($pembiayaan['deskripsi']) && $pembiayaan['deskripsi'] ? $pembiayaan['deskripsi'] : '-'; ?>
+
                 </div>
             </div>
-            <br><br>
-            <div class="d-flex justify-content-between align-items-end">
-                <h3 class=" text-start m-0" style="font-weight: bold;">Detail Data Sarpras</h3>
+            <br class="hide-on-print"><br class="hide-on-print">
+            <div class="d-flex justify-content-between align-items-end hide-on-print">
+                <h3 class=" text-start m-0 hide-on-print" style="font-weight: bold;">Detail Data Sarpras</h3>
             </div>
-            <br>
-            <div class="row">
+            <br class="hide-on-print">
+            <div class="row show-on-print">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Transportasi</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($sarpras['transportasi']) ? $sarpras['transportasi'] : '-' ?>
                 </div>
             </div>
-            <div class="row">
+            <div class="row hide-on-print">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Nama Supir</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($sarpras['nama_supir']) ? $sarpras['nama_supir'] : '-' ?>
                 </div>
             </div>
-            <div class="row">
+            <div class="row hide-on-print">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">No Supir</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($sarpras['no_supir']) ? $sarpras['no_supir'] : '-' ?>
                 </div>
             </div>
-            <div class="row">
+            <div class="row show-on-print">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Nama Pendamping</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($sarpras['nama_pendamping']) ? $sarpras['nama_pendamping'] : '-' ?>
                 </div>
             </div>
-            <div class="row">
+            <div class="row hide-on-print">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">No Pendamping</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($sarpras['no_pendamping']) ? $sarpras['no_pendamping'] : '-' ?>
                 </div>
             </div>
-            <div class="row">
+            <div class="row show-on-print">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Rumah Sakit Tujuan</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($sarpras['tujuan']) ? $sarpras['tujuan'] : '-' ?>
                 </div>
             </div>
-                <div class="row">
+            <div class="row hide-on-print">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Jenis Penolong</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($jenis_penolong) ? $jenis_penolong : '-' ?>
                 </div>
             </div>
-            <div class="row">
+            <div class="row show-on-print">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Nama Penolong</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($nama_penolong) ? $nama_penolong : '-' ?>
                 </div>
             </div>
-            <div class="row">
+            <div class="row hide-on-print">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">USG</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($status_usg) ? $status_usg : '-' ?>
                 </div>
             </div>
-            <div class="row">
+            <div class="row hide-on-print">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Tanggal USG</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($tanggal_usg) ? $tanggal_usg : '-' ?>
                 </div>
             </div>
-            <div class="row">
+            <div class="row hide-on-print">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Umur Kandungan USG</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($umur_usg) ? $umur_usg : '-' ?>
                 </div>
             </div>
-            <div class="row">
+            <div class="row hide-on-print">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Hasil USG</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($hasil_usg) ? $hasil_usg : '-' ?>
                 </div>
             </div>
-            
-            <br><br>
-           
-            <div class="d-flex justify-content-between align-items-end">
-                <h3 class=" text-start m-0" style="font-weight: bold;">Detail Data KB User</h3>
-                <a href="kb_user.php?id_user=<?php echo $id_user; ?>" class="btn btn-primary">Edit</a>
-            </div>
-            <br>
 
-            <div class="row">
+            <br class="hide-on-print"><br>
+
+            <div class="d-flex justify-content-between align-items-end hide-on-print">
+                <h3 class=" text-start m-0 hide-on-print" style="font-weight: bold;">Detail Data KB User</h3>
+                <a href="kb_user.php?id_user=<?php echo $id_user; ?>" class="btn btn-primary hide-on-print">Edit</a>
+            </div>
+            <br class="hide-on-print">
+
+            <div class="row hide-on-print">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Tujuan</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($kb['tujuan']) ? $kb['tujuan'] : '-' ?>
                 </div>
             </div>
-            <div class="row">
+            <div class="row hide-on-print">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Metode</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($kb['jenis']) ? $kb['jenis'] : '-' ?>
                 </div>
             </div>
-            <div class="row">
+            <div class="row hide-on-print">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Tanggal Input</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($kb['tanggal_input']) ? $kb['tanggal_input'] : '-' ?>
                 </div>
             </div>
-            <div class="row">
+            <div class="row hide-on-print">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Deskripsi</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                    <?php echo isset($kb['deskripsi']) ? ucwords($kb['deskripsi']) : '-' ?>
+                <?php echo isset($kb['deskripsi']) && $kb['deskripsi'] ? $kb['deskripsi'] : '-'; ?>
                 </div>
             </div>
         </div>
