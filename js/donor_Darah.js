@@ -72,7 +72,7 @@ buttonSubmitJadwal.addEventListener('click', function () {
     var nama = document.getElementById('nama');
     var nomorHP = document.getElementById('nomorHP');
     var alamat = document.getElementById('alamat');
-    urlToWhatsapp = `https://wa.me/6285540570790?text=Halo, perkenalkan saya *${nama.value}* dengan nomor handphone *${nomorHP.value}* yang beralamatkan di *${alamat.value}* ingin melakukan pengecekan golongan darah di Puskesmas Nagrak. Berkaitan dengan hal tersebut, apakah saya dapat melakukan pemeriksaan pada *${waktuPengecekanField.value}*?`;
+    urlToWhatsapp = `https://wa.me/6285720848420?text=Halo, perkenalkan saya *${nama.value}* dengan nomor handphone *${nomorHP.value}* yang beralamatkan di *${alamat.value}* ingin melakukan pengecekan golongan darah di Puskesmas Nagrak. Berkaitan dengan hal tersebut, apakah saya dapat melakukan pemeriksaan pada *${waktuPengecekanField.value}*?`;
 
     window.open(urlToWhatsapp, "_blank")
 })

@@ -228,7 +228,7 @@ if (document.getElementById('waktu_konsultasi')) {
         const jenisPembiayaan = document.getElementById('jenis_pembayaran').value;
     
         // Buat URL WhatsApp
-        var urlToWhatsapp = `https://wa.me/6285540570790?text=Halo, perkenalkan saya *${nama}* dengan nomor handphone *${nomorHP}* yang beralamatkan di *${alamat}* ingin melakukan konsultasi KB pada *${waktuKonsultasi.value}*. Saat ini, saldo tabungan persalinan yang sudah saya miliki adalah Rp ${saldoTabungan} dan juga jenis pembiayaan yang akan saya gunakan yaitu  ${jenisPembiayaan}`;
+        var urlToWhatsapp = `https://wa.me/6285720848420?text=Halo, perkenalkan saya *${nama}* dengan nomor handphone *${nomorHP}* yang beralamatkan di *${alamat}* ingin melakukan konsultasi KB pada *${waktuKonsultasi.value}*. Saat ini, saldo tabungan persalinan yang sudah saya miliki adalah Rp ${saldoTabungan} dan juga jenis pembiayaan yang akan saya gunakan yaitu  ${jenisPembiayaan}`;
     
         // Buka URL di tab baru
         window.open(urlToWhatsapp, "_blank");

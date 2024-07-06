@@ -64,7 +64,7 @@ buttonSubmitDialog.addEventListener("click", function (event) {
     }
 
     // Buat URL WhatsApp
-    var urlToWhatsapp = `https://wa.me/6285540570790?text=Halo, perkenalkan saya *${nama}* dengan nomor handphone *${nomorHP}* yang beralamatkan di *${alamat}* ingin melakukan konsultasi KB pada *${waktuPengecekanField.value}*. Tujuan saya menggunakan KB adalah untuk ${tujuan} keturunan, dan saya ingin menggunakan metode ${metodeKonsul}`;
+    var urlToWhatsapp = `https://wa.me/6285720848420?text=Halo, perkenalkan saya *${nama}* dengan nomor handphone *${nomorHP}* yang beralamatkan di *${alamat}* ingin melakukan konsultasi KB pada *${waktuPengecekanField.value}*. Tujuan saya menggunakan KB adalah untuk ${tujuan} keturunan, dan saya ingin menggunakan metode ${metodeKonsul}`;
 
     // Buka URL di tab baru
     window.open(urlToWhatsapp, "_blank");

@@ -59,7 +59,7 @@ if (isset($_GET['success'])) {
 }
 
 
-$query = "SELECT * FROM `pendonor`";
+$query = "SELECT * FROM `pendonor` ORDER BY `nama` ASC";
 $sql = mysqli_query($connect, $query);
 ?>
 <!DOCTYPE html>

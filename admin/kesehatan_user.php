@@ -63,6 +63,38 @@ if (isset($_GET['id'])) {
             }
         }
 
+        
+        // Menghitung usia kandungan
+        if ($data["hpht"] == null) {
+            $usia_kandungan = "Data belum diinputkan";
+        } else {
+            // HPHT & Taksiran Persalinan
+            $hpht = $data['hpht'];
+            $taksiran = $data['taksiran_persalinan'];
+            $taksiran_date = new DateTime($taksiran);
+            $now = new DateTime();
+            $hpht_date = new DateTime($hpht);
+
+        // Hitung selisih hari antara HPHT dan sekarang
+        $interval = $now->diff($hpht_date);
+        $selisih_hari = $interval->days;
+
+        // Hitung usia kandungan dalam bulan, minggu, dan hari
+        $usia_bulan = $interval->m;
+        $usia_tahun = $interval->y;
+        $usia_bulan += $usia_tahun * 12; // Tambahkan bulan dari tahun
+
+        $sisa_hari = $interval->d;
+        $usia_minggu = floor($sisa_hari / 7);
+        $usia_hari = $sisa_hari % 7;
+
+            if ($now >= $taksiran_date) {
+                $usia_kandungan = "Telah Lahir";
+            } else {
+                $usia_kandungan = "$usia_bulan Bulan $usia_minggu Minggu $usia_hari Hari";
+            }
+        }
+
         if (isset($_GET['success'])) {
             $proccessIsSuccess = true;
             if ($_GET['success'] == "update_successful") {
@@ -158,7 +190,7 @@ if (isset($_GET['id'])) {
                 <div class="col-12 col-sm-5 text-start fw-bolder">Usia Kandungan</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                    <?php echo $data['usia_kandungan'] ? $data['usia_kandungan'] .'Minggu' : '-' ?>
+                    <?php echo $usia_kandungan ?> pada <?= date('d-m-Y') ?>
                 </div>
             </div>
             <div class="row">

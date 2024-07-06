@@ -29,7 +29,7 @@ if ($data["hpht"] == null) {
    $usia_hari = $sisa_hari % 7;
 
     if ($now >= $taksiran_date) {
-        $usia_kandungan = "LAHIR";
+        $usia_kandungan = "Telah Lahir";
     } else {
         $usia_kandungan = "$usia_bulan bulan $usia_minggu minggu $usia_hari hari";
     }
