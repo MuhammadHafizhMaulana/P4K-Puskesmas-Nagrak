@@ -13,12 +13,11 @@ if (isset($_GET['id'])) {
 
     $id = $_GET['id'];
     // Query untuk mengambil data pengguna berdasarkan id yang sudah didekripsi
-    $query = " SELECT ku.*, kb.* FROM kesehatan_user ku INNER JOIN kb ON ku.id_user = kb.id_user WHERE ku.id_user = ?";
+    $query = " SELECT * FROM kesehatan_user WHERE id_user = ?";
     $stmt = mysqli_prepare($connect, $query);
     mysqli_stmt_bind_param($stmt, "i", $id);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
-
 
     $query = "SELECT `nama`FROM user WHERE id = ?";
     $stmt = mysqli_prepare($connect, $query);
