@@ -108,8 +108,15 @@ if (isset($_GET['id'])) {
         }
 
 
-        $query = "SELECT * FROM `pendonor` ORDER BY `nama` ASC";
-        $dataPendonor = mysqli_query($connect, $query);
+        $query = "SELECT * FROM pendonor WHERE id_user = ? ORDER BY `nama`";
+        $stmt_user = mysqli_prepare($connect, $query);
+        mysqli_stmt_bind_param($stmt_user, "i", $id);
+        mysqli_stmt_execute($stmt_user);
+        $pendonorResult = mysqli_stmt_get_result($stmt_user);
+
+        if (!$pendonorResult) {
+            die('Query gagal: ' . mysqli_error($connect));
+        }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -162,7 +169,7 @@ if (isset($_GET['id'])) {
                 <div class="col-12 col-sm-5 text-start fw-bolder">Nama</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                <?php echo isset($ambil_nama['nama']) ? ucwords($ambil_nama['nama']) : "-"; ?>
+                    <?php echo isset($ambil_nama['nama']) ? ucwords($ambil_nama['nama']) : "-"; ?>
                 </div>
             </div>
             <div class="row align-items-center">
@@ -230,53 +237,56 @@ if (isset($_GET['id'])) {
                 font-weight: bold;
                 ">
         </div>
+        <?php 
+                if (mysqli_num_rows($pendonorResult) > 0) { 
+                $data_array = [];
+                while ($data = mysqli_fetch_assoc($pendonorResult)) {
+                  $data_array[] = $data;
+                }
+            ?>
         <h1 style="
                 font-weight: bold;
                 ">
             List Pendonor
         </h1>
         <br>
-            <?php 
-                if (mysqli_num_rows($dataPendonor) > 0) { 
-                $data_array = [];
-                while ($data = mysqli_fetch_assoc($dataPendonor)) {
-                  $data_array[] = $data;
-                }
-            ?>
-                <div class="w-100 text-start">
-                    <ul>
-                        <?php foreach ($data_array as $i => $pendonor) { ?>
-                            <li>
-                                <h6>Pendonor <?= $i + 1 ?></h6>
-                                <div class="row">
-                                    <div class="col-12 col-sm-5 text-start fw-bolder">Nama</div>
-                                    <div class="col-1 d-none d-sm-block">:</div>
-                                    <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                                    <?php echo $pendonor['nama'] ? ucwords($pendonor['nama']) : "-"; ?>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12 col-sm-5 text-start fw-bolder">Nomor HP</div>
-                                    <div class="col-1 d-none d-sm-block">:</div>
-                                    <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                                    <?php echo $pendonor['nomorHP'] ? ucwords($pendonor['nomorHP']) : "-"; ?>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12 col-sm-5 text-start fw-bolder">Golongan Darah</div>
-                                    <div class="col-1 d-none d-sm-block">:</div>
-                                    <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                                    <?php echo $pendonor['goldar'] ? strtoupper($pendonor['goldar']) : "-"; ?>
-                                    </div>
-                                </div>
-                            </li>
-                            <br>
-                        <?php } ?>
-                    </ul>
-                </div>
-            <?php } else { ?>
-                <!-- Belum ada kondisi ketika tidak ada pendonor -->
-            <?php } ?>
+
+        <div class="w-100 text-start">
+            <ul>
+                <?php foreach ($data_array as $i => $pendonor) { ?>
+                <li>
+                    <h6>Pendonor <?= $i + 1 ?></h6>
+                    <div class="row">
+                        <div class="col-12 col-sm-5 text-start fw-bolder">Nama</div>
+                        <div class="col-1 d-none d-sm-block">:</div>
+                        <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
+                            <?php echo $pendonor['nama'] ? ucwords($pendonor['nama']) : "-"; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-sm-5 text-start fw-bolder">Nomor HP</div>
+                        <div class="col-1 d-none d-sm-block">:</div>
+                        <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
+                            <?php echo $pendonor['nomorHP'] ? ucwords($pendonor['nomorHP']) : "-"; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-sm-5 text-start fw-bolder">Golongan Darah</div>
+                        <div class="col-1 d-none d-sm-block">:</div>
+                        <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
+                            <?php echo $pendonor['goldar'] ? strtoupper($pendonor['goldar']) : "-"; ?>
+                        </div>
+                    </div>
+                </li>
+                <br>
+                <?php } ?>
+            </ul>
+        </div>
+        <?php } else { ?>
+        <div class="alert alert-primary text-center">
+            <h2>User atas nama <?php echo $ambil_nama['nama'] ?> belum melakukan penginputan data pendonor</h2>
+        </div>
+        <?php } ?>
         <?php } else { ?>
         <div class="alert alert-primary text-center">
             <h2>User atas nama <?php echo $ambil_nama['nama'] ?> belum melakukan penginputan data</h2>
@@ -301,7 +311,8 @@ if (isset($_GET['id'])) {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-warning" onclick="openSpinner()" data-bs-dismiss="modal">Iya</button>
+                    <button type="submit" class="btn btn-warning" onclick="openSpinner()"
+                        data-bs-dismiss="modal">Iya</button>
                 </div>
             </form>
         </div>
