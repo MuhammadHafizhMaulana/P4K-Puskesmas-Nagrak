@@ -23,7 +23,7 @@ $data = mysqli_fetch_assoc($result);
     <title>Edit User</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/adminKesehatanUserDanDetailPendonor.css">
+    <link rel="stylesheet" href="../css/generalForm.css">
 </head>
 
 <body>
@@ -41,37 +41,42 @@ $data = mysqli_fetch_assoc($result);
                     </svg></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav ms-auto">
+                <div class="navbar-nav ms-auto align-items-center">
                     <a class="nav-link" href="landing.php">Dashboard</a>
                     <a class="nav-link" href="data_user.php">User</a>
                     <a class="nav-link" href="listKesehatanUser.php">Kesehatan User</a>
                     <a class="nav-link" href="pendonor.php">Pendonor</a>
-                    <a class="nav-link" href="profile_admin.php">Profile</a>
-                    <a class="nav-link" href="proses/logout.php">Logout</a>
+                    <a class="nav-link active" href="profile_admin.php">Profile</a>
+                    <a class="nav-link" href="proses/logout.php">
+                        <button type="button" class="btn btn-outline-danger">Logout</button>
+                    </a>
                 </div>
             </div>
         </div>
     </nav>
-    <div id="boxKesehatanUser"  >
+    <div id="formDonorDarah">
         <h1 style="font-weight: bold;">Profile Admin</h1>
         <br>
-        <div class="d-flex justify-content-between">
-            <div class=" text-start ">Nama</div>
-            <div class="">:</div>
-            <div class="">
-                <?php echo ($data['nama']); ?>
+        <div class="w-100">
+            <div class="row">
+                <div class="col-12 col-sm-5 text-start fw-bolder">Nama</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
+                    <?php echo isset($data['nama']) ? ucwords($data['nama']) : "-"; ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-sm-5 text-start fw-bolder">Username</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
+                    <?php echo isset($data['username']) ? ucwords($data['username']) : "-"; ?>
+                </div>
             </div>
         </div>
-        <div class="d-flex justify-content-between">
-            <div class="">Username</div>
-            <div class="">:</div>
-            <div class="">
-                <?php echo ($data['username']) ?>
-            </div>
-        </div>
+
     </div>
 
-    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>

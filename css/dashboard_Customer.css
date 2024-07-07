@@ -15,7 +15,7 @@
 }
 
 .my-navbar a:hover {
-    color: black;
+    color: #DC3545;
     font-weight: bold;
 }
 
@@ -23,6 +23,9 @@
     height: 75px;
 }
 
+.navbar-nav .active {
+    color: #DC3545;
+}
 
 .banner {
     position: fixed;
