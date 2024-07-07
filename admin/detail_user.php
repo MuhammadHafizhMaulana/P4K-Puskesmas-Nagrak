@@ -259,7 +259,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 </div>
             </div>
             <div class="row hide-on-print">
-                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Jenis Pembayaran</div>
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Jenis Pembiayaan</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($pembiayaan['jenis_pembayaran']) ? $pembiayaan['jenis_pembayaran'] : '-' ?>
@@ -392,7 +392,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Goldar</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                    <?php echo isset($kesehatan['goldar']) ? $kesehatan['goldar'] : '-' ?>
+                    <?php echo isset($kesehatan['goldar']) ? strtoupper($kesehatan['goldar']) : '-' ?>
                 </div>
             </div>
             <div class="row show-on-print">
@@ -468,7 +468,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 <div class="col-12 col-sm-5 text-start fw-bolder">Goldar</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0 text-start">
-                    <?php echo isset($pendonor_item['goldar']) ? $pendonor_item['goldar'] : '-' ?>
+                    <?php echo isset($pendonor_item['goldar']) ? strtoupper($pendonor_item['goldar']) : '-' ?>
                 </div>
             </div>
             <div class="row hide-on-print">
@@ -520,7 +520,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Transportasi</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                    <?php echo isset($sarpras['transportasi']) ? $sarpras['transportasi'] : '-' ?>
+                    <?php echo isset($sarpras['transportasi']) ? ucwords($sarpras['transportasi']) : '-' ?>
                 </div>
             </div>
             <div class="row hide-on-print">
@@ -562,7 +562,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Jenis Penolong</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                    <?php echo isset($jenis_penolong) ? $jenis_penolong : '-' ?>
+                    <?php echo isset($jenis_penolong) ? strtoupper($jenis_penolong) : '-' ?>
                 </div>
             </div>
             <div class="row show-on-print">
@@ -576,30 +576,32 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">USG</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                    <?php echo isset($status_usg) ? $status_usg : '-' ?>
+                    <?php echo isset($status_usg) ? ucwords($status_usg) : '-' ?>
                 </div>
             </div>
-            <div class="row hide-on-print">
-                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Tanggal USG</div>
-                <div class="col-1 d-none d-sm-block">:</div>
-                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                    <?php echo isset($tanggal_usg) ? $tanggal_usg : '-' ?>
+            <?php if ($status_usg == 'pernah') { ?>
+                <div class="row hide-on-print">
+                    <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Tanggal USG</div>
+                    <div class="col-1 d-none d-sm-block">:</div>
+                    <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
+                        <?php echo isset($tanggal_usg) ? $tanggal_usg : '-' ?>
+                    </div>
                 </div>
-            </div>
-            <div class="row hide-on-print">
-                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Umur Kandungan USG</div>
-                <div class="col-1 d-none d-sm-block">:</div>
-                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                    <?php echo isset($umur_usg) ? $umur_usg : '-' ?>
+                <div class="row hide-on-print">
+                    <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Umur Kandungan USG</div>
+                    <div class="col-1 d-none d-sm-block">:</div>
+                    <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
+                        <?php echo isset($umur_usg) ? $umur_usg : '-' ?>
+                    </div>
                 </div>
-            </div>
-            <div class="row hide-on-print">
-                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Hasil USG</div>
-                <div class="col-1 d-none d-sm-block">:</div>
-                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                    <?php echo isset($hasil_usg) ? $hasil_usg : '-' ?>
+                <div class="row hide-on-print">
+                    <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Hasil USG</div>
+                    <div class="col-1 d-none d-sm-block">:</div>
+                    <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
+                        <?php echo isset($hasil_usg) ? ucwords($hasil_usg) : '-' ?>
+                    </div>
                 </div>
-            </div>
+            <?php } ?>
 
             <br class="hide-on-print"><br>
 
@@ -613,14 +615,14 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Tujuan</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                    <?php echo isset($kb['tujuan']) ? $kb['tujuan'] : '-' ?>
+                    <?php echo isset($kb['tujuan']) ? ucwords($kb['tujuan']) . ' Kehamilan' : '-' ?>
                 </div>
             </div>
             <div class="row hide-on-print">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Metode</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                    <?php echo isset($kb['jenis']) ? $kb['jenis'] : '-' ?>
+                    <?php echo isset($kb['jenis']) ? ucwords($kb['jenis']) : '-' ?>
                 </div>
             </div>
             <div class="row hide-on-print">
