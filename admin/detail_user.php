@@ -129,6 +129,34 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         $kesehatan['goldar'] = '-';
     }
 
+    // Menghitung usia kandungan
+    if (isset($kesehatan["hpht"])) {
+        $hpht = $kesehatan['hpht'];
+        $taksiran = $kesehatan['taksiran_persalinan'];
+        $taksiran_date = new DateTime($taksiran);
+        $now = new DateTime();
+        $hpht_date = new DateTime($hpht);
+
+    // Hitung selisih hari antara HPHT dan sekarang
+    $interval = $now->diff($hpht_date);
+    $selisih_hari = $interval->days;
+
+    // Hitung usia kandungan dalam bulan, minggu, dan hari
+    $usia_bulan = $interval->m;
+    $usia_tahun = $interval->y;
+    $usia_bulan += $usia_tahun * 12; // Tambahkan bulan dari tahun
+
+    $sisa_hari = $interval->d;
+    $usia_minggu = floor($sisa_hari / 7);
+    $usia_hari = $sisa_hari % 7;
+
+        if ($now >= $taksiran_date) {
+            $usia_kandungan = "Telah Lahir";
+        } else {
+            $usia_kandungan = "$usia_bulan Bulan $usia_minggu Minggu $usia_hari Hari";
+        }
+    }
+
     // Jika data pengguna ditemukan, tampilkan halaman
     if ($kesehatan || $pembiayaan || $sarpras || $kb) {
 ?>
@@ -412,7 +440,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Usia Kandungan</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                    <?php echo isset($kesehatan['usia_kandungan']) ? $kesehatan['usia_kandungan'].' Minggu' : '-' ?>
+                    <?php echo isset($usia_kandungan) ? ucwords($usia_kandungan .' pada saat ini ') : '-' ?>
                 </div>
             </div>
             <div class="row hide-on-print">
