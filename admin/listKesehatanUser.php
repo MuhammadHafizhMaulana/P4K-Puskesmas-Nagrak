@@ -82,7 +82,7 @@ if (isset($_GET['status'])) {
               <th class="col-2 text-center" scope="col">Status</th>
               <th class="col-2 text-center" scope="col">Goldar</th>
               <th class="col-3 text-center" scope="col">HPHT</th>
-              <th class="col-2 text-center" scope="col">Aksi</th>
+              <th class="col-2 text-center" scope="col">Detail</th>
             </tr>
           </thead>
         </table>

@@ -21,9 +21,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $penolong = $_POST['penolong'];
     $nama_penolong = ucwords(strtolower($_POST['nama_penolong']));
     $usg = $_POST['usg'];
-    $tanggal_usg = $_POST['tanggal_usg'];
-    $umur_usg = $_POST['umur_usg'];
-    $status_usg = $_POST['status_usg'];
+    $tanggal_usg = isset($_POST['tanggal_usg']) ? $_POST['tanggal_usg'] : '';
+    $umur_usg = isset($_POST['umur_usg']) ? $_POST['umur_usg'] : '';
+    $status_usg = isset($_POST['status_usg']) ? $_POST['status_usg'] : '';
     $id_user = $_SESSION['id'];
 
     // Memproses kondisi berdasarkan nilai $usg

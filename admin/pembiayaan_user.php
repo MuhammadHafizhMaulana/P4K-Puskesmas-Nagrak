@@ -49,7 +49,7 @@ if (isset($_GET['id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pembiayaan User</title>
+    <title>Detail Pembiayaan User</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/generalForm.css">
@@ -124,7 +124,7 @@ if (isset($_GET['id'])) {
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Foto KTP</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 ms-sm-0  text-start">
-                    <?php if ($data['ktp']) { ?>
+                    <?php if ($data['ktp'] != '-') { ?>
                     <button style="display:contents" onclick="openPhotoDialog('ktp', `<?= $data['id_user'] ?>`)"
                         type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
                         style="border: none; padding: 0">
@@ -144,7 +144,7 @@ if (isset($_GET['id'])) {
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Foto KK</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 ms-sm-0  text-start">
-                    <?php if ($data['kk']) { ?>
+                    <?php if ($data['kk'] != '-') { ?>
                     <button style="display:contents" onclick="openPhotoDialog('kk', `<?= $data['id_user'] ?>`)"
                         type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
                         style="border: none; padding: 0">
@@ -164,7 +164,7 @@ if (isset($_GET['id'])) {
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Pas Foto</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 ms-sm-0  text-start">
-                    <?php if ($data['pas_foto']) { ?>
+                    <?php if ($data['pas_foto'] != '-') { ?>
                     <button style="display:contents" onclick="openPhotoDialog('pas_foto', `<?= $data['id_user'] ?>`)"
                         type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
                         style="border: none; padding: 0">
@@ -184,7 +184,7 @@ if (isset($_GET['id'])) {
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Rekomendasi</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 ms-sm-0  text-start">
-                    <?php if ($data['rekomendasi']) { ?>
+                    <?php if ($data['rekomendasi'] != '-') { ?>
                     <button style="display:contents" onclick="openPhotoDialog('rekomendasi', `<?= $data['id_user'] ?>`)"
                         type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
                         style="border: none; padding: 0">
@@ -204,7 +204,7 @@ if (isset($_GET['id'])) {
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Rujukan</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 ms-sm-0  text-start">
-                    <?php if ($data['rujukan']) { ?>
+                    <?php if ($data['rujukan'] != '-') { ?>
                     <button style="display:contents" onclick="openPhotoDialog('rujukan', `<?= $data['id_user'] ?>`)"
                         type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
                         style="border: none; padding: 0">

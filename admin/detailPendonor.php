@@ -56,7 +56,7 @@ if (isset($_GET['id'])) {
     <title>Detail Pendonor</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/adminKesehatanUserDanDetailPendonor.css">
+    <link rel="stylesheet" href="../css/adminKesehatanUser&DetailPendonor.css">
 </head>
 
 <body>
@@ -94,24 +94,24 @@ if (isset($_GET['id'])) {
         <br>
         <div class="w-100">
             <div class="row">
-                <div class="col-5 text-start">Nama</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Nama</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 ms-sm-0  text-start">
                     <?php
                             echo $data['nama'] ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 text-start">Nomor HP</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Nomor HP</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 ms-sm-0  text-start">
                     <?php
                             echo $data['nomorHP'] ?>
                 </div>
             </div>
             <div class="row align-items-center">
-                <div class="col-5 text-start">Goldar</div>
-                <div class="col-1">:</div>
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Goldar</div>
+                <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-6">
                     <form class="text-start d-flex align-items-center p-0">
                         <div class="form-group m-0">
@@ -135,9 +135,9 @@ if (isset($_GET['id'])) {
                 </div>
             </div>
             <div class="row">
-                <div class="col-5 text-start">Status Goldar</div>
-                <div class="col-1">:</div>
-                <div class="col-6 text-start">
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Status Goldar</div>
+                <div class="col-1 d-none d-sm-block">:</div>
+                <div class="col-12 col-sm-6 ms-2 mb-2 ms-sm-0  text-start">
                     <?php echo $data['status'] ? ucwords($data['status']) : '-' ?>
                 </div>
             </div>

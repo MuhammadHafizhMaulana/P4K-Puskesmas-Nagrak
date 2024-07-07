@@ -275,6 +275,9 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     </nav>
     <div id="boxKesehatanUser">
         <h1 style="font-weight: bold;" class="hide-on-print">Detail Data User</h1>
+        <div class="d-flex justify-content-center hide-on-print">
+            <button type="button" onclick="window.print()" class="btn btn-secondary">Print Data User</button>
+        </div>
         <br class="hide-on-print"><br class="hide-on-print">
         <br class="show-print"><br class="show-print">
         <div class="w-100">
