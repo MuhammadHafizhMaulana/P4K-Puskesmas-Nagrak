@@ -35,7 +35,7 @@
 }
 
 .my-navbar a:hover {
-    color: black;
+    color: #d25864;
     font-weight: bold;
 }
 
@@ -43,6 +43,9 @@
     height: 75px;
 }
 
+.navbar-nav .active {
+    color: #DC3545;
+}
 
 .content {
     min-height: calc(100vh - 105px);

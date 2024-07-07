@@ -141,7 +141,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     <title>Detail User</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/adminKesehatanUserDanDetailPendonor.css">
+    <link rel="stylesheet" href="../css/adminKesehatanUser&DetailPendonor.css">
     <style>
         h3 {
             text-align: left;
@@ -156,8 +156,8 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             display: none;
         }
 
-        .show-on-print-nama-bawah{
-                display: none;
+        .show-on-print-nama-bawah {
+            display: none;
         }
 
 
@@ -173,30 +173,34 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             .hide-page-title {
                 display: none;
             }
-            
-            .pasFoto{
+
+            .pasFoto {
                 display: flex;
-                justify-content: center; /* Untuk menempatkan elemen di tengah secara horizontal */
-                align-items: center; /* Untuk menempatkan elemen di tengah secara vertikal */
+                justify-content: center;
+                /* Untuk menempatkan elemen di tengah secara horizontal */
+                align-items: center;
+                /* Untuk menempatkan elemen di tengah secara vertikal */
             }
 
             .show-on-print-foto {
-                width: 250px; /* Sesuaikan lebar foto sesuai kebutuhan */
-                height: auto; /* Biarkan tinggi mengikuti proporsi aslinya */
+                width: 250px;
+                /* Sesuaikan lebar foto sesuai kebutuhan */
+                height: auto;
+                /* Biarkan tinggi mengikuti proporsi aslinya */
                 margin-left: 0;
                 margin-right: 0;
             }
 
-            .show-on-print-nama-atas{
+            .show-on-print-nama-atas {
                 display: none;
             }
 
-            .show-on-print-nama-bawah{
+            .show-on-print-nama-bawah {
                 display: flex;
             }
 
             .br-print {
-            display: block;
+                display: block;
             }
 
             @page {
@@ -225,16 +229,18 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                         fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
                         <path fill-rule="evenodd"
                             d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
-                    </svg></span>
+                 </svg></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav ms-auto">
+                <div class="navbar-nav ms-auto align-items-center">
                     <a class="nav-link" href="landing.php">Dashboard</a>
-                    <a class="nav-link" href="data_user.php">User</a>
+                    <a class="nav-link active" href="data_user.php">User</a>
                     <a class="nav-link" href="listKesehatanUser.php">Kesehatan User</a>
                     <a class="nav-link" href="pendonor.php">Pendonor</a>
                     <a class="nav-link" href="profile.php">Profile</a>
-                    <a class="nav-link" href="proses/logout.php">Logout</a>
+                    <a class="nav-link" href="proses/logout.php">
+                        <button type="button" class="btn btn-outline-danger">Logout</button>
+                    </a>
                 </div>
             </div>
         </div>
@@ -244,7 +250,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         <br class="hide-on-print"><br class="hide-on-print">
         <br class="show-print"><br class="show-print">
         <div class="w-100">
-        <div class="d-flex justify-content-between align-items-end hide-on-print">
+            <div class="d-flex justify-content-between align-items-end hide-on-print">
                 <h3 class=" text-start m-0 hide-on-print" style="font-weight: bold;">Detail Data Pembayaran</h3>
                 <a class="hide-on-print" href="pembiayaan_user.php?id=<?php echo $id_user; ?>">
                     <button type="button" class="btn btn-primary">Edit</button>
@@ -255,14 +261,14 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Nama</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                <?php echo isset($ambil_nama['nama']) ? $ambil_nama['nama'] : '-' ?>
+                    <?php echo isset($ambil_nama['nama']) ? ucwords($ambil_nama['nama']) : '-' ?>
                 </div>
             </div>
             <div class="row hide-on-print">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Jenis Pembayaran</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                    <?php echo isset($pembiayaan['jenis_pembayaran']) ? $pembiayaan['jenis_pembayaran'] : '-' ?>
+                    <?php echo isset($pembiayaan['jenis_pembayaran']) ? ucwords($pembiayaan['jenis_pembayaran']) : '-' ?>
                 </div>
             </div>
             <div class="row hide-on-print">
@@ -276,7 +282,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Foto KTP</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0 text-start">
-                <?php if (isset($pembiayaan['ktp'])) { 
+                    <?php if (isset($pembiayaan['ktp'])) { 
                     if ($pembiayaan['ktp'] === '-') {
                         echo '-';
                     } elseif ($pembiayaan['ktp']) { ?>
@@ -295,7 +301,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Foto Kartu Keluarga</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                <?php if (isset($pembiayaan['kk'])) { 
+                    <?php if (isset($pembiayaan['kk'])) { 
                     if ($pembiayaan['kk'] === '-') {
                         echo '-';
                     } elseif ($pembiayaan['kk']) { ?>
@@ -314,8 +320,8 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 <div class="col-1 d-none d-sm-block hide-on-print">:</div>
                 <h1 style="font-weight: bold;" class="show-print m-0">Print Data User</h1>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0 text-start show-on-print-foto">
-                <br class="br-print">
-                <?php if (isset($pembiayaan['pas_foto'])) { 
+                    <br class="br-print">
+                    <?php if (isset($pembiayaan['pas_foto'])) { 
                     if ($pembiayaan['pas_foto'] === '-') {
                         echo '-';
                     } elseif ($pembiayaan['pas_foto']) { ?>
@@ -369,7 +375,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Deskripsi</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                <?php echo isset($pembiayaan['deskripsi']) && $pembiayaan['deskripsi'] ? $pembiayaan['deskripsi'] : '-'; ?>
+                    <?php echo isset($pembiayaan['deskripsi']) && $pembiayaan['deskripsi'] ? $pembiayaan['deskripsi'] : '-'; ?>
 
                 </div>
             </div>
@@ -385,7 +391,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Nama</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                <?php echo isset($ambil_nama['nama']) ? $ambil_nama['nama'] : '-' ?>
+                    <?php echo isset($ambil_nama['nama']) ? $ambil_nama['nama'] : '-' ?>
                 </div>
             </div>
             <div class="row show-on-print">
@@ -634,7 +640,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Deskripsi</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                <?php echo isset($kb['deskripsi']) && $kb['deskripsi'] ? $kb['deskripsi'] : '-'; ?>
+                    <?php echo isset($kb['deskripsi']) && $kb['deskripsi'] ? $kb['deskripsi'] : '-'; ?>
                 </div>
             </div>
         </div>

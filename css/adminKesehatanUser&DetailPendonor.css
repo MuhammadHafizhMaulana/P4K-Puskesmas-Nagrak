@@ -34,12 +34,16 @@ body {
 }
 
 .my-navbar a:hover {
-    color: black;
+    color: #DC3545;
     font-weight: bold;
 }
 
 .my-navbar img {
     height: 75px;
+}
+
+.my-navbar .active {
+    color: #DC3545;
 }
 
 .spinner-opened {

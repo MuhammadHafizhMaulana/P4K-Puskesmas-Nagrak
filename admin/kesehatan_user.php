@@ -63,12 +63,8 @@ if (isset($_GET['id'])) {
             }
         }
 
-        
         // Menghitung usia kandungan
-        if ($data["hpht"] == null) {
-            $usia_kandungan = "Data belum diinputkan";
-        } else {
-            // HPHT & Taksiran Persalinan
+        if (isset($data["hpht"])) {
             $hpht = $data['hpht'];
             $taksiran = $data['taksiran_persalinan'];
             $taksiran_date = new DateTime($taksiran);
@@ -127,7 +123,7 @@ if (isset($_GET['id'])) {
     <title>Edit User</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/adminKesehatanUserDanDetailPendonor.css">
+    <link rel="stylesheet" href="../css/adminKesehatanUser&DetailPendonor.css">
 </head>
 
 <body>
@@ -145,13 +141,15 @@ if (isset($_GET['id'])) {
                     </svg></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav ms-auto">
+                <div class="navbar-nav ms-auto align-items-center">
                     <a class="nav-link" href="landing.php">Dashboard</a>
                     <a class="nav-link" href="data_user.php">User</a>
-                    <a class="nav-link" href="listKesehatanUser.php">Kesehatan User</a>
+                    <a class="nav-link active" href="listKesehatanUser.php">Kesehatan User</a>
                     <a class="nav-link" href="pendonor.php">Pendonor</a>
                     <a class="nav-link" href="profile_admin.php">Profile</a>
-                    <a class="nav-link" href="proses/logout.php">Logout</a>
+                    <a class="nav-link" href="proses/logout.php">
+                        <button type="button" class="btn btn-outline-danger">Logout</button>
+                    </a>
                 </div>
             </div>
         </div>
@@ -283,13 +281,15 @@ if (isset($_GET['id'])) {
             </ul>
         </div>
         <?php } else { ?>
+        <br>
         <div class="alert alert-primary text-center">
-            <h2>User atas nama <?php echo $ambil_nama['nama'] ?> belum melakukan penginputan data pendonor</h2>
+            <h6>User atas nama <?php echo $ambil_nama['nama'] ?> belum melakukan penginputan data pendonor</h6>
         </div>
         <?php } ?>
         <?php } else { ?>
+        <br>
         <div class="alert alert-primary text-center">
-            <h2>User atas nama <?php echo $ambil_nama['nama'] ?> belum melakukan penginputan data</h2>
+            <h6>User atas nama <?php echo $ambil_nama['nama'] ?> belum melakukan penginputan data</h6>
         </div>
         <?php } ?>
     </div>
