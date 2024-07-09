@@ -26,19 +26,20 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         mysqli_stmt_close($stmtFiles);
 
         // Hapus file dari sistem file
-        $base_dir = "../data_user/";
-        $file_paths = [
-            'ktp' => $ktp ? $base_dir . "ktp/" . $ktp : null,
-            'kk' => $kk ? $base_dir . "kk/" . $kk : null,
-            'rujukan' => $rujukan ? $base_dir . "rujukan/" . $rujukan : null,
-            'pas_foto' => $pas_foto ? $base_dir . "pas_foto/" . $pas_foto : null,
-            'rekomendasi' => $rekomendasi ? $base_dir . "rekomendasi/" . $rekomendasi : null
-        ];
-        
-        foreach ($file_paths as $file) {
-            if ($file && file_exists($file)) {
-                unlink($file);
-            }
+        if ($ktp != '-') {
+            unlink("../../data_user/ktp/{$ktp}");
+        }
+        if ($kk != '-') {
+            unlink("../../data_user/kk/{$kk}");
+        }
+        if ($rujukan != '-') {
+            unlink("../../data_user/rujukan/{$rujukan}");
+        }
+        if ($pas_foto != '-') {
+            unlink("../../data_user/pas_foto/{$pas_foto}");
+        }
+        if ($rekomendasi != '-') {
+            unlink("../../data_user/rekomendasi/{$rekomendasi}");
         }
 
         // Hapus data dari tabel terkait

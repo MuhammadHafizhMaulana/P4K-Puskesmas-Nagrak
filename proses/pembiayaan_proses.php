@@ -30,6 +30,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Fetch the data as an associative array
         $pembiayaanData = mysqli_fetch_assoc($result);
         mysqli_stmt_close($stmt);
+
+        if (isset($_FILES['ktp']) && $pembiayaanData['ktp'] != '-') {
+            unlink("../data_user/ktp/{$pembiayaanData['ktp']}");
+        }
+        if (isset($_FILES['kk']) && $pembiayaanData['kk'] != '-') {
+            unlink("../data_user/kk/{$pembiayaanData['kk']}");
+        }
+        if (isset($_FILES['rujukan']) && $pembiayaanData['rujukan'] != '-') {
+            unlink("../data_user/rujukan/{$pembiayaanData['rujukan']}");
+        }
+        if (isset($_FILES['pas_foto']) && $pembiayaanData['pas_foto'] != '-') {
+            unlink("../data_user/pas_foto/{$pembiayaanData['pas_foto']}");
+        }
+        if (isset($_FILES['rekomendasi']) && $pembiayaanData['rekomendasi'] != '-') {
+            unlink("../data_user/rekomendasi/{$pembiayaanData['rekomendasi']}");
+        }
     }
 
     // Inisialisasi data dari POST
