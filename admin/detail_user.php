@@ -510,13 +510,6 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                     <?php echo isset($pendonor_item['goldar']) ? strtoupper($pendonor_item['goldar']) : '-' ?>
                 </div>
             </div>
-            <div class="row hide-on-print">
-                <div class="col-12 col-sm-5 text-start fw-bolder">Tanggal Input Pendonor <?php echo $i + 1; ?></div>
-                <div class="col-1 d-none d-sm-block">:</div>
-                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0 text-start">
-                    <?php echo isset($pendonor_item['tanggal_input']) ? $pendonor_item['tanggal_input'] : '-' ?>
-                </div>
-            </div>
             <br>
             <?php endforeach; 
             } else { ?>
