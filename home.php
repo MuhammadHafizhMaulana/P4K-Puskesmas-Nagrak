@@ -44,9 +44,9 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login') {
 
   <div class="banner banner2"  style="background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url('./assets/banner-family.jpg');">
     <div>
-      <h1>Selamat Datang</h1>
+      <h1>BIJI SELASIH</h1>
       <br>
-      <h3>Website Program Perencanaan Persalinan dan Pencegahan Komplikasi (P4K) Puskesmas Nagrak!</h3>
+      <h3>"Bersama Ngahiji Menuju Persalinan Sehat dan Lancar Tanpa Komplikasi"</h3>
     </div>
   </div>
   <div class="content">
@@ -114,7 +114,7 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login') {
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <h4 class="text-center">Panduan Dalam Mengakses Website P4K</h4>
+            <h4 class="text-center">Panduan Dalam Mengakses Website "BIJI SELASIH"</h4>
             <br>
             <ul>
               <li><h5>Disarankan mengisi semua menu secara berurutan</h5></li>

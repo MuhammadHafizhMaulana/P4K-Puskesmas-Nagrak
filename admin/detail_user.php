@@ -250,6 +250,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         <div class="container-fluid">
             <a class="navbar-brand" href="home.php">
                 <img src="../assets/logo-kemenkes.png" alt="Logo Kemenkes">
+                <img src="../assets/logo-puskesmas-nagrak.png" alt="Logo Puskesmas Nagrak">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -282,7 +283,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         <br class="show-print"><br class="show-print">
         <div class="w-100">
             <div class="d-flex justify-content-between align-items-end hide-on-print">
-                <h3 class=" text-start m-0 hide-on-print" style="font-weight: bold;">Detail Data Pembayaran</h3>
+                <h3 class=" text-start m-0 hide-on-print" style="font-weight: bold;">Detail Data Pembiayaan</h3>
                 <a class="hide-on-print" href="pembiayaan_user.php?id=<?php echo $id_user; ?>">
                     <button type="button" class="btn btn-primary">Edit</button>
                 </a>

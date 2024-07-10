@@ -31,6 +31,7 @@ $data = mysqli_fetch_assoc($result);
         <div class="container-fluid">
             <a class="navbar-brand" href="home.php">
                 <img src="../assets/logo-kemenkes.png" alt="Logo Kemenkes">
+                <img src="../assets/logo-puskesmas-nagrak.png" alt="Logo Puskesmas Nagrak">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,7 +70,7 @@ $data = mysqli_fetch_assoc($result);
                 <div class="col-12 col-sm-5 text-start fw-bolder">Username</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                    <?php echo isset($data['username']) ? ucwords($data['username']) : "-"; ?>
+                    <?php echo isset($data['username']) ? $data['username'] : "-"; ?>
                 </div>
             </div>
         </div>
