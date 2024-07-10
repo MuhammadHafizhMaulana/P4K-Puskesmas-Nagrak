@@ -38,7 +38,7 @@ mysqli_stmt_close($stmt);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Konsul KB</title>
+    <title>Form Konsultasi KB</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/generalForm.css">
 </head>
@@ -63,7 +63,7 @@ mysqli_stmt_close($stmt);
                     <a class="nav-link" href="dashboard_pembiayaan.php">Pembiayaan</a>
                     <a class="nav-link" href="dashboard_sarpras.php">Sarpras</a>
                     <a class="nav-link" href="dashboard_donor_darah.php">Donor Darah</a>
-                    <a class="nav-link active" href="dashboard_kb.php">Konsul KB</a>
+                    <a class="nav-link active" href="dashboard_kb.php">Konsultasi KB</a>
                     <a class="nav-link" href="profile.php">Profile</a>
                     <a class="nav-link" href="proses/logout.php">
                         <button type="button" class="btn btn-outline-danger">Logout</button>
@@ -102,13 +102,13 @@ mysqli_stmt_close($stmt);
                         </div>
                         <div class="modal-body">
                             <div class="alert alert-warning" role="alert">
-                            Setelah tombol "Input" ditekan, anda akan diarahkan ke whatsapp untuk mengirim pesan permintaan konsul KB kepada dokter.
+                            Setelah tombol "Input" ditekan, anda akan diarahkan ke whatsapp untuk mengirim pesan permintaan konsultasi KB kepada dokter.
                             </div>
                             <input id="nama" value="<?php echo $nama; ?>" type="hidden" disabled>
                             <input id="nomorHP" value="<?php echo $nomorHP; ?>" type="hidden" disabled>
                             <input id="alamat" value="<?php echo $alamat; ?>" type="hidden" disabled>
                             <div style="width: 100%;">
-                                <label for="waktu_konsultasi">Tentukan tanggal untuk konsul KB</label>
+                                <label for="waktu_konsultasi">Tentukan tanggal untuk konsultasi KB</label>
                                 <input style="width: 100%;" type="date" class="form-control"
                                     id="waktu_konsultasi" name="waktu_konsultasi">
                             </div>

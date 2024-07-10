@@ -71,7 +71,7 @@ mysqli_stmt_close($stmt);
                     <a class="nav-link active" href="dashboard_pembiayaan.php">Pembiayaan</a>
                     <a class="nav-link" href="dashboard_sarpras.php">Sarpras</a>
                     <a class="nav-link" href="dashboard_donor_darah.php">Donor Darah</a>
-                    <a class="nav-link" href="dashboard_kb.php">Konsul KB</a>
+                    <a class="nav-link" href="dashboard_kb.php">Konsultasi KB</a>
                     <a class="nav-link" href="profile.php">Profile</a>
                     <a class="nav-link" href="proses/logout.php">
                         <button type="button" class="btn btn-outline-danger">Logout</button>
@@ -225,13 +225,13 @@ mysqli_stmt_close($stmt);
                             </div>
                             <div class="modal-body">
                                 <div class="alert alert-warning" role="alert">
-                                Setelah tombol "Input" ditekan, anda akan diarahkan ke whatsapp untuk mengirim pesan permintaan konsul Pembiayaan kepada nakes.
+                                Setelah tombol "Input" ditekan, anda akan diarahkan ke whatsapp untuk mengirim pesan permintaan konsultasi Pembiayaan kepada nakes.
                                 </div>
                                 <input id="nama" value="<?php echo $nama; ?>" type="hidden" disabled>
                                 <input id="nomorHP" value="<?php echo $nomorHP; ?>" type="hidden" disabled>
                                 <input id="alamat" value="<?php echo $alamat; ?>" type="hidden" disabled>
                                 <div style="width: 100%;">
-                                    <label for="waktu_konsultasi">Tentukan tanggal untuk konsul Pembiayaan</label>
+                                    <label for="waktu_konsultasi">Tentukan tanggal untuk konsultasi Pembiayaan</label>
                                     <input style="width: 100%;" type="date" class="form-control"
                                         id="waktu_konsultasi" name="waktu_konsultasi">
                                 </div>

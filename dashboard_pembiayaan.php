@@ -63,7 +63,7 @@ if (isset($_GET['success'])) {
           <a class="nav-link active" href="dashboard_pembiayaan.php">Pembiayaan</a>
           <a class="nav-link" href="dashboard_sarpras.php">Sarpras</a>
           <a class="nav-link" href="dashboard_donor_darah.php">Donor Darah</a>
-          <a class="nav-link" href="dashboard_kb.php">Konsul KB</a>
+          <a class="nav-link" href="dashboard_kb.php">Konsultasi KB</a>
           <a class="nav-link" href="profile.php">Profile</a>
           <a class="nav-link" href="proses/logout.php">
             <button type="button" class="btn btn-outline-danger">Logout</button>
@@ -77,7 +77,7 @@ if (isset($_GET['success'])) {
     <div>
       <h1>SIAP GRAK</h1>
       <br>
-      <h3>"Solusi Ibu Atasi Pembayaran"</h3>
+      <h3>"Solusi Ibu Atasi Pembiayaan Ala Nagrak"</h3>
     </div>
   </div>
   <div class="content" id="dashboardPembiayaan">
@@ -101,7 +101,37 @@ if (isset($_GET['success'])) {
               <h4>Apa itu "SIAP GRAK"?</h4>
             </div>
             <p>
-              SIAP GRAK yang memiliki kepanjangan Solusi Ibu Atasi Pembayaran merupakan program dari Puskesmas Nagrak untuk memberikan solusi serta monitoring persiapan pembiayaan persalinan ibu hamil. Dalam mengakses program ini, anda perlu menginput foto data diri (dijelaskan di bawah), saldo tabungan persalinan saat ini, dan juga jenis pembiayaan yang dipilih. Selain itu, anda juga perlu menginputkan nomor BPJS apabila memilih jenis pembiayaan BPJS Aktif. 
+              Program SIAP GRAK (solusi ibu atasi pembiayaaan ala Nagrak) ini berguna untuk mendata ibu hamil perihal kesiapan pembiayaan dalam program perencanaan persalinan dan pencegahan komplikasi, Tentunya bertujuan untuk menurunkan resiko angka kematian ibu dan bayi.
+            </p>
+            <p>
+              Persalinan dapat dilaksanakan mengunakan pembiayaan secara mandiri ataupun menggunakan jaminan Kesehatan seperti BPJS. Setidaknya,3 bulan sebelum perkiraan hari lahir,ibu sudah siap dalam hal pembiayaan. Apabila ibu berencana untuk bersalin menggunakan biaya secara mandiri,Berdasarkan peraturan bupati nomor 87 tahun 2019 :
+            </p>
+            <ol>
+              <li>
+                Pertolongan persalinan normal dikenakan biaya antara lain sebagai berikut:
+                <ul>
+                  <li>
+                    Oleh Bidan : Rp. 800.000
+                  </li>
+                  <li>
+                    Oleh Dokter Umum : Rp. 1.000.000
+                  </li>
+                </ul>
+              </li>
+              <li>
+                Pertolongan persalinan patologi:
+                <ul>
+                  <li>
+                    Vakum ekstraksi : Rp. 500.000
+                  </li>
+                  <li>
+                    Kuret : Rp. 1.000.000
+                  </li>
+                </ul>
+              </li>
+            </ol>
+            <p>
+              Kami memerlukan data seperti Kartu tanda pengenal, kartu keluarga, surat rekomendasi dan surat rujukan bila perlu untuk kepentingan pembuatan jaminan Kesehatan BPJS.
             </p>
             <p>
               Anda tidak perlu khawatir dalam mengisi data data tersebut, karena diakhir mengisi formulir anda akan diarahkan ke whatsapp untuk dapat berkonsultasi lebih lanjut dengan tenaga kesehatan Puskesmas Nagrak terkait pembiayaan yang sesuai dengan anda.

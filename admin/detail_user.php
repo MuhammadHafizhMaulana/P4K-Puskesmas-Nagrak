@@ -336,7 +336,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                     if ($pembiayaan['kk'] === '-') {
                         echo '-';
                     } elseif ($pembiayaan['kk']) { ?>
-                    <img src="./proses/getUserkk.php?id=<?= $pembiayaan["id_user"] ?>" alt="KK User"
+                    <img src="./proses/getUserKK.php?id=<?= $pembiayaan["id_user"] ?>" alt="KK User"
                         class="boxPhoto rounded-3 border border-2 border-primary w-100 mb-3">
                     <?php } else { ?>
                     -

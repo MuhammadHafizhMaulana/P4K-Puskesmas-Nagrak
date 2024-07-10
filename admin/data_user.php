@@ -83,7 +83,7 @@ if (isset($_GET['status'])) {
               <th class="col-1 text-center" scope="col">Kesehatan</th>
               <th class="col-1 text-center" scope="col">Pembiayaan</th>
               <th class="col-1 text-center" scope="col">Sarpras</th>
-              <th class="col-1 text-center" scope="col">Konsul KB</th>
+              <th class="col-1 text-center" scope="col">Konsultasi KB</th>
               <th class="col-2 text-center" scope="col">Aksi</th>
             </tr>
           </thead>

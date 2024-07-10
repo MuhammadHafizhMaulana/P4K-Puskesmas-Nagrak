@@ -32,7 +32,7 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login') {
           <a class="nav-link" href="dashboard_pembiayaan.php">Pembiayaan</a>
           <a class="nav-link" href="dashboard_sarpras.php">Sarpras</a>
           <a class="nav-link" href="dashboard_donor_darah.php">Donor Darah</a>
-          <a class="nav-link" href="dashboard_kb.php">Konsul KB</a>
+          <a class="nav-link" href="dashboard_kb.php">Konsultasi KB</a>
           <a class="nav-link" href="profile.php">Profile</a>
           <a class="nav-link" href="proses/logout.php">
             <button type="button" class="btn btn-outline-danger">Logout</button>
@@ -120,12 +120,12 @@ if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'login') {
               <li><h5>Disarankan mengisi semua menu secara berurutan</h5></li>
               <img class="border border-1 border-primary rounded-2" src="./assets/navbar.png" alt="navbar" style="width: 100%;">
               <p>
-                Website ini memiliki 4 menu utama yaitu : Pembiayaan, Sarpras, Donor Darah dan Konsul KB. Di dalam menu - menu tersebut, terdapat formulir yang harus diisi. Dalam mengakses menu tersebut, disarankan untuk mengakses secara berutan dimulai dari menu Pembiayaan hingga Konsul KB agar tidak ada formulir yang terlewati. 
+                Website ini memiliki 4 menu utama yaitu : Pembiayaan, Sarpras, Donor Darah dan Konsultasi KB. Di dalam menu - menu tersebut, terdapat formulir yang harus diisi. Dalam mengakses menu tersebut, disarankan untuk mengakses secara berutan dimulai dari menu Pembiayaan hingga Konsultasi KB agar tidak ada formulir yang terlewati. 
               </p>
               <li><h5>Melihat video pejelasan menu</h5></li>
               <img class="border border-1 border-primary rounded-2" src="./assets/tombolLihatPenjelasanMenu.png" alt="navbar" style="width: 100%;">
               <p>
-                Di menu Home, Pembiayaan, Sarpras, Donor Darah, dan Konsul KB terdapat video penjelasan menu yang dapat diakses dengan menekan tombol "Lihat Penjelasan Menu" di tiap menu. Di dalam menu Home, anda dapat melihat video penjelasan tentang P4K. Sementara itu, di menu Pembiayaan, Sarpras, Donor Darah dan Konsul KB anda dapat melihat video tutorial dalam mengisi formulir di menu - menu tersebut.
+                Di menu Home, Pembiayaan, Sarpras, Donor Darah, dan Konsultasi KB terdapat video penjelasan menu yang dapat diakses dengan menekan tombol "Lihat Penjelasan Menu" di tiap menu. Di dalam menu Home, anda dapat melihat video penjelasan tentang P4K. Sementara itu, di menu Pembiayaan, Sarpras, Donor Darah dan Konsultasi KB anda dapat melihat video tutorial dalam mengisi formulir di menu - menu tersebut.
               </p>
             </ul>
           </div>

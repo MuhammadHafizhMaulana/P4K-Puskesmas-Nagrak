@@ -68,7 +68,7 @@ if ($usia_kandungan) {
           <a class="nav-link" href="dashboard_pembiayaan.php">Pembiayaan</a>
           <a class="nav-link" href="dashboard_sarpras.php">Sarpras</a>
           <a class="nav-link active" href="dashboard_donor_darah.php">Donor Darah</a>
-          <a class="nav-link" href="dashboard_kb.php">Konsul KB</a>
+          <a class="nav-link" href="dashboard_kb.php">Konsultasi KB</a>
           <a class="nav-link" href="profile.php">Profile</a>
           <a class="nav-link" href="proses/logout.php">
             <button type="button" class="btn btn-outline-danger">Logout</button>
