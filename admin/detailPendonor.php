@@ -64,6 +64,7 @@ if (isset($_GET['id'])) {
         <div class="container-fluid">
             <a class="navbar-brand" href="home.php">
                 <img src="../assets/logo-kemenkes.png" alt="Logo Kemenkes">
+                <img src="../assets/logo-puskesmas-nagrak.png" alt="Logo Puskesmas Nagrak">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -74,14 +75,16 @@ if (isset($_GET['id'])) {
                     </svg></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav ms-auto">
-                    <a class="nav-link" href="landing.php">Dashboard</a>
-                    <a class="nav-link" href="data_user.php">User</a>
-                    <a class="nav-link" href="listKesehatanUser.php">Kesehatan User</a>
-                    <a class="nav-link" href="pendonor.php">Pendonor</a>
-                    <a class="nav-link" href="profile_admin.php">Profile</a>
-                    <a class="nav-link" href="proses/logout.php">Logout</a>
-                </div>
+            <div class="navbar-nav ms-auto align-items-center">
+                <a class="nav-link" href="landing.php">Dashboard</a>
+                <a class="nav-link" href="data_user.php">User</a>
+                <a class="nav-link" href="listKesehatanUser.php">Kesehatan User</a>
+                <a class="nav-link active" href="pendonor.php">Pendonor</a>
+                <a class="nav-link" href="profile_admin.php">Profile</a>
+                <a class="nav-link" href="proses/logout.php">
+                    <button type="button" class="btn btn-outline-danger">Logout</button>
+                </a>
+            </div>
             </div>
         </div>
     </nav>

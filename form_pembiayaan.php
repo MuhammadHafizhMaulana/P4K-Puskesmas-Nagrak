@@ -59,6 +59,7 @@ mysqli_stmt_close($stmt);
         <div class="container-fluid">
             <a class="navbar-brand" href="home.php">
                 <img src="./assets/logo-kemenkes.png" alt="Logo Kemenkes">
+                <img src="./assets/logo-puskesmas-nagrak.png" alt="Logo Puskesmas Nagrak">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
@@ -86,7 +87,7 @@ mysqli_stmt_close($stmt);
         </h1>
         <br/>
         <p>
-            Lengkapi data berikut untuk melengkapi data pembayaran anda
+            Lengkapi data berikut untuk melengkapi data pembiayaan anda
         </p>
         <form id="formPembiayaan" method="post" action="proses/pembiayaan_proses.php" enctype="multipart/form-data">
             <div class="text-start" id="formFields">

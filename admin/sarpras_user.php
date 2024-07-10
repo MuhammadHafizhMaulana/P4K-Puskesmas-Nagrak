@@ -70,6 +70,7 @@ if (isset($_GET['id'])) {
         <div class="container-fluid">
             <a class="navbar-brand" href="home.php">
                 <img src="../assets/logo-kemenkes.png" alt="Logo Kemenkes">
+                <img src="../assets/logo-puskesmas-nagrak.png" alt="Logo Puskesmas Nagrak">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -141,7 +142,7 @@ if (isset($_GET['id'])) {
                 </div>
             </div>
             <div class="row">
-                <div class="col-12 col-sm-6 text-start fw-bolder fw-bolder">Rumah Sakit Tujuan</div>
+                <div class="col-12 col-sm-6 text-start fw-bolder fw-bolder">Tempat Persalinan</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-5 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo $data['tujuan'] ? ucwords($data['tujuan']) : '-' ?>

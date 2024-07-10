@@ -26,19 +26,19 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         mysqli_stmt_close($stmtFiles);
 
         // Hapus file dari sistem file
-        if ($ktp != '-') {
+        if ($ktp && $ktp != '-') {
             unlink("../../data_user/ktp/{$ktp}");
         }
-        if ($kk != '-') {
+        if ($kk && $kk != '-') {
             unlink("../../data_user/kk/{$kk}");
         }
-        if ($rujukan != '-') {
+        if ($rujukan && $rujukan != '-') {
             unlink("../../data_user/rujukan/{$rujukan}");
         }
-        if ($pas_foto != '-') {
+        if ($pas_foto && $pas_foto != '-') {
             unlink("../../data_user/pas_foto/{$pas_foto}");
         }
-        if ($rekomendasi != '-') {
+        if ($rekomendasi && $rekomendasi != '-') {
             unlink("../../data_user/rekomendasi/{$rekomendasi}");
         }
 

@@ -54,8 +54,7 @@ if (isset($_SESSION['status']) && $_SESSION['status'] == 'login_admin') { // Per
     <div id="formLogin">
         <h1 style="font-weight: bold; font-size: xxx-large">Selamat Datang Admin</h1>
         <h5 style="font-weight: bold">
-            Website Program Perencanaan Persalinan dan Pencegahan Komplikasi (P4K)
-            Puskesmas Nagrak!
+        Website "BIJI SELASIH" (Bersama Ngahiji Menuju Persalinan Sehat dan Lancar Tanpa Komplikasi)
         </h5>
         <br />
         <?php

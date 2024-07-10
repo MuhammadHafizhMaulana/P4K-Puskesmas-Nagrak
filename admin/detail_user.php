@@ -250,6 +250,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         <div class="container-fluid">
             <a class="navbar-brand" href="home.php">
                 <img src="../assets/logo-kemenkes.png" alt="Logo Kemenkes">
+                <img src="../assets/logo-puskesmas-nagrak.png" alt="Logo Puskesmas Nagrak">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -282,7 +283,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         <br class="show-print"><br class="show-print">
         <div class="w-100">
             <div class="d-flex justify-content-between align-items-end hide-on-print">
-                <h3 class=" text-start m-0 hide-on-print" style="font-weight: bold;">Detail Data Pembayaran</h3>
+                <h3 class=" text-start m-0 hide-on-print" style="font-weight: bold;">Detail Data Pembiayaan</h3>
                 <a class="hide-on-print" href="pembiayaan_user.php?id=<?php echo $id_user; ?>">
                     <button type="button" class="btn btn-primary">Edit</button>
                 </a>
@@ -349,7 +350,8 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             <div class="row pasFoto">
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder hide-on-print">Pas Foto</div>
                 <div class="col-1 d-none d-sm-block hide-on-print">:</div>
-                <h1 style="font-weight: bold;" class="show-print m-0">Print Data User</h1>
+                <h1 style="font-weight: bold;" class="show-print m-0">Ringkasan Data Ibu Hamil</h1>
+                <h5 class="show-print m-0">by : BIJI SELASIH</h5>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0 text-start show-on-print-foto">
                     <br class="br-print">
                     <?php if (isset($pembiayaan['pas_foto'])) { 
@@ -485,31 +487,31 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             </div>
             <br>
             <?php if (!empty($data_pendonor)) {
-            $counter = 1; 
-            foreach ($data_pendonor as $pendonor_item): ?>
+            // $counter = 1; 
+            foreach ($data_pendonor as $i => $pendonor_item): ?>
             <div class="row show-on-print">
-                <div class="col-12 col-sm-5 text-start fw-bolder">Nama Pendonor <?php echo $counter++; ?></div>
+                <div class="col-12 col-sm-5 text-start fw-bolder">Nama Pendonor <?php echo $i + 1; ?></div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0 text-start">
                     <?php echo isset($pendonor_item['nama']) ? $pendonor_item['nama'] : '-' ?>
                 </div>
             </div>
-            <div class="row hide-on-print">
-                <div class="col-12 col-sm-5 text-start fw-bolder">Nomor HP</div>
+            <div class="row show-on-print">
+                <div class="col-12 col-sm-5 text-start fw-bolder">Nomor HP Pendonor <?php echo $i + 1; ?></div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0 text-start">
                     <?php echo isset($pendonor_item['nomorHP']) ? $pendonor_item['nomorHP'] : '-' ?>
                 </div>
             </div>
             <div class="row show-on-print">
-                <div class="col-12 col-sm-5 text-start fw-bolder">Goldar</div>
+                <div class="col-12 col-sm-5 text-start fw-bolder">Goldar Pendonor <?php echo $i + 1; ?></div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0 text-start">
                     <?php echo isset($pendonor_item['goldar']) ? strtoupper($pendonor_item['goldar']) : '-' ?>
                 </div>
             </div>
             <div class="row hide-on-print">
-                <div class="col-12 col-sm-5 text-start fw-bolder">Tanggal Input</div>
+                <div class="col-12 col-sm-5 text-start fw-bolder">Tanggal Input Pendonor <?php echo $i + 1; ?></div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0 text-start">
                     <?php echo isset($pendonor_item['tanggal_input']) ? $pendonor_item['tanggal_input'] : '-' ?>
@@ -526,21 +528,21 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 </div>
             </div>
             <div class="row hide-on-print">
-                <div class="col-12 col-sm-5 text-start fw-bolder">Nomor HP</div>
+                <div class="col-12 col-sm-5 text-start fw-bolder">Nomor HP Pendonor</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0 text-start">
                     <?php echo '-' ?>
                 </div>
             </div>
             <div class="row hide-on-print">
-                <div class="col-12 col-sm-5 text-start fw-bolder">Goldar</div>
+                <div class="col-12 col-sm-5 text-start fw-bolder">Goldar Pendonor</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0 text-start">
                     <?php echo '-' ?>
                 </div>
             </div>
             <div class="row hide-on-print">
-                <div class="col-12 col-sm-5 text-start fw-bolder">Tanggal Input</div>
+                <div class="col-12 col-sm-5 text-start fw-bolder">Tanggal Input Pendonor</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0 text-start">
                     <?php echo '-' ?>
@@ -589,7 +591,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 </div>
             </div>
             <div class="row show-on-print">
-                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Rumah Sakit Tujuan</div>
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Tempat Persalinan</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($sarpras['tujuan']) ? $sarpras['tujuan'] : '-' ?>
