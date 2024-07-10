@@ -37,23 +37,29 @@ buttonSubmitDialog.addEventListener("click", function (event) {
     var metodeKonsul;
 
     // Ambil field opsional jika tujuan sesuai
-    var metodeField = document.getElementById('metode');
+    var mowField = document.getElementById('mow');
     var penyakit1Field = document.getElementById('penyakit1');
+    var iudField = document.getElementById('iud');
     var penyakit2Field = document.getElementById('penyakit2');
-    var metode = metodeField ? metodeField.value : '';
+    var mow = mowField ? mowField.value : '';
     var penyakit1 = penyakit1Field ? penyakit1Field.value : '';
+    var iud = iudField ? iudField.value : '';
     var penyakit2 = penyakit2Field ? penyakit2Field.value : '';
 
     // Tentukan metode konsultasi berdasarkan nilai-nilai input
     if (tujuan === 'menyudahi') {
-        if (metode === 'iya mow') {
+        if (mow === 'iya') {
             metodeKonsul = 'mow';
         } else {
             metodeKonsul = 'selain mow';
         }
     } else if (tujuan === 'menjarakan') {
         if (penyakit1 === 'tidak') {
-            metodeKonsul = 'iud';
+            if ( iud === 'iya'){
+                metodeKonsul = "iud"
+            } else {
+                metodeKonsul = 'selain iud';
+            }
         } else if (penyakit1 === 'iya') {
             if (penyakit2 === 'iya') {
                 metodeKonsul = 'konsultasi nakes';
