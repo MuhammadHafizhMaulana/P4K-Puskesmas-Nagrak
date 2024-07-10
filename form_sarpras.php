@@ -113,9 +113,12 @@ if ($status_usg === 'belum') {
                     <option value="ambulance pkm"
                         <?php if (isset($data['transportasi']) && $data['transportasi'] === 'ambulance pkm') echo 'selected'; ?>>
                         Ambulance PKM</option>
-                    <option value="kendaraan pribadi"
-                        <?php if (isset($data['transportasi']) && $data['transportasi'] === 'kendaraan pribadi') echo 'selected'; ?>>
-                        Kendaraan Pribadi</option>
+                    <option value="kendaraan pribadi ( motor )"
+                        <?php if (isset($data['transportasi']) && $data['transportasi'] === 'kendaraan pribadi ( motor )') echo 'selected'; ?>>
+                        Kendaraan Pribadi ( Motor )</option>
+                    <option value="kendaraan pribadi ( mobil )"
+                        <?php if (isset($data['transportasi']) && $data['transportasi'] === 'kendaraan pribadi ( mobil )') echo 'selected'; ?>>
+                        Kendaraan Pribadi ( Mobil )</option>
                 </select>
             </div>
             <div class="form-group">
