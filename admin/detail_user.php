@@ -405,7 +405,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 </div>
             </div>
             <div class="row hide-on-print">
-                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Deskripsi</div>
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Hasil Konsultasi</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($pembiayaan['deskripsi']) && $pembiayaan['deskripsi'] ? $pembiayaan['deskripsi'] : '-'; ?>
@@ -534,13 +534,6 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                     <?php echo '-' ?>
                 </div>
             </div>
-            <div class="row hide-on-print">
-                <div class="col-12 col-sm-5 text-start fw-bolder">Tanggal Input Pendonor</div>
-                <div class="col-1 d-none d-sm-block">:</div>
-                <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0 text-start">
-                    <?php echo '-' ?>
-                </div>
-            </div>
             <br>
             <?php } ?>
             <br class="hide-on-print"><br class="hide-on-print">
@@ -594,7 +587,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Jenis Penolong</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
-                    <?php echo isset($jenis_penolong) ? strtoupper($jenis_penolong) : '-' ?>
+                    <?php echo isset($jenis_penolong) ? ucwords($jenis_penolong) : '-' ?>
                 </div>
             </div>
             <div class="row show-on-print">
@@ -665,7 +658,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 </div>
             </div>
             <div class="row hide-on-print">
-                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Deskripsi</div>
+                <div class="col-12 col-sm-5 text-start fw-bolder fw-bolder">Hasil Konsultasi</div>
                 <div class="col-1 d-none d-sm-block">:</div>
                 <div class="col-12 col-sm-6 ms-2 mb-2 m-sm-0  text-start">
                     <?php echo isset($kb['deskripsi']) && $kb['deskripsi'] ? $kb['deskripsi'] : '-'; ?>
